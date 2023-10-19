@@ -45,6 +45,10 @@
   .repo-img-dark {
     display: none;
   }
+  .table:not(.table-dark) .badge.danger-color-dark {
+    color: var(--global-card-bg-color) !important;
+    background-color: var(--global-theme-color) !important;
+  }
 }
 
 html[data-theme='dark'] {
@@ -89,5 +93,9 @@ html[data-theme='dark'] {
   }
   .repo-img-dark {
     display: block;
+  }
+  .table-dark .badge.danger-color-dark {
+    color: var(--global-card-bg-color) !important;
+    background-color: var(--global-hover-color) !important;
   }
 }

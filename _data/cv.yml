@@ -2,96 +2,70 @@
   type: map
   contents:
     - name: Full Name
-      value: Albert Einstein
+      value: Jue Guo
     - name: Date of Birth
-      value: 14th March 1879
+      value: 16th December 1995
     - name: Languages
-      value: English, German
+      value: English, Chinese
 
 - title: Education
   type: time_table
   contents:
-    - title: PhD
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1905
+    - title: PhD, Computer Science
+      institution: The State University of New York at Buffalo
+      type: university
+      year: Aug. 2022 - NOW
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Federal teaching diploma
-      institution: Eidgenössische Technische Hochschule, Zurich, Switzerland
-      year: 1900
+        - Pursuing research in the field of Computer Science.
+    - title: Master of Science, Robotics
+      institution: The State University of New York at Buffalo
+      type: university
+      year: Aug. 2020 - June 2022
       description:
-        - Description 1.
-        - Description 2.
+        - Completed advanced studies in Artificial Intelligence and Robotics.
+    - title: Bachelor of Science, Computer Science
+      institution: Wake Forest University
+      type: university
+      year: Aug. 2015 - June 2019
+      description:
+        - Undertook foundational studies in Computer Science.
 
 - title: Experience
   type: time_table
   contents:
-    - title: Professor of Theoretical Physics
-      institution: Institute for Advanced Study, Princeton University
-      year: 1933 - 1955
+    - title: Instructor
+      institution: University at Buffalo
+      type: university
+      year: Aug. 2023 - NOW
       description:
-        - Description 1.
-        - Description 2.
-        - title: Description 3.
-          contents:
-            - Sub-description 1.
-            - Sub-description 2.
-    - title: Visiting Professor
-      institution: California Institute of Technology, Pasadena, California, US
-      year: 1933
+        - Led the course CSE676 Deep Learning.
+        - Conducted weekly lectures and office hours.
+    - title: Instructor
+      institution: University at Buffalo
+      type: university
+      year: July 2023 - Aug. 2023
       description:
-        - Description 1.
-        - Description 2.
-
-    - title: Director
-      institution: Kaiser Wilhelm Institute for Physics, Berlin, Germany.
-      year: 1917-1933
-
-    - title: Professor of Theoretical Physics
-      institution: Karl-Ferdinand University, Prague, Czechoslovakia
-      year: 1911 - 1917
+        - Led the course CSE455/555 Introduction to Pattern Recognition.
+        - Conducted weekly lectures and office hours.
+    - title: Machine Learning Engineer
+      institution: National Lab of Zhejiang University, Zhejiang Society For Mathematical Medicine
+      type: university
+      year: June 2019 - Aug. 2020
       description:
-
-    - title: Associate Professor of Theoretical Physics
-      institution: University of Zurich, Zurich, Switzerland
-      year: 1909 - 1911
-
-- title: Open Source Projects
-  type: time_table
-  contents:
-    - title: <a href="https://github.com/alshedivat/al-folio">al-folio</a>
-      year: 2015-now
-      description: A beautiful, simple, clean, and responsive Jekyll theme for academics.
-
-- title: Honors and Awards
-  type: time_table
-  contents:
-    - year: 1921
-      items: 
-        - Nobel Prize in Physics 
-        - Matteucci Medal
-    - year: 2029
-      items: 
-        - Max Planck Medal
-
-- title: Academic Interests
-  type: nested_list
-  contents:
-    - title: Topic 1.
-      items: 
-        - Description 1.
-        - Description 2.
-    - title: Topic 2.
-      items:
-        - Description 1.
-        - Description 2.
-
-- title: Other Interests
-  type: list
-  contents:
-    - <u>Hobbies:</u> Hobby 1, Hobby 2, etc.
+        - Collaborated with Zhejiang University's National Lab.
+        - Developed a bone age detection system for a prominent hospital.
+    - title: Software Engineer Intern
+      institution: Nanjing Ohappure Tech Co. Ltd
+      type: company
+      year: June 2018 - Aug. 2018
+      description:
+        - Participated in the "Fresh Water, Rural China" project.
+        - Updated the water quality database to align with company products.
+        - Delivered a demo for efficient database access.
+    - title: Software Engineer Intern
+      institution: Nanjing Ohappure Tech Co. Ltd
+      type: company
+      year: June 2017 - Aug. 2017
+      description:
+        - Enhanced the company website using WordPress, Javascript, CSS, and HTML.
+        - Recognized as the Best Intern of Summer 2017.
