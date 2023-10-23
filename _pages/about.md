@@ -16,7 +16,7 @@ profile:
 news: true  # includes a list of news items
 latest_posts: false  # includes a list of the newest posts
 selected_papers: false # includes a list of papers marked as "selected={true}"
-social: true  # includes social icons at the bottom of the page
+social: true  # includes social icons at the Header
 ---
 
 I'm an **Instructor** at the Department of Computer Science and Engineering at the [University at Buffalo](https://engineering.buffalo.edu/computer-science-engineering/graduate/courses/class-schedule.html), where I've led courses in Deep Learning and Pattern Recognition. Before my academic role, I was a **Machine Learning Engineer** at the National Lab of [Zhejiang University](http://www.math.zju.edu.cn/mathen/main.htm), specifically with the Zhejiang Society For Mathematical Medicine, where I developed a bone age detection system for a prominent hospital.
