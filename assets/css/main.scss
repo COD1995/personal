@@ -16,9 +16,14 @@ $max-content-width: {{ site.max_width }};
   "font-awesome/fontawesome",
   "font-awesome/brands",
   "font-awesome/solid",
-  "font-awesome/regular"
+  "font-awesome/regular", 
+  "course"
 ;
 
 footer {
   text-align: center;
+}
+
+.card-title.text-lowercase {
+  text-transform: uppercase !important;
 }
