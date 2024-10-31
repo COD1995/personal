@@ -5,7 +5,7 @@ permalink: /courses/
 description: Courses I have taught or am teaching.
 nav: true
 nav_order: 2
-display_categories: [Fall 2023,Summer 2023]
+display_categories: [Spring 2024,Fall 2023,Summer 2023]
 horizontal: false
 ---
 
