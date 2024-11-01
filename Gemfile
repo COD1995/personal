@@ -1,16 +1,28 @@
 source 'https://rubygems.org'
-
-gem 'github-pages'
-
 group :jekyll_plugins do
-  gem 'jekyll-feed'
-  gem 'jekyll-sitemap'
-  gem 'jemoji'
-  gem 'classifier-reborn', '~> 2.3.0'
+    gem 'classifier-reborn'
+    gem 'jekyll'
+    gem 'jekyll-archives'
+    gem 'jekyll-email-protect'
+    gem 'jekyll-feed'
+    gem 'jekyll-get-json'
+    gem 'jekyll-imagemagick'
+    gem 'jekyll-jupyter-notebook'
+    gem 'jekyll-link-attributes'
+    gem 'jekyll-minifier'
+    gem 'jekyll-paginate-v2'
+    gem 'jekyll-regex-replace'
+    gem 'jekyll-scholar'
+    gem 'jekyll-sitemap'
+    gem 'jekyll-tabs'
+    gem 'jekyll-toc'
+    gem 'jekyll-twitter-plugin'
+    gem 'jemoji'
+    gem 'unicode_utils'
+    gem 'webrick'
 end
-
-# Specify 'webrick' only if you need it locally for Jekyll's development server
-gem 'webrick', '~> 1.8'
-
-# Pin nokogiri to a version compatible with your Ruby environment
-gem 'nokogiri', '< 1.16.2'
+group :other_plugins do
+    gem 'css_parser'
+    gem 'feedjira'
+    gem 'httparty'
+end
