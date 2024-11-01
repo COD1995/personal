@@ -9,3 +9,4 @@ group :jekyll_plugins do
 end
 
 gem 'github-pages'
+gem 'nokogiri', '< 1.16.2'
