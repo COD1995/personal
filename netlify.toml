@@ -1,4 +1,0 @@
-[build]
-  command = "./install_jupyter.sh && npm install -g @mermaid-js/mermaid-cli && bundle install && bundle exec jekyll build"
-  publish = "_site/"
-
