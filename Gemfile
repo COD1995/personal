@@ -6,7 +6,7 @@ group :jekyll_plugins do
   gem 'jekyll-feed'
   gem 'jekyll-sitemap'
   gem 'jemoji'
-  gem 'classifier-reborn'
+  gem 'classifier-reborn', '~> 2.3.0'
 end
 
 # Specify 'webrick' only if you need it locally for Jekyll's development server
