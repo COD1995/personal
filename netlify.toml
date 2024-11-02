@@ -1,2 +1,3 @@
-[build.environment]
-RUBY_VERSION = "3.0.0"
+[build]
+  command = "npm install sass && bundle exec jekyll build --lsi"
+  publish = "_site"
