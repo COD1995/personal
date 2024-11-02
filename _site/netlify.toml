@@ -1,7 +1,5 @@
 [build.environment]
 RUBY_VERSION = "3.0.0"
-
-[build]
 [build]
   command = "npm install sass@latest purgecss && bundle exec jekyll build && npx purgecss -c purgecss.config.js"
   publish = "_site"
