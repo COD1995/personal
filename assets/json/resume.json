@@ -24,7 +24,7 @@
   },
   "work": [
     {
-      "name": "University at Buffalo--SUNY",
+      "name": "University at Buffalo - SUNY",
       "position": "Machine Learnig Instructor",
       "url": "https://example.com",
       "startDate": "2023-07-01",
@@ -42,63 +42,65 @@
   ],
   "education": [
     {
-      "institution": "University of Zurich, Zurich, Switzerland",
+      "institution": "University at Buffalo - SUNY",
       "location": "Buffalo, New York",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
+      "url": " ",
+      "area": "Machine Learning",
       "studyType": "PhD",
-      "startDate": "1905-01-01",
+      "startDate": "2022-08",
       "endDate": "",
-      "score": "10",
-      "courses": [
-        "Theory of Relativity"
-      ]
+      "score": "9",
+      "courses": []
     },
     {
-      "institution": "University of Zurich, Zurich, Switzerland",
+      "institution": "University at Buffalo - SUNY",
       "location": "Buffalo, New York",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
-      "studyType": "PhD",
-      "startDate": "1905-01-01",
-      "endDate": "",
+      "url": " ",
+      "area": "Robotics",
+      "studyType": "Master",
+      "startDate": "2020-08-01",
+      "endDate": "2022-06-01",
       "score": "10",
-      "courses": [
-        "Theory of Relativity"
-      ]
+      "courses": []
     },
     {
-      "institution": "University of Zurich, Zurich, Switzerland",
+      "institution": "Wake Forest University",
       "location": "Buffalo, New York",
-      "url": "https://www.uzh.ch/",
-      "area": "Software Development",
-      "studyType": "PhD",
-      "startDate": "1905-01-01",
-      "endDate": "",
+      "url": " ",
+      "area": "Computer Science",
+      "studyType": "Bachelor of Science",
+      "startDate": "2015-08-01",
+      "endDate": "2019-05-01",
       "score": "10",
-      "courses": [
-        "Theory of Relativity"
-      ]
+      "courses": []
     }
   ],
   "skills": [
     {
-      "name": "Physics",
+      "name": "Computer Science",
       "level": "Master",
       "icon": "fa-solid fa-hashtag",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "python",
+        "pytorch",
+        "c",
+        "c++"
+      ]
+    },
+    {
+      "name": "Tools",
+      "level": "Master",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": [
+        "Latex",
+        "Microsoft products",
+        "Linux Commands"
       ]
     }
   ],
   "languages": [
     {
-      "language": "German",
+      "language": "Chinese",
       "fluency": "Native speaker",
       "icon": ""
     },
@@ -110,15 +112,12 @@
   ],
   "interests": [
     {
-      "name": "Physics",
+      "name": "Machine Learning",
       "icon": "fa-solid fa-tag",
       "keywords": [
-        "Quantum Mechanics",
-        "Quantum Computing",
-        "Quantum Information",
-        "Quantum Cryptography",
-        "Quantum Communication",
-        "Quantum Teleportation"
+        "Continual Learning",
+        "Adversarial Learning",
+        "Graph Representation Learning"
       ]
     }
   ]

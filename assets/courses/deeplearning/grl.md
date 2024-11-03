@@ -17,6 +17,9 @@ Graph representation learning aims to create graph representation vectors that a
 
 ## Introduction
 
-Graphs are powerful data structure (social networks, financial transactions and biological networks)
+Graphs are powerful data structure (social networks, financial transactions and biological networks).
+
+- social networks, people are the nodes and thir friendships constitute the edges.
+- 
 
 
