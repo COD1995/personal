@@ -75,7 +75,6 @@ let applyTheme = () => {
     }
   }
 
-
   // Updates the background of medium-zoom overlay.
   if (typeof medium_zoom !== "undefined") {
     medium_zoom.update({
