@@ -2,7 +2,7 @@
 layout: page
 title: Deep Learning
 description: 
-img: assets/img/dl.png
+img: assets/img/Deep-learning.png.png
 year: 2024
 category: graduate
 related_publications: false
