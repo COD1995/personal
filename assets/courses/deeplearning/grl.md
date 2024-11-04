@@ -20,6 +20,8 @@ Graph representation learning aims to create graph representation vectors that a
 Graphs are powerful data structure (social networks, financial transactions and biological networks).
 
 - social networks, people are the nodes and thir friendships constitute the edges.
-- 
+- financial transactions, the nodes and edges could be people and their money transactions.
+
+How to represent graphs? **Adjacency matrix**, however, dimensionality of the adjacency matrix is often very high, and feature extraction based methods are time consuming and may not represent all the necessary information in the graphs.
 
 
