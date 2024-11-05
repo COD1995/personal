@@ -1351,6 +1351,7 @@ ninja-keys::part(ninja-input-wrapper) {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   font-style: italic;
+  transition: all 0.3s ease;
 }
 
 .definition-box h4 {
@@ -1361,4 +1362,14 @@ ninja-keys::part(ninja-input-wrapper) {
 .definition-box p {
   margin-bottom: 0;
   color: var(--global-text-color);
+}
+
+.definition-box:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  /* Slightly deeper shadow */
+  transform: translateY(-3px);
+  /* Move the box up a little */
+  border-left: 5px solid var(--global-hover-color);
+  /* Change border color */
+  border-right: 5px solid var(--global-hover-color);
 }

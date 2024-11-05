@@ -51,3 +51,7 @@ the degree of node \(v_{i}\) for \(i=\{1, \ldots, n\}\) and all other \(d_{i j}=
 of a node refers to the number of edges attached to that node. For directed graphs, the degree of a node can be the number of
 incoming or outgoing edges of that node, resulting in an in-degree or out-degree matrix, respectively.
 </div>
+
+<div class ="definition-box">
+<b>DEFINITION 4.</b> The Laplacian matrix \(L\) of a graph \(G\) with \(n\) vertices is an \(n \times n\) matrix, defined as \(L=D-A\), where \(D\) and \(A\) are \(G\) 's degree and adjacency matrix, respectively.
+</div>
