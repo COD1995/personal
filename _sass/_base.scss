@@ -1340,28 +1340,25 @@ ninja-keys::part(ninja-input-wrapper) {
   color: var(--global-text-color);
 }
 
+//definition box 
 
+.definition-box {
+  background-color: var(--global-card-bg-color);
+  border-left: 5px solid var(--global-theme-color);
+  border-right: 5px solid var(--global-theme-color);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-style: italic;
+}
 
+.definition-box h4 {
+  margin-top: 0;
+  color: var(--global-theme-color);
+}
 
-// a {
-//   text-decoration: none;
-//   outline: none;
-//   /* Removes the default outline from the a tag */
-
-//   &:hover,
-//   &:focus {
-//     outline: none;
-//     /* Ensures no outline on hover or focus */
-//   }
-
-//   /* Target the nested .card-title */
-//   .card-title {
-//     color: inherit;
-//     /* Ensures the color changes based on the parent state */
-
-//     &:hover {
-//       color: var(--global-theme-color);
-//       /* Changes color when the a tag is hovered */
-//     }
-//   }
-// }
+.definition-box p {
+  margin-bottom: 0;
+  color: var(--global-text-color);
+}
