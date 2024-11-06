@@ -55,3 +55,7 @@ incoming or outgoing edges of that node, resulting in an in-degree or out-degree
 <div class ="definition-box">
 <b>DEFINITION 4.</b> The Laplacian matrix \(L\) of a graph \(G\) with \(n\) vertices is an \(n \times n\) matrix, defined as \(L=D-A\), where \(D\) and \(A\) are \(G\) 's degree and adjacency matrix, respectively.
 </div>
+
+### Graph Embedding
+
+In order to use graphs in downstream machine learning and data mining applications, graphs and their entities such as nodes and edges need to be represented using numerical features. 
