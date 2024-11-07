@@ -59,3 +59,27 @@ incoming or outgoing edges of that node, resulting in an in-degree or out-degree
 ### Graph Embedding
 
 In order to use graphs in downstream machine learning and data mining applications, graphs and their entities such as nodes and edges need to be represented using numerical features. 
+  - graph embedding methodds have been proposed, which study the issue of automatically generating representation vectors for the graphs.
+  - these methods formulate the graph representation learning as a machine learning task and generate embedding vectors leveraging the structure and properties of the graph as input data.
+
+Graph embedding techniques include node, edge and subgraph embedding techniques, which are defined as follows
+
+<div class ="definition-box">
+<b>Definition 5.</b> (Node embedding). Let \(G=(V, E)\) be a graph, where \(V\) and \(E\) are the set of nodes and the set of edges of the graph, respectively. Node embedding learns a mapping function \(f: v_{i} \rightarrow \mathbb{R}^{d}\) that encodes each graph's node \(v_{i}\) into a
+low dimensional vector of dimensiond such that \(d<<|V|\) and the similarities between nodes in the graph are preserved in the embedding space.
+</div>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="assets/img/gnn_survey/fig1.png" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+Fig. 1. The graph on the left hand side consists of 6 nodes \(\{a, b, c, d, e, i\}\) and 8 edges. Graph embedding methods map each node of
+the graph into an embedding vector with dimension \(d\). For the demonstration purpose, the node \(a\) is embedded into an embedding
+vector \(z_{a}\) of dimension 4 with given values.
+</div>
+<div class ="definition-box">
+<b>Definition 6.</b> (Edge embedding). Let \(G=(V, E)\) be a graph, where \(V\) and \(E\) are the set of nodes and the set of edges of
+the graph, respectively. Edge embedding converts each edge of \(G\) into a low dimensional vector of dimensiond such that
+\(d<<|V|\) and the similarities between edges in the graph are preserved in the embedding space.
+</div>
