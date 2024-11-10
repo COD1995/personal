@@ -6,6 +6,8 @@ related_publications: false
 toc:
     sidebar: left
 ---
+Back to [Deep Learning]({{ '/teaching/deeplearnig' | relative_url }}) Course Page.
+
 **Author**: Jue Guo
 
 ## Constraints
@@ -240,4 +242,7 @@ Imagine you are optimizing a function where one variable is *height in millimete
 If you try to use the same learning rate (step size) for both variables, it will create problems because the scales of the two variables are wildly different. This mismatch in units (millimeters vs. kilometers) will lead to slow convergence because one variable might need very small updates, while the other requires larger updates.
 
 Preconditioning solves this problem by effectively allowing for different learning rates for each variable. It adjusts the step size based on the curvature (as estimated by the diagonal of the Hessian) so that each variable gets an update that is appropriate for its scale.
+
+Back to [Deep Learning]({{ '/teaching/deeplearnig' | relative_url }}) Course Page.
+
 

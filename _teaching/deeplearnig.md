@@ -11,9 +11,9 @@ toc:
 ---
 ## Course Logistics
 **Course Instructor**: Jue Guo [C]
-- Research Area: Optimization for machine learning, Adversarial Learning,
+- *Research Area:* Optimization for machine learning, Adversarial Learning,
 Continual Learning and Graph Learning
-- Interested in participating in our research? Reach to me by email.
+- Interested in participating in our research? Reach to me by [email](mailto:jueguo@buffalo.edu).
   
 **Course Hours:** Session [C]; *Tuesday and Thursday 2:00PM-3:20PM*
 
@@ -30,7 +30,7 @@ Check out the [course material](#lecture-notes) under lecture notes.
 - Review on Linear Regression, Softmax Regression and MLP
   
 **Week 5 and Week 6**
-- CNN and Efficient-Net Paper Reading
+- Optimization, CNN, and Efficient-Net Paper Reading
   
 **Week 7 (One Class)**
 - Midterm (Coverage on Week 1,2,3,4,5)
