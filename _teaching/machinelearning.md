@@ -5,5 +5,7 @@ description:
 img: assets/img/ml.jpg
 year: 2024
 category: undergraduate/graduate
-related_publications: true
+related_publications: false
+toc:
+    sidebar: left
 ---

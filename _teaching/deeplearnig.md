@@ -9,6 +9,10 @@ related_publications: false
 toc:
     sidebar: left
 ---
+Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data, e.g., features to discriminate between classes. They have been successful in many artificial intelligence problems including image classification, speech recognition and natural language processing. The course, which will be taught through lectures and projects, will cover the underlying theory, the range of applications to which it has been applied, and learning from very large data sets. The course will cover connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional neural networks and recurrent neural networks. Methods to train and optimize the architectures and methods to perform effective inference with them, will be the main focus. Students will be encouraged to use open source software libraries such as PyTorch.
+
+**Pre-requisite:** [Introductory Machine Learning (ML)]({{ '/teaching/machinelearning/' | relative_url }}). A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
+
 ## Course Logistics
 **Course Instructor**: Jue Guo [C]
 - *Research Area:* Optimization for machine learning, Adversarial Learning,
