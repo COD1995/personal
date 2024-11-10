@@ -83,3 +83,19 @@ vector \(z_{a}\) of dimension 4 with given values.
 the graph, respectively. Edge embedding converts each edge of \(G\) into a low dimensional vector of dimensiond such that
 \(d<<|V|\) and the similarities between edges in the graph are preserved in the embedding space.
 </div>
+An embedding vector for the edge $$\left(v_{i}, v_{j}\right)$$ can be obtained by applying a binary operation such as hammard product, mean, weighted-L1 and weighted-L2 on the two node embedding vectors $$z_{i}$$ and $$z_{j}$$.
+<div class ="definition-box">
+<b>Definition 7.</b> (Subgraph embedding). Let \(G=(V, E)\) be a graph. Subgraph embedding techniques in machine learning convert a subgraph of \(G\) into a low dimensional vector of dimensiond such that \(d<<|V|\) and the similarities between subgraphs are preserved in the embedding space.
+</div>
+A subgraph embedding vector is usually created by aggregating the embeddings of the nodes in the subgraph using aggregators such as a mean operator. Almost all the graph embedding techniques developed so far are node embedding techniques.
+
+## Graph Embedding Applications
+**Node Classification.** Node classification task assigns a label to the nodes in the test dataset. This task has many applications in different domains. For instance, in social networks, a person’s political affiliation can be predicted based on his friends in the network. In node classification, each instance in the training dataset is the node embedding vector and the label of the instance is the node label. Different regular classification methods such as Logistic Regression and Random Forests can be trained on the training dataset and generate the node classification scores for the test data. Similarly, Graph classification can be performed using graph embedding vectors.
+
+**Link Prediction.** Link prediction is one of the important applications of node embedding methods. It predicts the likelihood of an edge formation between two nodes. Examples of this task include recommending friends in social networks and finding biological connections in biological networks. Link prediction can be formulated as a classification task that assigns a label for edges. Edge label 1 means that an edge is likely to be created between two nodes and the label is 0 otherwise. For the training step, a sample training set is generated using positive and negative samples. Positive samples are the edges the exist in the graph. Negative samples are the edges that do not exist and their representation vector can be generated using the node vectors. Similar to node classification, any classification method can be trained on the training set and predict the edge label for test edge instances.
+
+**Anomaly Detection.** Anomaly detection is another application of node embedding methods. The goal of anomaly detection is to detect the nodes, edges, or graphs that are anomalous the time that anomaly occurs. Anomalous nodes and graphs deviate from normal behavior. 
+- For instance, in banks’ transaction networks, people who suddenly send or receive large amounts of money or create lots of connections with other people could be potential anomalous nodes.
+  
+An anomaly detection task can be formulated as a classification task such that each instance in the dataset is the node representation and the instance label is 0 if the node is normal and 1 if the node is anomalous. This formulation needs that we have a dataset with true node labels. One of the issues in anomaly detection is the lack of datasets with true labels.
+- An alleviation to this issue in the literature is generating synthetic datasets that model the behaviors of real world datasets.
