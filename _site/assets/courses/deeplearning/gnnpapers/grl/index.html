@@ -64,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/grl/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/gnnpapers/grl/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -297,6 +297,8 @@
             <!-- main content area -->
             <div class="col-sm-9">
 
+
+
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">Graph Represeantion Learning</h1>
@@ -305,8 +307,13 @@
 
   <article>
     <h2 id="reading-list">Reading List</h2>
-
 <ul>
+  <li>
+<a href="https://distill.pub/2021/gnn-intro/" rel="external nofollow noopener" target="_blank">A Gentle Introduction to Graph Neural Networks</a>
+    <ul>
+      <li><em>Easy to read and understand 10/10</em></li>
+    </ul>
+  </li>
   <li><a href="https://arxiv.org/abs/2204.01855" rel="external nofollow noopener" target="_blank">A Survey on Graph Representation Learning Methods</a></li>
 </ul>
 
@@ -434,6 +441,11 @@ the graph, respectively. Edge embedding converts each edge of \(G\) into a low d
   <li>An alleviation to this issue in the literature is generating synthetic datasets that model the behaviors of real world datasets.</li>
 </ul>
 
+<p>Another way to formulate the anomaly detection problem, especially in dynamic graphs, is viewing the problem as a change detection task. In order to detect the changes in the graph, one way is to compute the distance between the graph representation vectors at consecutive times. The time points that the value of this difference is far from the previous normal values, a potential anomaly has occurred.</p>
+
+<p>Other graph embedding techniques includes <strong>graph clustering</strong> and <strong>visualization</strong>.</p>
+
+
   </article>
 
   
@@ -457,7 +469,7 @@ the graph, respectively. Edge embedding converts each edge of \(G\) into a low d
 
       
       
-        Last updated: November 10, 2024.
+        Last updated: November 14, 2024.
       
     </div>
   </footer>

@@ -51,15 +51,19 @@ Check out the [course material](#lecture-notes) under lecture notes.
 
 ---
 ## Grading
+
 The following is the outline of the grading: 
+
 ### Grading Components
+
 We will have
 - **Attendance:** 10 percent (Random Pop Quiz)
 - **Programming Assignment:** 30 percent (2 PA)
 - **Midterm:** 30 percent
-- **Final:** 30 percent (Dec 14th)
+- **Final:** 30 percent (Dec 12th)
 
 ### Grading Rubric
+
 This course is **absolute grading**, meaning no curve, as there is a certain standard we need to uphold for students to have a good knowledge of deep learning.
 
 <table align="center">
@@ -108,6 +112,15 @@ This course is **absolute grading**, meaning no curve, as there is a certain sta
 
 ---
 ## Lecture Notes
-- [optimization]({{ '/assets/courses/deeplearning/optimization' | relative_url }})
-- [graph representation learning]({{ '/assets/courses/deeplearning/grl' | relative_url }})
+The notes are based on [Dive into Deep Learning](https://d2l.ai/). Throughout my teaching, I have noticed that students sometimes struggle with understanding the derivations in the textbook due to the omission of several steps. To address this, I have expanded the derivations and provided more detailed explanations.
+
+Below are the lecture notes. Please note that these notes are updated regularly, so be sure to check back often for the latest updates.
+
+### Optimization
+
+- [convexity & gradient descent]({{ 'assets/courses/deeplearning/optimization/convexity_gd' | relative_url }})
+
+### GNN
+
+- [graph representation learning]({{ '/assets/courses/deeplearning/gnnpapers/grl' | relative_url }})
 

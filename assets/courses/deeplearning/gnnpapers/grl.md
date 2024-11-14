@@ -8,7 +8,8 @@ toc:
 ---
 
 ## Reading List
-
+- [A Gentle Introduction to Graph Neural Networks](https://distill.pub/2021/gnn-intro/)
+  - *Easy to read and understand 10/10*
 - [A Survey on Graph Representation Learning Methods](https://arxiv.org/abs/2204.01855)
 
 ## Overview
@@ -99,3 +100,8 @@ A subgraph embedding vector is usually created by aggregating the embeddings of 
   
 An anomaly detection task can be formulated as a classification task such that each instance in the dataset is the node representation and the instance label is 0 if the node is normal and 1 if the node is anomalous. This formulation needs that we have a dataset with true node labels. One of the issues in anomaly detection is the lack of datasets with true labels.
 - An alleviation to this issue in the literature is generating synthetic datasets that model the behaviors of real world datasets.
+
+Another way to formulate the anomaly detection problem, especially in dynamic graphs, is viewing the problem as a change detection task. In order to detect the changes in the graph, one way is to compute the distance between the graph representation vectors at consecutive times. The time points that the value of this difference is far from the previous normal values, a potential anomaly has occurred.
+
+Other graph embedding techniques includes **graph clustering** and **visualization**.
+

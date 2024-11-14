@@ -8,6 +8,14 @@ layout: default
   </style>
 {% endif %}
 
+{% if page.back_link %}
+  <div class="fixed-bottom-button">
+    <a href="{{ page.back_link | relative_url }}" class="btn-back-course">
+      &larr; {{ page.back_text | default: "Back to Previous Page" }}
+    </a>
+  </div>
+{% endif %}
+
 <div class="post">
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>

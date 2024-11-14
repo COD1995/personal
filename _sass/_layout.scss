@@ -15,6 +15,8 @@ body {
   h6 {
     scroll-margin-top: 66px;
   }
+
+  counter-reset: h1; // Initialize a counter for h1 headings
 }
 
 body.fixed-top-nav {
@@ -37,8 +39,6 @@ body.sticky-bottom-footer {
     width: 100%;
   }
 }
-
-// TODO: redefine content layout.
 
 /******************************************************************************
  * Publications

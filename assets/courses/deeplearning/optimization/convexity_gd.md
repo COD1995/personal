@@ -1,12 +1,13 @@
 ---
 layout: page
-title: Optimization
+title: Convexity and Gradient Descent
 description: 
 related_publications: false
 toc:
     sidebar: left
+back_link: '/teaching/deeplearnig'
+back_text: 'Back to Deep Learning Course Page'
 ---
-Back to [Deep Learning]({{ '/teaching/deeplearnig' | relative_url }}) Course Page.
 
 **Author**: Jue Guo
 
@@ -243,6 +244,6 @@ If you try to use the same learning rate (step size) for both variables, it will
 
 Preconditioning solves this problem by effectively allowing for different learning rates for each variable. It adjusts the step size based on the curvature (as estimated by the diagonal of the Hessian) so that each variable gets an update that is appropriate for its scale.
 
-Back to [Deep Learning]({{ '/teaching/deeplearnig' | relative_url }}) Course Page.
+
 
 
