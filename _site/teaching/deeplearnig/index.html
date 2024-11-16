@@ -301,13 +301,15 @@
 
 
 
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">Deep Learning</h1>
-    <p class="post-description"></p>
-  </header>
 
+
+<div class="post">
   <article>
+    <header class="post-header">
+      <h1 class="post-title">Deep Learning</h1>
+      <p class="post-description"></p>
+    </header>
+
     <p>Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data, e.g., features to discriminate between classes. They have been successful in many artificial intelligence problems including image classification, speech recognition and natural language processing. The course, which will be taught through lectures and projects, will cover the underlying theory, the range of applications to which it has been applied, and learning from very large data sets. The course will cover connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional neural networks and recurrent neural networks. Methods to train and optimize the architectures and methods to perform effective inference with them, will be the main focus. Students will be encouraged to use open source software libraries such as PyTorch.</p>
 
 <p><strong>Pre-requisite:</strong> <a href="/personal/teaching/machinelearning/">Introductory Machine Learning (ML)</a>. A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.</p>
@@ -452,11 +454,11 @@ Continual Learning and Graph Learning</li>
 </ul>
 
 
+
+    
+
+    
   </article>
-
-  
-
-  
 </div>
 </div>
           </div>
@@ -550,13 +552,21 @@ Continual Learning and Graph Learning</li>
     <script type="text/javascript">
       window.MathJax = {
         tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
           tags: 'ams',
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          processHtmlClass: 'arithmatex',
         },
       };
     </script>
     <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
   
+
 
 
     

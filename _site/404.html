@@ -291,20 +291,22 @@
 
 
 
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">Page not found</h1>
-    <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
-  </header>
 
+
+<div class="post">
   <article>
+    <header class="post-header">
+      <h1 class="post-title">Page not found</h1>
+      <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
+    </header>
+
     <p>You will be redirected to the main page within 3 seconds. If not redirected, please go back to the <a href="http://0.0.0.0:8080/personal/">home page</a>.</p>
 
+
+    
+
+    
   </article>
-
-  
-
-  
 </div>
 
       
@@ -393,13 +395,21 @@
     <script type="text/javascript">
       window.MathJax = {
         tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
           tags: 'ams',
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          processHtmlClass: 'arithmatex',
         },
       };
     </script>
     <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
   
+
 
 
     

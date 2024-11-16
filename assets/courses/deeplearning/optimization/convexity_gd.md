@@ -7,9 +7,100 @@ toc:
     sidebar: left
 back_link: '/teaching/deeplearnig'
 back_text: 'Back to Deep Learning Course Page'
+number_heading: true
 ---
 
-**Author**: Jue Guo
+## Convexity
+Convexity plays a vital role in the design of optimization algorithms. This is largely due to the fact that it is much easier to analyze and test algorithms in such a context.
+- In other words, if the algorithm performs poorly even in the convex setting, typically we should not hope to see great results otherwise. Furthermore, even though the optimization problems in deep learning are generally nonconvex, they often exhibit some properties of convex ones near local minima.
+
+### Definition
+
+Before convex analysis, we need to define *convex sets* and *convex functions*. They lead to mathematical tools that are commonly applied to machine learning.
+
+#### Convex Sets
+Sets are the basis of convexity. Simply put, a set $$\mathcal{X}$$ in a vector space is convex if for any $$a, b \in \mathcal{X}$$ the line segment connecting $$a$$ and $$b$$ is also in $$\mathcal{X}$$. In mathematical terms this means that for all $$\lambda \in[0,1]$$ we have
+
+$$
+\lambda a+(1-\lambda) b \in \mathcal{X} \text { whenever } a, b \in \mathcal{X}
+$$
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/pacman.svg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+Fig. 1. The first set is nonconvex and the other two are convex.
+</div>
+
+Something useful: 
+- Assume that $$\mathcal{X}$$ and $$\mathcal{Y}$$ are convex sets. Then $$\mathcal{X} \cap \mathcal{Y}$$ is also convex.
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/convex-intersect.svg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+Fig. 2. The intersection between two convex sets is convex.
+</div>
+
+- We can strengthen this result with little effort: given convex sets $$\mathcal{X}_{i}$$, their intersection $$\cap_{i} \mathcal{X}_{i}$$ is
+convex. 
+    - To see that the converse is not true, consider two disjoint sets $$\mathcal{X} \cap \mathcal{Y}=\emptyset$$. Now pick $$a \in \mathcal{X}$$ and $$b \in \mathcal{Y}$$. 
+    - The line segment in [fig. 3](#fig3) connecting $$a$$ and $$b$$ needs to contain some part
+    that is neither in $$\mathcal{X}$$ nor in $$\mathcal{Y}$$, since we assumed that $$\mathcal{X} \cap \mathcal{Y}=\emptyset$$. Hence the line segment is not in
+    $$\mathcal{X} \cup \mathcal{Y}$$ either, thus proving that in general unions of convex sets need not be convex.
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <a id="fig3"></a>
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/nonconvex.svg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+<div class="caption">
+Fig. 3. The union of two convex sets need not be convex.
+</div>
+Typically the problems in deep learning are defined on convex sets. For instance, $$\mathbb{R}^{d}$$, the set of $d$ -
+dimensional vectors of real numbers, is a convex set (after all, the line between any two points in $\mathbb{R}^{d}$ remains in $\mathbb{R}^{d}$ ). In some cases we work with variables of bounded length, such as balls of radius $r$ as defined by $\\{\mathbf{x} | \mathbf{x} \in \mathbb{R}^d \textrm{ and } \|\mathbf{x}\| \leq r\\}$.
+
+### Convex Functions
+
+Now that we have convex sets we can introduce *convex functions* $f$.
+Given a convex set $\mathcal{X}$, a function $f: \mathcal{X} \to \mathbb{R}$ is *convex* if for all $x, x' \in \mathcal{X}$ and for all $\lambda \in [0, 1]$ we have
+
+$$\lambda f(x) + (1-\lambda) f(x') \geq f(\lambda x + (1-\lambda) x').$$
+
+To illustrate this let's plot a few functions and check which ones satisfy the requirement.
+Below we define a few functions, both convex and nonconvex.
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/output_convexity_94e148_15_0.svg" class="img-fluid rounded z-depth-1" %}
+    </div>
+</div>
+
+### Jensen's Inequality
+
+Given a convex function $f$,
+one of the most useful mathematical tools
+is *Jensen's inequality*.
+It amounts to a generalization of the definition of convexity:
+
+$$\sum_i \alpha_i f(x_i)  \geq f\left(\sum_i \alpha_i x_i\right)    \textrm{ and }    E_X[f(X)]  \geq f\left(E_X[X]\right),$$
+
+where $\alpha_i$ are nonnegative real numbers such that $\sum_i \alpha_i = 1$ and $X$ is a random variable. In other words, the expectation of a convex function is no less than the convex function of an expectation, where the latter is usually a simpler expression. 
+To prove the first inequality we repeatedly apply the definition of convexity to one term in the sum at a time.
+
+
+One of the common applications of Jensen's inequality is to bound a more complicated expression by a simpler one.
+ - For example, its application can be with regard to the log-likelihood of partially observed random variables. That is, we use
+
+    $$E_{Y \sim P(Y)}[-\log P(X \mid Y)] \geq -\log P(X),$$
+
+    - since $\int P(Y) P(X \mid Y) dY = P(X)$. This can be used in variational methods. - Here $Y$ is typically the unobserved random variable, $P(Y)$ is the best guess of how it might be distributed, 
+    - and $P(X)$ is the distribution with $Y$ integrated out. For instance, in clustering $Y$ might be the cluster labels and $P(X \mid Y)$ is the generative model when applying cluster labels.
+
 
 ## Constraints
 
@@ -55,6 +146,7 @@ Suppose you have a function $$f(x) = x^{2}$$, and you want to minimize it, but w
 Rather than satisfying $$c_{i}(\mathrm{x}) \leq 0$$, we simply add $$\alpha_{i} c_{i}(\mathbf{x})$$ to the objective function $$f(x)$$. This ensures that the constraints will not be violated too badly. It is a common trick: we add $$\frac{\lambda}{2}\|\mathbf{w}\|^{2}$$ to the objective function to ensure that $$\mathbf{w}$$ does not grow too large. We can see this will ensure $$\|\mathbf{w}\|^{2} - r^{2} \leq 0$$ for some radius $$r$$.
 
 In general, adding penalties is a good way of ensuring approximate constraint satisfaction. In practice, this turns out to be much more robust than exact satisfaction. Furthermore, for nonconvex problems, many of the properties that make the exact approach so appealing in the convex case (e.g., optimality) no longer hold.
+
 
 ## Gradient Descent
 
@@ -243,7 +335,3 @@ Imagine you are optimizing a function where one variable is *height in millimete
 If you try to use the same learning rate (step size) for both variables, it will create problems because the scales of the two variables are wildly different. This mismatch in units (millimeters vs. kilometers) will lead to slow convergence because one variable might need very small updates, while the other requires larger updates.
 
 Preconditioning solves this problem by effectively allowing for different learning rates for each variable. It adjusts the step size based on the curvature (as estimated by the diagonal of the Hessian) so that each variable gets an update that is appropriate for its scale.
-
-
-
-

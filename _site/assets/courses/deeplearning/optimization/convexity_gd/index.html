@@ -305,14 +305,251 @@
   </div>
 
 
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">Convexity and Gradient Descent</h1>
-    <p class="post-description"></p>
-  </header>
 
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Include the updated CSS provided above */
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter;
+    }
+
+    /* Heading 1 */
+    article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+    }
+
+    article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+
+    /* Heading 2 */
+    article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    article h5 {
+      counter-increment: h5-counter;
+    }
+
+    article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
+
+
+<div class="post">
   <article>
-    <p><strong>Author</strong>: Jue Guo</p>
+    <header class="post-header">
+      <h1 class="post-title">Convexity and Gradient Descent</h1>
+      <p class="post-description"></p>
+    </header>
+
+    <h2 id="convexity">Convexity</h2>
+<p>Convexity plays a vital role in the design of optimization algorithms. This is largely due to the fact that it is much easier to analyze and test algorithms in such a context.</p>
+<ul>
+  <li>In other words, if the algorithm performs poorly even in the convex setting, typically we should not hope to see great results otherwise. Furthermore, even though the optimization problems in deep learning are generally nonconvex, they often exhibit some properties of convex ones near local minima.</li>
+</ul>
+
+<h3 id="definition">Definition</h3>
+
+<p>Before convex analysis, we need to define <em>convex sets</em> and <em>convex functions</em>. They lead to mathematical tools that are commonly applied to machine learning.</p>
+
+<h4 id="convex-sets">Convex Sets</h4>
+<p>Sets are the basis of convexity. Simply put, a set \(\mathcal{X}\) in a vector space is convex if for any \(a, b \in \mathcal{X}\) the line segment connecting \(a\) and \(b\) is also in \(\mathcal{X}\). In mathematical terms this means that for all \(\lambda \in[0,1]\) we have</p>
+
+\[\lambda a+(1-\lambda) b \in \mathcal{X} \text { whenever } a, b \in \mathcal{X}\]
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/pacman.svg" sizes="95vw"></source>
+    
+    <img src="https://d2l.ai/_images/pacman.svg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+<div class="caption">
+Fig. 1. The first set is nonconvex and the other two are convex.
+</div>
+
+<p>Something useful:</p>
+<ul>
+  <li>Assume that \(\mathcal{X}\) and \(\mathcal{Y}\) are convex sets. Then \(\mathcal{X} \cap \mathcal{Y}\) is also convex.</li>
+</ul>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/convex-intersect.svg" sizes="95vw"></source>
+    
+    <img src="https://d2l.ai/_images/convex-intersect.svg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+<div class="caption">
+Fig. 2. The intersection between two convex sets is convex.
+</div>
+
+<ul>
+  <li>We can strengthen this result with little effort: given convex sets \(\mathcal{X}_{i}\), their intersection \(\cap_{i} \mathcal{X}_{i}\) is
+convex.
+    <ul>
+      <li>To see that the converse is not true, consider two disjoint sets \(\mathcal{X} \cap \mathcal{Y}=\emptyset\). Now pick \(a \in \mathcal{X}\) and \(b \in \mathcal{Y}\).</li>
+      <li>The line segment in <a href="#fig3">fig. 3</a> connecting \(a\) and \(b\) needs to contain some part
+  that is neither in \(\mathcal{X}\) nor in \(\mathcal{Y}\), since we assumed that \(\mathcal{X} \cap \mathcal{Y}=\emptyset\). Hence the line segment is not in
+  \(\mathcal{X} \cup \mathcal{Y}\) either, thus proving that in general unions of convex sets need not be convex.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        <a id="fig3"></a>
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/nonconvex.svg" sizes="95vw"></source>
+    
+    <img src="https://d2l.ai/_images/nonconvex.svg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+<div class="caption">
+Fig. 3. The union of two convex sets need not be convex.
+</div>
+<p>Typically the problems in deep learning are defined on convex sets. For instance, \(\mathbb{R}^{d}\), the set of $d$ -
+dimensional vectors of real numbers, is a convex set (after all, the line between any two points in $\mathbb{R}^{d}$ remains in $\mathbb{R}^{d}$ ). In some cases we work with variables of bounded length, such as balls of radius $r$ as defined by $\{\mathbf{x} | \mathbf{x} \in \mathbb{R}^d \textrm{ and } |\mathbf{x}| \leq r\}$.</p>
+
+<h3 id="convex-functions">Convex Functions</h3>
+
+<p>Now that we have convex sets we can introduce <em>convex functions</em> $f$.
+Given a convex set $\mathcal{X}$, a function $f: \mathcal{X} \to \mathbb{R}$ is <em>convex</em> if for all $x, x’ \in \mathcal{X}$ and for all $\lambda \in [0, 1]$ we have</p>
+
+\[\lambda f(x) + (1-\lambda) f(x') \geq f(\lambda x + (1-\lambda) x').\]
+
+<p>To illustrate this let’s plot a few functions and check which ones satisfy the requirement.
+Below we define a few functions, both convex and nonconvex.</p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/output_convexity_94e148_15_0.svg" sizes="95vw"></source>
+    
+    <img src="https://d2l.ai/_images/output_convexity_94e148_15_0.svg" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+
+<h3 id="jensens-inequality">Jensen’s Inequality</h3>
+
+<p>Given a convex function $f$,
+one of the most useful mathematical tools
+is <em>Jensen’s inequality</em>.
+It amounts to a generalization of the definition of convexity:</p>
+
+\[\sum_i \alpha_i f(x_i)  \geq f\left(\sum_i \alpha_i x_i\right)    \textrm{ and }    E_X[f(X)]  \geq f\left(E_X[X]\right),\]
+
+<p>where $\alpha_i$ are nonnegative real numbers such that $\sum_i \alpha_i = 1$ and $X$ is a random variable. In other words, the expectation of a convex function is no less than the convex function of an expectation, where the latter is usually a simpler expression. 
+To prove the first inequality we repeatedly apply the definition of convexity to one term in the sum at a time.</p>
+
+<p>One of the common applications of Jensen’s inequality is to bound a more complicated expression by a simpler one.</p>
+<ul>
+  <li>
+    <p>For example, its application can be with regard to the log-likelihood of partially observed random variables. That is, we use</p>
+
+\[E_{Y \sim P(Y)}[-\log P(X \mid Y)] \geq -\log P(X),\]
+
+    <ul>
+      <li>since $\int P(Y) P(X \mid Y) dY = P(X)$. This can be used in variational methods. - Here $Y$ is typically the unobserved random variable, $P(Y)$ is the best guess of how it might be distributed,</li>
+      <li>and $P(X)$ is the distribution with $Y$ integrated out. For instance, in clustering $Y$ might be the cluster labels and $P(X \mid Y)$ is the generative model when applying cluster labels.</li>
+    </ul>
+  </li>
+</ul>
 
 <h2 id="constraints">Constraints</h2>
 
@@ -514,11 +751,10 @@ Imagine you are optimizing a function where one variable is <em>height in millim
 <p>Preconditioning solves this problem by effectively allowing for different learning rates for each variable. It adjusts the step size based on the curvature (as estimated by the diagonal of the Hessian) so that each variable gets an update that is appropriate for its scale.</p>
 
 
+    
+
+    
   </article>
-
-  
-
-  
 </div>
 </div>
           </div>
@@ -612,13 +848,21 @@ Imagine you are optimizing a function where one variable is <em>height in millim
     <script type="text/javascript">
       window.MathJax = {
         tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
           tags: 'ams',
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          processHtmlClass: 'arithmatex',
         },
       };
     </script>
     <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
   
+
 
 
     

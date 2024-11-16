@@ -299,13 +299,15 @@
 
 
 
-<div class="post">
-  <header class="post-header">
-    <h1 class="post-title">Graph Represeantion Learning</h1>
-    <p class="post-description"></p>
-  </header>
 
+
+<div class="post">
   <article>
+    <header class="post-header">
+      <h1 class="post-title">Graph Represeantion Learning</h1>
+      <p class="post-description"></p>
+    </header>
+
     <h2 id="reading-list">Reading List</h2>
 <ul>
   <li>
@@ -446,11 +448,11 @@ the graph, respectively. Edge embedding converts each edge of \(G\) into a low d
 <p>Other graph embedding techniques includes <strong>graph clustering</strong> and <strong>visualization</strong>.</p>
 
 
+
+    
+
+    
   </article>
-
-  
-
-  
 </div>
 </div>
           </div>
@@ -544,13 +546,21 @@ the graph, respectively. Edge embedding converts each edge of \(G\) into a low d
     <script type="text/javascript">
       window.MathJax = {
         tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']],
+          processEscapes: true,
           tags: 'ams',
+        },
+        options: {
+          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+          processHtmlClass: 'arithmatex',
         },
       };
     </script>
     <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
   
+
 
 
     
