@@ -9,9 +9,18 @@ related_publications: false
 toc:
     sidebar: left
 ---
-Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data, e.g., features to discriminate between classes. They have been successful in many artificial intelligence problems including image classification, speech recognition and natural language processing. The course, which will be taught through lectures and projects, will cover the underlying theory, the range of applications to which it has been applied, and learning from very large data sets. The course will cover connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional neural networks and recurrent neural networks. Methods to train and optimize the architectures and methods to perform effective inference with them, will be the main focus. Students will be encouraged to use open source software libraries such as PyTorch.
+<div class="course-description-box">
+  <p>
+    Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data, e.g., features to discriminate between classes. They have been successful in many artificial intelligence problems including image classification, speech recognition, and natural language processing.
+  </p>
+  <p>
+    The course, which will be taught through lectures and projects, will cover the underlying theory, the range of applications to which it has been applied, and learning from very large data sets. The course will cover connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional neural networks, and recurrent neural networks. Methods to train and optimize the architectures and methods to perform effective inference with them will be the main focus. Students will be encouraged to use open-source software libraries such as PyTorch.
+  </p>
+  <p class="course-note">
+    <strong>Pre-requisite:</strong> <a href="{{ '/teaching/machinelearning/' | relative_url }}">Introductory Machine Learning (ML)</a>. A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
+  </p>
+</div>
 
-**Pre-requisite:** [Introductory Machine Learning (ML)]({{ '/teaching/machinelearning/' | relative_url }}). A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
 
 ## Course Logistics
 **Course Instructor**: Jue Guo [C]
@@ -27,28 +36,44 @@ Continual Learning and Graph Learning
 ## Course Outline
 Check out the [course material](#lecture-notes) under lecture notes. 
 
-**Week 1 and Week 2**
-- Math, Machine Learning Review and Linear Regression
-
-**Week 3 and Week 4**
-- Review on Linear Regression, Softmax Regression and MLP
-  
-**Week 5 and Week 6**
-- Optimization, CNN, and Efficient-Net Paper Reading
-  
-**Week 7 (One Class)**
-- Midterm (Coverage on Week 1,2,3,4,5)
-  
-**Week 8 and Week 9**
-- Reecurrent Neural Networks and Paper Read on Transformer
-  
-**Week10, Week 11, Week 12 and Week 13**
-- Graph Neural Network Paper Read
-  
-**Week 14 and Week 15**
-- Catch up Time on the Material if needed
-- Final and Review
-
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Week(s)</th>
+      <th>Topics Covered</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Week 1 and Week 2</td>
+      <td>Math, Machine Learning Review, and Linear Regression</td>
+    </tr>
+    <tr>
+      <td>Week 3 and Week 4</td>
+      <td>Review on Linear Regression, Softmax Regression, and MLP</td>
+    </tr>
+    <tr>
+      <td>Week 5 and Week 6</td>
+      <td>Optimization, CNN, and Efficient-Net Paper Reading</td>
+    </tr>
+    <tr>
+      <td>Week 7 (One Class)</td>
+      <td>Midterm (Coverage on Weeks 1, 2, 3, 4, 5)</td>
+    </tr>
+    <tr>
+      <td>Week 8 and Week 9</td>
+      <td>Recurrent Neural Networks and Paper Read on Transformer</td>
+    </tr>
+    <tr>
+      <td>Week 10, Week 11, Week 12, and Week 13</td>
+      <td>Graph Neural Network Paper Read</td>
+    </tr>
+    <tr>
+      <td>Week 14 and Week 15</td>
+      <td>Catch up Time on the Material if Needed<br>Final and Review</td>
+    </tr>
+  </tbody>
+</table>
 ---
 ## Grading
 
@@ -57,14 +82,14 @@ The following is the outline of the grading:
 ### Grading Components
 
 We will have
-- **Attendance:** 10 percent (Random Pop Quiz)
+- **Attendance:** 10 percent (Random Attendance Check)
 - **Programming Assignment:** 30 percent (2 PA)
 - **Midterm:** 30 percent
-- **Final:** 30 percent (Dec 12th)
+- **Final:** 30 percent 
 
 ### Grading Rubric
 
-This course is **absolute grading**, meaning no curve, as there is a certain standard we need to uphold for students to have a good knowledge of deep learning.
+This course is **absolute** grading, meaning no curve, as there is a certain standard we need to uphold for students to have a good knowledge of deep learning.
 
 <table align="center">
     <tr>

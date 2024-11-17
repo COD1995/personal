@@ -1418,3 +1418,61 @@ ninja-keys::part(ninja-input-wrapper) {
     display: none;
   }
 }
+
+// Course Description Box
+.course-description-box {
+  background-color: var(--global-card-bg-color);
+  border-left: 5px solid var(--global-theme-color);
+  padding: 1.5rem;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  line-height: 1.6;
+}
+
+.course-description-box h2 {
+  margin-top: 0;
+  color: var(--global-theme-color);
+}
+
+.course-description-box p {
+  margin-bottom: 1rem;
+  color: var(--global-text-color);
+}
+
+.course-description-box .course-note {
+  background-color: rgba(255, 0, 0, 0.1);
+  padding: 10px;
+  border-left: 4px solid #ff4c4c;
+  color: #d63333;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+// styled table 
+
+.styled-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--global-text-color);
+}
+
+.styled-table th,
+.styled-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid var(--global-divider-color);
+}
+
+.styled-table thead {
+  background-color: var(--global-bg-color);
+}
+
+.styled-table th {
+  font-weight: bold;
+}
+
+.styled-table tbody tr:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  /* Adjust as needed */
+}
