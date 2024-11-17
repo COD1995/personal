@@ -61,13 +61,12 @@ convex.
 <div class="caption">
 Fig. 3. The union of two convex sets need not be convex.
 </div>
-Typically the problems in deep learning are defined on convex sets. For instance, $$\mathbb{R}^{d}$$, the set of $d$ -
-dimensional vectors of real numbers, is a convex set (after all, the line between any two points in $\mathbb{R}^{d}$ remains in $\mathbb{R}^{d}$ ). In some cases we work with variables of bounded length, such as balls of radius $r$ as defined by $\\{\mathbf{x} | \mathbf{x} \in \mathbb{R}^d \textrm{ and } \|\mathbf{x}\| \leq r\\}$.
+Typically the problems in deep learning are defined on convex sets. For instance, $$\mathbb{R}^{d}$$, the set of $$d$$ - dimensional vectors of real numbers, is a convex set (after all, the line between any two points in $$\mathbb{R}^{d}$$ remains in $$\mathbb{R}^{d}$$ ). In some cases we work with variables of bounded length, such as balls of radius $$r$$ as defined by $$\{\mathbf{x} | \mathbf{x} \in \mathbb{R}^d \textrm{ and } \|\mathbf{x}\| \leq r\}$$.
 
 ### Convex Functions
 
 Now that we have convex sets we can introduce *convex functions* $f$.
-Given a convex set $\mathcal{X}$, a function $f: \mathcal{X} \to \mathbb{R}$ is *convex* if for all $x, x' \in \mathcal{X}$ and for all $\lambda \in [0, 1]$ we have
+Given a convex set $$\mathcal{X}$$, a function $$f: \mathcal{X} \to \mathbb{R}$$ is *convex* if for all $$x, x' \in \mathcal{X}$$ and for all $$\lambda \in [0, 1]$$ we have
 
 $$\lambda f(x) + (1-\lambda) f(x') \geq f(\lambda x + (1-\lambda) x').$$
 
@@ -82,14 +81,12 @@ Below we define a few functions, both convex and nonconvex.
 
 ### Jensen's Inequality
 
-Given a convex function $f$,
-one of the most useful mathematical tools
-is *Jensen's inequality*.
+Given a convex function $$f$$, one of the most useful mathematical tools is *Jensen's inequality*.
 It amounts to a generalization of the definition of convexity:
 
 $$\sum_i \alpha_i f(x_i)  \geq f\left(\sum_i \alpha_i x_i\right)    \textrm{ and }    E_X[f(X)]  \geq f\left(E_X[X]\right),$$
 
-where $\alpha_i$ are nonnegative real numbers such that $\sum_i \alpha_i = 1$ and $X$ is a random variable. In other words, the expectation of a convex function is no less than the convex function of an expectation, where the latter is usually a simpler expression. 
+where $$\alpha_i$$ are nonnegative real numbers such that $$\sum_i \alpha_i = 1$$ and $$X$$ is a random variable. In other words, the expectation of a convex function is no less than the convex function of an expectation, where the latter is usually a simpler expression. 
 To prove the first inequality we repeatedly apply the definition of convexity to one term in the sum at a time.
 
 
@@ -98,12 +95,202 @@ One of the common applications of Jensen's inequality is to bound a more complic
 
     $$E_{Y \sim P(Y)}[-\log P(X \mid Y)] \geq -\log P(X),$$
 
-    - since $\int P(Y) P(X \mid Y) dY = P(X)$. This can be used in variational methods. - Here $Y$ is typically the unobserved random variable, $P(Y)$ is the best guess of how it might be distributed, 
-    - and $P(X)$ is the distribution with $Y$ integrated out. For instance, in clustering $Y$ might be the cluster labels and $P(X \mid Y)$ is the generative model when applying cluster labels.
+    - since $$\int P(Y) P(X \mid Y) dY = P(X)$$. This can be used in variational methods. 
+    - Here $$Y$$ is typically the unobserved random variable, $$P(Y)$$ is the best guess of how it might be distributed, 
+    - and $$P(X)$$ is the distribution with $$Y$$ integrated out. For instance, in clustering $$Y$$ might be the cluster labels and $$P(X \mid Y)$$ is the generative model when applying cluster labels.
 
+### Properties
 
-## Constraints
+Convex functions have many useful properties. We describe a few commonly-used ones below.
 
+#### Local Minima Are Global Minima
+
+This can be proved by [contradiction](https://en.wikipedia.org/wiki/Proof_by_contradiction): 
+
+Consider a convex function $$f$$ defined on a convex set $$\mathcal{X}$$. 
+
+  - Suppose that $$x^{*}\in \mathcal{X}$$ is a local minimum: there exists a small positive value $$p$$ so that for $$x \in \mathcal{X}$$ that satisfies 
+  $$0<\left|x-x^{*}\right| \leq p$$ we have $$f\left(x^{*}\right)<f(x)$$
+
+Now, let's make an assumption:
+
+Assume that the local minimum $$x^{*}$$ is not the global minimum of $$f$$: there exists $$x^{\prime} \in \mathcal{X}$$ for which $$f\left(x^{\prime}\right)<f\left(x^{*}\right)$$. Remember the fact that we constrain a range for the condition of $$p$$, therefore we also need to make sure that the $$x^{\prime}$$ also exists within this range of $$p$$ to make the contradiction stands in the following proof.
+
+Since $$\mathcal{X}$$ is convex, the line segment between $$x^{*}$$ and $$x^{\prime}$$ is entirely within $$\mathcal{X}$$. Any point $$x$$ on this line can be expressed as:
+
+$$x=\lambda x^{*}+(1-\lambda) x^{\prime}, \quad \lambda \in[0,1]$$
+
+The distance between $$x$$ and $$x^{*}$$ is:
+
+$$
+\left|x-x^{*}\right|=\left|\lambda x^{*}+(1-\lambda) x^{\prime}-x^{*}\right|=(1-\lambda)\left|x^{\prime}-x^{*}\right|
+$$
+
+To ensure $$\textcolor{red}{\left|x - x^{*}\right| \leq p}$$ and $$
+\textcolor{red}{\left|x - x^{*}\right| > 0}
+$$
+
+$$
+(1-\lambda)\left|x^{\prime}-x^{*}\right|=p
+$$
+
+Solving for $$\lambda$$, we get:
+
+$$
+1-\lambda=\frac{p}{\left|x^{\prime}-x^{*}\right|} \Longrightarrow \lambda=1-\frac{p}{\left|x^{\prime}-x^{*}\right|}
+$$
+
+However, according to the definition of convex functions, we have
+
+$$
+\begin{aligned} f\left(\lambda x^{*}+(1-\lambda) x^{\prime}\right) & \leq \lambda f\left(x^{*}\right)+(1-\lambda) f\left(x^{\prime}\right) \\ & <\lambda f\left(x^{*}\right)+(1-\lambda) f\left(x^{*}\right) \\ & =f\left(x^{*}\right)\end{aligned}
+$$
+
+which contradicts with our statement that $$x^{*}$$ is a local minimum. Therefore, there does not exist
+$$x^{\prime} \in \mathcal{X}$$ for which $$f\left(x^{\prime}\right)<f\left(x^{*}\right)$$. The local minimum $$x^{*}$$ is also the global minimum.
+#### Below Sets of Convex Functions Are Convex
+We can conveniently define convex sets via *below sets* of convex functions. Concretely, given a convex function $$f$$ defined on a convex set $$\mathcal{X}$$, any below set
+
+$$
+\mathcal{S}_b \stackrel{\textrm{def}}{=} \{ x \in \mathcal{X} \mid f(x) \leq b \}
+$$
+
+is convex.
+
+**Proof:**
+
+Take any two points $$x, x' \in \mathcal{S}_b$$. By definition, this means that $$f(x) \leq b$$ and $$f(x') \leq b$$.
+
+Consider any $$\lambda \in [0,1]$$ and define $$y = \lambda x + (1 - \lambda) x'$$. Since $$\mathcal{X}$$ is convex and $$x, x' \in \mathcal{X}$$, it follows that $$y \in \mathcal{X}$$.
+
+Using the convexity of $$f$$, we have:
+
+$$
+f(y) = f(\lambda x + (1 - \lambda) x') \leq \lambda f(x) + (1 - \lambda) f(x') \leq \lambda b + (1 - \lambda) b = b.
+$$
+
+Therefore, $$f(y) \leq b$$, which means $$y \in \mathcal{S}_b$$.
+
+Since any convex combination of points in $$\mathcal{S}_b$$ is also in $$\mathcal{S}_b$$, the set $$\mathcal{S}_b$$ is convex.
+
+#### Convexity and Second Derivatives
+
+Whenever the second derivative of a function $$f: \mathbb{R}^n \rightarrow \mathbb{R}$$ exists, it is easy to check whether $$f$$ is convex. All we need to do is check whether the Hessian of $$f$$ is positive semidefinite: $$\nabla^2 f \succeq 0$$, i.e., denoting the Hessian matrix $$\nabla^2 f$$ by $$\mathbf{H}$$, we have $$\mathbf{x}^\top \mathbf{H} \mathbf{x} \geq 0$$ for all $$\mathbf{x} \in \mathbb{R}^n$$.
+
+For instance, the function $$f(\mathbf{x}) = \frac{1}{2} \|\mathbf{x}\|^2$$ is convex since $$\nabla^2 f = \mathbf{I}$$, i.e., its Hessian is the identity matrix.
+
+Formally, a twice-differentiable one-dimensional function $$f: \mathbb{R} \rightarrow \mathbb{R}$$ is convex if and only if its second derivative $$f''(x) \geq 0$$. For any twice-differentiable multidimensional function $$f: \mathbb{R}^n \rightarrow \mathbb{R}$$, it is convex if and only if its Hessian $$\nabla^2 f \succeq 0$$.
+
+**Proof:**
+
+First, we prove the one-dimensional case.
+
+Assume that $$f$$ is convex. Then, for any $$\epsilon > 0$$:
+
+$$
+\frac{1}{2} f(x + \epsilon) + \frac{1}{2} f(x - \epsilon) \geq f\left( \frac{x + \epsilon + x - \epsilon}{2} \right) = f(x).
+$$
+
+This inequality follows from the definition of convexity.
+
+Since the second derivative is given by the limit over finite differences, it follows that:
+
+$$
+f''(x) = \lim_{\epsilon \to 0} \frac{f(x + \epsilon) + f(x - \epsilon) - 2 f(x)}{\epsilon^2} \geq 0.
+$$
+
+Thus, $$f''(x) \geq 0$$.
+
+Conversely, suppose that $$f''(x) \geq 0$$. Then, $$f'$$ is a monotonically nondecreasing function.
+
+Let $$a < x < b$$ be points in $$\mathbb{R}$$, where $$x = (1 - \lambda)a + \lambda b$$ and $$\lambda \in (0, 1)$$.
+
+By the [mean value theorem](https://en.wikipedia.org/wiki/Mean_value_theorem), there exist $$\alpha \in [a, x]$$ and $$\beta \in [x, b]$$ such that:
+
+$$
+f'(\alpha) = \frac{f(x) - f(a)}{x - a}, \quad f'(\beta) = \frac{f(b) - f(x)}{b - x}.
+$$
+
+Since $$f'$$ is nondecreasing, $$f'(\beta) \geq f'(\alpha)$$.
+
+Therefore:
+
+$$
+\frac{f(x) - f(a)}{x - a} \leq \frac{f(b) - f(x)}{b - x}.
+$$
+
+Cross-multiplying:
+
+$$
+(b - x)[f(x) - f(a)] \leq (x - a)[f(b) - f(x)].
+$$
+
+Rewriting (carefully expand it out on the previous step):
+
+$$
+\frac{x - a}{b - a}[f(b) - f(x)] + \frac{b - x}{b - a}[f(x) - f(a)] \geq 0.
+$$
+
+This implies(rewrite $$
+\lambda=\frac{x-a}{b-a}
+$$):
+
+$$
+(1 - \lambda) f(a) + \lambda f(b) \geq f(x).
+$$
+
+Thus, $$f$$ is convex.
+
+Next, we introduce a lemma before proving the multidimensional case.
+
+**Lemma:** A function $$f: \mathbb{R}^n \rightarrow \mathbb{R}$$ is convex if and only if for all $$\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$$:
+
+$$
+g(z) \stackrel{\textrm{def}}{=} f(z \mathbf{x} + (1 - z) \mathbf{y}), \quad z \in [0,1],
+$$
+
+is convex.
+
+To show that convexity of $$f$$ implies that $$g$$ is convex, observe that for all $$a, b, \lambda \in [0, 1]$$:
+
+$$
+\begin{aligned}
+g(\lambda a + (1 - \lambda) b) &= f\left( (\lambda a + (1 - \lambda) b) \mathbf{x} + \left(1 - (\lambda a + (1 - \lambda) b)\right) \mathbf{y} \right) \\
+&= f\left( \lambda \left( a \mathbf{x} + (1 - a) \mathbf{y} \right) + (1 - \lambda) \left( b \mathbf{x} + (1 - b) \mathbf{y} \right) \right) \\
+&\leq \lambda f(a \mathbf{x} + (1 - a) \mathbf{y}) + (1 - \lambda) f(b \mathbf{x} + (1 - b) \mathbf{y}) \\
+&= \lambda g(a) + (1 - \lambda) g(b).
+\end{aligned}
+$$
+
+Therefore, $$g$$ is convex.
+
+Conversely, suppose $$g$$ is convex for all $$\mathbf{x}, \mathbf{y}$$. Then, for all $$\lambda \in [0, 1]$$:
+
+$$
+\begin{aligned}
+f(\lambda \mathbf{x} + (1 - \lambda) \mathbf{y}) &= g(\lambda \cdot 1 + (1 - \lambda) \cdot 0) \\
+&\leq \lambda g(1) + (1 - \lambda) g(0) \\
+&= \lambda f(\mathbf{x}) + (1 - \lambda) f(\mathbf{y}).
+\end{aligned}
+$$
+
+Thus, $$f$$ is convex.
+
+Finally, using the lemma and the one-dimensional result, we can prove the multidimensional case.
+
+A multidimensional function $$f: \mathbb{R}^n \rightarrow \mathbb{R}$$ is convex if and only if for all $$\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$$, the function $$g(z) = f(z \mathbf{x} + (1 - z) \mathbf{y})$$ is convex.
+
+According to the one-dimensional case, this holds if and only if:
+
+$$
+g''(z) = (\mathbf{x} - \mathbf{y})^\top \nabla^2 f(z \mathbf{x} + (1 - z) \mathbf{y})(\mathbf{x} - \mathbf{y}) \geq 0,
+$$
+
+for all $$\mathbf{x}, \mathbf{y} \in \mathbb{R}^n$$.
+
+This condition is equivalent to $$\nabla^2 f \succeq 0$$, per the definition of positive semidefinite matrices.
+
+### Constraints
 One of the nice properties of convex optimization is that it allows us to handle constraints efficiently. That is, it allows us to solve *constrained optimization* problems of the form:
 
 $$
@@ -117,7 +304,7 @@ where $$f$$ is the objective and the functions $$c_{i}$$ are constraint function
 
 **Question**: Imagine a unit ball $$c_{1}(\mathbf{x})=\|\mathbf{x}\|_{2}-1$$; Now we have a second constraint: $$c_{2}(\mathbf{x})=\mathbf{v}^{\top} \mathbf{x}+b$$. What does this visually represent?
 
-### Lagrangian
+#### Lagrangian
 
 A ball inside a box; the ball will roll to the place that is lowest, and the forces of gravity will be balanced out with the forces that the sides of the box can impose on the ball.
 
@@ -141,7 +328,7 @@ Suppose you have a function $$f(x) = x^{2}$$, and you want to minimize it, but w
 - The Lagrangian would add a term $$\alpha \cdot (1 - x)$$, where $$\alpha \geq 0$$.
 - The solution to the Lagrangian will find $$x = 1$$ (the smallest value of $$x$$ that satisfies the constraint $$x \geq 1$$) and a corresponding value of $$\alpha$$ that ensures the constraint is properly enforced.
 
-### Penalties
+#### Penalties
 
 Rather than satisfying $$c_{i}(\mathrm{x}) \leq 0$$, we simply add $$\alpha_{i} c_{i}(\mathbf{x})$$ to the objective function $$f(x)$$. This ensures that the constraints will not be violated too badly. It is a common trick: we add $$\frac{\lambda}{2}\|\mathbf{w}\|^{2}$$ to the objective function to ensure that $$\mathbf{w}$$ does not grow too large. We can see this will ensure $$\|\mathbf{w}\|^{2} - r^{2} \leq 0$$ for some radius $$r$$.
 
