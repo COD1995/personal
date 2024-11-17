@@ -85,7 +85,7 @@ We will have
 - **Attendance:** 10 percent (Random Pop Quiz)
 - **Programming Assignment:** 30 percent (2 PA)
 - **Midterm:** 30 percent
-- **Final:** 30 percent (Dec 12th)
+- **Final:** 30 percent 
 
 ### Grading Rubric
 
@@ -140,6 +140,20 @@ The final grade will be determined based on the *overall performance* of the cla
 
 ---
 ## Lecture Notes
-The lecture notes are based on PyTorch documentation and a variety of other resources related to PyTorch. They aim to provide a comprehensive and accessible explanation of key concepts, offering additional insights and examples to enhance understanding.
+The lecture notes are based on [PyTorch documentation](https://pytorch.org/) and a variety of other resources related to PyTorch. They aim to provide a comprehensive and accessible explanation of key concepts, offering additional insights and examples to enhance understanding.
 
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Week(s)</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Week 1</td>
+      <td> <a href="{{ 'assets/courses/basicai/pytorch_fundamentals/' | relative_url }}">PyTorch Fundamentals & PyTorch Workflow Fundamentals</a></td>
+    </tr>
+  </tbody>
+</table>
 
