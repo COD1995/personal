@@ -8,6 +8,8 @@ category: undergraduate/graduate
 related_publications: false
 toc:
     sidebar: left
+back_link: '/teaching'
+back_text: 'Courses Page'
 ---
 	
 <div class="course-description-box">
