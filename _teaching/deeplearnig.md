@@ -152,6 +152,16 @@ Below are the lecture notes. Please note that these notes are updated regularly,
   </thead>
   <tbody>
     <tr>
+      <td>Introduction</td>
+      <td>
+        <ul>
+          <li>
+          <a href="{{ 'assets/courses/deeplearning/week_1_2/Intro' | relative_url }}">Introduction, Preliminaries & Linear Neural Network</a>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
       <td>Optimization</td>
       <td>
         <ul>

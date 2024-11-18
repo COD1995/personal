@@ -17,7 +17,7 @@
   
   
     
-      maps | Jue Guo
+      Introduction, Preliminaries &amp; Linear Neural Network | Jue Guo
     
   
 </title>
@@ -51,6 +51,9 @@
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
+
 
 <!-- Styles -->
 
@@ -61,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/blog/tag/maps/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/week_1_2/Intro/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -219,8 +222,6 @@
             
           
             
-          
-            
               
                 
                 <li class="nav-item ">
@@ -281,31 +282,142 @@
     <!-- Content -->
     <div class="container mt-5" role="main">
       
-        <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-<i class="fa-solid fa-hashtag fa-sm"></i> maps</h1>
-    <p class="post-description">an archive of posts with this tag</p>
-  </header>
+        
+          <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
 
-  <article class="archive">
-    <div class="table-responsive">
-      <table class="table table-sm table-borderless">
+
+  <div class="fixed-bottom-button">
+    <a href="/personal/teaching/deeplearnig" class="btn-back-course">
+      ← Deep Learning Course Page
+    </a>
+  </div>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Include the updated CSS provided above */
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter;
+    }
+
+    /* Heading 1 */
+    article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+    }
+
+    article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+
+    /* Heading 2 */
+    article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    article h5 {
+      counter-increment: h5-counter;
+    }
+
+    article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
+
+
+<div class="post">
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">Introduction, Preliminaries &amp; Linear Neural Network</h1>
+      <p class="post-description"></p>
+    </header>
+
+    <p>Artificial Intelligence (AI) has become an integral part of our daily lives, revolutionizing industries and transforming how we interact with technology. From voice assistants to recommendation systems and autonomous vehicles, AI is everywhere, driving innovation and solving complex problems. In this section, we introduce foundational concepts and mathematical preliminaries that form the backbone of modern AI systems. We will begin by exploring linear neural networks, one of the simplest yet most important building blocks of deep learning models, setting the stage for more advanced architectures and techniques in the field.</p>
+
+<h2 id="ai-is-ubiquitous">AI is Ubiquitous</h2>
+<p>You may find the applications of AI in every aspect of our lives these days.</p>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
         
-          <tr>
-            <th scope="row">Jan 26, 2024</th>
-            <td>
-              
-                <a class="post-link" href="/personal/blog/2024/geojson-map/">a post with geojson</a>
-              
-            </td>
-          </tr>
-        
-      </table>
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://i.imgur.com/tamo2Hw-480.webp 480w,https://i.imgur.com/tamo2Hw-800.webp 800w,https://i.imgur.com/tamo2Hw-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+    
+    <img src="https://i.imgur.com/tamo2Hw.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
     </div>
-  </article>
 </div>
 
+<h2 id="ai-paradox">AI Paradox</h2>
+<div style="display: flex; align-items: flex-start;">
+  <!-- Text Content -->
+  <div style="margin-right: 15px; max-width: 50%;">
+    <p>
+      This is the text that you want to display to the left of the image. It can include paragraphs, lists, links, etc.
+    </p>
+  </div>
+
+  <!-- Figure -->
+  <figure src="https://i.imgur.com/HmExOOn.png" alt="A description of the image" caption="An optional caption for the image">
+  </figure>
+</div>
+
+
+    
+
+    
+  </article>
+</div>
+</div>
+          </div>
+        
       
     </div>
 
@@ -364,6 +476,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->
