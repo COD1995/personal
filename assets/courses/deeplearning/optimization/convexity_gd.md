@@ -6,7 +6,7 @@ related_publications: false
 toc:
     sidebar: left
 back_link: '/teaching/deeplearnig'
-back_text: 'Back to Deep Learning Course Page'
+back_text: 'Deep Learning Course Page'
 number_heading: true
 ---
 

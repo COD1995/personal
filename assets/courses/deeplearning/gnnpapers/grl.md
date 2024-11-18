@@ -5,6 +5,8 @@ description:
 related_publications: false
 toc:
     sidebar: left
+back_link: '/teaching/deeplearnig'
+back_text: 'Deep Learning Course Page'
 ---
 
 ## Reading List

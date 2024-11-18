@@ -8,6 +8,8 @@ category: graduate
 related_publications: false
 toc:
     sidebar: left
+back_link: '/teaching'
+back_text: 'Courses Page'
 ---
 <div class="course-description-box">
   <p>
@@ -141,11 +143,37 @@ The notes are based on [Dive into Deep Learning](https://d2l.ai/). Throughout my
 
 Below are the lecture notes. Please note that these notes are updated regularly, so be sure to check back often for the latest updates.
 
-### Optimization
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Optimization</td>
+      <td>
+        <ul>
+          <li>
+          <a href="{{ 'assets/courses/deeplearning/optimization/convexity_gd' | relative_url }}">Convexity & Gradient Descent</a>
+          </li>
+          <li>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>GNN</td>
+      <td>
+        <ul>
+            <li>
+            <a href="{{ '/assets/courses/deeplearning/gnnpapers/grl' | relative_url }}">Graph Representation Learning</a>
+            </li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
-- [convexity & gradient descent]({{ 'assets/courses/deeplearning/optimization/convexity_gd' | relative_url }})
-
-### GNN
-
-- [graph representation learning]({{ '/assets/courses/deeplearning/gnnpapers/grl' | relative_url }})
 
