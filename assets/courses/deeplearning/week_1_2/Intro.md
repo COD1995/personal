@@ -85,3 +85,7 @@ You may find the applications of AI in every aspect of our lives these days.
         {% include figure.liquid loading="eager" path="https://i.imgur.com/9sOnyhU.png" class="img-fluid rounded" %}
     </div>
 </div>
+
+## Supervised Learning vs Unsupervised Learning 
+
+**Supervised Learning**

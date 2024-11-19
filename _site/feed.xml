@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://0.0.0.0:8080/personal/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:8080/personal/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-11-19T00:38:14+00:00</updated><id>http://0.0.0.0:8080/personal/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en"><generator uri="https://jekyllrb.com/" version="4.3.4">Jekyll</generator><link href="http://0.0.0.0:8080/personal/feed.xml" rel="self" type="application/atom+xml" /><link href="http://0.0.0.0:8080/personal/" rel="alternate" type="text/html" hreflang="en" /><updated>2024-11-19T01:34:38+00:00</updated><id>http://0.0.0.0:8080/personal/feed.xml</id><title type="html">blank</title><subtitle>A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
 </subtitle><entry><title type="html">Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra</title><link href="http://0.0.0.0:8080/personal/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/" rel="alternate" type="text/html" title="Google Gemini updates: Flash 1.5, Gemma 2 and Project Astra" /><published>2024-05-14T00:00:00+00:00</published><updated>2024-05-14T00:00:00+00:00</updated><id>http://0.0.0.0:8080/personal/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra</id><content type="html" xml:base="http://0.0.0.0:8080/personal/blog/2024/google-gemini-updates-flash-15-gemma-2-and-project-astra/"><![CDATA[]]></content><author><name></name></author><summary type="html"><![CDATA[We’re sharing updates across our Gemini family of models and a glimpse of Project Astra, our vision for the future of AI assistants.]]></summary></entry><entry><title type="html">a post with tabs</title><link href="http://0.0.0.0:8080/personal/blog/2024/tabs/" rel="alternate" type="text/html" title="a post with tabs" /><published>2024-05-01T00:32:13+00:00</published><updated>2024-05-01T00:32:13+00:00</updated><id>http://0.0.0.0:8080/personal/blog/2024/tabs</id><content type="html" xml:base="http://0.0.0.0:8080/personal/blog/2024/tabs/"><![CDATA[<p>This is how a post with <a href="https://github.com/Ovski4/jekyll-tabs">tabs</a> looks like. Note that the tabs could be used for different purposes, not only for code.</p>
 
 <h2 id="first-tabs">First tabs</h2>
@@ -24,7 +24,7 @@ Content 2
 
 <p>With this you can generate visualizations like:</p>
 
-<ul id="log" class="tab" data-tab="cd1bdd2d-f008-4b84-a529-0e359d3142b7" data-name="log">
+<ul id="log" class="tab" data-tab="dedcc48b-6bb7-4b8b-b0b5-19cb1d8dcf01" data-name="log">
   
       <li class="active" id="log-php">
           <a href="#">php </a>
@@ -39,7 +39,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="cd1bdd2d-f008-4b84-a529-0e359d3142b7" data-name="log">
+<ul class="tab-content" id="dedcc48b-6bb7-4b8b-b0b5-19cb1d8dcf01" data-name="log">
   
       <li class="active">
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">var_dump</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
@@ -63,7 +63,7 @@ Content 2
 
 <h2 id="another-example">Another example</h2>
 
-<ul id="data-struct" class="tab" data-tab="0d46f2ce-8ca7-4587-b259-5e29c2eee040" data-name="data-struct">
+<ul id="data-struct" class="tab" data-tab="40d73327-19db-43a9-b27d-d8640956f47c" data-name="data-struct">
   
       <li class="active" id="data-struct-yaml">
           <a href="#">yaml </a>
@@ -74,7 +74,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="0d46f2ce-8ca7-4587-b259-5e29c2eee040" data-name="data-struct">
+<ul class="tab-content" id="40d73327-19db-43a9-b27d-d8640956f47c" data-name="data-struct">
   
       <li class="active">
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hello</span><span class="pi">:</span>
@@ -96,7 +96,7 @@ Content 2
 
 <h2 id="tabs-for-something-else">Tabs for something else</h2>
 
-<ul id="something-else" class="tab" data-tab="10eaa255-7702-461e-bbd8-040b3691832d" data-name="something-else">
+<ul id="something-else" class="tab" data-tab="00a51ca8-c1fd-4617-a26a-4f72fda81654" data-name="something-else">
   
       <li class="active" id="something-else-text">
           <a href="#">text </a>
@@ -111,7 +111,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="10eaa255-7702-461e-bbd8-040b3691832d" data-name="something-else">
+<ul class="tab-content" id="00a51ca8-c1fd-4617-a26a-4f72fda81654" data-name="something-else">
   
       <li class="active">
 <p>Regular text</p>

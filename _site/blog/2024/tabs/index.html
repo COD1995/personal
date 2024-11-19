@@ -65,6 +65,11 @@
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
 
+  <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
+  <script>
+    initTheme();
+  </script>
+
 
 <!-- GeoJSON support via Leaflet -->
 
@@ -246,6 +251,15 @@
           
           
           
+            <!-- Toogle theme mode -->
+            <li class="toggle-container">
+              <button id="light-toggle" title="Change theme">
+                <i class="ti ti-sun-moon" id="light-toggle-system"></i>
+                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
+                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
+              </button>
+            </li>
+          
         </ul>
       </div>
     </div>
@@ -343,7 +357,7 @@ Content 2
 
 <p>With this you can generate visualizations like:</p>
 
-<ul id="log" class="tab" data-tab="cd1bdd2d-f008-4b84-a529-0e359d3142b7" data-name="log">
+<ul id="log" class="tab" data-tab="dedcc48b-6bb7-4b8b-b0b5-19cb1d8dcf01" data-name="log">
   
       <li class="active" id="log-php">
           <a href="#">php </a>
@@ -358,7 +372,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="cd1bdd2d-f008-4b84-a529-0e359d3142b7" data-name="log">
+<ul class="tab-content" id="dedcc48b-6bb7-4b8b-b0b5-19cb1d8dcf01" data-name="log">
   
       <li class="active">
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">var_dump</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
@@ -382,7 +396,7 @@ Content 2
 
 <h2 id="another-example">Another example</h2>
 
-<ul id="data-struct" class="tab" data-tab="0d46f2ce-8ca7-4587-b259-5e29c2eee040" data-name="data-struct">
+<ul id="data-struct" class="tab" data-tab="40d73327-19db-43a9-b27d-d8640956f47c" data-name="data-struct">
   
       <li class="active" id="data-struct-yaml">
           <a href="#">yaml </a>
@@ -393,7 +407,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="0d46f2ce-8ca7-4587-b259-5e29c2eee040" data-name="data-struct">
+<ul class="tab-content" id="40d73327-19db-43a9-b27d-d8640956f47c" data-name="data-struct">
   
       <li class="active">
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hello</span><span class="pi">:</span>
@@ -415,7 +429,7 @@ Content 2
 
 <h2 id="tabs-for-something-else">Tabs for something else</h2>
 
-<ul id="something-else" class="tab" data-tab="10eaa255-7702-461e-bbd8-040b3691832d" data-name="something-else">
+<ul id="something-else" class="tab" data-tab="00a51ca8-c1fd-4617-a26a-4f72fda81654" data-name="something-else">
   
       <li class="active" id="something-else-text">
           <a href="#">text </a>
@@ -430,7 +444,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="10eaa255-7702-461e-bbd8-040b3691832d" data-name="something-else">
+<ul class="tab-content" id="00a51ca8-c1fd-4617-a26a-4f72fda81654" data-name="something-else">
   
       <li class="active">
 <p>Regular text</p>
