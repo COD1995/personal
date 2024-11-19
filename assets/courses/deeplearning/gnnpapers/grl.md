@@ -73,7 +73,7 @@ low dimensional vector of dimensiond such that \(d<<|V|\) and the similarities b
 </div>
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="assets/img/gnn_survey/fig1.png" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="assets/img/gnn_survey/fig1.png" class="img-fluid rounded" %}
     </div>
 </div>
 <div class="caption">

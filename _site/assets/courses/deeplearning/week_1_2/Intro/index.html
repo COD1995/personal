@@ -69,11 +69,6 @@
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
 
-  <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
-  <script>
-    initTheme();
-  </script>
-
 
 <!-- GeoJSON support via Leaflet -->
 
@@ -255,15 +250,6 @@
           
           
           
-            <!-- Toogle theme mode -->
-            <li class="toggle-container">
-              <button id="light-toggle" title="Change theme">
-                <i class="ti ti-sun-moon" id="light-toggle-system"></i>
-                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
-                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
-              </button>
-            </li>
-          
         </ul>
       </div>
     </div>
@@ -366,7 +352,8 @@
       <p class="post-description"></p>
     </header>
 
-    <p>Artificial Intelligence (AI) has become an integral part of our daily lives, revolutionizing industries and transforming how we interact with technology. From voice assistants to recommendation systems and autonomous vehicles, AI is everywhere, driving innovation and solving complex problems. In this section, we introduce foundational concepts and mathematical preliminaries that form the backbone of modern AI systems. We will begin by exploring linear neural networks, one of the simplest yet most important building blocks of deep learning models, setting the stage for more advanced architectures and techniques in the field.</p>
+    <h1 id="introduction">Introduction</h1>
+<p>Artificial Intelligence (AI) has become an integral part of our daily lives, revolutionizing industries and transforming how we interact with technology. From voice assistants to recommendation systems and autonomous vehicles, AI is everywhere, driving innovation and solving complex problems. In this section, we introduce foundational concepts and mathematical preliminaries that form the backbone of modern AI systems. We will begin by exploring linear neural networks, one of the simplest yet most important building blocks of deep learning models, setting the stage for more advanced architectures and techniques in the field.</p>
 
 <h2 id="ai-is-ubiquitous">AI is Ubiquitous</h2>
 <p>You may find the applications of AI in every aspect of our lives these days.</p>
@@ -400,13 +387,164 @@
   <!-- Text Content -->
   <div style="margin-right: 15px; max-width: 50%;">
     <p>
-      This is the text that you want to display to the left of the image. It can include paragraphs, lists, links, etc.
+    <!-- First Bullet List -->
     </p>
+<ul style="margin-right: 20px;">
+        <li>Problems difficult for humans are easy for AI</li>
+    </ul>
+    
+    <!-- Second Bullet List -->
+    <ul>
+        <li>Problems easy for humans are difficult for AI</li>
+    </ul>
+    
   </div>
 
-  <!-- Figure -->
-  <figure src="https://i.imgur.com/HmExOOn.png" alt="A description of the image" caption="An optional caption for the image">
-  </figure>
+  <!-- Image -->
+  <div style="flex-grow: 1; max-width: 50%;">
+    <img src="https://i.imgur.com/HmExOOn.png" alt="A description of the image" style="width: 100%; height: auto;">
+  </div>
+</div>
+
+<h2 id="what-tasks-require-intelligence">What tasks require Intelligence?</h2>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://i.imgur.com/2a3uuEK-480.webp 480w,https://i.imgur.com/2a3uuEK-800.webp 800w,https://i.imgur.com/2a3uuEK-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+    
+    <img src="https://i.imgur.com/2a3uuEK.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+
+<h2 id="knowledge-based-ai">Knowledge-Based AI</h2>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://i.imgur.com/XYxUdWj-480.webp 480w,https://i.imgur.com/XYxUdWj-800.webp 800w,https://i.imgur.com/XYxUdWj-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+    
+    <img src="https://i.imgur.com/XYxUdWj.png" class="img-fluid rounded" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://i.imgur.com/PyZ9SuN-480.webp 480w,https://i.imgur.com/PyZ9SuN-800.webp 800w,https://i.imgur.com/PyZ9SuN-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+    
+    <img src="https://i.imgur.com/PyZ9SuN.png" class="img-fluid rounded" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+
+<ul>
+  <li>Disadvantage: Unwiedy Process
+    <ul>
+      <li>Time of human expert</li>
+      <li>People struggle to formalize rules with enough complexity to describe the world</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="the-machine-learning-approach">The Machine Learning Approach</h2>
+<ul>
+  <li>Allow computers to learn from experience</li>
+  <li>Determine what features to use</li>
+  <li>Learn to map the features to output</li>
+</ul>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://i.imgur.com/ljOLzhP-480.webp 480w,https://i.imgur.com/ljOLzhP-800.webp 800w,https://i.imgur.com/ljOLzhP-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+    
+    <img src="https://i.imgur.com/ljOLzhP.png" class="img-fluid rounded " width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
+</div>
+
+<h2 id="machine-learning-pipeline">Machine Learning Pipeline</h2>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://i.imgur.com/9sOnyhU-480.webp 480w,https://i.imgur.com/9sOnyhU-800.webp 800w,https://i.imgur.com/9sOnyhU-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+    
+    <img src="https://i.imgur.com/9sOnyhU.png" class="img-fluid rounded" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+
+    </div>
 </div>
 
 
@@ -431,7 +569,7 @@
       Guo. 
       
       
-        Last updated: November 18, 2024.
+        Last updated: November 19, 2024.
       
     </div>
   </footer>

@@ -27,7 +27,7 @@ $$
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/pacman.svg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/pacman.svg" class="img-fluid rounded" %}
     </div>
 </div>
 <div class="caption">
@@ -38,7 +38,7 @@ Something useful:
 - Assume that $$\mathcal{X}$$ and $$\mathcal{Y}$$ are convex sets. Then $$\mathcal{X} \cap \mathcal{Y}$$ is also convex.
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/convex-intersect.svg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/convex-intersect.svg" class="img-fluid rounded" %}
     </div>
 </div>
 <div class="caption">
@@ -55,7 +55,7 @@ convex.
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         <a id="fig3"></a>
-        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/nonconvex.svg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/nonconvex.svg" class="img-fluid rounded" %}
     </div>
 </div>
 <div class="caption">
@@ -75,7 +75,7 @@ Below we define a few functions, both convex and nonconvex.
 
 <div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/output_convexity_94e148_15_0.svg" class="img-fluid rounded z-depth-1" %}
+        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/output_convexity_94e148_15_0.svg" class="img-fluid rounded" %}
     </div>
 </div>
 
