@@ -34,7 +34,6 @@ Continual Learning and Graph Learning
 ---
 ## Course Outline
 Check out the [course material](#lecture-notes) under lecture notes. 
-
 <table class="styled-table">
   <thead>
     <tr>
@@ -82,6 +81,14 @@ Check out the [course material](#lecture-notes) under lecture notes.
 The following is the outline of the grading: 
 
 ### Grading Components
+
+As we progress with the course, students are **suggested** to spend weekends to finish the following course on freeCodeCamp: 
+
+- [Scientific Computing with Python](https://www.freecodecamp.org/learn/scientific-computing-with-python/)
+- [Data Analysis with Python](https://www.freecodecamp.org/learn/data-analysis-with-python/)
+- [College Algebra with Python](https://www.freecodecamp.org/learn/college-algebra-with-python/)
+
+By finishing these courses and getting a certification will allow you to get a **15pts** bonus for this course. These courses are extremely easy and should help you warm up and not be afraid of coding.
 
 We will have
 - **Attendance:** 10 percent (Random Pop Quiz)

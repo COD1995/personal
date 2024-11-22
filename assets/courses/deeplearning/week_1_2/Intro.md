@@ -89,3 +89,5 @@ You may find the applications of AI in every aspect of our lives these days.
 ## Supervised Learning vs Unsupervised Learning 
 
 **Supervised Learning**
+ - Data-set: collection of labeled examples $$\left(\left\{\left(\mathbf{x}_{i}, y_{i}\right)\right\}_{i=1}^{N}\right)$$
+ - 
