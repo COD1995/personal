@@ -17,7 +17,7 @@
   
   
     
-      Recurrent Neural Networks | Jue Guo
+      Markov Models and $$n$$-grams | Jue Guo
     
   
 </title>
@@ -64,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/rnn/recurrent_neural_networks/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/rnn/markov/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -126,6 +126,8 @@
 
           <!-- Other pages -->
           
+          
+            
           
             
           
@@ -305,75 +307,108 @@
 
 <!-- Always apply separation lines (scoped to article) -->
 
-
-  <!-- Numbered Headings CSS with Clearer and Colored Separation Lines -->
   <style type="text/css">
-    /* Base reset for counters */
-    body {
-      counter-reset: h1-counter;
-    }
-
     /* Heading 1 */
-    article h1 {
-      counter-increment: h1-counter;
-      counter-reset: h2-counter;
+    .post > article h1 {
       border-bottom: 4px solid #4CAF50; /* Green separation line */
-      padding-bottom: 12px; /* Increased spacing for clarity */
-      margin-bottom: 24px; /* Adjust margin to keep spacing */
-    }
-
-    article h1::before {
-      content: counter(h1-counter) ". ";
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
     }
 
     /* Heading 2 */
-    article h2 {
-      counter-increment: h2-counter;
-      counter-reset: h3-counter;
+    .post > article h2 {
       border-bottom: 3px solid #2196F3; /* Blue separation line */
-      padding-bottom: 10px; /* Adjusted spacing */
-      margin-bottom: 20px; /* Adjust margin to keep spacing */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
     }
 
-    article h2::before {
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter 3;
+    }
+
+    /* Heading 1 */
+    .post > article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      
+      /* Show h1 number */
+      
+    }
+
+    
+    .post > article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+    
+
+    /* Heading 2 */
+    .post > article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    .post > article h2::before {
       content: counter(h1-counter) "." counter(h2-counter) " ";
     }
 
     /* Heading 3 */
-    article h3 {
+    .post > article h3 {
       counter-increment: h3-counter;
       counter-reset: h4-counter;
-      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
-      padding-bottom: 8px; /* Adjusted spacing */
-      margin-bottom: 16px; /* Adjust margin to keep spacing */
     }
 
-    article h3::before {
+    .post > article h3::before {
       content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
     }
 
     /* Heading 4 */
-    article h4 {
+    .post > article h4 {
       counter-increment: h4-counter;
       counter-reset: h5-counter;
-      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
-      padding-bottom: 6px; /* Adjusted spacing */
-      margin-bottom: 12px; /* Adjust margin to keep spacing */
     }
 
-    article h4::before {
+    .post > article h4::before {
       content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
     }
 
     /* Heading 5 */
-    article h5 {
+    .post > article h5 {
       counter-increment: h5-counter;
-      border-bottom: 2px solid #FF5722; /* Orange solid line */
-      padding-bottom: 4px; /* Adjusted spacing */
-      margin-bottom: 8px; /* Adjust margin to keep spacing */
     }
 
-    article h5::before {
+    .post > article h5::before {
       content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
     }
   </style>
@@ -383,7 +418,7 @@
 <div class="post">
   <article>
     <header class="post-header">
-      <h1 class="post-title">Recurrent Neural Networks</h1>
+      <h1 class="post-title">Markov Models and $$n$$-grams</h1>
       <p class="post-description"></p>
     </header>
 
@@ -581,7 +616,7 @@ A latent autoregressive model.
 
 <h3 id="sequence-models">Sequence Models</h3>
 
-<p><strong>Joint Probability of Sequences</strong> Sequence models estimate the joint probability of an entire sequence, typically for data composed of discrete <em>tokens</em> like words. These models are often referred to as <em>language models</em> when dealing with natural language data. Language models are particularly useful for:</p>
+<p><strong>Joint Probability of Sequences</strong> <em>Sequence models</em> estimate the joint probability of an entire sequence, typically for data composed of discrete <em>tokens</em> like words. These models are often referred to as <em>language models</em> when dealing with natural language data. Language models are particularly useful for:</p>
 
 <ul>
   <li>Evaluating the likelihood of sequences (e.g., comparing naturalness of sentences in machine translation or speech recognition).</li>
@@ -595,22 +630,21 @@ A latent autoregressive model.
 <p>For discrete signals, the model must act as a probabilistic classifier, outputting a distribution over the vocabulary for the next word based on the leftward context.</p>
 
 <h4 id="markov-models">Markov Models</h4>
-<p><img class="emoji" title=":label:" alt=":label:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f3f7.png" height="20" width="20"><code class="language-plaintext highlighter-rouge">subsec_markov-models</code></p>
 
-<p>Instead of conditioning on the entire history \(x_{t-1}, \ldots, x_1\), we may limit the context to the previous \(\tau\) time steps, i.e., \(x_{t-1}, \ldots, x_{t-\tau}\). This is known as the <em>Markov condition</em>, where the future is conditionally independent of the past given the recent history. When:</p>
+<p>Instead of conditioning on the entire history \(x_{t-1}, \ldots, x_1\), we may limit the context to the previous \(\tau\) time steps (<em>without any loss in predictive power</em>), i.e., \(x_{t-1}, \ldots, x_{t-\tau}\). This is known as the <em>Markov condition</em>, where the future is conditionally independent of the past given the recent history. When:</p>
 
 <ul>
-  <li>\(\tau = 1\), it is called a <em>first-order Markov model</em>.</li>
-  <li>\(\tau = k\), it is called a <em>k\textsuperscript{th}-order Markov model</em>.</li>
+  <li>\(\tau = 1\), it is called a <em>first - order Markov model</em>.</li>
+  <li>\(\tau = k\), it is called a <em>\(k^{th}\) - order Markov model</em>.</li>
 </ul>
 
 <p>For a first-order Markov model, the factorization simplifies to:</p>
 
 \[P(x_1, \ldots, x_T) = P(x_1) \prod_{t=2}^T P(x_t \mid x_{t-1}).\]
 
-<p>Markov models are practical even if the condition is not strictly true. With real-world text, additional context improves predictions, but the marginal benefits diminish as the context length increases. Hence, many models rely on the Markov assumption for computational efficiency.</p>
+<p><em>Markov models are practical even if the condition is not strictly true.</em> With real-world text, additional context improves predictions, but the marginal benefits diminish as the context length increases. Hence, many models rely on the Markov assumption for computational efficiency.</p>
 
-<p>For discrete data like language, Markov models estimate \(P(x_t \mid x_{t-1})\) via relative frequency counts and efficiently compute the most likely sequence using dynamic programming.</p>
+<p>For discrete data like language, Markov models estimate \(P(x_t \mid x_{t-1})\) via relative frequency counts and efficiently compute the most likely sequence using <em>dynamic programming</em>.</p>
 
 <h4 id="the-order-of-decoding">The Order of Decoding</h4>
 
@@ -618,11 +652,15 @@ A latent autoregressive model.
 
 <ol>
   <li>
-<strong>Left-to-right (natural reading order)</strong>:
-\(P(x_1, \ldots, x_T) = P(x_1) \prod_{t=2}^T P(x_t \mid x_{t-1}, \ldots, x_1).\)</li>
+    <p><strong>Left-to-right (natural reading order)</strong>:</p>
+
+\[P(x_1, \ldots, x_T) = P(x_1) \prod_{t=2}^T P(x_t \mid x_{t-1}, \ldots, x_1).\]
+  </li>
   <li>
-<strong>Right-to-left</strong>:
-\(P(x_1, \ldots, x_T) = P(x_T) \prod_{t=T-1}^1 P(x_t \mid x_{t+1}, \ldots, x_T).\)</li>
+    <p><strong>Right-to-left</strong>:</p>
+
+\[P(x_1, \ldots, x_T) = P(x_T) \prod_{t=T-1}^1 P(x_t \mid x_{t+1}, \ldots, x_T).\]
+  </li>
 </ol>
 
 <p>While all orders are mathematically valid, left-to-right decoding is preferred for several reasons:</p>
@@ -630,12 +668,14 @@ A latent autoregressive model.
   <li>
 <strong>Naturalness</strong>: Matches the human reading process.</li>
   <li>
-<strong>Incrementality</strong>: Probabilities over sequences can be extended by multiplying by the conditional probability of the next token:
-\(P(x_{t+1}, \ldots, x_1) = P(x_{t}, \ldots, x_1) \cdot P(x_{t+1} \mid x_{t}, \ldots, x_1).\)</li>
+    <p><strong>Incrementality</strong>: Probabilities over sequences can be extended by multiplying by the conditional probability of the next token:</p>
+
+\[P(x_{t+1}, \ldots, x_1) = P(x_{t}, \ldots, x_1) \cdot P(x_{t+1} \mid x_{t}, \ldots, x_1).\]
+  </li>
   <li>
 <strong>Predictive Power</strong>: Predicting adjacent tokens is often more feasible than predicting tokens at arbitrary positions.</li>
   <li>
-<strong>Causal Relationships</strong>: Forward predictions (e.g., \(P(x_{t+1} \mid x_t)\)) often align with causality, whereas reverse predictions (\(P(x_t \mid x_{t+1})\)) are generally infeasible.</li>
+<strong>Causal Relationships</strong>: Forward predictions (e.g., \(P(x_{t+1} \mid x_t)\)) often align with causality, whereas reverse predictions (\(P(x_t \mid x_{t+1})\)) are generally infeasible. <em>Future does not affect present</em>.</li>
 </ul>
 
 <p>For instance, in causal systems, forward predictions might follow:</p>
@@ -644,8 +684,183 @@ A latent autoregressive model.
 
 <p>where \(\epsilon\) represents additive noise. The reverse relationship generally does not hold.</p>
 
-<p>For a more detailed exploration of causality and sequence modeling, refer to :cite:<code class="language-plaintext highlighter-rouge">Peters.Janzing.Scholkopf.2017</code>.</p>
+<p>For a more detailed exploration of causality and sequence modeling, refer to <a href="https://mitpress.mit.edu/9780262037310/elements-of-causal-inference/" rel="external nofollow noopener" target="_blank">Elements of Causal Inference</a>.</p>
 
+<h2 id="converting-raw-text-into-sequence-data">Converting Raw Text into Sequence Data</h2>
+
+<p>To make sure the input machine readable we have to do the following:</p>
+<ol>
+  <li>Load text as strings into memory.</li>
+  <li>Split the strings into tokens (e.g., words or characters).</li>
+  <li>Build a vocabulary dictionary to associate each vocabulary element with a numerical index.</li>
+  <li>Convert the text into sequences of numerical indices.</li>
+</ol>
+
+<p>To learn more about this, please read <a href="https://d2l.ai/chapter_recurrent-neural-networks/text-sequence.html" rel="external nofollow noopener" target="_blank">[9.2. Converting Raw Text into Sequence Data]</a>. The chapter is really straightforward and should have no confusion.</p>
+
+<h2 id="language-models">Language Models</h2>
+<p>Language models play a crucial role in natural language processing and generation tasks. For example, an ideal language model could generate coherent and natural text by sequentially sampling tokens according to their conditional probabilities:</p>
+
+\[x_t \sim P(x_t \mid x_{t-1}, \ldots, x_1).\]
+
+<p>In such a scenario, every token generated would resemble natural language, such as grammatically correct English. This capability would enable the model to engage in meaningful dialogue simply by conditioning its output on previous dialogue fragments. However, achieving this goal would require a model to not only generate syntactically correct text but also <em>understand</em> the underlying context and meaning, a challenge that remains unresolved.</p>
+
+<p><strong>Practical Applications</strong> Despite their limitations, language models offer immense utility in various tasks, such as:</p>
+
+<ol>
+  <li>
+    <p><strong>Speech Recognition</strong>:
+Ambiguities in phonetically similar phrases, such as “to recognize speech” and “to wreck a nice beach,” can be resolved by a language model. The model assigns higher probabilities to plausible interpretations, filtering out nonsensical outputs.</p>
+  </li>
+  <li>
+    <p><strong>Document Summarization</strong>:
+Knowing the frequency and naturalness of phrases, a language model can differentiate between:</p>
+    <ul>
+      <li>“Dog bites man” (common) and “Man bites dog” (rare).</li>
+      <li>“I want to eat grandma” (alarming) and “I want to eat, grandma” (benign).</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Language models enable systems to make contextually appropriate and semantically meaningful decisions, improving the quality of machine-generated language outputs.</p>
+
+<h3 id="learning-language-models">Learning Language Models</h3>
+
+<p>To model a document or a sequence of tokens, we start with the basic probability rules. Suppose we tokenize text data at the word level. The joint probability of a sequence of tokens \(x_1, x_2, \ldots, x_T\) can be expressed as:</p>
+
+\[P(x_1, x_2, \ldots, x_T) = \prod_{t=1}^T P(x_t \mid x_1, \ldots, x_{t-1}).\]
+
+<p>For instance, the probability of the sequence “deep learning is fun” can be written as:</p>
+
+\[\begin{aligned}
+P(\textrm{deep}, \textrm{learning}, \textrm{is}, \textrm{fun}) = &amp; \, P(\textrm{deep}) \cdot P(\textrm{learning} \mid \textrm{deep}) \\
+&amp; \cdot P(\textrm{is} \mid \textrm{deep}, \textrm{learning}) \cdot P(\textrm{fun} \mid \textrm{deep}, \textrm{learning}, \textrm{is}).
+\end{aligned}\]
+
+<h4 id="markov-models-and-n-grams">Markov Models and \(n\)-grams</h4>
+<p>By applying Markov models, we approximate sequence modeling using limited dependencies. A first-order Markov property assumes that:</p>
+
+\[P(x_{t+1} \mid x_t, \ldots, x_1) = P(x_{t+1} \mid x_t).\]
+
+<p>This allows us to simplify sequence probabilities. For example:</p>
+
+\[\begin{aligned}
+P(x_1, x_2, x_3, x_4) &amp; = P(x_1) P(x_2) P(x_3) P(x_4), \\
+P(x_1, x_2, x_3, x_4) &amp; = P(x_1) P(x_2 \mid x_1) P(x_3 \mid x_2) P(x_4 \mid x_3), \\
+P(x_1, x_2, x_3, x_4) &amp; = P(x_1) P(x_2 \mid x_1) P(x_3 \mid x_1, x_2) P(x_4 \mid x_2, x_3).
+\end{aligned}\]
+
+<p>These approximations correspond to unigram, bigram, and trigram models, respectively. <em>Note that such probabilities are language model parameters.</em></p>
+
+<h4 id="word-frequency">Word Frequency</h4>
+
+<p>Using a large training dataset (e.g., Wikipedia or Project Gutenberg), we estimate probabilities based on word frequencies. For example:</p>
+
+\[\hat{P}(\textrm{deep}) = \frac{\text{count}(\textrm{deep})}{\text{total words}},\]
+
+<p>and for word pairs:</p>
+
+\[\hat{P}(\textrm{learning} \mid \textrm{deep}) = \frac{\text{count}(\textrm{deep, learning})}{\text{count}(\textrm{deep})}.\]
+
+<p>However, estimating probabilities for rare word combinations becomes challenging as data sparsity increases.</p>
+
+<h4 id="laplace-smoothing">Laplace Smoothing</h4>
+
+<p>To handle data sparsity, we use <em>Laplace smoothing</em>, adding a small constant \(\epsilon\) to all counts:</p>
+
+\[\begin{aligned}
+\hat{P}(x) &amp; = \frac{n(x) + \epsilon/m}{n + \epsilon}, \\
+\hat{P}(x' \mid x) &amp; = \frac{n(x, x') + \epsilon \hat{P}(x')}{n(x) + \epsilon}, \\
+\hat{P}(x'' \mid x, x') &amp; = \frac{n(x, x', x'') + \epsilon \hat{P}(x'')}{n(x, x') + \epsilon}.
+\end{aligned}\]
+
+<p>Here, \(n\) is the total number of words in the training set, \(m\) is the number of unique words and \(\epsilon\) determines the degree of smoothing, where \(\epsilon = 0\) means no smoothing and \(\epsilon \to \infty\) approximates a uniform distribution.</p>
+
+<p><strong>Challenges with \(n\)-grams</strong> \(n\)-gram models face issues such as large storage requirements, inability to capture word meaning (e.g., “cat” and “feline”), and poor performance on novel sequences. Deep learning models address these shortcomings by learning contextual representations and generalizing better to unseen data.</p>
+
+<h3 id="perplexity">Perplexity</h3>
+<p>A good language model is able to predict, with high accuracy, the tokens that come next.</p>
+
+<ol>
+  <li>“It is raining outside”</li>
+  <li>“It is raining banana tree”</li>
+  <li>“It is raining piouw;kcj pwepoiut”</li>
+</ol>
+
+<p>Perplexity measures how well a language model predicts a sequence. Given a sequence of \(n\) tokens, the cross-entropy loss averaged over the sequence is:</p>
+
+\[\frac{1}{n} \sum_{t=1}^n -\log P(x_t \mid x_{t-1}, \ldots, x_1).\]
+
+<p>The <em>perplexity</em> is defined as the exponential of the average cross-entropy:</p>
+
+\[\exp\left(-\frac{1}{n} \sum_{t=1}^n \log P(x_t \mid x_{t-1}, \ldots, x_1)\right).\]
+
+<p>Interpretations:</p>
+
+<ul>
+  <li>
+<strong>Best Case</strong>: The model predicts \(P(x_t) = 1\) for all tokens. Perplexity = 1.</li>
+  <li>
+<strong>Worst Case</strong>: The model predicts \(P(x_t) = 0\) for some token. Perplexity = infinity.</li>
+  <li>
+<strong>Baseline</strong>: For uniform probability distribution over \(m\) tokens, perplexity = \(m\).</li>
+</ul>
+
+<p>Lower perplexity indicates a better language model.</p>
+
+<h3 id="partitioning-sequences">Partitioning Sequences</h3>
+
+<p>Language models process minibatches of sequences (assumption; <strong>question</strong>, how to read minibatches of input sequences and target sequences at random?). Suppose we have a dataset of token indices \(x_1, x_2, \ldots, x_T\). To prepare the data:</p>
+
+<ol>
+  <li>Partition the dataset into subsequences of length \(n\).</li>
+  <li>Introduce randomness by discarding \(d\) tokens at the beginning, where \(d \in [0, n)\).</li>
+  <li>Create \(m = \lfloor (T - d) / n \rfloor\) subsequences:
+\(\mathbf{x}_d, \mathbf{x}_{d+n}, \ldots, \mathbf{x}_{d+n(m-1)}.\)</li>
+</ol>
+
+<p>Each subsequence \(\mathbf{x}_t = [x_t, \ldots, x_{t+n-1}]\) serves as the input, and the target is the sequence shifted by one token: \(\mathbf{x}_{t+1} = [x_{t+1}, \ldots, x_{t+n}].\)</p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+
+<figure>
+  <picture>
+    <!-- Auto scaling with imagemagick -->
+    <!--
+      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
+      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
+    -->
+    
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/lang-model-data.svg" sizes="95vw"></source>
+    
+    <img src="https://d2l.ai/_images/lang-model-data.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+
+  
+</figure>
+    </div>
+</div>
+<div class="caption">
+Obtaining five pairs of input sequences and target sequences from partitioned length-5 subsequences \((n=5 \text{ and } d=2)\).
+</div>
+
+<p>Before we move on, a <em>summary</em>, Language models estimate the joint probability of a text sequence. For long sequences, \(n\) - grams provide a convenient model by truncating the dependence. However, there is a lot of structure but not enough frequency to deal efficiently with infrequent word combinations via Laplace smoothing. Thus, we will focus on neural language modeling in subsequent sections. To train language models, we can randomly sample pairs of input sequences and target sequences in minibatches. After training, we will use perplexity to measure the language model quality.</p>
+
+<p>Language models can be scaled up with increased data size, model size, and amount in training compute. Large language models can perform desired tasks by predicting output text given input text instructions.</p>
 
 
     

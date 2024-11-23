@@ -17,7 +17,7 @@
   
   
     
-      sidebar | Jue Guo
+      Recurrent Neural Network | Jue Guo
     
   
 </title>
@@ -51,6 +51,9 @@
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
+
 
 <!-- Styles -->
 
@@ -61,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/blog/tag/sidebar/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/rnn/vinilla_rnn/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -285,31 +288,151 @@
     <!-- Content -->
     <div class="container mt-5" role="main">
       
-        <div class="post">
-  <header class="post-header">
-    <h1 class="post-title">
-<i class="fa-solid fa-hashtag fa-sm"></i> sidebar</h1>
-    <p class="post-description">an archive of posts with this tag</p>
-  </header>
+        
+          <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
 
-  <article class="archive">
-    <div class="table-responsive">
-      <table class="table table-sm table-borderless">
-        
-          <tr>
-            <th scope="row">Apr 25, 2023</th>
-            <td>
-              
-                <a class="post-link" href="/personal/blog/2023/sidebar-table-of-contents/">a post with table of contents on a sidebar</a>
-              
-            </td>
-          </tr>
-        
-      </table>
-    </div>
+
+  <div class="fixed-bottom-button">
+    <a href="/personal/teaching/deeplearnig" class="btn-back-course">
+      ← Deep Learning Course Page
+    </a>
+  </div>
+
+
+<!-- Always apply separation lines (scoped to article) -->
+
+  <style type="text/css">
+    /* Heading 1 */
+    .post > article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
+    }
+
+    /* Heading 2 */
+    .post > article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter 3;
+    }
+
+    /* Heading 1 */
+    .post > article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      
+      /* Show h1 number */
+      
+    }
+
+    
+    .post > article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+    
+
+    /* Heading 2 */
+    .post > article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    .post > article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    .post > article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    .post > article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      counter-increment: h5-counter;
+    }
+
+    .post > article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
+
+
+
+<div class="post">
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">Recurrent Neural Network</h1>
+      <p class="post-description"></p>
+    </header>
+
+    
+
+
+    
+
+    
   </article>
 </div>
-
+</div>
+          </div>
+        
       
     </div>
 
@@ -368,6 +491,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->

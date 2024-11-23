@@ -77,6 +77,7 @@ Check out the [course material](#lecture-notes) under lecture notes.
   </tbody>
 </table>
 
+
 ## Grading
 
 The following is the outline of the grading: 
@@ -155,7 +156,7 @@ Below are the lecture notes. Please note that these notes are updated regularly,
       <td>
         <ul>
           <li>
-          <a href="{{ 'assets/courses/deeplearning/week_1_2/Intro' | relative_url }}">Introduction, Preliminaries & Linear Neural Network</a>
+          <a href="{{ 'assets/courses/deeplearning/week_1_2/Intro' | relative_url }}">1. Introduction, Preliminaries & Linear Neural Network</a>
           </li>
         </ul>
       </td>
@@ -177,7 +178,10 @@ Below are the lecture notes. Please note that these notes are updated regularly,
       <td>
       <ul>
         <li>
-          <a href="{{ 'assets/courses/deeplearning/rnn/recurrent_neural_networks' | relative_url }}">Recurrent Neural Network</a>
+          <a href="{{ 'assets/courses/deeplearning/rnn/markov' | relative_url }}">Markov Models and \(n\)-gram</a>
+        </li>
+        <li>
+          <a href="{{ 'assets/courses/deeplearning/rnn/vinilla_rnn' | relative_url }}">Recurrent Neural Networks</a>
         </li>
       </ul>
       </td>
