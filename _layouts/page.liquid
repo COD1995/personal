@@ -16,10 +16,48 @@ layout: default
   </div>
 {% endif %}
 
-{% if page.number_heading %}
-  <!-- Numbered Headings CSS -->
+<!-- Always apply separation lines (scoped to article) -->
+{% if page.enable_heading_styles %}
   <style type="text/css">
-    /* Include the updated CSS provided above */
+    /* Heading 1 */
+    article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px; /* Increased spacing for clarity */
+      margin-bottom: 24px; /* Adjust margin to keep spacing */
+    }
+
+    /* Heading 2 */
+    article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px; /* Adjusted spacing */
+      margin-bottom: 20px; /* Adjust margin to keep spacing */
+    }
+
+    /* Heading 3 */
+    article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px; /* Adjusted spacing */
+      margin-bottom: 16px; /* Adjust margin to keep spacing */
+    }
+
+    /* Heading 4 */
+    article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px; /* Adjusted spacing */
+      margin-bottom: 12px; /* Adjust margin to keep spacing */
+    }
+
+    /* Heading 5 */
+    article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px; /* Adjusted spacing */
+      margin-bottom: 8px; /* Adjust margin to keep spacing */
+    }
+  </style>
+{% endif %}
+{% if page.number_heading %}
+  <!-- Numbered Headings CSS with Clearer and Colored Separation Lines -->
+  <style type="text/css">
     /* Base reset for counters */
     body {
       counter-reset: h1-counter;
@@ -29,6 +67,9 @@ layout: default
     article h1 {
       counter-increment: h1-counter;
       counter-reset: h2-counter;
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px; /* Increased spacing for clarity */
+      margin-bottom: 24px; /* Adjust margin to keep spacing */
     }
 
     article h1::before {
@@ -39,6 +80,9 @@ layout: default
     article h2 {
       counter-increment: h2-counter;
       counter-reset: h3-counter;
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px; /* Adjusted spacing */
+      margin-bottom: 20px; /* Adjust margin to keep spacing */
     }
 
     article h2::before {
@@ -49,6 +93,9 @@ layout: default
     article h3 {
       counter-increment: h3-counter;
       counter-reset: h4-counter;
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px; /* Adjusted spacing */
+      margin-bottom: 16px; /* Adjust margin to keep spacing */
     }
 
     article h3::before {
@@ -59,6 +106,9 @@ layout: default
     article h4 {
       counter-increment: h4-counter;
       counter-reset: h5-counter;
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px; /* Adjusted spacing */
+      margin-bottom: 12px; /* Adjust margin to keep spacing */
     }
 
     article h4::before {
@@ -68,6 +118,9 @@ layout: default
     /* Heading 5 */
     article h5 {
       counter-increment: h5-counter;
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px; /* Adjusted spacing */
+      margin-bottom: 8px; /* Adjust margin to keep spacing */
     }
 
     article h5::before {
@@ -75,6 +128,7 @@ layout: default
     }
   </style>
 {% endif %}
+
 
 <div class="post">
   <article>

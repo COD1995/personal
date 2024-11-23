@@ -10,6 +10,7 @@ toc:
     sidebar: left
 back_link: '/teaching'
 back_text: 'Courses Page'
+enable_heading_styles: true
 ---
 <div class="course-description-box">
   <p>
@@ -34,7 +35,6 @@ Continual Learning and Graph Learning
 
 **Office Hours:** 3:00pm - 4:00pm on Friday
 
----
 ## Course Outline
 Check out the [course material](#lecture-notes) under lecture notes. 
 
@@ -76,7 +76,7 @@ Check out the [course material](#lecture-notes) under lecture notes.
     </tr>
   </tbody>
 </table>
----
+
 ## Grading
 
 The following is the outline of the grading: 
@@ -137,7 +137,6 @@ This course is **absolute** grading, meaning no curve, as there is a certain sta
 - The logistic is <span style="color:red;">subject to change</span> based on the overall pace and the performance of the class.
 
 
----
 ## Lecture Notes
 The notes are based on [Dive into Deep Learning](https://d2l.ai/). Throughout my teaching, I have noticed that students sometimes struggle with understanding the derivations in the textbook due to the omission of several steps. To address this, I have expanded the derivations and provided more detailed explanations.
 
@@ -171,6 +170,16 @@ Below are the lecture notes. Please note that these notes are updated regularly,
           <li>
           </li>
         </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>RNN</td>
+      <td>
+      <ul>
+        <li>
+          <a href="{{ 'assets/courses/deeplearning/rnn/recurrent_neural_networks' | relative_url }}">Recurrent Neural Network</a>
+        </li>
+      </ul>
       </td>
     </tr>
     <tr>

@@ -10,10 +10,10 @@ toc:
     sidebar: left
 back_link: '/teaching'
 back_text: 'Courses Page'
+enable_heading_styles: true
 ---
 	
 <div class="course-description-box">
-  <h2>Course Overview</h2>
   <p>This course is intended for SEAS Engineering graduate students who are interested in understanding the fundamental issues, challenges, and techniques that are associated with recent advances in Artificial Intelligence (AI). The course will discuss the history and properties of basic AI systems, including neural networks, machine learning, and data science, and how to build a basic machine learning and AI project, including data scrapping, data processing, etc. We will discuss the challenges of bias, security, privacy, explainability, ethical issues, and the use of context.</p>
   <p>We will learn about AI's use in applications such as image processing and computer vision, natural language processing, recommendation systems, and gaming. The course is supported by a primer on the use of Python to support homework and projects related to machine learning. The course will be a combination of lectures, discussions, activities, and projects that will prepare students without a computer science background to study and apply artificial intelligence tools and applications in a variety of different domains.</p>
   <p class="course-note">
@@ -31,7 +31,7 @@ Continual Learning and Graph Learning
 
 **Office Hours:** 3:00pm - 4:00pm on Friday
 
----
+
 ## Course Outline
 Check out the [course material](#lecture-notes) under lecture notes. 
 <table class="styled-table">
@@ -75,7 +75,6 @@ Check out the [course material](#lecture-notes) under lecture notes.
 
 
 
----
 ## Grading
 
 The following is the outline of the grading: 
@@ -147,7 +146,6 @@ The final grade will be determined based on the *overall performance* of the cla
 - The logistic is <span style="color:red;">subject to change</span> based on the overall pace and the performance of the class.
 
 
----
 ## Lecture Notes
 The lecture notes are based on [PyTorch documentation](https://pytorch.org/) and a variety of other resources related to PyTorch. They aim to provide a comprehensive and accessible explanation of key concepts, offering additional insights and examples to enhance understanding.
 

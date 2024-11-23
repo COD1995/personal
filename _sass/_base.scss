@@ -1449,6 +1449,18 @@ ninja-keys::part(ninja-input-wrapper) {
   border-radius: 4px;
 }
 
+.course-thumbnail {
+  width: 100%;
+  /* Ensure it fits the card layout */
+  height: auto;
+  /* Maintain aspect ratio */
+  display: block;
+  /* Reset block style */
+  margin: 0;
+  /* Remove centering margins */
+}
+
+
 // styled table 
 
 .styled-table {

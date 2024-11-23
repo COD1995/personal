@@ -222,6 +222,8 @@
             
           
             
+          
+            
               
                 
                 <li class="nav-item ">
@@ -299,10 +301,11 @@
   </div>
 
 
+<!-- Always apply separation lines (scoped to article) -->
 
-  <!-- Numbered Headings CSS -->
+
+  <!-- Numbered Headings CSS with Clearer and Colored Separation Lines -->
   <style type="text/css">
-    /* Include the updated CSS provided above */
     /* Base reset for counters */
     body {
       counter-reset: h1-counter;
@@ -312,6 +315,9 @@
     article h1 {
       counter-increment: h1-counter;
       counter-reset: h2-counter;
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px; /* Increased spacing for clarity */
+      margin-bottom: 24px; /* Adjust margin to keep spacing */
     }
 
     article h1::before {
@@ -322,6 +328,9 @@
     article h2 {
       counter-increment: h2-counter;
       counter-reset: h3-counter;
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px; /* Adjusted spacing */
+      margin-bottom: 20px; /* Adjust margin to keep spacing */
     }
 
     article h2::before {
@@ -332,6 +341,9 @@
     article h3 {
       counter-increment: h3-counter;
       counter-reset: h4-counter;
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px; /* Adjusted spacing */
+      margin-bottom: 16px; /* Adjust margin to keep spacing */
     }
 
     article h3::before {
@@ -342,6 +354,9 @@
     article h4 {
       counter-increment: h4-counter;
       counter-reset: h5-counter;
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px; /* Adjusted spacing */
+      margin-bottom: 12px; /* Adjust margin to keep spacing */
     }
 
     article h4::before {
@@ -351,12 +366,16 @@
     /* Heading 5 */
     article h5 {
       counter-increment: h5-counter;
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px; /* Adjusted spacing */
+      margin-bottom: 8px; /* Adjust margin to keep spacing */
     }
 
     article h5::before {
       content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
     }
   </style>
+
 
 
 <div class="post">
@@ -387,12 +406,21 @@
     
       <source class="responsive-img-srcset" srcset="https://i.imgur.com/tamo2Hw-480.webp 480w,https://i.imgur.com/tamo2Hw-800.webp 800w,https://i.imgur.com/tamo2Hw-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="https://i.imgur.com/tamo2Hw.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <img src="https://i.imgur.com/tamo2Hw.png" class="img-fluid rounded z-depth-1" style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
 </figure>
-
     </div>
 </div>
 
@@ -438,12 +466,21 @@
     
       <source class="responsive-img-srcset" srcset="https://i.imgur.com/2a3uuEK-480.webp 480w,https://i.imgur.com/2a3uuEK-800.webp 800w,https://i.imgur.com/2a3uuEK-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="https://i.imgur.com/2a3uuEK.png" class="img-fluid rounded z-depth-1" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <img src="https://i.imgur.com/2a3uuEK.png" class="img-fluid rounded z-depth-1" style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
 </figure>
-
     </div>
 </div>
 
@@ -464,12 +501,21 @@
     
       <source class="responsive-img-srcset" srcset="https://i.imgur.com/XYxUdWj-480.webp 480w,https://i.imgur.com/XYxUdWj-800.webp 800w,https://i.imgur.com/XYxUdWj-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="https://i.imgur.com/XYxUdWj.png" class="img-fluid rounded" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <img src="https://i.imgur.com/XYxUdWj.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
 </figure>
-
     </div>
     <div class="col-sm mt-3 mt-md-0">
         
@@ -486,12 +532,21 @@
     
       <source class="responsive-img-srcset" srcset="https://i.imgur.com/PyZ9SuN-480.webp 480w,https://i.imgur.com/PyZ9SuN-800.webp 800w,https://i.imgur.com/PyZ9SuN-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="https://i.imgur.com/PyZ9SuN.png" class="img-fluid rounded" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <img src="https://i.imgur.com/PyZ9SuN.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
 </figure>
-
     </div>
 </div>
 
@@ -526,12 +581,21 @@
     
       <source class="responsive-img-srcset" srcset="https://i.imgur.com/ljOLzhP-480.webp 480w,https://i.imgur.com/ljOLzhP-800.webp 800w,https://i.imgur.com/ljOLzhP-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="https://i.imgur.com/ljOLzhP.png" class="img-fluid rounded " width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <img src="https://i.imgur.com/ljOLzhP.png" class="img-fluid rounded " style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
 </figure>
-
     </div>
 </div>
 
@@ -552,12 +616,21 @@
     
       <source class="responsive-img-srcset" srcset="https://i.imgur.com/9sOnyhU-480.webp 480w,https://i.imgur.com/9sOnyhU-800.webp 800w,https://i.imgur.com/9sOnyhU-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="https://i.imgur.com/9sOnyhU.png" class="img-fluid rounded" width="100%" height="auto" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+    <img src="https://i.imgur.com/9sOnyhU.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px; /* Fixed maximum width */
+          
+          height: auto; /* Maintain aspect ratio */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
 </figure>
-
     </div>
 </div>
 
@@ -591,7 +664,7 @@
       Guo. 
       
       
-        Last updated: November 20, 2024.
+        Last updated: November 23, 2024.
       
     </div>
   </footer>

@@ -17,12 +17,13 @@
   
   
     
-      project 5 | Jue Guo
+      Recurrent Neural Networks | Jue Guo
     
   
 </title>
 <meta name="author" content="Jue Guo">
-<meta name="description" content="a project with a background image">
+<meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -50,6 +51,9 @@
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
+
 
 <!-- Styles -->
 
@@ -60,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%E2%9A%9B%EF%B8%8F&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/projects/5_project/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/rnn/recurrent_neural_networks/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -220,6 +224,8 @@
             
           
             
+          
+            
               
                 
                 <li class="nav-item ">
@@ -281,36 +287,112 @@
     <div class="container mt-5" role="main">
       
         
+          <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
 
+
+  <div class="fixed-bottom-button">
+    <a href="/personal/teaching/deeplearnig" class="btn-back-course">
+      ← Deep Learning Course Page
+    </a>
+  </div>
 
 
 <!-- Always apply separation lines (scoped to article) -->
 
+
+  <!-- Numbered Headings CSS with Clearer and Colored Separation Lines -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter;
+    }
+
+    /* Heading 1 */
+    article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px; /* Increased spacing for clarity */
+      margin-bottom: 24px; /* Adjust margin to keep spacing */
+    }
+
+    article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+
+    /* Heading 2 */
+    article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px; /* Adjusted spacing */
+      margin-bottom: 20px; /* Adjust margin to keep spacing */
+    }
+
+    article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px; /* Adjusted spacing */
+      margin-bottom: 16px; /* Adjust margin to keep spacing */
+    }
+
+    article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px; /* Adjusted spacing */
+      margin-bottom: 12px; /* Adjust margin to keep spacing */
+    }
+
+    article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    article h5 {
+      counter-increment: h5-counter;
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px; /* Adjusted spacing */
+      margin-bottom: 8px; /* Adjust margin to keep spacing */
+    }
+
+    article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
 
 
 
 <div class="post">
   <article>
     <header class="post-header">
-      <h1 class="post-title">project 5</h1>
-      <p class="post-description">a project with a background image</p>
+      <h1 class="post-title">Recurrent Neural Networks</h1>
+      <p class="post-description"></p>
     </header>
 
-    <p>Every project has a beautiful feature showcase page.
-It’s easy to include images in a flexible 3-column grid format.
-Make your photos 1/3, 2/3, or full width.</p>
+    <p>Models like linear/ logistic regression, multilayer perceptrons (MLPs) and convolutional neural networks (CNNs) operate on fixed-length input (tabular or image data) without sequential structure. <em><u>What is a sequential data?</u></em> Tasks like video analysis, time-series prediction, image captioning, speech synthesis, and translation involve sequentially structured inputs and outputs, requiring specialized models.</p>
 
-<p>To give your project a background in the portfolio page, just add the img tag to the front matter like so:</p>
+<h2 id="introduction">Introduction</h2>
+<p>RNNs are designed to capture the dynamics of sequences through <em>recurrent connections</em> that pass information across adjacent time steps. Recurrent neural networks are <em>unrolled</em> across time steps (or sequence steps), with the <em>same</em> underlying parameters applied at each step.</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>---
-layout: page
-title: project
-description: a project with a background image
-img: /assets/img/12.jpg
----
-</code></pre></div></div>
-
-<div class="row">
+<div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         
 
@@ -324,9 +406,9 @@ img: /assets/img/12.jpg
       https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
     -->
     
-      <source class="responsive-img-srcset" srcset="/personal/assets/img/1-480.webp 480w,/personal/assets/img/1-800.webp 800w,/personal/assets/img/1-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/unfolded-rnn.svg" sizes="95vw"></source>
     
-    <img src="/personal/assets/img/1.jpg" class="img-fluid rounded z-depth-1" style="
+    <img src="https://d2l.ai/_images/unfolded-rnn.svg" class="img-fluid rounded" style="
         
           
             max-width: 500px; /* Fixed maximum width */
@@ -336,69 +418,7 @@ img: /assets/img/12.jpg
           margin-left: auto;
           margin-right: auto;
         
-      " title="example image" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-
-  
-</figure>
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        
-
-
-
-<figure>
-  <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="/personal/assets/img/3-480.webp 480w,/personal/assets/img/3-800.webp 800w,/personal/assets/img/3-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
-    
-    <img src="/personal/assets/img/3.jpg" class="img-fluid rounded z-depth-1" style="
-        
-          
-            max-width: 500px; /* Fixed maximum width */
-          
-          height: auto; /* Maintain aspect ratio */
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " title="example image" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-
-  
-</figure>
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        
-
-
-
-<figure>
-  <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="/personal/assets/img/5-480.webp 480w,/personal/assets/img/5-800.webp 800w,/personal/assets/img/5-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
-    
-    <img src="/personal/assets/img/5.jpg" class="img-fluid rounded z-depth-1" style="
-        
-          
-            max-width: 500px; /* Fixed maximum width */
-          
-          height: auto; /* Maintain aspect ratio */
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " title="example image" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
@@ -406,9 +426,50 @@ img: /assets/img/12.jpg
     </div>
 </div>
 <div class="caption">
-    Caption photos easily. On the left, a road goes through a tunnel. Middle, leaves artistically fall in a hipster photoshoot. Right, in another hipster photoshoot, a lumberjack grasps a handful of pine needles.
+    RNNs can be visualized as feedforward neural networks where parameters are shared across time steps. On the left recurrent connections are depicted via cyclic edges. On the right, we unfold the RNN over time steps. Here, recurrent edges span adjacent time steps, while conventional connections are computed synchronously.
 </div>
-<div class="row">
+
+<p>RNNs have achieved breakthroughs in tasks like handwritting recognition, translation, and medical diagosis but have been partly replaced by Transformer models.</p>
+
+<h2 id="working-with-sequences">Working with Sequences</h2>
+
+<p><strong>Shift in Perspective</strong>  Traditional models work with a single feature vector \(\mathbf{x} \in \mathbb{R}^{d}\). Sequence models handle ordered lists of feature vectors: \(\mathbf{x}_{1}, \ldots, \mathbf{x}_{T}\), where each vector \(\mathbf{x}_{t} \in \mathbb{R}^{d}\) is indexed by time step \(t \in \mathbb{Z}^{+}\).</p>
+
+<p><strong>Sequential Data</strong>  Some datasets consist of one long sequence (e.g., climate sensor data), sampled into subsequences of length \(T\).<br>
+More commonly, data arrive as multiple sequences (e.g., documents, patient stays), where each sequence has its own length \(T_{i}\).<br>
+Unlike independent feature vectors, elements within a sequence are dependent:</p>
+<ul>
+  <li>Later words in a document depend on earlier ones.</li>
+  <li>A patient’s medication depends on prior events.</li>
+</ul>
+
+<p><strong>Sequential Dependence</strong>  Sequences reflect patterns that make auto-fill features and predictions possible.<br>
+Sequences are modeled as samples from a fixed underlying distribution over entire sequences, \(P(X_{1}, \dots, X_{T})\), rather than assuming independence or stationarity.</p>
+
+<p><strong>Examples of Sequential Tasks</strong></p>
+<ol>
+  <li>
+<strong>Fixed input to fixed target</strong>: Predict a label \(y\) from a sequence (e.g., sentiment classification).</li>
+  <li>
+<strong>Fixed input to sequential target</strong>: Predict \((y_{1}, \ldots, y_{T})\) from an input (e.g., image captioning).</li>
+  <li>
+<strong>Sequential input to sequential target</strong>:
+    <ul>
+      <li>
+<em>Aligned</em>: Input at each step aligns with the target (e.g., part-of-speech tagging).</li>
+      <li>
+<em>Unaligned</em>: No step-wise correspondence (e.g., machine translation).</li>
+    </ul>
+  </li>
+</ol>
+
+<p><strong>Sequence Modeling</strong> The simplest task is <strong>unsupervised density modeling</strong>:  Estimate \(p(\mathbf{x}_{1}, \ldots, \mathbf{x}_{T})\), the likelihood of a sequence, where the probability reflects the joint likelihood of the sequence elements based on their relationships. This is useful for understanding and generating sequences.</p>
+
+<h3 id="autoregressive-models">Autoregressive Models</h3>
+
+<p><strong>Sequence Data</strong>  Autoregressive models analyze sequentially structured data. Consider stock prices like those in the FTSE 100 index: \(x_t, x_{t-1}, \ldots, x_1,\) where each \(x_t\) represents the price at time \(t\). The goal is to predict the next value \(x_t\) based on its history.</p>
+
+<div class="row mt-3">
     <div class="col-sm mt-3 mt-md-0">
         
 
@@ -422,9 +483,9 @@ img: /assets/img/12.jpg
       https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
     -->
     
-      <source class="responsive-img-srcset" srcset="/personal/assets/img/5-480.webp 480w,/personal/assets/img/5-800.webp 800w,/personal/assets/img/5-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/ftse100-480.webp 480w,https://d2l.ai/_images/ftse100-800.webp 800w,https://d2l.ai/_images/ftse100-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
     
-    <img src="/personal/assets/img/5.jpg" class="img-fluid rounded z-depth-1" style="
+    <img src="https://d2l.ai/_images/ftse100.png" class="img-fluid rounded" style="
         
           
             max-width: 500px; /* Fixed maximum width */
@@ -434,7 +495,7 @@ img: /assets/img/12.jpg
           margin-left: auto;
           margin-right: auto;
         
-      " title="example image" loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
@@ -442,15 +503,45 @@ img: /assets/img/12.jpg
     </div>
 </div>
 <div class="caption">
-    This image can also have a caption. It's like magic.
+FTSE 100 index over about 30 years.
 </div>
 
-<p>You can also put regular text between your rows of images.
-Say you wanted to write a little bit about your project before you posted the rest of the images.
-You describe how you toiled, sweated, <em>bled</em> for your project, and then… you reveal its glory in the next row of images.</p>
+<p><strong>Modeling Sequential Data</strong> Given a sequence, the trader wants to estimate the conditional distribution:</p>
 
-<div class="row justify-content-sm-center">
-    <div class="col-sm-8 mt-3 mt-md-0">
+\[P(x_t \mid x_{t-1}, \ldots, x_1),\]
+
+<p>focusing on key statistics like the expected value:</p>
+
+\[\mathbb{E}[x_t \mid x_{t-1}, \ldots, x_1].\]
+
+<p>Autoregressive models perform this task by regressing \(x_t\) onto previous values \(x_{t-1}, \ldots, x_1\). However, the challenge lies in the <em>variable input size</em>, as the number of inputs grows with \(t\).</p>
+
+<p><strong>Strategies for Fixed-Length Inputs</strong></p>
+<ol>
+  <li>
+    <p><strong>Windowing</strong>: Instead of using the full history, consider only a window of size \(\tau\):</p>
+
+\[x_{t-1}, \ldots, x_{t-\tau}.\]
+
+    <p>This reduces the number of inputs to a fixed size for \(t &gt; \tau\), enabling the use of models like linear regression or neural networks.</p>
+  </li>
+  <li>
+    <p><strong>Latent State Representations</strong>: Maintain a latent summary \(h_t\) of past observations.</p>
+
+    <ul>
+      <li>
+        <p>Predict \(x_t\) using: \(\hat{x}_t = P(x_t \mid h_t).\)</p>
+      </li>
+      <li>
+        <p>Update the latent state with: \(h_t = g(h_{t-1}, x_{t-1}).\)</p>
+      </li>
+    </ul>
+
+    <p>This approach creates <em>latent autoregressive models</em>, as \(h_t\) is not directly observed.</p>
+  </li>
+</ol>
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
         
 
 
@@ -463,9 +554,9 @@ You describe how you toiled, sweated, <em>bled</em> for your project, and then�
       https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
     -->
     
-      <source class="responsive-img-srcset" srcset="/personal/assets/img/6-480.webp 480w,/personal/assets/img/6-800.webp 800w,/personal/assets/img/6-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
+      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/sequence-model.svg" sizes="95vw"></source>
     
-    <img src="/personal/assets/img/6.jpg" class="img-fluid rounded z-depth-1" style="
+    <img src="https://d2l.ai/_images/sequence-model.svg" class="img-fluid rounded" style="
         
           
             max-width: 500px; /* Fixed maximum width */
@@ -475,38 +566,7 @@ You describe how you toiled, sweated, <em>bled</em> for your project, and then�
           margin-left: auto;
           margin-right: auto;
         
-      " title="example image" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-
-  
-</figure>
-    </div>
-    <div class="col-sm-4 mt-3 mt-md-0">
-        
-
-
-
-<figure>
-  <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="/personal/assets/img/11-480.webp 480w,/personal/assets/img/11-800.webp 800w,/personal/assets/img/11-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
-    
-    <img src="/personal/assets/img/11.jpg" class="img-fluid rounded z-depth-1" style="
-        
-          
-            max-width: 500px; /* Fixed maximum width */
-          
-          height: auto; /* Maintain aspect ratio */
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " title="example image" loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
 
   
@@ -514,23 +574,77 @@ You describe how you toiled, sweated, <em>bled</em> for your project, and then�
     </div>
 </div>
 <div class="caption">
-    You can also have artistically styled 2/3 + 1/3 images, like these.
+A latent autoregressive model.
 </div>
 
-<p>The code is simple.
-Just wrap your images with <code class="language-plaintext highlighter-rouge">&lt;div class="col-sm"&gt;</code> and place them inside <code class="language-plaintext highlighter-rouge">&lt;div class="row"&gt;</code> (read more about the <a href="https://getbootstrap.com/docs/4.4/layout/grid/" rel="external nofollow noopener" target="_blank">Bootstrap Grid</a> system).
-To make images responsive, add <code class="language-plaintext highlighter-rouge">img-fluid</code> class to each; for rounded corners and shadows use <code class="language-plaintext highlighter-rouge">rounded</code> and <code class="language-plaintext highlighter-rouge">z-depth-1</code> classes.
-Here’s the code for the last row of images above:</p>
+<p><strong>Training Data and Stationarity</strong> Training data is often constructed by sampling fixed-length windows from historical data. Even though the specific values \(x_t\) may change, the underlying generation process is often assumed to be stationary, meaning the dynamics of \(P(x_t \mid x_{t-1}, \ldots, x_1)\) remain consistent over time.</p>
 
-<div class="language-html highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"row justify-content-sm-center"</span><span class="nt">&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-8 mt-3 mt-md-0"</span><span class="nt">&gt;</span>
-    {% include figure.liquid path="assets/img/6.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  <span class="nt">&lt;/div&gt;</span>
-  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"col-sm-4 mt-3 mt-md-0"</span><span class="nt">&gt;</span>
-    {% include figure.liquid path="assets/img/11.jpg" title="example image" class="img-fluid rounded z-depth-1" %}
-  <span class="nt">&lt;/div&gt;</span>
-<span class="nt">&lt;/div&gt;</span>
-</code></pre></div></div>
+<h3 id="sequence-models">Sequence Models</h3>
+
+<p><strong>Joint Probability of Sequences</strong> Sequence models estimate the joint probability of an entire sequence, typically for data composed of discrete <em>tokens</em> like words. These models are often referred to as <em>language models</em> when dealing with natural language data. Language models are particularly useful for:</p>
+
+<ul>
+  <li>Evaluating the likelihood of sequences (e.g., comparing naturalness of sentences in machine translation or speech recognition).</li>
+  <li>Sampling sequences and optimizing for the most likely outcomes.</li>
+</ul>
+
+<p>The joint probability of a sequence \(P(x_1, \ldots, x_T)\) can be decomposed using the chain rule of probability into conditional densities:</p>
+
+\[P(x_1, \ldots, x_T) = P(x_1) \prod_{t=2}^T P(x_t \mid x_{t-1}, \ldots, x_1).\]
+
+<p>For discrete signals, the model must act as a probabilistic classifier, outputting a distribution over the vocabulary for the next word based on the leftward context.</p>
+
+<h4 id="markov-models">Markov Models</h4>
+<p><img class="emoji" title=":label:" alt=":label:" src="https://github.githubassets.com/images/icons/emoji/unicode/1f3f7.png" height="20" width="20"><code class="language-plaintext highlighter-rouge">subsec_markov-models</code></p>
+
+<p>Instead of conditioning on the entire history \(x_{t-1}, \ldots, x_1\), we may limit the context to the previous \(\tau\) time steps, i.e., \(x_{t-1}, \ldots, x_{t-\tau}\). This is known as the <em>Markov condition</em>, where the future is conditionally independent of the past given the recent history. When:</p>
+
+<ul>
+  <li>\(\tau = 1\), it is called a <em>first-order Markov model</em>.</li>
+  <li>\(\tau = k\), it is called a <em>k\textsuperscript{th}-order Markov model</em>.</li>
+</ul>
+
+<p>For a first-order Markov model, the factorization simplifies to:</p>
+
+\[P(x_1, \ldots, x_T) = P(x_1) \prod_{t=2}^T P(x_t \mid x_{t-1}).\]
+
+<p>Markov models are practical even if the condition is not strictly true. With real-world text, additional context improves predictions, but the marginal benefits diminish as the context length increases. Hence, many models rely on the Markov assumption for computational efficiency.</p>
+
+<p>For discrete data like language, Markov models estimate \(P(x_t \mid x_{t-1})\) via relative frequency counts and efficiently compute the most likely sequence using dynamic programming.</p>
+
+<h4 id="the-order-of-decoding">The Order of Decoding</h4>
+
+<p>The factorization of a sequence can follow any order (e.g., left-to-right or right-to-left):</p>
+
+<ol>
+  <li>
+<strong>Left-to-right (natural reading order)</strong>:
+\(P(x_1, \ldots, x_T) = P(x_1) \prod_{t=2}^T P(x_t \mid x_{t-1}, \ldots, x_1).\)</li>
+  <li>
+<strong>Right-to-left</strong>:
+\(P(x_1, \ldots, x_T) = P(x_T) \prod_{t=T-1}^1 P(x_t \mid x_{t+1}, \ldots, x_T).\)</li>
+</ol>
+
+<p>While all orders are mathematically valid, left-to-right decoding is preferred for several reasons:</p>
+<ul>
+  <li>
+<strong>Naturalness</strong>: Matches the human reading process.</li>
+  <li>
+<strong>Incrementality</strong>: Probabilities over sequences can be extended by multiplying by the conditional probability of the next token:
+\(P(x_{t+1}, \ldots, x_1) = P(x_{t}, \ldots, x_1) \cdot P(x_{t+1} \mid x_{t}, \ldots, x_1).\)</li>
+  <li>
+<strong>Predictive Power</strong>: Predicting adjacent tokens is often more feasible than predicting tokens at arbitrary positions.</li>
+  <li>
+<strong>Causal Relationships</strong>: Forward predictions (e.g., \(P(x_{t+1} \mid x_t)\)) often align with causality, whereas reverse predictions (\(P(x_t \mid x_{t+1})\)) are generally infeasible.</li>
+</ul>
+
+<p>For instance, in causal systems, forward predictions might follow:</p>
+
+\[x_{t+1} = f(x_t) + \epsilon,\]
+
+<p>where \(\epsilon\) represents additive noise. The reverse relationship generally does not hold.</p>
+
+<p>For a more detailed exploration of causality and sequence modeling, refer to :cite:<code class="language-plaintext highlighter-rouge">Peters.Janzing.Scholkopf.2017</code>.</p>
 
 
 
@@ -539,7 +653,9 @@ Here’s the code for the last row of images above:</p>
     
   </article>
 </div>
-
+</div>
+          </div>
+        
       
     </div>
 
@@ -598,6 +714,9 @@ Here’s the code for the last row of images above:</p>
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->
