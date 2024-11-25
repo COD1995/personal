@@ -1,34 +1,10 @@
-{% assign img_path = include.path | remove: '.jpg' | remove: '.jpeg' | remove: '.png' | remove: '.tiff' | remove: '.gif' %}
-{% assign parts = include.path | split: '.' %}
-{% assign ext = parts.last %}
+{% if page.figure_counter == null %}
+  {% assign page.figure_counter = 0 %}
+{% endif %}
+{% assign page.figure_counter = page.figure_counter | plus: 1 %}
 
-<figure
-  {% if include.slot %}
-    slot="{{ include.slot }}"
-  {% endif %}
->
+<figure id="{{ include.id | default: 'figure-' | append: page.figure_counter }}">
   <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    {% if site.imagemagick.enabled %}
-      <source
-        class="responsive-img-srcset"
-        {% if ext == 'gif' or ext == 'jpeg' or ext == 'jpg' or ext == 'png' or ext == 'tiff' %}
-          srcset="{% for i in site.imagemagick.widths %}{{ img_path | relative_url }}-{{ i }}.webp {{ i }}w,{% endfor %}"
-          type="image/webp"
-        {% else %}
-          srcset="{{ include.path | relative_url }}"
-        {% endif %}
-        {% if include.sizes %}
-          sizes="{{ include.sizes }}"
-        {% else %}
-          sizes="95vw"
-        {% endif %}
-      >
-    {% endif %}
     <img
       src="{% if include.url %}{{ include.url }}{% elsif include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
       {% if include.class %}
@@ -41,9 +17,9 @@
           {% if include.width %}
             width: {{ include.width }};
           {% else %}
-            max-width: 500px; /* Fixed maximum width */
+            max-width: 500px;
           {% endif %}
-          height: auto; /* Maintain aspect ratio */
+          height: auto;
           display: block;
           margin-left: auto;
           margin-right: auto;
@@ -66,8 +42,9 @@
       onerror="this.onerror=null; $('.responsive-img-srcset').remove();"
     />
   </picture>
-
   {% if include.caption %}
-    <figcaption class="caption">{{ include.caption }}</figcaption>
+    <figcaption class="caption">
+      Figure {{ page.figure_counter }}: {{ include.caption }}
+    </figcaption>
   {% endif %}
 </figure>

@@ -355,7 +355,7 @@
   <style type="text/css">
     /* Base reset for counters */
     body {
-      counter-reset: h1-counter 3;
+      counter-reset: h1-counter 4;
     }
 
     /* Heading 1 */
@@ -422,7 +422,156 @@
       <p class="post-description"></p>
     </header>
 
-    
+    <p><strong>Extending Beyond \(n\)-grams</strong> In <a href="/personal/assets/courses/deeplearning/rnn/markov">Markov Models and n-grams</a>, we introduced Markov models and \(n\)-grams for language modeling, where the conditional probability of a token \(x_t\) at time step \(t\) depends only on the previous \(n-1\) tokens. To account for tokens occurring earlier than \(t-(n-1)\), we could increase \(n\). However, this approach comes at a \(\textcolor{red}{\text{significant cost}}\)
+—model parameters grow exponentially with \(n\), as we need to store \(|\mathcal{V}|^{n}\) parameters for a vocabulary set \(\mathcal{V}\). Instead of modeling:</p>
+
+\[P(x_t \mid x_{t-1}, \ldots, x_{t-n+1}),\]
+
+<p>we can introduce a <em>latent variable model</em>:</p>
+
+\[P(x_t \mid x_{t-1}, \ldots, x_1) \approx P(x_t \mid h_{t-1}),\]
+
+<p>where \(h_{t-1}\) is a <em>hidden state</em> that captures all relevant sequence information up to time step \(t-1\).</p>
+
+<p><strong>Hidden State Representation</strong> The hidden state \(h_t\) at any time step \(t\) is computed as a function of the current input \(x_t\) and the previous hidden state \(h_{t-1}\):</p>
+
+<p>\begin{equation}
+\label{eq:eq_ht_xt} h_t = f(x_t, h_{t-1}). 
+\end{equation}</p>
+
+<p>For a sufficiently expressive function \(f\) in eq.\eqref{eq:eq_ht_xt}, the latent variable model can, in principle, capture all information observed so far, eliminating the need for approximation. However, storing all past information can make computation and storage infeasible.</p>
+
+<p><strong>Distinction Between Hidden Layers and Hidden States</strong> <em>Hidden layers</em> refer to intermediate layers in a neural network that are not directly exposed to input or output. In contrast, <em>hidden states</em> in the context of sequence modeling are technically inputs to the computation at any given time step. Hidden states encapsulate information from past time steps and are crucial for modeling sequences.</p>
+
+<p><strong>Recurrent Neural Network</strong> Recurrent Neural Networks (RNNs) are a class of neural networks designed specifically for sequential data, incorporating <em>hidden states</em> to capture dependencies over time. Before delving into the RNN architecture, let us revisit the foundational concept of Multilayer Perceptrons (MLPs).</p>
+
+<h2 id="neural-networks-without-hidden-states">Neural Networks without Hidden States</h2>
+<p>Let’s take a look at an MLP with a single hidden layer.  Let the hidden layer’s activation function be \(\phi\). Given a minibatch of examples \(\mathbf{X} \in \mathbb{R}^{n \times d}\) with batch size \(n\) and \(d\) inputs, the hidden layer output \(\mathbf{H} \in \mathbb{R}^{n \times h}\) is calculated as:</p>
+
+<p>\begin{equation}\label{eq:rnn_h_with_state}
+\mathbf{H}=\phi\left(\mathbf{X} \mathbf{W}_{\mathrm{xh}}+\mathbf{b}_\mathrm{h}\right)
+\end{equation}</p>
+
+<p>In eq.\eqref{eq:rnn_h_with_state}, we have:</p>
+<ul>
+  <li>Weight parameter \(\mathbf{W}_{\textrm{xh}} \in \mathbb{R}^{d \times h}\),</li>
+  <li>Bias parameter \(\mathbf{b}_\textrm{h} \in \mathbb{R}^{1 \times h}\),</li>
+  <li>Number of hidden units \(h\) for the hidden layer.</li>
+</ul>
+
+<p>The hidden layer output \(\mathbf{H}\) is then used as input to the output layer:</p>
+
+<p>\begin{equation}
+\mathbf{O} = \mathbf{H} \mathbf{W}_{\textrm{hq}} + \mathbf{b}_\textrm{q},
+\end{equation}</p>
+
+<p>where:</p>
+<ul>
+  <li>\(\mathbf{O} \in \mathbb{R}^{n \times q}\) is the output variable,</li>
+  <li>\(\mathbf{W}_{\textrm{hq}} \in \mathbb{R}^{h \times q}\) is the weight parameter,</li>
+  <li>\(\mathbf{b}_\textrm{q} \in \mathbb{R}^{1 \times q}\) is the bias parameter of the output layer.</li>
+</ul>
+
+<p>For classification problems, we can apply \(\mathrm{softmax}(\mathbf{O})\) to compute the probability distribution of the output categories.</p>
+
+<h2 id="recurrent-neural-networks-with-hidden-states">Recurrent Neural Networks with Hidden States</h2>
+<p>RNNs differ from MLPs by incorporating <em>hidden states</em>. Assume we have:</p>
+<ul>
+  <li>A minibatch of inputs \(\mathbf{X}_t \in \mathbb{R}^{n \times d}\) at time step \(t\),</li>
+  <li>Hidden state \(\mathbf{H}_t \in \mathbb{R}^{n \times h}\) for the same time step.</li>
+</ul>
+
+<p>Unlike MLPs, the hidden state \(\mathbf{H}_{t-1}\) from the previous time step is saved, and a new weight parameter \(\mathbf{W}_{\textrm{hh}} \in \mathbb{R}^{h \times h}\) describes how to use it in the current time step. Specifically, the hidden state for time step \(t\) is calculated as:</p>
+
+<p>\begin{equation}
+\mathbf{H}_t = \phi(\mathbf{X}_t \mathbf{W}_{\textrm{xh}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hh}} + \mathbf{b}_\textrm{h}).
+\label{rnn_h_with_state}
+\end{equation}</p>
+
+<p>In \eqref{rnn_h_with_state}, the term \(\mathbf{H}_{t-1} \mathbf{W}\_{\textrm{hh}}\) introduces recurrent computation. This allows \(\mathbf{H}_t\) to capture historical sequence information, making it a <em>hidden state</em>. Layers performing this recurrent computation are called <em>recurrent layers</em>.</p>
+
+<p>The output layer computes the output for time step \(t\) as:</p>
+
+<p>\begin{equation}
+\mathbf{O}_t = \mathbf{H}_t \mathbf{W}_{\textrm{hq}} + \mathbf{b}_\textrm{q}.
+\end{equation}</p>
+
+<p>The parameters of an RNN include:</p>
+<ul>
+  <li>Weights: \(\mathbf{W}_{\textrm{xh}} \in \mathbb{R}^{d \times h}, \mathbf{W}_{\textrm{hh}} \in \mathbb{R}^{h \times h}, \mathbf{W}_{\textrm{hq}} \in \mathbb{R}^{h \times q}\),</li>
+  <li>Biases: \(\mathbf{b}_\textrm{h} \in \mathbb{R}^{1 \times h}, \mathbf{b}_\textrm{q} \in \mathbb{R}^{1 \times q}\).</li>
+</ul>
+
+<p>Unlike MLPs, RNN parameters are shared across all time steps, meaning the model’s size does not increase with sequence length.</p>
+
+<p><strong>RNN Computation at Ajacent Time Steps</strong> Fig.<a href="#rnn">1</a> illustrates an RNN across three adjacent time steps. At any time step \(t\):</p>
+<ol>
+  <li>Concatenate \(\mathbf{X}_t\) (current input) and \(\mathbf{H}_{t-1}\) (previous hidden state),</li>
+  <li>Pass the concatenated result into a fully connected layer with activation \(\phi\) to compute \(\mathbf{H}_t\).</li>
+</ol>
+
+<p>The hidden state \(\mathbf{H}_t\) is used for:</p>
+<ul>
+  <li>Computing \(\mathbf{H}_{t+1}\) in the next time step,</li>
+  <li>Producing the output \(\mathbf{O}_t\).</li>
+</ul>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+
+
+<figure id="rnn1">
+  <picture>
+    <img src="https://d2l.ai/_images/rnn.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 1: An RNN with a hidden state.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Efficient Computation with Concatenation</strong> We can compute \(\mathbf{X}_t \mathbf{W}_{\textrm{xh}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hh}}\) equivalently as a single matrix multiplication. Concatenate \(\mathbf{X}_t\) and \(\mathbf{H}_{t-1}\), and multiply it by the concatenated weights \([\mathbf{W}_{\textrm{xh}}, \mathbf{W}_{\textrm{hh}}]\). The following Python snippet demonstrates this:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># Shape: (3, 1)
+</span><span class="n">W_xh</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># Shape: (1, 4)
+</span><span class="n">H</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># Shape: (3, 4)
+</span><span class="n">W_hh</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">((</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># Shape: (4, 4)
+</span>
+<span class="c1"># Compute hidden state
+</span><span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">W_xh</span><span class="p">)</span> <span class="o">+</span> <span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">H</span><span class="p">,</span> <span class="n">W_hh</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># Output shape: (3, 4)
+</span></code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor<span class="o">([[</span> 1.2526,  0.0580, <span class="nt">-3</span>.3460, <span class="nt">-0</span>.2519],
+        <span class="o">[</span><span class="nt">-1</span>.3064,  1.4132, <span class="nt">-0</span>.1435,  0.3482],
+        <span class="o">[</span> 3.1495,  0.8172,  1.5167, <span class="nt">-0</span>.9038]]<span class="o">)</span>
+</code></pre></div></div>
+<p><em>equivalent to</em></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">cat</span><span class="p">((</span><span class="n">X</span><span class="p">,</span> <span class="n">H</span><span class="p">),</span> <span class="mi">1</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">cat</span><span class="p">((</span><span class="n">W_xh</span><span class="p">,</span> <span class="n">W_hh</span><span class="p">),</span> <span class="mi">0</span><span class="p">))</span>
+</code></pre></div></div>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor<span class="o">([[</span> 1.2526,  0.0580, <span class="nt">-3</span>.3460, <span class="nt">-0</span>.2519],
+        <span class="o">[</span><span class="nt">-1</span>.3064,  1.4132, <span class="nt">-0</span>.1435,  0.3482],
+        <span class="o">[</span> 3.1495,  0.8172,  1.5167, <span class="nt">-0</span>.9038]]<span class="o">)</span>
+</code></pre></div></div>
+<h2 id="rnn-based-character-level-language-models">RNN-Based Character-Level Language Models</h2>
+
+<p>For language modeling as discussed before, the goal is to predict the next token based on the current and previous tokens. To achieve this, the original sequence is shifted by one token to create the targets (labels). Neural networks for language modeling, as proposed by \(\text{Bengio.Ducharme.Vincent.ea.2003}\), can use RNNs to accomplish this task. Here’s how an RNN processes the sequence:</p>
 
 
     
@@ -446,7 +595,7 @@
       Guo. 
       
       
-        Last updated: November 23, 2024.
+        Last updated: November 25, 2024.
       
     </div>
   </footer>
@@ -529,8 +678,6 @@
     <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
   
-
-
 
     
 

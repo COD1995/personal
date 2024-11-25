@@ -291,3 +291,5 @@ Obtaining five pairs of input sequences and target sequences from partitioned le
 Before we move on, a *summary*, Language models estimate the joint probability of a text sequence. For long sequences, $$n$$ - grams provide a convenient model by truncating the dependence. However, there is a lot of structure but not enough frequency to deal efficiently with infrequent word combinations via Laplace smoothing. Thus, we will focus on neural language modeling in subsequent sections. To train language models, we can randomly sample pairs of input sequences and target sequences in minibatches. After training, we will use perplexity to measure the language model quality.
 
 Language models can be scaled up with increased data size, model size, and amount in training compute. Large language models can perform desired tasks by predicting output text given input text instructions.
+
+With the background thoroghly introduced, let's move on to <a href="{{ 'assets/courses/deeplearning/rnn/vinilla_rnn' | relative_url }}">Recurrent Neural Network</a>. Please post any question you may have on piazza.

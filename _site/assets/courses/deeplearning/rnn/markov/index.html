@@ -432,32 +432,23 @@
         
 
 
-
-<figure>
+<figure id="figure-">
   <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/unfolded-rnn.svg" sizes="95vw"></source>
-    
     <img src="https://d2l.ai/_images/unfolded-rnn.svg" class="img-fluid rounded" style="
         
           
-            max-width: 500px; /* Fixed maximum width */
+            max-width: 500px;
           
-          height: auto; /* Maintain aspect ratio */
+          height: auto;
           display: block;
           margin-left: auto;
           margin-right: auto;
         
       " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
-
   
 </figure>
+
     </div>
 </div>
 <div class="caption">
@@ -509,32 +500,23 @@ Sequences are modeled as samples from a fixed underlying distribution over entir
         
 
 
-
-<figure>
+<figure id="figure-">
   <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/ftse100-480.webp 480w,https://d2l.ai/_images/ftse100-800.webp 800w,https://d2l.ai/_images/ftse100-1400.webp 1400w," type="image/webp" sizes="95vw"></source>
-    
     <img src="https://d2l.ai/_images/ftse100.png" class="img-fluid rounded" style="
         
           
-            max-width: 500px; /* Fixed maximum width */
+            max-width: 500px;
           
-          height: auto; /* Maintain aspect ratio */
+          height: auto;
           display: block;
           margin-left: auto;
           margin-right: auto;
         
       " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
-
   
 </figure>
+
     </div>
 </div>
 <div class="caption">
@@ -580,32 +562,23 @@ FTSE 100 index over about 30 years.
         
 
 
-
-<figure>
+<figure id="figure-">
   <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/sequence-model.svg" sizes="95vw"></source>
-    
     <img src="https://d2l.ai/_images/sequence-model.svg" class="img-fluid rounded" style="
         
           
-            max-width: 500px; /* Fixed maximum width */
+            max-width: 500px;
           
-          height: auto; /* Maintain aspect ratio */
+          height: auto;
           display: block;
           margin-left: auto;
           margin-right: auto;
         
       " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
-
   
 </figure>
+
     </div>
 </div>
 <div class="caption">
@@ -826,32 +799,23 @@ P(x_1, x_2, x_3, x_4) &amp; = P(x_1) P(x_2 \mid x_1) P(x_3 \mid x_1, x_2) P(x_4 
         
 
 
-
-<figure>
+<figure id="figure-">
   <picture>
-    <!-- Auto scaling with imagemagick -->
-    <!--
-      See https://www.debugbear.com/blog/responsive-images#w-descriptors-and-the-sizes-attribute and
-      https://developer.mozilla.org/en-US/docs/Learn/HTML/Multimedia_and_embedding/Responsive_images for info on defining 'sizes' for responsive images
-    -->
-    
-      <source class="responsive-img-srcset" srcset="https://d2l.ai/_images/lang-model-data.svg" sizes="95vw"></source>
-    
     <img src="https://d2l.ai/_images/lang-model-data.svg" class="img-fluid rounded" style="
         
           
-            max-width: 500px; /* Fixed maximum width */
+            max-width: 500px;
           
-          height: auto; /* Maintain aspect ratio */
+          height: auto;
           display: block;
           margin-left: auto;
           margin-right: auto;
         
       " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
-
   
 </figure>
+
     </div>
 </div>
 <div class="caption">
@@ -861,6 +825,8 @@ Obtaining five pairs of input sequences and target sequences from partitioned le
 <p>Before we move on, a <em>summary</em>, Language models estimate the joint probability of a text sequence. For long sequences, \(n\) - grams provide a convenient model by truncating the dependence. However, there is a lot of structure but not enough frequency to deal efficiently with infrequent word combinations via Laplace smoothing. Thus, we will focus on neural language modeling in subsequent sections. To train language models, we can randomly sample pairs of input sequences and target sequences in minibatches. After training, we will use perplexity to measure the language model quality.</p>
 
 <p>Language models can be scaled up with increased data size, model size, and amount in training compute. Large language models can perform desired tasks by predicting output text given input text instructions.</p>
+
+<p>With the background thoroghly introduced, let’s move on to <a href="/personal/assets/courses/deeplearning/rnn/vinilla_rnn">Recurrent Neural Network</a>. Please post any question you may have on piazza.</p>
 
 
     
@@ -884,7 +850,7 @@ Obtaining five pairs of input sequences and target sequences from partitioned le
       Guo. 
       
       
-        Last updated: November 23, 2024.
+        Last updated: November 25, 2024.
       
     </div>
   </footer>
@@ -967,8 +933,6 @@ Obtaining five pairs of input sequences and target sequences from partitioned le
     <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
     <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
   
-
-
 
     
 
