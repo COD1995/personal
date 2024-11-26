@@ -11,7 +11,8 @@ number_heading: true
 enable_heading_styles: true
 show_h1_number: true
 start_h1_number: 4
-figure_counter: 1
+figure_counter: 0
+
 ---
 
 **Extending Beyond $$n$$-grams** In <a href="{{ 'assets/courses/deeplearning/rnn/markov' | relative_url }}">Markov Models and n-grams</a>, we introduced Markov models and $$n$$-grams for language modeling, where the conditional probability of a token $$x_t$$ at time step $$t$$ depends only on the previous $$n-1$$ tokens. To account for tokens occurring earlier than $$t-(n-1)$$, we could increase $$n$$. However, this approach comes at a $$\textcolor{red}{\text{significant cost}}$$
@@ -98,8 +99,11 @@ The hidden state $$\mathbf{H}_t$$ is used for:
 - Producing the output $$\mathbf{O}_t$$.
 
 <div class="row mt-3">
+    {% assign figure_counter = figure_counter | plus: 1 %}
     <div class="col-sm mt-3 mt-md-0">
-        {% include figure.liquid loading="eager" path="https://d2l.ai/_images/rnn.svg" class="img-fluid rounded" caption="An RNN with a hidden state." id="rnn" %}
+        {% include figure.liquid
+            figure_number=figure_counter
+            loading="eager" path="https://d2l.ai/_images/rnn.svg" class="img-fluid rounded" caption="An RNN with a hidden state." id="rnn" %}
     </div>
 </div>
 
@@ -133,4 +137,30 @@ tensor([[ 1.2526,  0.0580, -3.3460, -0.2519],
 ```
 ## RNN-Based Character-Level Language Models
 
-For language modeling as discussed before, the goal is to predict the next token based on the current and previous tokens. To achieve this, the original sequence is shifted by one token to create the targets (labels). Neural networks for language modeling, as proposed by $$\text{Bengio.Ducharme.Vincent.ea.2003}$$, can use RNNs to accomplish this task. Here's how an RNN processes the sequence:
+For language modeling as discussed before, the goal is to predict the next token based on the current and previous tokens. To achieve this, the original sequence is shifted by one token to create the targets (labels). Neural networks for language modeling, as proposed by [A Neural Probabilistic Language Model](https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf), can use RNNs to accomplish this task. Here's how an RNN processes the sequence:
+
+**Key Idea** For simplicity, we tokenize text into characters rather than words, building a **character-level language model**. For instance, consider the text sequence `"machine"`:
+- **Input Sequence**: `"machin"`
+- **Target Sequence**: `"achine"`
+
+**RNN Processing** Fig.[2](#fig_rnn_train) demonstrates how RNNs predict the next character based on the current and previous characters in the sequence.
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        {% assign figure_counter = figure_counter | plus: 1 %}
+        {% include figure.liquid 
+            figure_number=figure_counter
+            loading="eager" path="https://d2l.ai/_images/rnn-train.svg" class="img-fluid rounded" caption="A character-level language model based on the RNN. The input and target sequences are 'machin' and 'achine', respectively." id="fig_rnn_train" %}
+    </div>
+</div>
+
+At each time step:
+- The RNN processes the input token, updating its **hidden state**.
+- The output at each time step is used to predict the next character.
+
+For example:
+- **Input at Time Step 3**: `"m", "a", "c"`
+- **Target**: `"h"`
+- **Output**: $$\mathbf{O}_3$$, determined by the sequence `"m", "a", "c"`. The cross-entropy loss is computed between the predicted distribution and the actual target (`"h"`).
+
+**Practical Considerations** Each token is represented as a $$d$$-dimensional vector. With a batch size $$n > 1$$, the input at time step $$t$$, $$\mathbf{X}_t$$, is an $$n \times d$$ matrix, consistent with the description in [Recurrent Neural Networks with Hidden States](#recurrent-neural-networks-with-hidden-states). 

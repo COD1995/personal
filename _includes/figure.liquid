@@ -1,9 +1,4 @@
-{% if page.figure_counter == null %}
-  {% assign page.figure_counter = 0 %}
-{% endif %}
-{% assign page.figure_counter = page.figure_counter | plus: 1 %}
-
-<figure id="{{ include.id | default: 'figure-' | append: page.figure_counter }}">
+<figure id="{{ include.id | default: 'figure-' | append: include.figure_number }}">
   <picture>
     <img
       src="{% if include.url %}{{ include.url }}{% elsif include.cache_bust %}{{ include.path | relative_url | bust_file_cache }}{% else %}{{ include.path | relative_url }}{% endif %}"
@@ -44,7 +39,7 @@
   </picture>
   {% if include.caption %}
     <figcaption class="caption">
-      Figure {{ page.figure_counter }}: {{ include.caption }}
+      Figure {{ include.figure_number }}: {{ include.caption }}
     </figcaption>
   {% endif %}
 </figure>

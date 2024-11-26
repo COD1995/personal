@@ -517,11 +517,9 @@
 </ul>
 
 <div class="row mt-3">
+    
     <div class="col-sm mt-3 mt-md-0">
-        
-
-
-<figure id="rnn1">
+        <figure id="rnn1">
   <picture>
     <img src="https://d2l.ai/_images/rnn.svg" class="img-fluid rounded" style="
         
@@ -571,7 +569,66 @@
 </code></pre></div></div>
 <h2 id="rnn-based-character-level-language-models">RNN-Based Character-Level Language Models</h2>
 
-<p>For language modeling as discussed before, the goal is to predict the next token based on the current and previous tokens. To achieve this, the original sequence is shifted by one token to create the targets (labels). Neural networks for language modeling, as proposed by \(\text{Bengio.Ducharme.Vincent.ea.2003}\), can use RNNs to accomplish this task. Here’s how an RNN processes the sequence:</p>
+<p>For language modeling as discussed before, the goal is to predict the next token based on the current and previous tokens. To achieve this, the original sequence is shifted by one token to create the targets (labels). Neural networks for language modeling, as proposed by <a href="https://www.jmlr.org/papers/volume3/bengio03a/bengio03a.pdf" rel="external nofollow noopener" target="_blank">A Neural Probabilistic Language Model</a>, can use RNNs to accomplish this task. Here’s how an RNN processes the sequence:</p>
+
+<p><strong>Key Idea</strong> For simplicity, we tokenize text into characters rather than words, building a <strong>character-level language model</strong>. For instance, consider the text sequence <code class="language-plaintext highlighter-rouge">"machine"</code>:</p>
+<ul>
+  <li>
+<strong>Input Sequence</strong>: <code class="language-plaintext highlighter-rouge">"machin"</code>
+</li>
+  <li>
+<strong>Target Sequence</strong>: <code class="language-plaintext highlighter-rouge">"achine"</code>
+</li>
+</ul>
+
+<p><strong>RNN Processing</strong> Fig.<a href="#fig_rnn_train">2</a> demonstrates how RNNs predict the next character based on the current and previous characters in the sequence.</p>
+
+<div class="row mt-3">
+    <div class="col-sm mt-3 mt-md-0">
+        
+        <figure id="fig_rnn_train2">
+  <picture>
+    <img src="https://d2l.ai/_images/rnn-train.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 2: A character-level language model based on the RNN. The input and target sequences are 'machin' and 'achine', respectively.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>At each time step:</p>
+<ul>
+  <li>The RNN processes the input token, updating its <strong>hidden state</strong>.</li>
+  <li>The output at each time step is used to predict the next character.</li>
+</ul>
+
+<p>For example:</p>
+<ul>
+  <li>
+<strong>Input at Time Step 3</strong>: <code class="language-plaintext highlighter-rouge">"m", "a", "c"</code>
+</li>
+  <li>
+<strong>Target</strong>: <code class="language-plaintext highlighter-rouge">"h"</code>
+</li>
+  <li>
+<strong>Output</strong>: \(\mathbf{O}_3\), determined by the sequence <code class="language-plaintext highlighter-rouge">"m", "a", "c"</code>. The cross-entropy loss is computed between the predicted distribution and the actual target (<code class="language-plaintext highlighter-rouge">"h"</code>).</li>
+</ul>
+
+<p><strong>Practical Considerations</strong> Each token is represented as a \(d\)-dimensional vector. With a batch size \(n &gt; 1\), the input at time step \(t\), \(\mathbf{X}_t\), is an \(n \times d\) matrix, consistent with the description in <a href="#recurrent-neural-networks-with-hidden-states">Recurrent Neural Networks with Hidden States</a>.</p>
 
 
     
@@ -595,7 +652,7 @@
       Guo. 
       
       
-        Last updated: November 25, 2024.
+        Last updated: November 26, 2024.
       
     </div>
   </footer>
