@@ -4,9 +4,6 @@
   <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     
-      
-      <meta http-equiv="refresh" content="3; url=/personal//">
-    
     <!-- Metadata, OpenGraph and Schema.org -->
 
 
@@ -20,12 +17,13 @@
   
   
     
-      Page not found | Jue Guo
+      Modern Recurrent Neural Networks | Jue Guo
     
   
 </title>
 <meta name="author" content="Jue Guo">
-<meta name="description" content="Looks like there has been a mistake. Nothing exists here.">
+<meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+">
 
   <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
 
@@ -53,6 +51,9 @@
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
+
 
 <!-- Styles -->
 
@@ -63,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A4%96&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/404.html">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/rnn/modern_rnn/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -124,6 +125,8 @@
 
           <!-- Other pages -->
           
+          
+            
           
             
           
@@ -287,23 +290,195 @@
     <div class="container mt-5" role="main">
       
         
+          <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
 
+
+  <div class="fixed-bottom-button">
+    <a href="/personal/teaching/deeplearnig" class="btn-back-course">
+      ← Deep Learning Course Page
+    </a>
+  </div>
 
 
 <!-- Always apply separation lines (scoped to article) -->
 
+  <style type="text/css">
+    /* Heading 1 */
+    .post > article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
+    }
 
+    /* Heading 2 */
+    .post > article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter 4;
+    }
+
+    /* Heading 1 */
+    .post > article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      
+      /* Show h1 number */
+      
+    }
+
+    
+    .post > article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+    
+
+    /* Heading 2 */
+    .post > article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    .post > article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    .post > article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    .post > article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      counter-increment: h5-counter;
+    }
+
+    .post > article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
 
 
 
 <div class="post">
   <article>
     <header class="post-header">
-      <h1 class="post-title">Page not found</h1>
-      <p class="post-description">Looks like there has been a mistake. Nothing exists here.</p>
+      <h1 class="post-title">Modern Recurrent Neural Networks</h1>
+      <p class="post-description"></p>
     </header>
 
-    <p>You will be redirected to the main page within 3 seconds. If not redirected, please go back to the <a href="http://0.0.0.0:8080/personal/">home page</a>.</p>
+    <p>We introduced the key ideas behind recurrent neural networks (RNNs). However, just as with convolutional neural networks, there has been a tremendous amount of innovation in RNN architectures, culminating in several complex designs that have proven successful in practice. In particular, the most popular designs feature mechanisms for mitigating the notorious numerical instability faced by RNNs, as typified by vanishing and exploding gradients. Recall that we dealt with exploding gradients by applying a blunt gradient clipping heuristic. Despite the efficacy of this hack, it leaves open the problem of vanishing gradients.</p>
+
+<p>In this section, we introduce the key ideas behind the most successful RNN architectures for sequences, which stem from two landmark papers:</p>
+
+<p><strong>Long Short-Term Memory (LSTM)</strong> Long Short-Term Memory (LSTM) networks, introduced by Hochreiter and Schmidhuber in 1997, replace traditional nodes in the hidden layer of an RNN with <em>memory cells</em>. These memory cells overcome the training difficulties of earlier recurrent networks. Intuitively:</p>
+<ul>
+  <li>LSTM memory cells avoid the vanishing gradient problem by maintaining values in the memory state over long time sequences.</li>
+  <li>A recurrent edge with weight 1 allows information to cascade across many successive time steps.</li>
+  <li>
+<strong>Multiplicative gates</strong> control:
+    <ol>
+      <li>Which inputs are allowed into the memory state,</li>
+      <li>When the memory state influences the network’s output.</li>
+    </ol>
+  </li>
+</ul>
+
+<p>This innovation enables LSTMs to handle long-range dependencies in sequences, which were previously infeasible with basic RNNs.</p>
+
+<p><strong>Bidirectional Recurrent Neural Networks (BiRNNs)</strong> Bidirectional Recurrent Neural Networks (Schuster and Paliwal, 1997) introduce the concept of processing sequences in both forward and backward directions. Unlike traditional RNNs, where only past inputs affect the output:</p>
+<ul>
+  <li>
+<strong>BiRNNs</strong> use information from both preceding and subsequent time steps to determine the output at any point.</li>
+  <li>This architecture is particularly effective for sequence labeling tasks, such as:
+    <ul>
+      <li>
+<strong>Natural Language Processing</strong>: Named Entity Recognition (NER), Part-of-Speech (POS) tagging,</li>
+      <li>
+<strong>Speech Recognition</strong>,</li>
+      <li>
+<strong>Handwriting Recognition</strong>.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>Combined Innovations</strong> LSTM and BiRNN architectures are not mutually exclusive. They have been successfully combined for tasks such as:</p>
+<ul>
+  <li>
+<strong>Phoneme Classification</strong> (Graves and Schmidhuber, 2005),</li>
+  <li>
+<strong>Handwriting Recognition</strong> (Graves et al., 2008).</li>
+</ul>
+
+<p>we will cover the following topics:</p>
+<ol>
+  <li>
+<strong>LSTM Architecture</strong>: A detailed breakdown of its structure and function,</li>
+  <li>
+<strong>Gated Recurrent Units (GRUs)</strong>: A lightweight variation of LSTMs,</li>
+  <li>
+<strong>Bidirectional RNNs</strong>: Leveraging future and past sequence information,</li>
+  <li>
+<strong>Deep RNNs</strong>: Stacking RNN layers for greater capacity,</li>
+  <li>
+<strong>Sequence-to-Sequence Tasks</strong>: Applying RNNs to machine translation with key ideas like encoder-decoder architectures and beam search.</li>
+</ol>
 
 
     
@@ -311,7 +486,9 @@
     
   </article>
 </div>
-
+</div>
+          </div>
+        
       
     </div>
 
@@ -370,6 +547,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->

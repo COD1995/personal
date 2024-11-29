@@ -183,6 +183,9 @@ Below are the lecture notes. Please note that these notes are updated regularly,
         <li>
           <a href="{{ 'assets/courses/deeplearning/rnn/vinilla_rnn' | relative_url }}">Recurrent Neural Networks</a>
         </li>
+        <li>
+          <a href="{{ 'assets/courses/deeplearning/rnn/modern_rnn' | relative_url }}">Modern Recurrent Neural Networks</a>
+        </li>
       </ul>
       </td>
     </tr>

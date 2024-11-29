@@ -12,7 +12,6 @@ enable_heading_styles: true
 show_h1_number: true
 start_h1_number: 4
 figure_counter: 0
-
 ---
 
 **Extending Beyond $$n$$-grams** In <a href="{{ 'assets/courses/deeplearning/rnn/markov' | relative_url }}">Markov Models and n-grams</a>, we introduced Markov models and $$n$$-grams for language modeling, where the conditional probability of a token $$x_t$$ at time step $$t$$ depends only on the previous $$n-1$$ tokens. To account for tokens occurring earlier than $$t-(n-1)$$, we could increase $$n$$. However, this approach comes at a $$\textcolor{red}{\text{significant cost}}$$
