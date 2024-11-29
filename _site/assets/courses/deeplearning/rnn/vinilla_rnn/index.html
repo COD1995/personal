@@ -630,6 +630,180 @@
 
 <p><strong>Practical Considerations</strong> Each token is represented as a \(d\)-dimensional vector. With a batch size \(n &gt; 1\), the input at time step \(t\), \(\mathbf{X}_t\), is an \(n \times d\) matrix, consistent with the description in <a href="#recurrent-neural-networks-with-hidden-states">Recurrent Neural Networks with Hidden States</a>.</p>
 
+<h3 id="gradient-clipping">Gradient Clipping</h3>
+<p>While you are already used to thinking of neural networks as “deep” in the sense that many layers separate the input and output even within a single time step, the length of the sequence introduces a <em>new notion of depth</em>.</p>
+<ul>
+  <li>In addition to the passing through the network in the input-to-output direction, inputs at the first time step must pass through a chain of \(T\) layers along the time steps in order to influence the output of the model at the final time step.</li>
+  <li>Taking the backwards view, in each iteration, we backpropagate gradient through time, resulting in a chain of matrix-products of length \(\mathcal{O}(T)\). This can result in numerical instability, causing gradients either to explode or vanish, depending on the properties of the weight matrices.</li>
+</ul>
+
+<p>Dealing with vanishing and exploding gradients is a fundamental problem when designing RNNs and has inspired some of the biggest advances in modern neural network architectures. Later, we will talk about specialized architectures that were designed in hopes of mitigating the vanishing gradient problem. However, even modern RNNs often suffer from exploding gradients. One inelegant but ubiquitous solution is to simply clip the gradients forcing the resulting <em>“clipped”</em> gradients to take smaller values.</p>
+
+<p><strong>Gradient Descent and Objective Changes</strong> In gradient descent, the parameter vector \(\mathbf{x}\) is updated as:</p>
+
+\[\mathbf{x} \leftarrow \mathbf{x} - \eta \mathbf{g},\]
+
+<p>where:</p>
+<ul>
+  <li>\(\eta &gt; 0\) is the learning rate, controlling the step size,</li>
+  <li>\(\mathbf{g}\) is the gradient of \(f\) at \(\mathbf{x}\), indicating the direction of steepest ascent.</li>
+</ul>
+
+\[|f(\mathbf{x})-f(\mathbf{y})| \leq L\|\mathbf{x}-\mathbf{y}\|\]
+
+<p>If the objective function \(f\) is <strong>Lipschitz continuous</strong> with constant \(L\), then:</p>
+
+\[|f(\mathbf{x}) - f(\mathbf{y})| \leq L \|\mathbf{x} - \mathbf{y}\|,\]
+
+<p>for any \(\mathbf{x}\) and \(\mathbf{y}\). Applying this to a gradient update:</p>
+
+\[\mathbf{y} = \mathbf{x} - \eta \mathbf{g},\]
+
+<p>the change in the objective function is bounded by:</p>
+
+\[|f(\mathbf{x}) - f(\mathbf{x} - \eta \mathbf{g})| \leq L \eta \|\mathbf{g}\|.\]
+
+<p>Thus, the change in the objective depends on the gradient norm \(\|\mathbf{g}\|\), the learning rate \(\eta\), and \(L\). Large gradient norms can cause excessively large changes, leading to instability in training.</p>
+
+<ol>
+  <li>
+    <p><strong>Controlled Updates</strong>: The Lipschitz constant \(L\), the learning rate \(\eta\), and the gradient norm \(\|\mathbf{g}\|\) together determine the maximum change in the objective.</p>
+  </li>
+  <li>
+    <p><strong>Stability</strong>: Large gradient norms \(\|\mathbf{g}\|\) can cause excessively large changes in \(f(\mathbf{x})\), potentially destabilizing training. This is why gradient clipping or smaller \(\eta\) may be necessary in practice.</p>
+  </li>
+</ol>
+
+<p><strong>Gradient Clipping</strong> To prevent exploding gradients, the gradient clipping heuristic modifies the gradient \(\mathbf{g}\) as follows:</p>
+
+\[\mathbf{g} \leftarrow \min \left(1, \frac{\theta}{\|\mathbf{g}\|}\right) \mathbf{g}\]
+
+<p>where \(\theta\) is a predefined threshold. This ensures the gradient norm does not exceed \(\theta\) while preserving the direction of \(\mathbf{g}\).</p>
+
+<p><strong>Benefits and Limitations</strong> Gradient clipping:</p>
+<ul>
+  <li>Limits the gradient norm, improving stability.</li>
+  <li>Reduces the influence of individual minibatches or samples, enhancing robustness.
+However, it introduces a bias since the true gradient is not always followed, making analytical
+reasoning about side effects difficult. Despite being a heuristic, gradient clipping is widely
+adopted in RNN implementations.</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+
+<span class="k">def</span> <span class="nf">clip_gradients</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">theta</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">Clip gradients of a model to a maximum norm theta.</span><span class="sh">"""</span>
+    <span class="n">params</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">model</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()</span> <span class="k">if</span> <span class="n">p</span><span class="p">.</span><span class="n">grad</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">]</span>
+    <span class="n">norm</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">sqrt</span><span class="p">(</span><span class="nf">sum</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">grad</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">params</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">norm</span> <span class="o">&gt;</span> <span class="n">theta</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
+            <span class="n">param</span><span class="p">.</span><span class="n">grad</span><span class="p">[:]</span> <span class="o">*=</span> <span class="n">theta</span> <span class="o">/</span> <span class="n">norm</span>
+</code></pre></div></div>
+<h2 id="backpropagation-through-time">Backpropagation Through Time</h2>
+<p>We mentioned that gradient clipping is vital for preventing the occasional massive gradients from destabilizing training. We hinted that the exploding gradients stem from backpropagating across long sequences. Before introducing a slew of modern RNN architectures, let’s take a closer look at how <em>backpropagation</em> works in sequence models in mathematical detail. Hopefully, this discussion will bring some precision to the notion of <em>vanishing</em> and <em>exploding</em> gradients.</p>
+
+<p>Applying backpropagation in RNNs is called <em>backpropagation through time</em> (BPTT) . This procedure requires us to expand (or unroll) the computational graph of an RNN one time step at a time. The unrolled RNN is essentially a feedforward neural network with the special property that the same parameters are repeated throughout the unrolled network, appearing at each time step. Then, just as in any feedforward neural network, we can apply the chain rule, backpropagating gradients through the unrolled net.</p>
+
+<h3 id="analysis-of-gradients-in-rnns">Analysis of Gradients in RNNs</h3>
+<p>We start with a simplified model of how an RNN works. In this simplified model, let \(h_t\) be the hidden state, \(x_t\) the input, and \(o_t\) the output at time step \(t\). Recall that the input and the hidden state can be concatenated before being multiplied by one weight variable in the hidden layer. Let \(w_\textrm{h}\) and \(w_\textrm{o}\) represent the weights of the hidden and output layers, respectively. Then, we can represent the hidden states and outputs as:</p>
+
+\[\begin{aligned}
+h_t &amp;= f(x_t, h_{t-1}, w_\textrm{h}), \\
+o_t &amp;= g(h_t, w_\textrm{o}),
+\end{aligned}\]
+
+<p>where \(f\) and \(g\) are transformations of the hidden layer and output layer, respectively.</p>
+
+<p>The objective function \(L\) over \(T\) time steps is defined as:</p>
+
+\[L(x_1, \ldots, x_T, y_1, \ldots, y_T, w_\textrm{h}, w_\textrm{o}) = \frac{1}{T} \sum_{t=1}^T l(y_t, o_t).\]
+
+<p><strong>Gradient Computation</strong> Using the chain rule, the gradient with respect to \(w_\textrm{h}\) is:</p>
+
+\[\frac{\partial L}{\partial w_\textrm{h}} = \frac{1}{T} \sum_{t=1}^T \frac{\partial l(y_t, o_t)}{\partial w_\textrm{h}} = \frac{1}{T} \sum_{t=1}^T \frac{\partial l(y_t, o_t)}{\partial o_t} \frac{\partial g(h_t, w_\textrm{o})}{\partial h_t} \frac{\partial h_t}{\partial w_\textrm{h}}.\]
+
+<p>The term \(\frac{\partial h_t}{\partial w_\textrm{h}}\) depends on both \(h_{t-1}\) and \(w_\textrm{h}\), requiring recursive computation. Using the chain rule, this can be expressed as:</p>
+
+\[\frac{\partial h_t}{\partial w_\textrm{h}} = \frac{\partial f(x_t, h_{t-1}, w_\textrm{h})}{\partial w_\textrm{h}} + \frac{\partial f(x_t, h_{t-1}, w_\textrm{h})}{\partial h_{t-1}} \frac{\partial h_{t-1}}{\partial w_\textrm{h}}.\]
+
+<p>This recursive structure leads to challenges when sequences are long, as gradients can either vanish or explode.</p>
+
+<h3 id="backpropagation-through-time-in-detail">Backpropagation Through Time in Detail</h3>
+
+<p>Let \(\mathbf{h}_t\), \(\mathbf{x}_t\), and \(y_t\) represent the hidden state, input, and target at time step \(t\). For simplicity, assume the activation function is an identity mapping (\(\phi(x) = x\)). The hidden state and output are computed as:</p>
+
+\[\begin{aligned}
+\mathbf{h}_t &amp;= \mathbf{W}_\textrm{hx} \mathbf{x}_t + \mathbf{W}_\textrm{hh} \mathbf{h}_{t-1}, \\
+\mathbf{o}_t &amp;= \mathbf{W}_\textrm{qh} \mathbf{h}_t.
+\end{aligned}\]
+
+<p>The objective function over \(T\) time steps is:</p>
+
+\[L = \frac{1}{T} \sum_{t=1}^T l(\mathbf{o}_t, y_t).\]
+
+<p><strong>Gradient Computation</strong> For gradients with respect to the output layer weights \(\mathbf{W}_\textrm{qh}\):</p>
+
+\[\frac{\partial L}{\partial \mathbf{W}_\textrm{qh}} = \sum_{t=1}^T \frac{\partial L}{\partial \mathbf{o}_t} \mathbf{h}_t^\top,\]
+
+<p>where \(\frac{\partial L}{\partial \mathbf{o}_t}\) can be computed directly from the loss.</p>
+
+<p>For the hidden layer at time step \(T\):</p>
+
+\[\frac{\partial L}{\partial \mathbf{h}_T} = \mathbf{W}_\textrm{qh}^\top \frac{\partial L}{\partial \mathbf{o}_T}.\]
+
+<p>For earlier time steps \(t &lt; T\):</p>
+
+\[\frac{\partial L}{\partial \mathbf{h}_t} = \mathbf{W}_\textrm{hh}^\top \frac{\partial L}{\partial \mathbf{h}_{t+1}} + \mathbf{W}_\textrm{qh}^\top \frac{\partial L}{\partial \mathbf{o}_t}.\]
+
+<p>This recurrence highlights the issue of vanishing or exploding gradients due to repeated multiplication with \(\mathbf{W}_\textrm{hh}\).</p>
+
+<h3 id="visualization-of-gradient-strategies">Visualization of Gradient Strategies</h3>
+
+<p>Below, Fig.<a href="#fig_truncated_bptt">1</a> compares different gradient computation strategies:</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_truncated_bptt3">
+  <picture>
+    <img src="https://d2l.ai/_images/truncated-bptt.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 3: Comparing strategies for computing gradients in RNNs. From top to bottom: randomized truncation, regular truncation, and full computation.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<ol>
+  <li>Randomized truncation partitions text into segments of varying lengths.</li>
+  <li>Regular truncation breaks the text into fixed-length subsequences.</li>
+  <li>Full computation considers the entire sequence, which is computationally infeasible.</li>
+</ol>
+
+<h2 id="summary">Summary</h2>
+
+<p>Backpropagation through time applies backpropagation to sequence models. Key takeaways:</p>
+<ul>
+  <li>Truncation methods improve computational feasibility and numerical stability.</li>
+  <li>Long sequences amplify challenges with vanishing or exploding gradients.</li>
+  <li>Efficient computation requires caching intermediate values.</li>
+</ul>
+
+
 
     
 
@@ -652,7 +826,7 @@
       Guo. 
       
       
-        Last updated: November 26, 2024.
+        Last updated: November 29, 2024.
       
     </div>
   </footer>
