@@ -480,6 +480,187 @@
 <strong>Sequence-to-Sequence Tasks</strong>: Applying RNNs to machine translation with key ideas like encoder-decoder architectures and beam search.</li>
 </ol>
 
+<h2 id="long-short-term-memory-lstm">Long Short-Term Memory (LSTM)</h2>
+
+<p>Shortly after the first Elman-style RNNs were trained using backpropagation, the challenges of learning long-term dependencies (due to vanishing and exploding gradients) became evident. These problems were discussed by Bengio and Hochreiter. Hochreiter had identified these issues as early as 1991 in his Master’s thesis, although the work was not widely recognized since it was written in German.</p>
+
+<p>While <strong>gradient clipping</strong> provides a solution for exploding gradients, vanishing gradients require a more intricate approach. One of the first and most effective solutions came with the <strong>long short-term memory (LSTM)</strong> model proposed by Hochreiter and Schmidhuber. 
+LSTMs are similar to standard recurrent neural networks, but they replace each ordinary recurrent node with a <em>memory cell</em>. Each memory cell contains an <em>internal state</em>, a node with a self-connected recurrent edge of fixed weight 1, allowing the gradient to flow across many time steps without vanishing or exploding.</p>
+
+<h3 id="gated-memory-cell">Gated Memory Cell</h3>
+
+<p>Each memory cell is equipped with an <em>internal state</em>
+and a number of multiplicative gates that determine whether:</p>
+<ol>
+  <li>A given input should impact the internal state (<em>input gate</em>),</li>
+  <li>The internal state should be flushed to \(0\) (<em>forget gate</em>),</li>
+  <li>The internal state of a given neuron should influence the cell’s output (<em>output gate</em>).</li>
+</ol>
+
+<p><strong>Gated Hidden States</strong> The key distinction between vanilla RNNs and LSTMs
+is that the latter support gating of the hidden state.
+This gating mechanism determines:</p>
+<ul>
+  <li>When a hidden state should be <em>updated</em>,</li>
+  <li>When it should be <em>reset</em>.</li>
+</ul>
+
+<p>These mechanisms are learned, enabling the network to:</p>
+<ul>
+  <li>Retain critical information from the first token by learning not to update the hidden state,</li>
+  <li>Ignore irrelevant observations,</li>
+  <li>Reset the latent state when necessary.</li>
+</ul>
+
+<p><strong>Input Gate, Forget Gate, and Output Gate</strong> The data feeding into the LSTM gates are the input at the current time step and the hidden state of the previous time step, as illustrated in Figure .</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_lstm_01">
+  <picture>
+    <img src="https://d2l.ai/_images/lstm-0.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 1: Computing the input gate, forget gate, and output gate in an LSTM model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>Mathematically, given:</p>
+<ul>
+  <li>\(\mathbf{X}_t \in \mathbb{R}^{n \times d}\) (input),</li>
+  <li>\(\mathbf{H}_{t-1} \in \mathbb{R}^{n \times h}\) (previous hidden state),
+the gates are computed as:</li>
+</ul>
+
+\[\begin{aligned}
+\mathbf{I}_t &amp;= \sigma(\mathbf{X}_t \mathbf{W}_{\textrm{xi}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hi}} + \mathbf{b}_\textrm{i}),\\
+\mathbf{F}_t &amp;= \sigma(\mathbf{X}_t \mathbf{W}_{\textrm{xf}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hf}} + \mathbf{b}_\textrm{f}),\\
+\mathbf{O}_t &amp;= \sigma(\mathbf{X}_t \mathbf{W}_{\textrm{xo}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{ho}} + \mathbf{b}_\textrm{o}),
+\end{aligned}\]
+
+<p>where:</p>
+<ul>
+  <li>\(\mathbf{W}_{\textrm{xi}}, \mathbf{W}_{\textrm{xf}}, \mathbf{W}_{\textrm{xo}} \in \mathbb{R}^{d \times h}\),</li>
+  <li>\(\mathbf{W}_{\textrm{hi}}, \mathbf{W}_{\textrm{hf}}, \mathbf{W}_{\textrm{ho}} \in \mathbb{R}^{h \times h}\),</li>
+  <li>\(\mathbf{b}_\textrm{i}, \mathbf{b}_\textrm{f}, \mathbf{b}_\textrm{o} \in \mathbb{R}^{1 \times h}\).</li>
+</ul>
+
+<p><strong>Input Node</strong> The <em>input node</em> \(\tilde{\mathbf{C}}_t\) is calculated as:</p>
+
+\[\tilde{\mathbf{C}}_t = \textrm{tanh}(\mathbf{X}_t \mathbf{W}_{\textrm{xc}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hc}} + \mathbf{b}_\textrm{c}),\]
+
+<p>where:</p>
+<ul>
+  <li>\(\mathbf{W}_{\textrm{xc}} \in \mathbb{R}^{d \times h}\),</li>
+  <li>\(\mathbf{W}_{\textrm{hc}} \in \mathbb{R}^{h \times h}\),</li>
+  <li>\(\mathbf{b}_\textrm{c} \in \mathbb{R}^{1 \times h}\).</li>
+</ul>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_lstm_12">
+  <picture>
+    <img src="https://d2l.ai/_images/lstm-1.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 2: Computing the input node in an LSTM model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Memory Cell Internal State</strong> The memory cell internal state \(\mathbf{C}_t\) is updated using:</p>
+
+\[\mathbf{C}_t = \mathbf{F}_t \odot \mathbf{C}_{t-1} + \mathbf{I}_t \odot \tilde{\mathbf{C}}_t.\]
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_lstm_23">
+  <picture>
+    <img src="https://d2l.ai/_images/lstm-2.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 3: Computing the memory cell internal state in an LSTM model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Hidden State</strong> The hidden state \(\mathbf{H}_t\) is computed as:</p>
+
+\[\mathbf{H}_t = \mathbf{O}_t \odot \textrm{tanh}(\mathbf{C}_t).\]
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_lstm_34">
+  <picture>
+    <img src="https://d2l.ai/_images/lstm-3.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 4: Computing the hidden state in an LSTM model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
 
     
 
@@ -502,7 +683,7 @@
       Guo. 
       
       
-        Last updated: November 29, 2024.
+        Last updated: November 30, 2024.
       
     </div>
   </footer>

@@ -2,7 +2,7 @@
 layout: page
 title: courses
 permalink: /teaching/
-description: A collection of courses I have taught, complete with resources and materials, covering key AI-focused courses within the Computer Science and Engineering (CSE) department.
+description: A collection of courses I have taught, complete with resources and materials, covering key AI-focused courses within the Computer Science and Engineering (CSE) department. I <b>highly recommand</b> using your computer, instead of smart devices, to view the course materials.
 nav: true
 nav_order: 3
 display_categories: [undergraduate/graduate , graduate]
