@@ -497,7 +497,7 @@ and a number of multiplicative gates that determine whether:</p>
   <li>The internal state of a given neuron should influence the cell’s output (<em>output gate</em>).</li>
 </ol>
 
-<p><strong>Gated Hidden States</strong> The key distinction between vanilla RNNs and LSTMs
+<p><strong style="color: red; font-weight: 900;">Gated Hidden States</strong>The key distinction between vanilla RNNs and LSTMs
 is that the latter support gating of the hidden state.
 This gating mechanism determines:</p>
 <ul>
@@ -512,7 +512,8 @@ This gating mechanism determines:</p>
   <li>Reset the latent state when necessary.</li>
 </ul>
 
-<p><strong>Input Gate, Forget Gate, and Output Gate</strong> The data feeding into the LSTM gates are the input at the current time step and the hidden state of the previous time step, as illustrated in Figure .</p>
+<p><strong style="color: red; font-weight: 900;">Input Gate, Forget Gate, and Output Gate</strong>
+The data feeding into the LSTM gates are the input at the current time step and the hidden state of the previous time step, as illustrated in Figure .</p>
 
 <div class="row mt-3">
     
@@ -599,7 +600,7 @@ the gates are computed as:</li>
     </div>
 </div>
 
-<p><strong>Memory Cell Internal State</strong> The memory cell internal state \(\mathbf{C}_t\) is updated using:</p>
+<p><strong style="color: red; font-weight: 900;">Memory Cell Internal State</strong> The memory cell internal state \(\mathbf{C}_t\) is updated using:</p>
 
 \[\mathbf{C}_t = \mathbf{F}_t \odot \mathbf{C}_{t-1} + \mathbf{I}_t \odot \tilde{\mathbf{C}}_t.\]
 
@@ -630,7 +631,7 @@ the gates are computed as:</li>
     </div>
 </div>
 
-<p><strong>Hidden State</strong> The hidden state \(\mathbf{H}_t\) is computed as:</p>
+<p><strong style="color: red; font-weight: 900;">Hidden State</strong> The hidden state \(\mathbf{H}_t\) is computed as:</p>
 
 \[\mathbf{H}_t = \mathbf{O}_t \odot \textrm{tanh}(\mathbf{C}_t).\]
 
@@ -661,6 +662,147 @@ the gates are computed as:</li>
     </div>
 </div>
 
+<h2 id="gated-recurrent-units-grus">Gated Recurrent Units (GRUs)</h2>
+
+<p>As RNNs and particularly the LSTM architecture gained popularity during the 2010s, researchers sought simplified architectures that retained the core concepts of internal state and gating mechanisms but with faster computation. The <strong>gated recurrent unit (GRU)</strong> proposed by Cho et al. is one such architecture, offering a streamlined version of the LSTM that achieves comparable performance but is computationally faster.</p>
+
+<p><strong>Reset Gate and Update Gate</strong> In GRUs, the LSTM’s three gates are replaced by two:</p>
+<ol>
+  <li>
+<strong>Reset Gate</strong>: Controls how much of the previous state is retained.</li>
+  <li>
+<strong>Update Gate</strong>: Determines how much of the new state is derived from the old state.</li>
+</ol>
+
+<p>Both gates use sigmoid activation functions, ensuring their values lie in the range \((0, 1)\). Fig. <a href="#fig_gru_1">5</a> illustrates the inputs for both gates, which include the input of the current time step and the hidden state of the previous time step.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_gru_15">
+  <picture>
+    <img src="https://d2l.ai/_images/gru-1.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 5: Computing the reset gate and the update gate in a GRU model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Mathematics</strong>: For a given time step \(t\), let:</p>
+<ul>
+  <li>\(\mathbf{X}_t \in \mathbb{R}^{n \times d}\) be the input (batch size \(n\), input features \(d\)),</li>
+  <li>\(\mathbf{H}_{t-1} \in \mathbb{R}^{n \times h}\) be the hidden state (hidden units \(h\)).</li>
+</ul>
+
+<p>The gates are computed as:</p>
+
+\[\begin{aligned}
+\mathbf{R}_t &amp;= \sigma(\mathbf{X}_t \mathbf{W}_{\textrm{xr}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hr}} + \mathbf{b}_\textrm{r}),\\
+\mathbf{Z}_t &amp;= \sigma(\mathbf{X}_t \mathbf{W}_{\textrm{xz}} + \mathbf{H}_{t-1} \mathbf{W}_{\textrm{hz}} + \mathbf{b}_\textrm{z}),
+\end{aligned}\]
+
+<p>where:</p>
+<ul>
+  <li>\(\mathbf{W}_{\textrm{xr}}, \mathbf{W}_{\textrm{xz}} \in \mathbb{R}^{d \times h}\) and \(\mathbf{W}_{\textrm{hr}}, \mathbf{W}_{\textrm{hz}} \in \mathbb{R}^{h \times h}\) are weights,</li>
+  <li>\(\mathbf{b}_\textrm{r}, \mathbf{b}_\textrm{z} \in \mathbb{R}^{1 \times h}\) are biases.</li>
+</ul>
+
+<p><strong>Candidate Hidden State</strong> The reset gate integrates with the computation of the <em>candidate hidden state</em> \(\tilde{\mathbf{H}}_t \in \mathbb{R}^{n \times h}\):</p>
+
+\[\tilde{\mathbf{H}}_t = \tanh(\mathbf{X}_t \mathbf{W}_{\textrm{xh}} + (\mathbf{R}_t \odot \mathbf{H}_{t-1}) \mathbf{W}_{\textrm{hh}} + \mathbf{b}_\textrm{h}),\]
+
+<p>where:</p>
+<ul>
+  <li>\(\mathbf{W}_{\textrm{xh}} \in \mathbb{R}^{d \times h}\) and \(\mathbf{W}_{\textrm{hh}} \in \mathbb{R}^{h \times h}\) are weights,</li>
+  <li>\(\mathbf{b}_\textrm{h} \in \mathbb{R}^{1 \times h}\) is the bias,</li>
+  <li>\(\odot\) represents elementwise multiplication (Hadamard product).</li>
+</ul>
+
+<p>Fig.<a href="#fig_gru_2">6</a> shows the computational flow for the candidate hidden state.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_gru_26">
+  <picture>
+    <img src="https://d2l.ai/_images/gru-2.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 6: Computing the candidate hidden state in a GRU model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Hidden State</strong> Finally, the <strong>update gate</strong> \(\mathbf{Z}_t\) determines the balance between the old hidden state \(\mathbf{H}_{t-1}\) and the candidate hidden state \(\tilde{\mathbf{H}}_t\):</p>
+
+\[\mathbf{H}_t = \mathbf{Z}_t \odot \mathbf{H}_{t-1}  + (1 - \mathbf{Z}_t) \odot \tilde{\mathbf{H}}_t.\]
+
+<p>Fig.<a href="#fig_gru_3">7</a> illustrates this process.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_gru_37">
+  <picture>
+    <img src="https://d2l.ai/_images/gru-3.svg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 7: Computing the hidden state in a GRU model.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Summary</strong> GRUs provide two key mechanisms:</p>
+<ul>
+  <li>
+<strong>Reset Gate</strong>: Helps capture short-term dependencies by resetting the hidden state.</li>
+  <li>
+<strong>Update Gate</strong>: Helps capture long-term dependencies by balancing new and old information.</li>
+</ul>
+
 
     
 
@@ -683,7 +825,7 @@ the gates are computed as:</li>
       Guo. 
       
       
-        Last updated: November 30, 2024.
+        Last updated: December 01, 2024.
       
     </div>
   </footer>
