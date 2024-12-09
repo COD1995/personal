@@ -9,8 +9,6 @@ back_link: '/teaching/deeplearnig'
 back_text: 'Deep Learning Course Page'
 number_heading: true
 ---
-
-# Introduction 
 Artificial Intelligence (AI) has become an integral part of our daily lives, revolutionizing industries and transforming how we interact with technology. From voice assistants to recommendation systems and autonomous vehicles, AI is everywhere, driving innovation and solving complex problems. In this section, we introduce foundational concepts and mathematical preliminaries that form the backbone of modern AI systems. We will begin by exploring linear neural networks, one of the simplest yet most important building blocks of deep learning models, setting the stage for more advanced architectures and techniques in the field.
 
 ## AI is Ubiquitous
@@ -144,11 +142,39 @@ You may find the applications of AI in every aspect of our lives these days.
             figure_number=figure_counter
             path="https://i.imgur.com/Ht73LSY.png"
             class="img-fluid rounded"
-            caption="Supervised vs Unsupervised Learning."
-            id="supervised-vs-unsupervised" %}
+            caption="Supervised Learning."
+            id="supervised" %}
     </div>
 </div>
 
 **Unsupervised Learning**
 - Data-set: collection of **unlabeled example** $$\left(\left\{\mathbf{x}_{i}\right\}_{i=1}^{N}\right)$$
 - Goal: create a model that take $$\mathbf{x}$$ as input and either transform it into another vector or into a value that can be used to solve a practical problem.
+
+<div class="row mt-3">
+    {% assign figure_counter = figure_counter | plus: 1 %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid
+            figure_number=figure_counter
+            path="https://i.imgur.com/FFsupol.png"
+            class="img-fluid rounded"
+            caption="Unsupervised Learning."
+            id="unsupervised" %}
+    </div>
+</div>
+
+## Semi-Supervised Learning
+- Data-set: collection of **labeled and unlabeled examples** $$\left(\left\{\left(\mathbf{x}_{i}, y_{i}\right)\right\}_{i=1}^{N}, \left\{\mathbf{x}_{i}\right\}_{i=1}^{M}\right)$$
+- Goal: The hope here is that using many unlabeled examples can help the learning algorithm to find (we might say “produce” or “compute”) a better model.
+
+<div class="row mt-3">
+    {% assign figure_counter = figure_counter | plus: 1 %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid
+            figure_number=figure_counter
+            path="https://i.imgur.com/cAUzsQV.png"
+            class="img-fluid rounded"
+            caption="Semi-Supervised Learning."
+            id="semi-supervised" %}
+    </div>
+</div>
