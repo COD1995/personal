@@ -69,11 +69,6 @@
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
 
-  <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-native.css?5847e5ed4a4568527aa6cfab446049ca" media="none" id="highlight_theme_dark">
-  <script>
-    initTheme();
-  </script>
-
 
 <!-- GeoJSON support via Leaflet -->
 
@@ -260,15 +255,6 @@
           
           
           
-            <!-- Toogle theme mode -->
-            <li class="toggle-container">
-              <button id="light-toggle" title="Change theme">
-                <i class="ti ti-sun-moon" id="light-toggle-system"></i>
-                <i class="ti ti-moon-filled" id="light-toggle-dark"></i>
-                <i class="ti ti-sun-filled" id="light-toggle-light"></i>
-              </button>
-            </li>
-          
         </ul>
       </div>
     </div>
@@ -385,8 +371,9 @@
 <h2 id="ai-is-ubiquitous">AI is Ubiquitous</h2>
 <p>You may find the applications of AI in every aspect of our lives these days.</p>
 <div class="row mt-3">
+    
     <div class="col-sm mt-3 mt-md-0">
-        <figure id="figure-">
+        <figure id="ai-ubiquitous1">
   <picture>
     <img src="https://i.imgur.com/tamo2Hw.png" class="img-fluid rounded z-depth-1" style="
         
@@ -398,8 +385,12 @@
           margin-left: auto;
           margin-right: auto;
         
-      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
+  
+    <figcaption class="caption">
+      Figure 1: AI applications in our daily lives.
+    </figcaption>
   
 </figure>
 
@@ -433,8 +424,9 @@
 <h2 id="what-tasks-require-intelligence">What tasks require Intelligence?</h2>
 
 <div class="row mt-3">
+    
     <div class="col-sm mt-3 mt-md-0">
-        <figure id="figure-">
+        <figure id="tasks-intelligence2">
   <picture>
     <img src="https://i.imgur.com/2a3uuEK.png" class="img-fluid rounded z-depth-1" style="
         
@@ -446,8 +438,12 @@
           margin-left: auto;
           margin-right: auto;
         
-      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
+  
+    <figcaption class="caption">
+      Figure 2: Tasks that require intelligence.
+    </figcaption>
   
 </figure>
 
@@ -456,48 +452,27 @@
 
 <h2 id="knowledge-based-ai">Knowledge-Based AI</h2>
 <div class="row mt-3">
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="figure-">
-  <picture>
-    <img src="https://i.imgur.com/XYxUdWj.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-</figure>
-
-    </div>
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="figure-">
-  <picture>
-    <img src="https://i.imgur.com/PyZ9SuN.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-</figure>
-
+    <div class="col-12 text-center">
+        <figure id="knowledge-based-ai">
+            <div style="display: flex; justify-content: center; gap: 10px;">
+                
+                <div style="flex: 1; max-width: 45%; display: flex; justify-content: center;">
+                    <img src="https://i.imgur.com/XYxUdWj.png" alt="Knowledge-based AI example 1" class="img-fluid rounded" style="width: 100%; height: auto; object-fit: contain;" id="knowledge-ai-1">
+                </div>
+                <div style="flex: 1; max-width: 45%; display: flex; justify-content: center;">
+                    <img src="https://i.imgur.com/PyZ9SuN.png" alt="Knowledge-based AI example 2" class="img-fluid rounded" style="width: 100%; height: auto; object-fit: contain;" id="knowledge-ai-2">
+                </div>
+            </div>
+            <figcaption class="caption mt-2">
+                Figure 3: Knowledge-based AI examples demonstrating various concepts.
+            </figcaption>
+        </figure>
     </div>
 </div>
 
 <ul>
-  <li>Disadvantage: Unwiedy Process
+  <li>
+<strong>Disadvantage</strong>: Unwieldy Process
     <ul>
       <li>Time of human expert</li>
       <li>People struggle to formalize rules with enough complexity to describe the world</li>
@@ -512,10 +487,11 @@
   <li>Learn to map the features to output</li>
 </ul>
 <div class="row mt-3">
+    
     <div class="col-sm mt-3 mt-md-0">
-        <figure id="figure-">
+        <figure id="ml-approach4">
   <picture>
-    <img src="https://i.imgur.com/ljOLzhP.png" class="img-fluid rounded " style="
+    <img src="https://i.imgur.com/ljOLzhP.png" class="img-fluid rounded" style="
         
           
             max-width: 500px;
@@ -525,8 +501,12 @@
           margin-left: auto;
           margin-right: auto;
         
-      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
+  
+    <figcaption class="caption">
+      Figure 4: The machine learning approach.
+    </figcaption>
   
 </figure>
 
@@ -535,8 +515,9 @@
 
 <h2 id="machine-learning-pipeline">Machine Learning Pipeline</h2>
 <div class="row mt-3">
+    
     <div class="col-sm mt-3 mt-md-0">
-        <figure id="figure-">
+        <figure id="ml-pipeline5">
   <picture>
     <img src="https://i.imgur.com/9sOnyhU.png" class="img-fluid rounded" style="
         
@@ -548,8 +529,12 @@
           margin-left: auto;
           margin-right: auto;
         
-      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
   </picture>
+  
+    <figcaption class="caption">
+      Figure 5: The machine learning pipeline.
+    </figcaption>
   
 </figure>
 
@@ -560,8 +545,41 @@
 
 <p><strong>Supervised Learning</strong></p>
 <ul>
-  <li>Data-set: collection of labeled examples \(\left(\left\{\left(\mathbf{x}_{i}, y_{i}\right)\right\}_{i=1}^{N}\right)\)</li>
-  <li>
+  <li>Data-set: collection of <strong>labeled examples</strong> \(\left(\left\{\left(\mathbf{x}_{i}, y_{i}\right)\right\}_{i=1}^{N}\right)\)</li>
+  <li>Goal: produce a model that takes \(\mathbf{x}\) as input and predict \(\hat{y}\)</li>
+</ul>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="supervised-vs-unsupervised6">
+  <picture>
+    <img src="https://i.imgur.com/Ht73LSY.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 6: Supervised vs Unsupervised Learning.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><strong>Unsupervised Learning</strong></p>
+<ul>
+  <li>Data-set: collection of <strong>unlabeled example</strong> \(\left(\left\{\mathbf{x}_{i}\right\}_{i=1}^{N}\right)\)</li>
+  <li>Goal: create a model that take \(\mathbf{x}\) as input and either transform it into another vector or into a value that can be used to solve a practical problem.</li>
 </ul>
 
 
@@ -586,7 +604,7 @@
       Guo. 
       
       
-        Last updated: December 02, 2024.
+        Last updated: December 09, 2024.
       
     </div>
   </footer>
