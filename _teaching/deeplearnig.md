@@ -156,7 +156,10 @@ Below are the lecture notes. Please note that these notes are updated regularly,
       <td>
         <ul>
           <li>
-          <a href="{{ 'assets/courses/deeplearning/week_1_2/Intro' | relative_url }}">1. Introduction, Preliminaries & Linear Neural Network</a>
+          <a href="{{ 'assets/courses/deeplearning/week_1_2/intro' | relative_url }}">Introduction, Preliminaries & Linear Neural Network</a>
+          </li>
+          <li>
+          <a href="{{ 'assets/courses/deeplearning/week_1_2/classification_convexity' | relative_url }}">Linear Neural Network for Classification & Start of Optimization</a>
           </li>
         </ul>
       </td>
@@ -169,6 +172,10 @@ Below are the lecture notes. Please note that these notes are updated regularly,
           <a href="{{ 'assets/courses/deeplearning/optimization/convexity_gd' | relative_url }}">Convexity & Gradient Descent</a>
           </li>
           <li>
+          <a href="{{ 'assets/courses/deeplearning/optimization/stochastic_gd' | relative_url }}">Stochastic Gradient Descent</a>
+          </li>
+          <li>
+          <a href="{{ 'assets/courses/deeplearning/optimization/optimization_algorithms' | relative_url }}">Optimization Algorithms</a>
           </li>
         </ul>
       </td>

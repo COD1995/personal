@@ -51,9 +51,6 @@
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
 
-  <!-- Sidebar Table of Contents -->
-  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
-
 
 <!-- Styles -->
 
@@ -64,7 +61,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A4%96&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/week_1_2/Intro/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/deeplearning/week_1_2/intro/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -222,6 +219,12 @@
             
           
             
+          
+            
+          
+            
+          
+            
               
                 
                 <li class="nav-item ">
@@ -269,92 +272,64 @@
   
 </header>
 
-
     <!-- Content -->
     <div class="container mt-5" role="main">
       
         
-          <div class="row">
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
-            </div>
-            <!-- main content area -->
-            <div class="col-sm-9">
 
 
   <div class="fixed-bottom-button">
     <a href="/personal/teaching/deeplearnig" class="btn-back-course">
-      ← Deep Learning Course Page
+      ← Deep Learning
     </a>
   </div>
 
 
 <!-- Always apply separation lines (scoped to article) -->
 
-
-
-  <!-- Numbered Headings CSS -->
   <style type="text/css">
-    /* Base reset for counters */
-    body {
-      counter-reset: h1-counter 0;
-    }
-
     /* Heading 1 */
     .post > article h1 {
-      counter-increment: h1-counter;
-      counter-reset: h2-counter;
-      
-      /* Show h1 number */
-      
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
     }
-
-    
-    .post > article h1::before {
-      content: counter(h1-counter) ". ";
-    }
-    
 
     /* Heading 2 */
     .post > article h2 {
-      counter-increment: h2-counter;
-      counter-reset: h3-counter;
-    }
-
-    .post > article h2::before {
-      content: counter(h1-counter) "." counter(h2-counter) " ";
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
     }
 
     /* Heading 3 */
     .post > article h3 {
-      counter-increment: h3-counter;
-      counter-reset: h4-counter;
-    }
-
-    .post > article h3::before {
-      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
     }
 
     /* Heading 4 */
     .post > article h4 {
-      counter-increment: h4-counter;
-      counter-reset: h5-counter;
-    }
-
-    .post > article h4::before {
-      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
     }
 
     /* Heading 5 */
     .post > article h5 {
-      counter-increment: h5-counter;
-    }
-
-    .post > article h5::before {
-      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
     }
   </style>
+
+
 
 
 
@@ -365,281 +340,7 @@
       <p class="post-description"></p>
     </header>
 
-    <p>Artificial Intelligence (AI) has become an integral part of our daily lives, revolutionizing industries and transforming how we interact with technology. From voice assistants to recommendation systems and autonomous vehicles, AI is everywhere, driving innovation and solving complex problems. In this section, we introduce foundational concepts and mathematical preliminaries that form the backbone of modern AI systems. We will begin by exploring linear neural networks, one of the simplest yet most important building blocks of deep learning models, setting the stage for more advanced architectures and techniques in the field.</p>
-
-<h2 id="ai-is-ubiquitous">AI is Ubiquitous</h2>
-<p>You may find the applications of AI in every aspect of our lives these days.</p>
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="ai-ubiquitous1">
-  <picture>
-    <img src="https://i.imgur.com/tamo2Hw.png" class="img-fluid rounded z-depth-1" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 1: AI applications in our daily lives.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
-
-<h2 id="ai-paradox">AI Paradox</h2>
-<div style="display: flex; align-items: flex-start;">
-  <!-- Text Content -->
-  <div style="margin-right: 15px; max-width: 50%;">
-    <p>
-    <!-- First Bullet List -->
-    </p>
-<ul style="margin-right: 20px;">
-        <li>Problems difficult for humans are easy for AI</li>
-    </ul>
-    
-    <!-- Second Bullet List -->
-    <ul>
-        <li>Problems easy for humans are difficult for AI</li>
-    </ul>
-    
-  </div>
-
-  <!-- Image -->
-  <div style="flex-grow: 1; max-width: 50%;">
-    <img src="https://i.imgur.com/HmExOOn.png" alt="A description of the image" style="width: 100%; height: auto;">
-  </div>
-</div>
-
-<h2 id="what-tasks-require-intelligence">What tasks require Intelligence?</h2>
-
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="tasks-intelligence2">
-  <picture>
-    <img src="https://i.imgur.com/2a3uuEK.png" class="img-fluid rounded z-depth-1" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 2: Tasks that require intelligence.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
-
-<h2 id="knowledge-based-ai">Knowledge-Based AI</h2>
-<div class="row mt-3">
-    <div class="col-12 text-center">
-        <figure id="knowledge-based-ai">
-            <div style="display: flex; justify-content: center; gap: 10px;">
-                
-                <div style="flex: 1; max-width: 45%; display: flex; justify-content: center;">
-                    <img src="https://i.imgur.com/XYxUdWj.png" alt="Knowledge-based AI example 1" class="img-fluid rounded" style="width: 100%; height: auto; object-fit: contain;" id="knowledge-ai-1">
-                </div>
-                <div style="flex: 1; max-width: 45%; display: flex; justify-content: center;">
-                    <img src="https://i.imgur.com/PyZ9SuN.png" alt="Knowledge-based AI example 2" class="img-fluid rounded" style="width: 100%; height: auto; object-fit: contain;" id="knowledge-ai-2">
-                </div>
-            </div>
-            <figcaption class="caption mt-2">
-                Figure 3: Knowledge-based AI examples demonstrating various concepts.
-            </figcaption>
-        </figure>
-    </div>
-</div>
-
-<ul>
-  <li>
-<strong>Disadvantage</strong>: Unwieldy Process
-    <ul>
-      <li>Time of human expert</li>
-      <li>People struggle to formalize rules with enough complexity to describe the world</li>
-    </ul>
-  </li>
-</ul>
-
-<h2 id="the-machine-learning-approach">The Machine Learning Approach</h2>
-<ul>
-  <li>Allow computers to learn from experience</li>
-  <li>Determine what features to use</li>
-  <li>Learn to map the features to output</li>
-</ul>
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="ml-approach4">
-  <picture>
-    <img src="https://i.imgur.com/ljOLzhP.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 4: The machine learning approach.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
-
-<h2 id="machine-learning-pipeline">Machine Learning Pipeline</h2>
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="ml-pipeline5">
-  <picture>
-    <img src="https://i.imgur.com/9sOnyhU.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 5: The machine learning pipeline.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
-
-<h2 id="supervised-learning-vs-unsupervised-learning">Supervised Learning vs Unsupervised Learning</h2>
-
-<p><strong>Supervised Learning</strong></p>
-<ul>
-  <li>Data-set: collection of <strong>labeled examples</strong> \(\left(\left\{\left(\mathbf{x}_{i}, y_{i}\right)\right\}_{i=1}^{N}\right)\)</li>
-  <li>Goal: produce a model that takes \(\mathbf{x}\) as input and predict \(\hat{y}\)</li>
-</ul>
-
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="supervised6">
-  <picture>
-    <img src="https://i.imgur.com/Ht73LSY.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 6: Supervised Learning.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
-
-<p><strong>Unsupervised Learning</strong></p>
-<ul>
-  <li>Data-set: collection of <strong>unlabeled example</strong> \(\left(\left\{\mathbf{x}_{i}\right\}_{i=1}^{N}\right)\)</li>
-  <li>Goal: create a model that take \(\mathbf{x}\) as input and either transform it into another vector or into a value that can be used to solve a practical problem.</li>
-</ul>
-
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="unsupervised7">
-  <picture>
-    <img src="https://i.imgur.com/FFsupol.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 7: Unsupervised Learning.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
-
-<h2 id="semi-supervised-learning">Semi-Supervised Learning</h2>
-<ul>
-  <li>Data-set: collection of <strong>labeled and unlabeled examples</strong> \(\left(\left\{\left(\mathbf{x}_{i}, y_{i}\right)\right\}_{i=1}^{N}, \left\{\mathbf{x}_{i}\right\}_{i=1}^{M}\right)\)</li>
-  <li>Goal: The hope here is that using many unlabeled examples can help the learning algorithm to find (we might say “produce” or “compute”) a better model.</li>
-</ul>
-
-<div class="row mt-3">
-    
-    <div class="col-sm mt-3 mt-md-0">
-        <figure id="semi-supervised8">
-  <picture>
-    <img src="https://i.imgur.com/cAUzsQV.png" class="img-fluid rounded" style="
-        
-          
-            max-width: 500px;
-          
-          height: auto;
-          display: block;
-          margin-left: auto;
-          margin-right: auto;
-        
-      " loading="lazy" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
-  </picture>
-  
-    <figcaption class="caption">
-      Figure 8: Semi-Supervised Learning.
-    </figcaption>
-  
-</figure>
-
-    </div>
-</div>
+    <iframe src="/personal/assets/courses/deeplearning/week_1_2/Introduction_Preliminaries_Linear_Regression.pdf" width="100%" height="1200px"></iframe>
 
 
     
@@ -647,9 +348,7 @@
     
   </article>
 </div>
-</div>
-          </div>
-        
+
       
     </div>
 
@@ -708,9 +407,6 @@
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
-
-  <!-- Sidebar Table of Contents -->
-  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->

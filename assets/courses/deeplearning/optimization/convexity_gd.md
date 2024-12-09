@@ -7,7 +7,7 @@ toc:
     sidebar: left
 back_link: '/teaching/deeplearnig'
 back_text: 'Deep Learning Course Page'
-number_heading: true
+number_heading: false
 enable_heading_styles: true
 ---
 
