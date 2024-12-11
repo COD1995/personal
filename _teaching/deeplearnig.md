@@ -181,6 +181,16 @@ Below are the lecture notes. Please note that these notes are updated regularly,
       </td>
     </tr>
     <tr>
+    <td>DNN and CNN</td>
+      <td>
+        <ul>
+          <li>
+            <a href="{{ 'assets/courses/deeplearning/cnn/dnn_cnn' | relative_url }}">DNN and CNNs</a>
+          </li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
       <td>RNN</td>
       <td>
       <ul>
