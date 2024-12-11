@@ -156,7 +156,7 @@ Below are the lecture notes. Please note that these notes are updated regularly,
       <td>
         <ul>
           <li>
-          <a href="{{ 'assets/courses/deeplearning/week_1_2/intro' | relative_url }}">Introduction, Preliminaries & Linear Neural Network</a>
+          <a href="{{ 'assets/courses/deeplearning/week_1_2/intro/' | relative_url }}">Introduction, Preliminaries & Linear Neural Network</a>
           </li>
           <li>
           <a href="{{ 'assets/courses/deeplearning/week_1_2/classification_convexity' | relative_url }}">Linear Neural Network for Classification & Start of Optimization</a>
