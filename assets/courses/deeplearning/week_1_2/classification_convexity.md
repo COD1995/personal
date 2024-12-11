@@ -11,4 +11,4 @@ number_heading: false
 enable_heading_styles: true
 ---
 
-<iframe src="{{ 'assets/courses/deeplearning/week_1_2/classification_convexity.pdf' | relative_url }}" width="100%" height="1200px"></iframe>
+<iframe src="{{ 'assets/courses/deeplearning/week_1_2/classification_convexity.pdf' | relative_url }}" width="100%" height="2400px"></iframe>
