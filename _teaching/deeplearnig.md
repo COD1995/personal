@@ -94,44 +94,49 @@ We will have
 
 This course is **absolute** grading, meaning no curve, as there is a certain standard we need to uphold for students to have a good knowledge of deep learning.
 
-<table align="center">
+<table class="styled-table">
+  <thead>
     <tr>
-        <th>Percentage</th>
-        <th>Letter Grade</th>
-        <th>Percentage</th>
-        <th>Letter Grade</th>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>95-100</td>
+      <td>A</td>
+      <td>70-74</td>
+      <td>C+</td>
     </tr>
     <tr>
-        <td>95-100</td>
-        <td>A</td>
-        <td>70-74</td>
-        <td>C+</td>
+      <td>90-94</td>
+      <td>A-</td>
+      <td>65-69</td>
+      <td>C</td>
     </tr>
     <tr>
-        <td>90-94</td>
-        <td>A-</td>
-        <td>65-69</td>
-        <td>C</td>
+      <td>85-89</td>
+      <td>B+</td>
+      <td>60-64</td>
+      <td>C-</td>
     </tr>
     <tr>
-        <td>85-89</td>
-        <td>B+</td>
-        <td>60-64</td>
-        <td>C-</td>
+      <td>80-84</td>
+      <td>B</td>
+      <td>55-59</td>
+      <td>D</td>
     </tr>
     <tr>
-        <td>80-84</td>
-        <td>B</td>
-        <td>55-59</td>
-        <td>D</td>
+      <td>75-79</td>
+      <td>B-</td>
+      <td>0-54</td>
+      <td>F</td>
     </tr>
-    <tr>
-        <td>75-79</td>
-        <td>B-</td>
-        <td>0-54</td>
-        <td>F</td>
-    </tr>
+  </tbody>
 </table>
+
 
 ### Note on Logistics
 - A week-ahead notice for mid-term, based on the pace of the course. 
