@@ -1483,15 +1483,3 @@ ninja-keys::part(ninja-input-wrapper) {
 .styled-table th {
   font-weight: bold;
 }
-
-.styled-table tbody tr:hover {
-  background-color: rgba(0, 0, 0, 0.05);
-  /* your desired hover background */
-  color: var(--global-text-color);
-  /* ensure the text color remains readable */
-}
-
-.styled-table tbody tr:hover a {
-  color: var(--global-theme-color);
-  /* keep link color consistent on hover */
-}
