@@ -1483,3 +1483,8 @@ ninja-keys::part(ninja-input-wrapper) {
 .styled-table th {
   font-weight: bold;
 }
+
+.styled-table tbody tr:hover {
+  background-color: transparent !important;
+  color: inherit !important;
+}
