@@ -34,45 +34,56 @@ Continual Learning and Graph Learning
 
 ## Course Outline
 Check out the [course material](#lecture-notes) under lecture notes. 
+
 <table class="styled-table">
   <thead>
     <tr>
-      <th>Week(s)</th>
+      <th>Week(s) & Approx. Dates</th>
       <th>Topics Covered</th>
     </tr>
   </thead>
   <tbody>
+    <!-- Classes start Wednesday, Jan 22, 2025 -->
     <tr>
-      <td>Week 1 and Week 2</td>
+      <td>Week 1 and Week 2 (Jan 22 – Feb 4)</td>
       <td>PyTorch Fundamentals & PyTorch Workflow Fundamentals</td>
     </tr>
     <tr>
-      <td>Week 3 and Week 4</td>
+      <td>Week 3 and Week 4 (Feb 5 – Feb 18)</td>
       <td>PyTorch Neural Network Classification & Computer Vision</td>
     </tr>
     <tr>
-      <td>Week 5 and Week 6</td>
-      <td>Custom Datasets, Going Modular and Transfer Learning</td>
+      <td>Week 5 and Week 6 (Feb 19 – Mar 3)</td>
+      <td>Custom Datasets, Going Modular, and Transfer Learning</td>
     </tr>
     <tr>
-      <td>Week 7 (One Class)</td>
-      <td>Midterm (Coverage on Weeks 1, 2, 3, 4, 5)</td>
+      <td>Week 7 (Mar 4 – Mar 10)</td>
+      <td>Midterm (Coverage: Weeks 1–5) and Catch Up</td>
     </tr>
     <tr>
-      <td>Week 8 and Week 9</td>
-      <td>Experiment Tracking & Paper Replicating</td>
+      <td>Week 8 (Mar 11 – Mar 16)</td>
+      <td>Experiment Tracking & Paper Replicating (start)</td>
+    </tr>
+    <!-- Spring Recess: Mar 17 – Mar 22, No Classes -->
+    <tr>
+      <td>Mar 17 – Mar 22</td>
+      <td><strong>Spring Recess (No Classes)</strong></td>
+    </tr>
+    <!-- Classes resume Monday, Mar 24 -->
+    <tr>
+      <td>Week 9 (Mar 24 – Mar 29)</td>
+      <td>Experiment Tracking & Paper Replicating (continued)</td>
     </tr>
     <tr>
-      <td>Week 10, Week 11, Week 12, and Week 13</td>
+      <td>Week 10, 11, 12, and 13 (Mar 30 – Apr 26)</td>
       <td>Model Deployment</td>
     </tr>
     <tr>
-      <td>Week 14 and Week 15</td>
-      <td>Catch up Time on the Material if Needed<br>Final and Review</td>
+      <td>Week 14 and Week 15 (Apr 27 – May 6)</td>
+      <td>Catch Up Time on the Material if Needed</td>
     </tr>
   </tbody>
 </table>
-
 
 
 ## Grading
@@ -93,7 +104,7 @@ We will have
 - **Attendance:** 10 percent (Random Pop Quiz)
 - **Programming Assignment:** 30 percent (2 PA)
 - **Midterm:** 30 percent
-- **Final:** 30 percent 
+- **Final Project:** 30 percent 
 
 ### Grading Rubric
 
@@ -102,43 +113,47 @@ The final grade will be determined based on the *overall performance* of the cla
 - Please note that excuses for missed work or poor performance, such as personal conflicts or minor inconveniences, will not be considered unless exceptional and documented circumstances arise.
  
 
-<table align="center">
+<table class="styled-table">
+  <thead>
     <tr>
-        <th>Percentage</th>
-        <th>Letter Grade</th>
-        <th>Percentage</th>
-        <th>Letter Grade</th>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>95-100</td>
+      <td>A</td>
+      <td>70-74</td>
+      <td>C+</td>
     </tr>
     <tr>
-        <td>95-100</td>
-        <td>A</td>
-        <td>70-74</td>
-        <td>C+</td>
+      <td>90-94</td>
+      <td>A-</td>
+      <td>65-69</td>
+      <td>C</td>
     </tr>
     <tr>
-        <td>90-94</td>
-        <td>A-</td>
-        <td>65-69</td>
-        <td>C</td>
+      <td>85-89</td>
+      <td>B+</td>
+      <td>60-64</td>
+      <td>C-</td>
     </tr>
     <tr>
-        <td>85-89</td>
-        <td>B+</td>
-        <td>60-64</td>
-        <td>C-</td>
+      <td>80-84</td>
+      <td>B</td>
+      <td>55-59</td>
+      <td>D</td>
     </tr>
     <tr>
-        <td>80-84</td>
-        <td>B</td>
-        <td>55-59</td>
-        <td>D</td>
+      <td>75-79</td>
+      <td>B-</td>
+      <td>0-54</td>
+      <td>F</td>
     </tr>
-    <tr>
-        <td>75-79</td>
-        <td>B-</td>
-        <td>0-54</td>
-        <td>F</td>
-    </tr>
+  </tbody>
 </table>
 
 ### Note on Logistics
@@ -159,7 +174,11 @@ The lecture notes are based on [PyTorch documentation](https://pytorch.org/) and
   <tbody>
     <tr>
       <td>Week 1</td>
-      <td> <a href="{{ 'assets/courses/basicai/pytorch_fundamentals/' | relative_url }}">PyTorch Fundamentals & PyTorch Workflow Fundamentals</a></td>
+      <td>
+      <ul> 
+      <li><a href="{{ 'assets/courses/basicai/pytorch_fundamentals/' | relative_url }}">PyTorch Fundamentals</a></li>
+      </ul>
+      </td>
     </tr>
   </tbody>
 </table>

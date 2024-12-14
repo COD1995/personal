@@ -1488,3 +1488,18 @@ ninja-keys::part(ninja-input-wrapper) {
   background-color: transparent !important;
   color: inherit !important;
 }
+
+/* Enhance lists inside table cells */
+.styled-table td ul {
+  margin: 0;
+  padding-left: 1.5rem;
+  /* Adjust as needed for indentation */
+  list-style: disc;
+  /* Ensure bullets are visible */
+}
+
+.styled-table td ul li {
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem;
+  /* Spacing between list items, optional */
+}

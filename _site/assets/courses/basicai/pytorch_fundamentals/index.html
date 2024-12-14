@@ -17,7 +17,7 @@
   
   
     
-      Pytorch Fundamentals | Jue Guo
+      PyTorch Fundamentals | Jue Guo
     
   
 </title>
@@ -50,6 +50,9 @@
 <!-- Code Syntax Highlighting -->
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
+
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
 
 
 <!-- Styles -->
@@ -280,28 +283,140 @@
     <div class="container mt-5" role="main">
       
         
+          <div class="row">
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
 
+
+  <div class="fixed-bottom-button">
+    <a href="/personal/teaching/aibasic" class="btn-back-course">
+      ← AI Basics
+    </a>
+  </div>
 
 
 <!-- Always apply separation lines (scoped to article) -->
 
+  <style type="text/css">
+    /* Heading 1 */
+    .post > article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
+    }
 
+    /* Heading 2 */
+    .post > article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter 1;
+    }
+
+    /* Heading 1 */
+    .post > article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      
+      /* Show h1 number */
+      
+    }
+
+    
+    .post > article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+    
+
+    /* Heading 2 */
+    .post > article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    .post > article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    .post > article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    .post > article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      counter-increment: h5-counter;
+    }
+
+    .post > article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
 
 
 
 <div class="post">
   <article>
     <header class="post-header">
-      <h1 class="post-title">Pytorch Fundamentals</h1>
+      <h1 class="post-title">PyTorch Fundamentals</h1>
       <p class="post-description"></p>
     </header>
 
     
-
-
-
-<p>Sorry, the notebook you are looking for does not exist.</p>
-
 
 
     
@@ -309,7 +424,9 @@
     
   </article>
 </div>
-
+</div>
+          </div>
+        
       
     </div>
 
@@ -323,7 +440,7 @@
       Guo. 
       
       
-        Last updated: December 13, 2024.
+        Last updated: December 14, 2024.
       
     </div>
   </footer>
@@ -368,6 +485,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->
