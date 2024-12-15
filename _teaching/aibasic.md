@@ -46,7 +46,7 @@ Check out the [course material](#lecture-notes) under lecture notes.
     <!-- Classes start Wednesday, Jan 22, 2025 -->
     <tr>
       <td>Week 1 and Week 2 (Jan 22 – Feb 4)</td>
-      <td>PyTorch Fundamentals & PyTorch Workflow Fundamentals</td>
+      <td>PyTorch Fundamentals, PyTorch Workflow Fundamentals</td>
     </tr>
     <tr>
       <td>Week 3 and Week 4 (Feb 5 – Feb 18)</td>

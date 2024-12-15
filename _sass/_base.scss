@@ -1460,46 +1460,74 @@ ninja-keys::part(ninja-input-wrapper) {
   /* Remove centering margins */
 }
 
-
-// styled table 
-
+// styled-table
 .styled-table {
   width: 100%;
-  border-collapse: collapse;
-  color: var(--global-text-color);
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 1.5rem;
+  /* Add some bottom margin for extra spacing */
+
+  thead {
+    background: linear-gradient(to right, #C77DFF, #9D3FFF);
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+
+    th {
+      font-weight: 600;
+      padding: 1rem;
+      border: none;
+    }
+  }
+
+  tbody {
+    tr {
+      border-bottom: 1px solid var(--global-divider-color);
+
+      &:last-child {
+        border-bottom: none;
+      }
+
+      td {
+        padding: 1rem;
+        border: none;
+      }
+
+      &:hover {
+        background-color: var(--global-hover-color, #f9f9f9);
+        transition: background-color 0.3s ease;
+      }
+    }
+  }
+
+  td ul {
+    margin: 0;
+    padding-left: 1.5rem;
+    list-style: disc;
+  }
+
+  td ul li {
+    margin-top: 0.2rem;
+    margin-bottom: 0.2rem;
+  }
 }
 
-.styled-table th,
-.styled-table td {
-  padding: 10px;
-  text-align: left;
-  border: 1px solid var(--global-divider-color);
-}
+// end styled-table
 
-.styled-table thead {
+.note-box {
   background-color: var(--global-bg-color);
-}
+  border-left: 5px solid var(--global-theme-color);
+  padding: 1rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 1rem;
 
-.styled-table th {
-  font-weight: bold;
-}
-
-.styled-table tbody tr:hover {
-  background-color: transparent !important;
-  color: inherit !important;
-}
-
-/* Enhance lists inside table cells */
-.styled-table td ul {
-  margin: 0;
-  padding-left: 1.5rem;
-  /* Adjust as needed for indentation */
-  list-style: disc;
-  /* Ensure bullets are visible */
-}
-
-.styled-table td ul li {
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
-  /* Spacing between list items, optional */
+  strong {
+    color: var(--global-theme-color);
+  }
 }
