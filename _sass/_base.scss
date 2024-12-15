@@ -1469,6 +1469,7 @@ ninja-keys::part(ninja-input-wrapper) {
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
+  font-size: 0.9rem;
 
   thead {
     background: linear-gradient(to right, #C77DFF, #9D3FFF);
@@ -1478,8 +1479,9 @@ ninja-keys::part(ninja-input-wrapper) {
 
     th {
       font-weight: 600;
-      padding: 1rem;
+      padding: 0.75rem;
       border: none;
+      font-size: 0.85rem;
     }
   }
 

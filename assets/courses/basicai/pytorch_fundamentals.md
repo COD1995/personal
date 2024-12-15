@@ -1190,9 +1190,9 @@ How about a visual?
 
 You can create your own matrix multiplication visuals like this at http://matrixmultiplication.xyz/.
 
-> **Note:** A matrix multiplication like this is also referred to as the [**dot product**](https://www.mathsisfun.com/algebra/vectors-dot-product.html) of two matrices.
-
-
+<div class="note-box">
+  <strong>Note:</strong> A matrix multiplication like this is also referred to as the <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html"><strong>dot product</strong></a> of two matrices.
+</div>
 
 Neural networks are full of matrix multiplications and dot products.
 
@@ -1241,7 +1241,11 @@ print(f"Output:\n{output}\n\nOutput shape: {output.shape}")
     Output shape: torch.Size([3, 6])
 
 
-> **Question:** What happens if you change `in_features` from 2 to 3 above? Does it error? How could you change the shape of the input (`x`) to accommodate to the error? Hint: what did we have to do to `tensor_B` above?
+<div class="note-box">
+  <strong>Question:</strong> What happens if you change <code>in_features</code> from 2 to 3 above? Does it error?
+  How could you change the shape of the input (<code>x</code>) to accommodate the error?
+  <em>Hint:</em> What did we have to do to <code>tensor_B</code> above?
+</div>
 
 If you've never done it before, matrix multiplication can be a confusing topic at first.
 
@@ -1249,9 +1253,21 @@ But after you've played around with it a few times and even cracked open a few n
 
 Remember, matrix multiplication is all you need.
 
-![matrix multiplication is all you need](https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00_matrix_multiplication_is_all_you_need.jpeg)
+<div class="row mt-3">
+    {% assign figure_counter = figure_counter | plus: 1 %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid
+            figure_number=figure_counter
+            loading="eager"
+            path="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00_matrix_multiplication_is_all_you_need.jpeg"
+            class="img-fluid rounded"
+            caption="Matrix multiplication is all you need."
+            id="fig_matrix_multiplication_is_all_you_need" %}
+    </div>
+</div>
 
-*When you start digging into neural network layers and building your own, you'll find matrix multiplications everywhere. **Source:** https://marksaroufim.substack.com/p/working-class-deep-learner*
+
+*When you start digging into neural network layers and building your own, you'll find matrix multiplications everywhere. **Source:** [Working Calss Deep Learner](https://marksaroufim.substack.com/p/working-class-deep-learner)*
 
 ### Finding the min, max, mean, sum, etc (aggregation)
 
@@ -1294,7 +1310,9 @@ print(f"Sum: {x.sum()}")
     Sum: 450
 
 
-> **Note:** You may find some methods such as `torch.mean()` require tensors to be in `torch.float32` (the most common) or another specific datatype, otherwise the operation will fail. 
+<div class="note-box">
+  <strong>Note:</strong> You may find some methods such as <code>torch.mean()</code> require tensors to be in <code>torch.float32</code> (the most common) or another specific datatype, otherwise the operation will fail.
+</div>
 
 You can also do the same as above with `torch` methods.
 
@@ -1392,9 +1410,16 @@ tensor_int8
 
 
 
-> **Note:** Different datatypes can be confusing to begin with. But think of it like this, the lower the number (e.g. 32, 16, 8), the less precise a computer stores the value. And with a lower amount of storage, this generally results in faster computation and a smaller overall model. Mobile-based neural networks often operate with 8-bit integers, smaller and faster to run but less accurate than their float32 counterparts. For more on this, I'd read up about [precision in computing](https://en.wikipedia.org/wiki/Precision_(computer_science)).
+<div class="note-box">
+  <strong>Note:</strong> Different datatypes can be confusing to begin with. But think of it like this, the lower the number (e.g. 32, 16, 8), the less precise a computer stores the value. And with a lower amount of storage, this generally results in faster computation and a smaller overall model. Mobile-based neural networks often operate with 8-bit integers, smaller and faster to run but less accurate than their float32 counterparts.
 
-> **Exercise:** So far we've covered a fair few tensor methods but there's a bunch more in the [`torch.Tensor` documentation](https://pytorch.org/docs/stable/tensors.html), I'd recommend spending 10-minutes scrolling through and looking into any that catch your eye. Click on them and then write them out in code yourself to see what happens.
+  For more on this, read up about <a href="https://en.wikipedia.org/wiki/Precision_(computer_science)">precision in computing</a>.
+</div>
+
+<div class="note-box">
+  <strong>Exercise:</strong> So far we've covered a fair few tensor methods, but there's a bunch more in the <a href="https://pytorch.org/docs/stable/tensors.html"><code>torch.Tensor</code> documentation</a>. Spend about 10 minutes scrolling through and looking into any that catch your eye. Then click on them and write them out in code yourself to see what happens.
+</div>
+
 
 ### Reshaping, stacking, squeezing and unsqueezing
 
@@ -1402,14 +1427,40 @@ Often times you'll want to reshape or change the dimensions of your tensors with
 
 To do so, some popular methods are:
 
-| Method | One-line description |
-| ----- | ----- |
-| [`torch.reshape(input, shape)`](https://pytorch.org/docs/stable/generated/torch.reshape.html#torch.reshape) | Reshapes `input` to `shape` (if compatible), can also use `torch.Tensor.reshape()`. |
-| [`Tensor.view(shape)`](https://pytorch.org/docs/stable/generated/torch.Tensor.view.html) | Returns a view of the original tensor in a different `shape` but shares the same data as the original tensor. |
-| [`torch.stack(tensors, dim=0)`](https://pytorch.org/docs/1.9.1/generated/torch.stack.html) | Concatenates a sequence of `tensors` along a new dimension (`dim`), all `tensors` must be same size. |
-| [`torch.squeeze(input)`](https://pytorch.org/docs/stable/generated/torch.squeeze.html) | Squeezes `input` to remove all the dimenions with value `1`. |
-| [`torch.unsqueeze(input, dim)`](https://pytorch.org/docs/1.9.1/generated/torch.unsqueeze.html) | Returns `input` with a dimension value of `1` added at `dim`. | 
-| [`torch.permute(input, dims)`](https://pytorch.org/docs/stable/generated/torch.permute.html) | Returns a *view* of the original `input` with its dimensions permuted (rearranged) to `dims`. | 
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>One-line description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.reshape.html#torch.reshape"><code>torch.reshape(input, shape)</code></a></td>
+      <td>Reshapes <code>input</code> to <code>shape</code> (if compatible), can also use <code>torch.Tensor.reshape()</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.Tensor.view.html"><code>Tensor.view(shape)</code></a></td>
+      <td>Returns a view of the original tensor in a different <code>shape</code> but shares the same data as the original tensor.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.stack.html"><code>torch.stack(tensors, dim=0)</code></a></td>
+      <td>Concatenates a sequence of <code>tensors</code> along a new dimension (<code>dim</code>), all <code>tensors</code> must be the same size.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.squeeze.html"><code>torch.squeeze(input)</code></a></td>
+      <td>Squeezes <code>input</code> to remove all the dimensions with value <code>1</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.unsqueeze.html"><code>torch.unsqueeze(input, dim)</code></a></td>
+      <td>Returns <code>input</code> with a dimension value of <code>1</code> added at <code>dim</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.permute.html"><code>torch.permute(input, dims)</code></a></td>
+      <td>Returns a <em>view</em> of the original <code>input</code> with its dimensions permuted (rearranged) to <code>dims</code>.</td>
+    </tr>
+  </tbody>
+</table>
 
 Why do any of these?
 
@@ -1469,7 +1520,7 @@ z, z.shape
 
 Remember though, changing the view of a tensor with `torch.view()` really only creates a new view of the *same* tensor.
 
-So changing the view changes the original tensor too. 
+So *changing the view changes the original tensor too*. 
 
 
 ```python
@@ -1564,7 +1615,9 @@ print(f"New shape: {x_permuted.shape}")
     New shape: torch.Size([3, 224, 224])
 
 
-> **Note**: Because permuting returns a *view* (shares the same data as the original), the values in the permuted tensor will be the same as the original tensor and if you change the values in the view, it will change the values of the original.
+<div class="note-box">
+  <strong>Note:</strong> Because permuting returns a <em>view</em> (shares the same data as the original), the values in the permuted tensor will be the same as the original tensor, and if you change the values in the view, it will change the values of the original.
+</div>
 
 ## Indexing (selecting data from tensors)
 
@@ -1694,11 +1747,14 @@ array, tensor
 
 
 
-> **Note:** By default, NumPy arrays are created with the datatype `float64` and if you convert it to a PyTorch tensor, it'll keep the same datatype (as above). 
->
-> However, many PyTorch calculations default to using `float32`. 
-> 
-> So if you want to convert your NumPy array (float64) -> PyTorch tensor (float64) -> PyTorch tensor (float32), you can use `tensor = torch.from_numpy(array).type(torch.float32)`.
+<div class="note-box">
+  <strong>Note:</strong> By default, NumPy arrays are created with the datatype <code>float64</code> and if you convert it to a PyTorch tensor, it'll keep the same datatype (as above).
+
+  However, many PyTorch calculations default to using <code>float32</code>.
+
+  So if you want to convert your NumPy array (<code>float64</code>) → PyTorch tensor (<code>float64</code>) → PyTorch tensor (<code>float32</code>), you can use:
+  <pre><code>tensor = torch.from_numpy(array).type(torch.float32)</code></pre>
+</div>
 
 Because we reassigned `tensor` above, if you change the tensor, the array stays the same.
 
@@ -1879,9 +1935,14 @@ Nice!
 
 It looks like setting the seed worked. 
 
-> **Resource:** What we've just covered only scratches the surface of reproducibility in PyTorch. For more, on reproducibility in general and random seeds, I'd checkout:
-> * [The PyTorch reproducibility documentation](https://pytorch.org/docs/stable/notes/randomness.html) (a good exercise would be to read through this for 10-minutes and even if you don't understand it now, being aware of it is important).
-> * [The Wikipedia random seed page](https://en.wikipedia.org/wiki/Random_seed) (this'll give a good overview of random seeds and pseudorandomness in general).
+<div class="note-box">
+  <strong>Resource:</strong> What we've just covered only scratches the surface of reproducibility in PyTorch. For more on reproducibility in general and random seeds, check out:
+
+  <ul>
+    <li><a href="https://pytorch.org/docs/stable/notes/randomness.html">The PyTorch reproducibility documentation</a> (a good exercise would be to read through this for 10-minutes and even if you don't understand it now, being aware of it is important).</li>
+    <li><a href="https://en.wikipedia.org/wiki/Random_seed">The Wikipedia random seed page</a> (this'll give a good overview of random seeds and pseudorandomness in general).</li>
+  </ul>
+</div>
 
 ## Running tensors on GPUs (and making faster computations)
 
@@ -1897,59 +1958,86 @@ If so, you should look to use it whenever you can to train neural networks becau
 
 There are a few ways to first get access to a GPU and secondly get PyTorch to use the GPU.
 
-> **Note:** When I reference "GPU" throughout this course, I'm referencing a [Nvidia GPU with CUDA](https://developer.nvidia.com/cuda-gpus) enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing & not just graphics) unless otherwise specified.
-
-
-
+<div class="note-box">
+  <strong>Note:</strong> When I reference "GPU" throughout this course, I'm referencing a <a href="https://developer.nvidia.com/cuda-gpus">Nvidia GPU with CUDA</a> enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing & not just graphics) unless otherwise specified.
+</div>
 
 ### 1. Getting a GPU
 
 You may already know what's going on when I say GPU. But if not, there are a few ways to get access to one.
 
-| **Method** | **Difficulty to setup** | **Pros** | **Cons** | **How to setup** |
-| ----- | ----- | ----- | ----- | ----- |
-| Google Colab | Easy | Free to use, almost zero setup required, can share work with others as easy as a link | Doesn't save your data outputs, limited compute, subject to timeouts | [Follow the Google Colab Guide](https://colab.research.google.com/notebooks/gpu.ipynb) |
-| Use your own | Medium | Run everything locally on your own machine | GPUs aren't free, require upfront cost | Follow the [PyTorch installation guidelines](https://pytorch.org/get-started/locally/) |
-| Cloud computing (AWS, GCP, Azure) | Medium-Hard | Small upfront cost, access to almost infinite compute | Can get expensive if running continually, takes some time to setup right | Follow the [PyTorch installation guidelines](https://pytorch.org/get-started/cloud-partners/) |
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th><strong>Method</strong></th>
+      <th><strong>Difficulty to setup</strong></th>
+      <th><strong>Pros</strong></th>
+      <th><strong>Cons</strong></th>
+      <th><strong>How to setup</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Google Colab</strong></td>
+      <td>Easy</td>
+      <td>Free to use, almost zero setup required, can share work with others as easy as a link</td>
+      <td>Doesn't save your data outputs, limited compute, subject to timeouts</td>
+      <td><a href="https://colab.research.google.com/notebooks/gpu.ipynb">Follow the Google Colab Guide</a></td>
+    </tr>
+    <tr>
+      <td><strong>Use your own</strong></td>
+      <td>Medium</td>
+      <td>Run everything locally on your own machine</td>
+      <td>GPUs aren't free, require upfront cost</td>
+      <td><a href="https://pytorch.org/get-started/locally/">Follow the PyTorch installation guidelines</a></td>
+    </tr>
+    <tr>
+      <td><strong>Cloud computing (AWS, GCP, Azure)</strong></td>
+      <td>Medium-Hard</td>
+      <td>Small upfront cost, access to almost infinite compute</td>
+      <td>Can get expensive if running continually, takes some time to setup right</td>
+      <td><a href="https://pytorch.org/get-started/cloud-partners/">Follow the PyTorch installation guidelines</a></td>
+    </tr>
+  </tbody>
+</table>
 
 There are more options for using GPUs but the above three will suffice for now.
 
 Personally, I use a combination of Google Colab and my own personal computer for small scale experiments (and creating this course) and go to cloud resources when I need more compute power.
 
-> **Resource:** If you're looking to purchase a GPU of your own but not sure what to get, [Tim Dettmers has an excellent guide](https://timdettmers.com/2020/09/07/which-gpu-for-deep-learning/).
+<div class="note-box">
+  <strong>Resource:</strong> If you're looking to purchase a GPU of your own but not sure what to get, <a href="https://timdettmers.com/2020/09/07/which-gpu-for-deep-learning/">Tim Dettmers has an excellent guide</a>.
+</div>
 
 To check if you've got access to a Nvidia GPU, you can run `!nvidia-smi` where the `!` (also called bang) means "run this on the command line".
-
-
-
 
 ```python
 !nvidia-smi
 ```
-
-    Sat Jan 21 08:34:23 2023       
-    +-----------------------------------------------------------------------------+
-    | NVIDIA-SMI 515.48.07    Driver Version: 515.48.07    CUDA Version: 11.7     |
-    |-------------------------------+----------------------+----------------------+
-    | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
-    | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
-    |                               |                      |               MIG M. |
-    |===============================+======================+======================|
-    |   0  NVIDIA TITAN RTX    On   | 00000000:01:00.0 Off |                  N/A |
-    | 40%   30C    P8     7W / 280W |    177MiB / 24576MiB |      0%      Default |
-    |                               |                      |                  N/A |
-    +-------------------------------+----------------------+----------------------+
-                                                                                   
-    +-----------------------------------------------------------------------------+
-    | Processes:                                                                  |
-    |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
-    |        ID   ID                                                   Usage      |
-    |=============================================================================|
-    |    0   N/A  N/A      1061      G   /usr/lib/xorg/Xorg                 53MiB |
-    |    0   N/A  N/A   2671131      G   /usr/lib/xorg/Xorg                 97MiB |
-    |    0   N/A  N/A   2671256      G   /usr/bin/gnome-shell                9MiB |
-    +-----------------------------------------------------------------------------+
-
+```shell
+Sat Jan 21 08:34:23 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.48.07    Driver Version: 515.48.07    CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA TITAN RTX    On   | 00000000:01:00.0 Off |                  N/A |
+| 40%   30C    P8     7W / 280W |    177MiB / 24576MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                                
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1061      G   /usr/lib/xorg/Xorg                 53MiB |
+|    0   N/A  N/A   2671131      G   /usr/lib/xorg/Xorg                 97MiB |
+|    0   N/A  N/A   2671256      G   /usr/bin/gnome-shell                9MiB |
++-----------------------------------------------------------------------------+
+```
 
 If you don't have a Nvidia GPU accessible, the above will output something like:
 
@@ -2035,7 +2123,9 @@ device
 
 If the above output `"cuda"` it means we can set all of our PyTorch code to use the available CUDA device (a GPU) and if it output `"cpu"`, our PyTorch code will stick with the CPU.
 
-> **Note:** In PyTorch, it's best practice to write [**device agnostic code**](https://pytorch.org/docs/master/notes/cuda.html#device-agnostic-code). This means code that'll run on CPU (always available) or GPU (if available).
+<div class="note-box">
+  <strong>Note:</strong> In PyTorch, it's best practice to write <a href="https://pytorch.org/docs/master/notes/cuda.html#device-agnostic-code"><strong>device agnostic code</strong></a>. This means code that’ll run on CPU (always available) or GPU (if available).
+</div>
 
 If you want to do faster computing you can use a GPU but if you want to do *much* faster computing, you can use multiple GPUs.
 
@@ -2112,9 +2202,11 @@ Why do this?
 
 GPUs offer far faster numerical computing than CPUs do and if a GPU isn't available, because of our **device agnostic code** (see above), it'll run on the CPU.
 
-> **Note:** Putting a tensor on GPU using `to(device)` (e.g. `some_tensor.to(device)`) returns a copy of that tensor, e.g. the same tensor will be on CPU and GPU. To overwrite tensors, reassign them:
->
-> `some_tensor = some_tensor.to(device)`
+<div class="note-box">
+  <strong>Note:</strong> Putting a tensor on GPU using <code>to(device)</code> (e.g. <code>some_tensor.to(device)</code>) returns a copy of that tensor. This means the same tensor will exist on both CPU and GPU. To overwrite tensors, reassign them:
+  
+  <pre><code>some_tensor = some_tensor.to(device)</code></pre>
+</div>
 
 Let's try creating a tensor and putting it on the GPU (if it's available).
 
@@ -2212,16 +2304,6 @@ tensor_on_gpu
 
 
 ## Exercises
-
-All of the exercises are focused on practicing the code above.
-
-You should be able to complete them by referencing each section or by following the resource(s) linked.
-
-**Resources:**
-
-* [Exercise template notebook for 00](https://github.com/mrdbourke/pytorch-deep-learning/blob/main/extras/exercises/00_pytorch_fundamentals_exercises.ipynb).
-* [Example solutions notebook for 00](https://github.com/mrdbourke/pytorch-deep-learning/blob/main/extras/solutions/00_pytorch_fundamentals_exercise_solutions.ipynb) (try the exercises *before* looking at this).
-
 1. Documentation reading - A big part of deep learning (and learning to code in general) is getting familiar with the documentation of a certain framework you're using. We'll be using the PyTorch documentation a lot throughout the rest of this course. So I'd recommend spending 10-minutes reading the following (it's okay if you don't get some things for now, the focus is not yet full understanding, it's awareness). See the documentation on [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch-tensor) and for [`torch.cuda`](https://pytorch.org/docs/master/notes/cuda.html#cuda-semantics).
 2. Create a random tensor with shape `(7, 7)`.
 3. Perform a matrix multiplication on the tensor from 2 with another random tensor with shape `(1, 7)` (hint: you may have to transpose the second tensor).

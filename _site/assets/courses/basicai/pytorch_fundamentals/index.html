@@ -1484,9 +1484,9 @@ Output shape: torch.Size([3, 3])
 
 <p>You can create your own matrix multiplication visuals like this at http://matrixmultiplication.xyz/.</p>
 
-<blockquote>
-  <p><strong>Note:</strong> A matrix multiplication like this is also referred to as the <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html" rel="external nofollow noopener" target="_blank"><strong>dot product</strong></a> of two matrices.</p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> A matrix multiplication like this is also referred to as the <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html" rel="external nofollow noopener" target="_blank"><strong>dot product</strong></a> of two matrices.
+</div>
 
 <p>Neural networks are full of matrix multiplications and dot products.</p>
 
@@ -1541,9 +1541,11 @@ tensor([[2.2368, 1.2292, 0.4714, 0.3864, 0.1309, 0.9838],
 Output shape: torch.Size([3, 6])
 </code></pre></div></div>
 
-<blockquote>
-  <p><strong>Question:</strong> What happens if you change <code class="language-plaintext highlighter-rouge">in_features</code> from 2 to 3 above? Does it error? How could you change the shape of the input (<code class="language-plaintext highlighter-rouge">x</code>) to accommodate to the error? Hint: what did we have to do to <code class="language-plaintext highlighter-rouge">tensor_B</code> above?</p>
-</blockquote>
+<div class="note-box">
+  <strong>Question:</strong> What happens if you change <code>in_features</code> from 2 to 3 above? Does it error?
+  How could you change the shape of the input (<code>x</code>) to accommodate the error?
+  <em>Hint:</em> What did we have to do to <code>tensor_B</code> above?
+</div>
 
 <p>If you’ve never done it before, matrix multiplication can be a confusing topic at first.</p>
 
@@ -1551,9 +1553,34 @@ Output shape: torch.Size([3, 6])
 
 <p>Remember, matrix multiplication is all you need.</p>
 
-<p><img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00_matrix_multiplication_is_all_you_need.jpeg" alt="matrix multiplication is all you need"></p>
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_matrix_multiplication_is_all_you_need6">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00_matrix_multiplication_is_all_you_need.jpeg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 6: Matrix multiplication is all you need.
+    </figcaption>
+  
+</figure>
 
-<p><em>When you start digging into neural network layers and building your own, you’ll find matrix multiplications everywhere. <strong>Source:</strong> https://marksaroufim.substack.com/p/working-class-deep-learner</em></p>
+    </div>
+</div>
+
+<p><em>When you start digging into neural network layers and building your own, you’ll find matrix multiplications everywhere. <strong>Source:</strong> <a href="https://marksaroufim.substack.com/p/working-class-deep-learner" rel="external nofollow noopener" target="_blank">Working Calss Deep Learner</a></em></p>
 
 <h3 id="finding-the-min-max-mean-sum-etc-aggregation">Finding the min, max, mean, sum, etc (aggregation)</h3>
 
@@ -1584,9 +1611,9 @@ Mean: 45.0
 Sum: 450
 </code></pre></div></div>
 
-<blockquote>
-  <p><strong>Note:</strong> You may find some methods such as <code class="language-plaintext highlighter-rouge">torch.mean()</code> require tensors to be in <code class="language-plaintext highlighter-rouge">torch.float32</code> (the most common) or another specific datatype, otherwise the operation will fail.</p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> You may find some methods such as <code>torch.mean()</code> require tensors to be in <code>torch.float32</code> (the most common) or another specific datatype, otherwise the operation will fail.
+</div>
 
 <p>You can also do the same as above with <code class="language-plaintext highlighter-rouge">torch</code> methods.</p>
 
@@ -1656,13 +1683,15 @@ Index where min value occurs: 0
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([10, 20, 30, 40, 50, 60, 70, 80, 90], dtype=torch.int8)
 </code></pre></div></div>
 
-<blockquote>
-  <p><strong>Note:</strong> Different datatypes can be confusing to begin with. But think of it like this, the lower the number (e.g. 32, 16, 8), the less precise a computer stores the value. And with a lower amount of storage, this generally results in faster computation and a smaller overall model. Mobile-based neural networks often operate with 8-bit integers, smaller and faster to run but less accurate than their float32 counterparts. For more on this, I’d read up about <a href="https://en.wikipedia.org/wiki/Precision_(computer_science)" rel="external nofollow noopener" target="_blank">precision in computing</a>.</p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> Different datatypes can be confusing to begin with. But think of it like this, the lower the number (e.g. 32, 16, 8), the less precise a computer stores the value. And with a lower amount of storage, this generally results in faster computation and a smaller overall model. Mobile-based neural networks often operate with 8-bit integers, smaller and faster to run but less accurate than their float32 counterparts.
 
-<blockquote>
-  <p><strong>Exercise:</strong> So far we’ve covered a fair few tensor methods but there’s a bunch more in the <a href="https://pytorch.org/docs/stable/tensors.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor</code> documentation</a>, I’d recommend spending 10-minutes scrolling through and looking into any that catch your eye. Click on them and then write them out in code yourself to see what happens.</p>
-</blockquote>
+  For more on this, read up about <a href="https://en.wikipedia.org/wiki/Precision_(computer_science)" rel="external nofollow noopener" target="_blank">precision in computing</a>.
+</div>
+
+<div class="note-box">
+  <strong>Exercise:</strong> So far we've covered a fair few tensor methods, but there's a bunch more in the <a href="https://pytorch.org/docs/stable/tensors.html" rel="external nofollow noopener" target="_blank"><code>torch.Tensor</code> documentation</a>. Spend about 10 minutes scrolling through and looking into any that catch your eye. Then click on them and write them out in code yourself to see what happens.
+</div>
 
 <h3 id="reshaping-stacking-squeezing-and-unsqueezing">Reshaping, stacking, squeezing and unsqueezing</h3>
 
@@ -1670,7 +1699,7 @@ Index where min value occurs: 0
 
 <p>To do so, some popular methods are:</p>
 
-<table>
+<table class="styled-table">
   <thead>
     <tr>
       <th>Method</th>
@@ -1679,28 +1708,28 @@ Index where min value occurs: 0
   </thead>
   <tbody>
     <tr>
-      <td><a href="https://pytorch.org/docs/stable/generated/torch.reshape.html#torch.reshape" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.reshape(input, shape)</code></a></td>
-      <td>Reshapes <code class="language-plaintext highlighter-rouge">input</code> to <code class="language-plaintext highlighter-rouge">shape</code> (if compatible), can also use <code class="language-plaintext highlighter-rouge">torch.Tensor.reshape()</code>.</td>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.reshape.html#torch.reshape" rel="external nofollow noopener" target="_blank"><code>torch.reshape(input, shape)</code></a></td>
+      <td>Reshapes <code>input</code> to <code>shape</code> (if compatible), can also use <code>torch.Tensor.reshape()</code>.</td>
     </tr>
     <tr>
-      <td><a href="https://pytorch.org/docs/stable/generated/torch.Tensor.view.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">Tensor.view(shape)</code></a></td>
-      <td>Returns a view of the original tensor in a different <code class="language-plaintext highlighter-rouge">shape</code> but shares the same data as the original tensor.</td>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.Tensor.view.html" rel="external nofollow noopener" target="_blank"><code>Tensor.view(shape)</code></a></td>
+      <td>Returns a view of the original tensor in a different <code>shape</code> but shares the same data as the original tensor.</td>
     </tr>
     <tr>
-      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.stack.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.stack(tensors, dim=0)</code></a></td>
-      <td>Concatenates a sequence of <code class="language-plaintext highlighter-rouge">tensors</code> along a new dimension (<code class="language-plaintext highlighter-rouge">dim</code>), all <code class="language-plaintext highlighter-rouge">tensors</code> must be same size.</td>
+      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.stack.html" rel="external nofollow noopener" target="_blank"><code>torch.stack(tensors, dim=0)</code></a></td>
+      <td>Concatenates a sequence of <code>tensors</code> along a new dimension (<code>dim</code>), all <code>tensors</code> must be the same size.</td>
     </tr>
     <tr>
-      <td><a href="https://pytorch.org/docs/stable/generated/torch.squeeze.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.squeeze(input)</code></a></td>
-      <td>Squeezes <code class="language-plaintext highlighter-rouge">input</code> to remove all the dimenions with value <code class="language-plaintext highlighter-rouge">1</code>.</td>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.squeeze.html" rel="external nofollow noopener" target="_blank"><code>torch.squeeze(input)</code></a></td>
+      <td>Squeezes <code>input</code> to remove all the dimensions with value <code>1</code>.</td>
     </tr>
     <tr>
-      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.unsqueeze.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.unsqueeze(input, dim)</code></a></td>
-      <td>Returns <code class="language-plaintext highlighter-rouge">input</code> with a dimension value of <code class="language-plaintext highlighter-rouge">1</code> added at <code class="language-plaintext highlighter-rouge">dim</code>.</td>
+      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.unsqueeze.html" rel="external nofollow noopener" target="_blank"><code>torch.unsqueeze(input, dim)</code></a></td>
+      <td>Returns <code>input</code> with a dimension value of <code>1</code> added at <code>dim</code>.</td>
     </tr>
     <tr>
-      <td><a href="https://pytorch.org/docs/stable/generated/torch.permute.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.permute(input, dims)</code></a></td>
-      <td>Returns a <em>view</em> of the original <code class="language-plaintext highlighter-rouge">input</code> with its dimensions permuted (rearranged) to <code class="language-plaintext highlighter-rouge">dims</code>.</td>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.permute.html" rel="external nofollow noopener" target="_blank"><code>torch.permute(input, dims)</code></a></td>
+      <td>Returns a <em>view</em> of the original <code>input</code> with its dimensions permuted (rearranged) to <code>dims</code>.</td>
     </tr>
   </tbody>
 </table>
@@ -1745,7 +1774,7 @@ Index where min value occurs: 0
 
 <p>Remember though, changing the view of a tensor with <code class="language-plaintext highlighter-rouge">torch.view()</code> really only creates a new view of the <em>same</em> tensor.</p>
 
-<p>So changing the view changes the original tensor too.</p>
+<p>So <em>changing the view changes the original tensor too</em>.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Changing z changes x
 </span><span class="n">z</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
@@ -1822,9 +1851,9 @@ New shape: torch.Size([1, 7])
 New shape: torch.Size([3, 224, 224])
 </code></pre></div></div>
 
-<blockquote>
-  <p><strong>Note</strong>: Because permuting returns a <em>view</em> (shares the same data as the original), the values in the permuted tensor will be the same as the original tensor and if you change the values in the view, it will change the values of the original.</p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> Because permuting returns a <em>view</em> (shares the same data as the original), the values in the permuted tensor will be the same as the original tensor, and if you change the values in the view, it will change the values of the original.
+</div>
 
 <h2 id="indexing-selecting-data-from-tensors">Indexing (selecting data from tensors)</h2>
 
@@ -1920,13 +1949,14 @@ Third square bracket: 1
  tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))
 </code></pre></div></div>
 
-<blockquote>
-  <p><strong>Note:</strong> By default, NumPy arrays are created with the datatype <code class="language-plaintext highlighter-rouge">float64</code> and if you convert it to a PyTorch tensor, it’ll keep the same datatype (as above).</p>
+<div class="note-box">
+  <strong>Note:</strong> By default, NumPy arrays are created with the datatype <code>float64</code> and if you convert it to a PyTorch tensor, it'll keep the same datatype (as above).
 
-  <p>However, many PyTorch calculations default to using <code class="language-plaintext highlighter-rouge">float32</code>.</p>
+  However, many PyTorch calculations default to using <code>float32</code>.
 
-  <p>So if you want to convert your NumPy array (float64) -&gt; PyTorch tensor (float64) -&gt; PyTorch tensor (float32), you can use <code class="language-plaintext highlighter-rouge">tensor = torch.from_numpy(array).type(torch.float32)</code>.</p>
-</blockquote>
+  So if you want to convert your NumPy array (<code>float64</code>) → PyTorch tensor (<code>float64</code>) → PyTorch tensor (<code>float32</code>), you can use:
+  <pre><code>tensor = torch.from_numpy(array).type(torch.float32)</code></pre>
+</div>
 
 <p>Because we reassigned <code class="language-plaintext highlighter-rouge">tensor</code> above, if you change the tensor, the array stays the same.</p>
 
@@ -2083,15 +2113,16 @@ tensor([[True, True, True, True],
 
 <p>It looks like setting the seed worked.</p>
 
-<blockquote>
-  <p><strong>Resource:</strong> What we’ve just covered only scratches the surface of reproducibility in PyTorch. For more, on reproducibility in general and random seeds, I’d checkout:</p>
+<div class="note-box">
+  <strong>Resource:</strong> What we've just covered only scratches the surface of reproducibility in PyTorch. For more on reproducibility in general and random seeds, check out:
+
   <ul>
     <li>
-<a href="https://pytorch.org/docs/stable/notes/randomness.html" rel="external nofollow noopener" target="_blank">The PyTorch reproducibility documentation</a> (a good exercise would be to read through this for 10-minutes and even if you don’t understand it now, being aware of it is important).</li>
+<a href="https://pytorch.org/docs/stable/notes/randomness.html" rel="external nofollow noopener" target="_blank">The PyTorch reproducibility documentation</a> (a good exercise would be to read through this for 10-minutes and even if you don't understand it now, being aware of it is important).</li>
     <li>
-<a href="https://en.wikipedia.org/wiki/Random_seed" rel="external nofollow noopener" target="_blank">The Wikipedia random seed page</a> (this’ll give a good overview of random seeds and pseudorandomness in general).</li>
+<a href="https://en.wikipedia.org/wiki/Random_seed" rel="external nofollow noopener" target="_blank">The Wikipedia random seed page</a> (this'll give a good overview of random seeds and pseudorandomness in general).</li>
   </ul>
-</blockquote>
+</div>
 
 <h2 id="running-tensors-on-gpus-and-making-faster-computations">Running tensors on GPUs (and making faster computations)</h2>
 
@@ -2107,15 +2138,15 @@ tensor([[True, True, True, True],
 
 <p>There are a few ways to first get access to a GPU and secondly get PyTorch to use the GPU.</p>
 
-<blockquote>
-  <p><strong>Note:</strong> When I reference “GPU” throughout this course, I’m referencing a <a href="https://developer.nvidia.com/cuda-gpus" rel="external nofollow noopener" target="_blank">Nvidia GPU with CUDA</a> enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing &amp; not just graphics) unless otherwise specified.</p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> When I reference "GPU" throughout this course, I'm referencing a <a href="https://developer.nvidia.com/cuda-gpus" rel="external nofollow noopener" target="_blank">Nvidia GPU with CUDA</a> enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing &amp; not just graphics) unless otherwise specified.
+</div>
 
 <h3 id="1-getting-a-gpu">1. Getting a GPU</h3>
 
 <p>You may already know what’s going on when I say GPU. But if not, there are a few ways to get access to one.</p>
 
-<table>
+<table class="styled-table">
   <thead>
     <tr>
       <th><strong>Method</strong></th>
@@ -2127,27 +2158,25 @@ tensor([[True, True, True, True],
   </thead>
   <tbody>
     <tr>
-      <td>Google Colab</td>
+      <td><strong>Google Colab</strong></td>
       <td>Easy</td>
       <td>Free to use, almost zero setup required, can share work with others as easy as a link</td>
-      <td>Doesn’t save your data outputs, limited compute, subject to timeouts</td>
+      <td>Doesn't save your data outputs, limited compute, subject to timeouts</td>
       <td><a href="https://colab.research.google.com/notebooks/gpu.ipynb" rel="external nofollow noopener" target="_blank">Follow the Google Colab Guide</a></td>
     </tr>
     <tr>
-      <td>Use your own</td>
+      <td><strong>Use your own</strong></td>
       <td>Medium</td>
       <td>Run everything locally on your own machine</td>
-      <td>GPUs aren’t free, require upfront cost</td>
-      <td>Follow the <a href="https://pytorch.org/get-started/locally/" rel="external nofollow noopener" target="_blank">PyTorch installation guidelines</a>
-</td>
+      <td>GPUs aren't free, require upfront cost</td>
+      <td><a href="https://pytorch.org/get-started/locally/" rel="external nofollow noopener" target="_blank">Follow the PyTorch installation guidelines</a></td>
     </tr>
     <tr>
-      <td>Cloud computing (AWS, GCP, Azure)</td>
+      <td><strong>Cloud computing (AWS, GCP, Azure)</strong></td>
       <td>Medium-Hard</td>
       <td>Small upfront cost, access to almost infinite compute</td>
       <td>Can get expensive if running continually, takes some time to setup right</td>
-      <td>Follow the <a href="https://pytorch.org/get-started/cloud-partners/" rel="external nofollow noopener" target="_blank">PyTorch installation guidelines</a>
-</td>
+      <td><a href="https://pytorch.org/get-started/cloud-partners/" rel="external nofollow noopener" target="_blank">Follow the PyTorch installation guidelines</a></td>
     </tr>
   </tbody>
 </table>
@@ -2156,33 +2185,32 @@ tensor([[True, True, True, True],
 
 <p>Personally, I use a combination of Google Colab and my own personal computer for small scale experiments (and creating this course) and go to cloud resources when I need more compute power.</p>
 
-<blockquote>
-  <p><strong>Resource:</strong> If you’re looking to purchase a GPU of your own but not sure what to get, <a href="https://timdettmers.com/2020/09/07/which-gpu-for-deep-learning/" rel="external nofollow noopener" target="_blank">Tim Dettmers has an excellent guide</a>.</p>
-</blockquote>
+<div class="note-box">
+  <strong>Resource:</strong> If you're looking to purchase a GPU of your own but not sure what to get, <a href="https://timdettmers.com/2020/09/07/which-gpu-for-deep-learning/" rel="external nofollow noopener" target="_blank">Tim Dettmers has an excellent guide</a>.
+</div>
 
 <p>To check if you’ve got access to a Nvidia GPU, you can run <code class="language-plaintext highlighter-rouge">!nvidia-smi</code> where the <code class="language-plaintext highlighter-rouge">!</code> (also called bang) means “run this on the command line”.</p>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
 </code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sat Jan 21 08:34:23 2023       
+<div class="language-shell highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Sat Jan 21 08:34:23 2023       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 515.48.07    Driver Version: 515.48.07    CUDA Version: 11.7     |
 |-------------------------------+----------------------+----------------------+
 | GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
 | Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
 |                               |                      |               MIG M. |
-|===============================+======================+======================|
+|<span class="o">===============================</span>+<span class="o">======================</span>+<span class="o">======================</span>|
 |   0  NVIDIA TITAN RTX    On   | 00000000:01:00.0 Off |                  N/A |
 | 40%   30C    P8     7W / 280W |    177MiB / 24576MiB |      0%      Default |
 |                               |                      |                  N/A |
 +-------------------------------+----------------------+----------------------+
-                                                                               
+                                                                                
 +-----------------------------------------------------------------------------+
 | Processes:                                                                  |
 |  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
 |        ID   ID                                                   Usage      |
-|=============================================================================|
+|<span class="o">=============================================================================</span>|
 |    0   N/A  N/A      1061      G   /usr/lib/xorg/Xorg                 53MiB |
 |    0   N/A  N/A   2671131      G   /usr/lib/xorg/Xorg                 97MiB |
 |    0   N/A  N/A   2671256      G   /usr/bin/gnome-shell                9MiB |
@@ -2256,9 +2284,9 @@ tensor([[True, True, True, True],
 
 <p>If the above output <code class="language-plaintext highlighter-rouge">"cuda"</code> it means we can set all of our PyTorch code to use the available CUDA device (a GPU) and if it output <code class="language-plaintext highlighter-rouge">"cpu"</code>, our PyTorch code will stick with the CPU.</p>
 
-<blockquote>
-  <p><strong>Note:</strong> In PyTorch, it’s best practice to write <a href="https://pytorch.org/docs/master/notes/cuda.html#device-agnostic-code" rel="external nofollow noopener" target="_blank"><strong>device agnostic code</strong></a>. This means code that’ll run on CPU (always available) or GPU (if available).</p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> In PyTorch, it's best practice to write <a href="https://pytorch.org/docs/master/notes/cuda.html#device-agnostic-code" rel="external nofollow noopener" target="_blank"><strong>device agnostic code</strong></a>. This means code that’ll run on CPU (always available) or GPU (if available).
+</div>
 
 <p>If you want to do faster computing you can use a GPU but if you want to do <em>much</em> faster computing, you can use multiple GPUs.</p>
 
@@ -2315,11 +2343,11 @@ tensor([[True, True, True, True],
 
 <p>GPUs offer far faster numerical computing than CPUs do and if a GPU isn’t available, because of our <strong>device agnostic code</strong> (see above), it’ll run on the CPU.</p>
 
-<blockquote>
-  <p><strong>Note:</strong> Putting a tensor on GPU using <code class="language-plaintext highlighter-rouge">to(device)</code> (e.g. <code class="language-plaintext highlighter-rouge">some_tensor.to(device)</code>) returns a copy of that tensor, e.g. the same tensor will be on CPU and GPU. To overwrite tensors, reassign them:</p>
-
-  <p><code class="language-plaintext highlighter-rouge">some_tensor = some_tensor.to(device)</code></p>
-</blockquote>
+<div class="note-box">
+  <strong>Note:</strong> Putting a tensor on GPU using <code>to(device)</code> (e.g. <code>some_tensor.to(device)</code>) returns a copy of that tensor. This means the same tensor will exist on both CPU and GPU. To overwrite tensors, reassign them:
+  
+  <pre><code>some_tensor = some_tensor.to(device)</code></pre>
+</div>
 
 <p>Let’s try creating a tensor and putting it on the GPU (if it’s available).</p>
 
@@ -2396,20 +2424,6 @@ TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to
 </code></pre></div></div>
 
 <h2 id="exercises">Exercises</h2>
-
-<p>All of the exercises are focused on practicing the code above.</p>
-
-<p>You should be able to complete them by referencing each section or by following the resource(s) linked.</p>
-
-<p><strong>Resources:</strong></p>
-
-<ul>
-  <li>
-<a href="https://github.com/mrdbourke/pytorch-deep-learning/blob/main/extras/exercises/00_pytorch_fundamentals_exercises.ipynb" rel="external nofollow noopener" target="_blank">Exercise template notebook for 00</a>.</li>
-  <li>
-<a href="https://github.com/mrdbourke/pytorch-deep-learning/blob/main/extras/solutions/00_pytorch_fundamentals_exercise_solutions.ipynb" rel="external nofollow noopener" target="_blank">Example solutions notebook for 00</a> (try the exercises <em>before</em> looking at this).</li>
-</ul>
-
 <ol>
   <li>Documentation reading - A big part of deep learning (and learning to code in general) is getting familiar with the documentation of a certain framework you’re using. We’ll be using the PyTorch documentation a lot throughout the rest of this course. So I’d recommend spending 10-minutes reading the following (it’s okay if you don’t get some things for now, the focus is not yet full understanding, it’s awareness). See the documentation on <a href="https://pytorch.org/docs/stable/tensors.html#torch-tensor" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor</code></a> and for <a href="https://pytorch.org/docs/master/notes/cuda.html#cuda-semantics" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda</code></a>.</li>
   <li>Create a random tensor with shape <code class="language-plaintext highlighter-rouge">(7, 7)</code>.</li>
