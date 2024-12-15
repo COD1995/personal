@@ -1469,7 +1469,6 @@ ninja-keys::part(ninja-input-wrapper) {
   overflow: hidden;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   margin-bottom: 1.5rem;
-  /* Add some bottom margin for extra spacing */
 
   thead {
     background: linear-gradient(to right, #C77DFF, #9D3FFF);
@@ -1486,7 +1485,7 @@ ninja-keys::part(ninja-input-wrapper) {
 
   tbody {
     tr {
-      border-bottom: 1px solid var(--global-divider-color);
+      border-bottom: 1px solid var(--global-divider-color, #ddd);
 
       &:last-child {
         border-bottom: none;
@@ -1495,6 +1494,10 @@ ninja-keys::part(ninja-input-wrapper) {
       td {
         padding: 1rem;
         border: none;
+        color: var(--global-text-color, #000);
+        /* Add a fallback text color */
+        background-color: var(--global-bg-color, #fff);
+        /* Add a fallback background color */
       }
 
       &:hover {
