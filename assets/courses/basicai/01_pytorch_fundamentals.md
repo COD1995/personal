@@ -1884,7 +1884,7 @@ There are a few ways to first get access to a GPU and secondly get PyTorch to us
   <strong>Note:</strong> When I reference "GPU" throughout this course, I'm referencing a <a href="https://developer.nvidia.com/cuda-gpus">Nvidia GPU with CUDA</a> enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing & not just graphics) unless otherwise specified.
 </div>
 
-### 1. Getting a GPU
+### Getting a GPU
 
 You may already know what's going on when I say GPU. But if not, there are a few ways to get access to one.
 
@@ -1998,7 +1998,7 @@ If you do have a GPU, the line above will output something like:
 +-----------------------------------------------------------------------------+</code></pre>
 </div>
 
-### 2. Getting PyTorch to run on the GPU
+### Getting PyTorch to run on the GPU
 
 Once you've got a GPU ready to access, the next step is getting PyTorch to use for storing data (tensors) and computing on data (performing operations on tensors).
 
@@ -2063,7 +2063,7 @@ torch.cuda.device_count()
 
 Knowing the number of GPUs PyTorch has access to is helpful incase you wanted to run a specific process on one GPU and another process on another (PyTorch also has features to let you run a process across *all* GPUs).
 
-### 2.1 Getting PyTorch to run on Apple Silicon
+### Getting PyTorch to run on Apple Silicon
 
 In order to run PyTorch on Apple's M1/M2/M3 GPUs you can use the [`torch.backends.mps`](https://pytorch.org/docs/stable/notes/mps.html) module.
 
@@ -2105,7 +2105,7 @@ else:
     device = "cpu" # Default to CPU if no GPU is available
 ```
 
-### 3. Putting tensors (and models) on the GPU
+### Putting tensors (and models) on the GPU
 
 You can put tensors (and models, we'll see this later) on a specific device by calling [`to(device)`](https://pytorch.org/docs/stable/generated/torch.Tensor.to.html) on them. Where `device` is the target device you'd like the tensor (or model) to go to.
 
@@ -2153,7 +2153,7 @@ Notice the second tensor has `device='cuda:0'`, this means it's stored on the 0t
 
 
 
-### 4. Moving tensors back to the CPU
+### Moving tensors back to the CPU
 
 What if we wanted to move the tensor back to CPU?
 
