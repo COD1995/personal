@@ -173,10 +173,11 @@ The lecture notes are based on [PyTorch documentation](https://pytorch.org/) and
   </thead>
   <tbody>
     <tr>
-      <td>Week 1</td>
+      <td>Week 1 & Week 2</td>
       <td>
       <ul> 
       <li><a href="{{ 'assets/courses/basicai/pytorch_fundamentals/' | relative_url }}">PyTorch Fundamentals</a></li>
+      <li><a href="{{ 'assets/courses/basicai/pytorch_workflow/' | relative_url }}">PyTorch Workflow Fundamentals</a></li>
       </ul>
       </td>
     </tr>

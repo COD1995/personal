@@ -1524,15 +1524,244 @@ ninja-keys::part(ninja-input-wrapper) {
 // end styled-table
 
 .note-box {
-  background-color: var(--global-bg-color);
-  border-left: 5px solid var(--global-theme-color);
+  border-left: 5px solid #cccccc;
+  /* Grey vertical line on the left */
+  background-color: #f9f9f9;
+  /* Light background (adjust as needed) */
   padding: 1rem;
   margin: 1.5rem 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-size: 1rem;
+  border-radius: 4px;
+  box-shadow: none;
+  /* Remove box-shadow if previously used */
+}
 
-  strong {
-    color: var(--global-theme-color);
+.note-box strong {
+  color: #333;
+  /* Darker text for emphasis */
+  font-weight: bold;
+}
+
+.note-box em {
+  font-style: italic;
+}
+
+/* General styling for collapsible callout boxes */
+details.collapsible-callout {
+  border: 1px solid #82B1FF;
+  /* Light blue border */
+  border-radius: 4px;
+  background-color: #EEF3FF;
+  /* Light background */
+  margin: 1rem 0;
+  padding: 0.5rem;
+  position: relative;
+
+  >summary {
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    /* Remove default marker */
+    margin: -0.5rem;
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    background-color: #DCE7FF;
+    /* Slightly darker shade for summary background */
+    border-radius: 4px;
+
+    &::before {
+      content: "ℹ️";
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+
+    &::after {
+      content: "▶";
+      /* A right-pointing triangle */
+      margin-left: auto;
+      transition: transform 0.3s ease;
+    }
   }
+
+  &[open]>summary::after {
+    transform: rotate(90deg);
+    /* Rotate to point downward */
+  }
+
+  ol,
+  ul {
+    margin-left: 1.5rem;
+  }
+}
+
+/* General code block styling */
+.highlight {
+  pre {
+    background: linear-gradient(to bottom right, #fafafa, #fefefe);
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    font-family: Consolas, "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #333;
+
+    /* Enable horizontal scroll for long lines */
+    overflow-x: scroll;
+    /* Enable vertical scroll if content is too long */
+    max-height: 400px;
+    overflow-y: auto;
+
+    code {
+      background: transparent;
+      border: none;
+      display: inline-block;
+      width: 100%;
+    }
+
+    &::-webkit-scrollbar {
+      height: 12px;
+      /* Height of horizontal scrollbar */
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #ccc;
+      border-radius: 6px;
+      border: 2px solid #f7f7f7;
+    }
+  }
+
+  /* Optional syntax highlighting overrides */
+  .hljs-keyword,
+  .hljs-built_in,
+  .hljs-tag {
+    color: #0076df;
+    font-weight: bold;
+  }
+
+  .hljs-string,
+  .hljs-attr {
+    color: #d14;
+  }
+
+  .hljs-comment {
+    color: #999;
+    font-style: italic;
+  }
+
+  .hljs-function .hljs-title,
+  .hljs-title.class_ {
+    color: #5c9b50;
+  }
+}
+
+/* General styling for bash blocks */
+.bash-block {
+  position: relative;
+  overflow: hidden;
+  margin: 1.5rem 0;
+  font-family: Consolas, "Courier New", Courier, monospace;
+
+  &::before {
+    /* Header bar */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1.5rem;
+    background: #444;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    z-index: 2;
+  }
+
+  &::after {
+    /* Traffic light buttons */
+    content: "";
+    position: absolute;
+    top: 0.3rem;
+    left: 1rem;
+    width: calc(3 * 1rem + 2 * 0.5rem);
+    height: 1rem;
+    background:
+      radial-gradient(circle at center, #ff5f56 50%, transparent 51%) 0 0,
+      radial-gradient(circle at center, #ffbd2e 50%, transparent 51%) 0 0,
+      radial-gradient(circle at center, #27c93f 50%, transparent 51%) 0 0;
+    background-size: 1rem 1rem;
+    background-position: 0 0, 1.5rem 0, 3rem 0;
+    background-repeat: no-repeat;
+    z-index: 3;
+  }
+
+  pre {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #000 !important;
+    color: #fff !important;
+    border: none;
+    box-shadow: none;
+    background-image: none;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    overflow-x: scroll;
+    overflow-y: auto;
+    max-height: 400px;
+    white-space: pre;
+
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+
+    &::before {
+      content: "(pytroch_env) ➜  ~ ";
+      // display: block;
+      color: #aaa;
+      // margin-bottom: 0.5rem;
+    }
+
+    code {
+      background: transparent;
+      border: none;
+      display: inline;
+      width: 100%;
+    }
+
+    &::-webkit-scrollbar {
+      height: 12px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #555;
+      border-radius: 6px;
+      border: 2px solid #000;
+    }
+  }
+}
+
+
+/* Additional classes for special messages within the bash-block */
+.bash-block .traceback {
+  color: #ff6666;
+  /* red shade for traceback lines */
+  font-weight: bold;
+}
+
+.bash-block .error-msg {
+  color: #ff4444;
+  /* another red shade for error messages */
+  font-style: italic;
+}
+
+.bash-block .deprecated-msg {
+  color: #ff9f43;
+  /* orange-ish color for deprecated warnings */
+  font-weight: bold;
 }

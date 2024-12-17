@@ -133,7 +133,10 @@ import torch
 torch.__version__
 ```
 
-    '1.13.1+cu116'
+<div class="bash-block">
+  <pre><code>echo '1.13.1+cu116'</code></pre>
+</div>
+
 
 
 
@@ -193,13 +196,9 @@ A scalar is a single number and in tensor-speak it's a zero dimension tensor.
 scalar = torch.tensor(7)
 scalar
 ```
-
-
-
-
-    tensor(7)
-
-
+<div class="bash-block">
+  <pre><code>tensor(7)</code></pre>
+</div>
 
 See how the above printed out `tensor(7)`?
 
@@ -211,11 +210,9 @@ We can check the dimensions of a tensor using the `ndim` attribute.
 ```python
 scalar.ndim
 ```
-
-
-
-
-    0
+<div class="bash-block">
+  <pre><code>0</code></pre>
+</div>
 
 
 
@@ -231,12 +228,9 @@ To do we can use the `item()` method.
 scalar.item()
 ```
 
-
-
-
-    7
-
-
+<div class="bash-block">
+  <pre><code>7</code></pre>
+</div>
 
 Okay, now let's see a **vector**.
 
@@ -252,12 +246,9 @@ The important trend here is that a vector is flexible in what it can represent (
 vector = torch.tensor([7, 7])
 vector
 ```
-
-
-
-
-    tensor([7, 7])
-
+<div class="bash-block">
+  <pre><code>tensor([7, 7])</code></pre>
+</div>
 
 
 Wonderful, `vector` now contains two 7's, my favourite number.
@@ -270,10 +261,10 @@ How many dimensions do you think it'll have?
 vector.ndim
 ```
 
+<div class="bash-block">
+  <pre><code>1</code></pre>
+</div>
 
-
-
-    1
 
 
 
@@ -294,11 +285,10 @@ Let's check out the shape of `vector`.
 # Check shape of vector
 vector.shape
 ```
+<div class="bash-block">
+  <pre><code>torch.Size([2])</code></pre>
+</div>
 
-
-
-
-    torch.Size([2])
 
 
 
@@ -313,12 +303,10 @@ MATRIX = torch.tensor([[7, 8],
                        [9, 10]])
 MATRIX
 ```
-
-
-
-
-    tensor([[ 7,  8],
-            [ 9, 10]])
+<div class="bash-block">
+  <pre><code>tensor([[ 7,  8],
+            [ 9, 10]])</code></pre>
+</div>
 
 
 
@@ -335,7 +323,10 @@ MATRIX.ndim
 
 
 
-    2
+<div class="bash-block">
+  <pre><code>2</code></pre>
+</div>
+
 
 
 
@@ -347,11 +338,10 @@ What `shape` do you think it will have?
 ```python
 MATRIX.shape
 ```
+<div class="bash-block">
+  <pre><code>torch.Size([2, 2])</code></pre>
+</div>
 
-
-
-
-    torch.Size([2, 2])
 
 
 
@@ -370,10 +360,11 @@ TENSOR
 
 
 
-
-    tensor([[[1, 2, 3],
+<div class="bash-block">
+  <pre><code>tensor([[[1, 2, 3],
              [3, 6, 9],
-             [2, 4, 5]]])
+             [2, 4, 5]]])</code></pre>
+</div>
 
 
 
@@ -404,7 +395,10 @@ How many dimensions do you think it has? (hint: use the square bracket counting 
 # Check number of dimensions for TENSOR
 TENSOR.ndim
 ```
-    3
+<div class="bash-block">
+  <pre><code>3</code></pre>
+</div>
+
 
 And what about its shape?
 
@@ -412,7 +406,10 @@ And what about its shape?
 # Check shape of TENSOR
 TENSOR.shape
 ```
-    torch.Size([1, 3, 3])
+<div class="bash-block">
+  <pre><code>torch.Size([1, 3, 3])</code></pre>
+</div>
+
 
 
 
@@ -523,13 +520,13 @@ random_tensor = torch.rand(size=(3, 4))
 random_tensor, random_tensor.dtype
 ```
 
-
-
-
-    (tensor([[0.6541, 0.4807, 0.2162, 0.6168],
+<div class="bash-block">
+  <pre><code>(tensor([[0.6541, 0.4807, 0.2162, 0.6168],
              [0.4428, 0.6608, 0.6194, 0.8620],
              [0.2795, 0.6055, 0.4958, 0.5483]]),
-     torch.float32)
+            torch.float32)</code></pre>
+</div>
+
 
 
 
@@ -543,12 +540,9 @@ For example, say you wanted a random tensor in the common image shape of `[224, 
 random_image_size_tensor = torch.rand(size=(224, 224, 3))
 random_image_size_tensor.shape, random_image_size_tensor.ndim
 ```
-
-
-
-
-    (torch.Size([224, 224, 3]), 3)
-
+<div class="bash-block">
+  <pre><code>(torch.Size([224, 224, 3]), 3)</code></pre>
+</div>
 
 
 ### Zeros and ones
@@ -567,16 +561,12 @@ Again, the `size` parameter comes into play.
 zeros = torch.zeros(size=(3, 4))
 zeros, zeros.dtype
 ```
-
-
-
-
-    (tensor([[0., 0., 0., 0.],
+<div class="bash-block">
+  <pre><code>(tensor([[0., 0., 0., 0.],
              [0., 0., 0., 0.],
              [0., 0., 0., 0.]]),
-     torch.float32)
-
-
+ torch.float32)</code></pre>
+</div>
 
 We can do the same to create a tensor of all ones except using [`torch.ones()` ](https://pytorch.org/docs/stable/generated/torch.ones.html) instead.
 
@@ -587,14 +577,12 @@ ones = torch.ones(size=(3, 4))
 ones, ones.dtype
 ```
 
-
-
-
-    (tensor([[1., 1., 1., 1.],
+<div class="bash-block">
+  <pre><code>(tensor([[1., 1., 1., 1.],
              [1., 1., 1., 1.],
              [1., 1., 1., 1.]]),
-     torch.float32)
-
+ torch.float32)</code></pre>
+</div>
 
 
 ### Creating a range and tensors like
@@ -621,15 +609,13 @@ zero_to_ten = torch.arange(start=0, end=10, step=1)
 zero_to_ten
 ```
 
-    /tmp/ipykernel_3695928/193451495.py:2: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
-      zero_to_ten_deprecated = torch.range(0, 10) # Note: this may return an error in the future
+<div class="bash-block">
+  <pre><code><span class="deprecated-msg">/tmp/ipykernel_3695928/193451495.py:2: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  zero_to_ten_deprecated = torch.range(0, 10) # Note: this may return an error in the future
+</span>
 
-
-
-
-
-    tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
-
+tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
+</div>
 
 
 Sometimes you might want one tensor of a certain type with the same shape as another tensor.
@@ -644,13 +630,9 @@ To do so you can use [`torch.zeros_like(input)`](https://pytorch.org/docs/stable
 ten_zeros = torch.zeros_like(input=zero_to_ten) # will have same shape
 ten_zeros
 ```
-
-
-
-
-    tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-
-
+<div class="bash-block">
+  <pre><code>tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])</code></pre>
+</div>
 
 ### Tensor datatypes
 
@@ -707,11 +689,9 @@ float_32_tensor = torch.tensor([3.0, 6.0, 9.0],
 float_32_tensor.shape, float_32_tensor.dtype, float_32_tensor.device
 ```
 
-
-
-
-    (torch.Size([3]), torch.float32, device(type='cpu'))
-
+<div class="bash-block">
+  <pre><code>(torch.Size([3]), torch.float32, device(type='cpu'))</code></pre>
+</div>
 
 
 Aside from shape issues (tensor shapes don't match up), two of the other most common issues you'll come across in PyTorch are datatype and device issues.
@@ -733,11 +713,9 @@ float_16_tensor.dtype
 ```
 
 
-
-
-    torch.float16
-
-
+<div class="bash-block">
+  <pre><code>torch.float16</code></pre>
+</div>
 
 ## Getting information from tensors
 
@@ -762,13 +740,14 @@ print(f"Datatype of tensor: {some_tensor.dtype}")
 print(f"Device tensor is stored on: {some_tensor.device}") # will default to CPU
 ```
 
-    tensor([[0.4688, 0.0055, 0.8551, 0.0646],
-            [0.6538, 0.5157, 0.4071, 0.2109],
-            [0.9960, 0.3061, 0.9369, 0.7008]])
-    Shape of tensor: torch.Size([3, 4])
-    Datatype of tensor: torch.float32
-    Device tensor is stored on: cpu
-
+<div class="bash-block">
+  <pre><code>tensor([[0.4688, 0.0055, 0.8551, 0.0646],
+        [0.6538, 0.5157, 0.4071, 0.2109],
+        [0.9960, 0.3061, 0.9369, 0.7008]])
+Shape of tensor: torch.Size([3, 4])
+Datatype of tensor: torch.float32
+Device tensor is stored on: cpu</code></pre>
+</div>
 
 <div class="note-box">
   <strong>Note:</strong> When you run into issues in PyTorch, it's very often one to do with one of the three attributes above. So when the error messages show up, sing yourself a little song called "what, what, where":
@@ -807,25 +786,17 @@ They work just as you think they would.
 tensor = torch.tensor([1, 2, 3])
 tensor + 10
 ```
-
-
-
-
-    tensor([11, 12, 13])
-
-
-
+<div class="bash-block">
+  <pre><code>tensor([11, 12, 13])</code></pre>
+</div>
 
 ```python
 # Multiply it by 10
 tensor * 10
 ```
-
-
-
-
-    tensor([10, 20, 30])
-
+<div class="bash-block">
+  <pre><code>tensor([10, 20, 30])</code></pre>
+</div>
 
 
 Notice how the tensor values above didn't end up being `tensor([110, 120, 130])`, this is because the values inside the tensor don't change unless they're reassigned.
@@ -836,12 +807,9 @@ Notice how the tensor values above didn't end up being `tensor([110, 120, 130])`
 tensor
 ```
 
-
-
-
-    tensor([1, 2, 3])
-
-
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
 
 Let's subtract a number and this time we'll reassign the `tensor` variable. 
 
@@ -852,12 +820,9 @@ tensor = tensor - 10
 tensor
 ```
 
-
-
-
-    tensor([-9, -8, -7])
-
-
+<div class="bash-block">
+  <pre><code>tensor([-9, -8, -7])</code></pre>
+</div>
 
 
 ```python
@@ -866,11 +831,9 @@ tensor = tensor + 10
 tensor
 ```
 
-
-
-
-    tensor([1, 2, 3])
-
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
 
 
 PyTorch also has a bunch of built-in functions like [`torch.mul()`](https://pytorch.org/docs/stable/generated/torch.mul.html#torch.mul) (short for multiplication) and [`torch.add()`](https://pytorch.org/docs/stable/generated/torch.add.html) to perform basic operations. 
@@ -881,25 +844,18 @@ PyTorch also has a bunch of built-in functions like [`torch.mul()`](https://pyto
 torch.multiply(tensor, 10)
 ```
 
-
-
-
-    tensor([10, 20, 30])
-
-
-
+<div class="bash-block">
+  <pre><code>tensor([10, 20, 30])</code></pre>
+</div>
 
 ```python
 # Original tensor is still unchanged 
 tensor
 ```
 
-
-
-
-    tensor([1, 2, 3])
-
-
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
 
 However, it's more common to use the operator symbols like `*` instead of `torch.mul()`
 
@@ -910,9 +866,10 @@ print(tensor, "*", tensor)
 print("Equals:", tensor * tensor)
 ```
 
-    tensor([1, 2, 3]) * tensor([1, 2, 3])
-    Equals: tensor([1, 4, 9])
-
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3]) * tensor([1, 2, 3])
+Equals: tensor([1, 4, 9])</code></pre>
+</div>
 
 ### Matrix multiplication (is all you need)
 
@@ -949,12 +906,9 @@ tensor = torch.tensor([1, 2, 3])
 tensor.shape
 ```
 
-
-
-
-    torch.Size([3])
-
-
+<div class="bash-block">
+  <pre><code>torch.Size([3])</code></pre>
+</div>
 
 The difference between element-wise multiplication and matrix multiplication is the addition of values.
 
@@ -986,13 +940,9 @@ For our `tensor` variable with values `[1, 2, 3]`:
 # Element-wise matrix multiplication
 tensor * tensor
 ```
-
-
-
-
-    tensor([1, 4, 9])
-
-
+<div class="bash-block">
+  <pre><code>tensor([1, 4, 9])</code></pre>
+</div>
 
 
 ```python
@@ -1000,25 +950,18 @@ tensor * tensor
 torch.matmul(tensor, tensor)
 ```
 
-
-
-
-    tensor(14)
-
-
+<div class="bash-block">
+  <pre><code>tensor(14)</code></pre>
+</div>
 
 
 ```python
 # Can also use the "@" symbol for matrix multiplication, though not recommended
 tensor @ tensor
 ```
-
-
-
-
-    tensor(14)
-
-
+<div class="bash-block">
+  <pre><code>tensor(14)</code></pre>
+</div>
 
 You can do matrix multiplication by hand but it's not recommended.
 
@@ -1035,15 +978,13 @@ for i in range(len(tensor)):
 value
 ```
 
-    CPU times: user 773 µs, sys: 0 ns, total: 773 µs
-    Wall time: 499 µs
 
+<div class="bash-block">
+  <pre><code>CPU times: user 773 µs, sys: 0 ns, total: 773 µs
+Wall time: 499 µs
 
-
-
-
-    tensor(14)
-
+tensor(14)</code></pre>
+</div>
 
 
 
@@ -1052,14 +993,12 @@ value
 torch.matmul(tensor, tensor)
 ```
 
-    CPU times: user 146 µs, sys: 83 µs, total: 229 µs
-    Wall time: 171 µs
+<div class="bash-block">
+  <pre><code>CPU times: user 146 µs, sys: 83 µs, total: 229 µs
+Wall time: 171 µs
 
-
-
-
-
-    tensor(14)
+tensor(14)</code></pre>
+</div>
 
 
 
@@ -1082,21 +1021,25 @@ torch.matmul(tensor_A, tensor_B) # (this will error)
 ```
 
 
-    ---------------------------------------------------------------------------
+<div class="bash-block">
+  <pre><code><span class="traceback">---------------------------------------------------------------------------</span>
 
-    RuntimeError                              Traceback (most recent call last)
+<span class="traceback">RuntimeError                              Traceback (most recent call last)</span>
 
-    /home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb Cell 75 in <cell line: 10>()
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=1'>2</a> tensor_A = torch.tensor([[1, 2],
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=2'>3</a>                          [3, 4],
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=3'>4</a>                          [5, 6]], dtype=torch.float32)
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=5'>6</a> tensor_B = torch.tensor([[7, 10],
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=6'>7</a>                          [8, 11], 
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=7'>8</a>                          [9, 12]], dtype=torch.float32)
-    ---> <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y134sdnNjb2RlLXJlbW90ZQ%3D%3D?line=9'>10</a> torch.matmul(tensor_A, tensor_B)
+tensor_A = torch.tensor([[1, 2],
+                         [3, 4],
+                         [5, 6]], dtype=torch.float32)
+
+tensor_B = torch.tensor([[7, 10],
+                         [8, 11], 
+                         [9, 12]], dtype=torch.float32)
+
+torch.matmul(tensor_A, tensor_B)
+
+<span class="error-msg">RuntimeError: mat1 and mat2 shapes cannot be multiplied (3x2 and 3x2)</span></code></pre>
+</div>
 
 
-    RuntimeError: mat1 and mat2 shapes cannot be multiplied (3x2 and 3x2)
 
 
 We can make matrix multiplication work between `tensor_A` and `tensor_B` by making their inner dimensions match.
@@ -1116,27 +1059,27 @@ print(tensor_A)
 print(tensor_B)
 ```
 
-    tensor([[1., 2.],
-            [3., 4.],
-            [5., 6.]])
-    tensor([[ 7., 10.],
-            [ 8., 11.],
-            [ 9., 12.]])
-
-
+<div class="bash-block">
+  <pre><code>tensor([[1., 2.],
+        [3., 4.],
+        [5., 6.]])
+tensor([[ 7., 10.],
+        [ 8., 11.],
+        [ 9., 12.]])</code></pre>
+</div>
 
 ```python
 # View tensor_A and tensor_B.T
 print(tensor_A)
 print(tensor_B.T)
 ```
-
-    tensor([[1., 2.],
-            [3., 4.],
-            [5., 6.]])
-    tensor([[ 7.,  8.,  9.],
-            [10., 11., 12.]])
-
+<div class="bash-block">
+  <pre><code>tensor([[1., 2.],
+        [3., 4.],
+        [5., 6.]])
+tensor([[ 7.,  8.,  9.],
+        [10., 11., 12.]])</code></pre>
+</div>
 
 
 ```python
@@ -1150,20 +1093,21 @@ print(output)
 print(f"\nOutput shape: {output.shape}")
 ```
 
-    Original shapes: tensor_A = torch.Size([3, 2]), tensor_B = torch.Size([3, 2])
-    
-    New shapes: tensor_A = torch.Size([3, 2]) (same as above), tensor_B.T = torch.Size([2, 3])
-    
-    Multiplying: torch.Size([3, 2]) * torch.Size([2, 3]) <- inner dimensions match
-    
-    Output:
-    
-    tensor([[ 27.,  30.,  33.],
-            [ 61.,  68.,  75.],
-            [ 95., 106., 117.]])
-    
-    Output shape: torch.Size([3, 3])
+<div class="bash-block">
+  <pre><code>Original shapes: tensor_A = torch.Size([3, 2]), tensor_B = torch.Size([3, 2])
 
+New shapes: tensor_A = torch.Size([3, 2]) (same as above), tensor_B.T = torch.Size([2, 3])
+
+Multiplying: torch.Size([3, 2]) * torch.Size([2, 3]) <- inner dimensions match
+
+Output:
+
+tensor([[ 27.,  30.,  33.],
+        [ 61.,  68.,  75.],
+        [ 95., 106., 117.]])
+
+Output shape: torch.Size([3, 3])</code></pre>
+</div>
 
 You can also use [`torch.mm()`](https://pytorch.org/docs/stable/generated/torch.mm.html) which is a short for `torch.matmul()`.
 
@@ -1173,13 +1117,11 @@ You can also use [`torch.mm()`](https://pytorch.org/docs/stable/generated/torch.
 torch.mm(tensor_A, tensor_B.T)
 ```
 
-
-
-
-    tensor([[ 27.,  30.,  33.],
-            [ 61.,  68.,  75.],
-            [ 95., 106., 117.]])
-
+<div class="bash-block">
+  <pre><code>tensor([[ 27.,  30.,  33.],
+        [ 61.,  68.,  75.],
+        [ 95., 106., 117.]])</code></pre>
+</div>
 
 
 Without the transpose, the rules of matrix multiplication aren't fulfilled and we get an error like above.
@@ -1230,15 +1172,18 @@ print(f"Input shape: {x.shape}\n")
 print(f"Output:\n{output}\n\nOutput shape: {output.shape}")
 ```
 
-    Input shape: torch.Size([3, 2])
-    
-    Output:
-    tensor([[2.2368, 1.2292, 0.4714, 0.3864, 0.1309, 0.9838],
-            [4.4919, 2.1970, 0.4469, 0.5285, 0.3401, 2.4777],
-            [6.7469, 3.1648, 0.4224, 0.6705, 0.5493, 3.9716]],
-           grad_fn=<AddmmBackward0>)
-    
-    Output shape: torch.Size([3, 6])
+<div class="bash-block">
+  <pre><code>Input shape: torch.Size([3, 2])
+
+Output:
+tensor([[2.2368, 1.2292, 0.4714, 0.3864, 0.1309, 0.9838],
+        [4.4919, 2.1970, 0.4469, 0.5285, 0.3401, 2.4777],
+        [6.7469, 3.1648, 0.4224, 0.6705, 0.5493, 3.9716]],
+       grad_fn=&lt;AddmmBackward0&gt;)
+
+Output shape: torch.Size([3, 6])</code></pre>
+</div>
+
 
 
 <div class="note-box">
@@ -1276,20 +1221,16 @@ Now we've seen a few ways to manipulate tensors, let's run through a few ways to
 First we'll create a tensor and then find the max, min, mean and sum of it.
 
 
-
-
-
-
 ```python
 # Create a tensor
 x = torch.arange(0, 100, 10)
 x
 ```
 
+<div class="bash-block">
+  <pre><code>tensor([ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90])</code></pre>
+</div>
 
-
-
-    tensor([ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90])
 
 
 
@@ -1304,10 +1245,13 @@ print(f"Mean: {x.type(torch.float32).mean()}") # won't work without float dataty
 print(f"Sum: {x.sum()}")
 ```
 
-    Minimum: 0
-    Maximum: 90
-    Mean: 45.0
-    Sum: 450
+<div class="bash-block">
+  <pre><code>Minimum: 0
+Maximum: 90
+Mean: 45.0
+Sum: 450</code></pre>
+</div>
+
 
 
 <div class="note-box">
@@ -1321,11 +1265,9 @@ You can also do the same as above with `torch` methods.
 torch.max(x), torch.min(x), torch.mean(x.type(torch.float32)), torch.sum(x)
 ```
 
-
-
-
-    (tensor(90), tensor(0), tensor(45.), tensor(450))
-
+<div class="bash-block">
+  <pre><code>(tensor(90), tensor(0), tensor(45.), tensor(450))</code></pre>
+</div>
 
 
 ### Positional min/max
@@ -1345,10 +1287,11 @@ print(f"Index where max value occurs: {tensor.argmax()}")
 print(f"Index where min value occurs: {tensor.argmin()}")
 ```
 
-    Tensor: tensor([10, 20, 30, 40, 50, 60, 70, 80, 90])
-    Index where max value occurs: 8
-    Index where min value occurs: 0
-
+<div class="bash-block">
+  <pre><code>Tensor: tensor([10, 20, 30, 40, 50, 60, 70, 80, 90])
+Index where max value occurs: 8
+Index where min value occurs: 0</code></pre>
+</div>
 
 ### Change tensor datatype
 
@@ -1370,9 +1313,9 @@ tensor.dtype
 ```
 
 
-
-
-    torch.float32
+<div class="bash-block">
+  <pre><code>torch.float32</code></pre>
+</div>
 
 
 
@@ -1387,11 +1330,9 @@ tensor_float16 = tensor.type(torch.float16)
 tensor_float16
 ```
 
-
-
-
-    tensor([10., 20., 30., 40., 50., 60., 70., 80., 90.], dtype=torch.float16)
-
+<div class="bash-block">
+  <pre><code>tensor([10., 20., 30., 40., 50., 60., 70., 80., 90.], dtype=torch.float16)</code></pre>
+</div>
 
 
 And we can do something similar to make a `torch.int8` tensor.
@@ -1405,8 +1346,10 @@ tensor_int8
 
 
 
+<div class="bash-block">
+  <pre><code>tensor([10, 20, 30, 40, 50, 60, 70, 80, 90], dtype=torch.int8)</code></pre>
+</div>
 
-    tensor([10, 20, 30, 40, 50, 60, 70, 80, 90], dtype=torch.int8)
 
 
 
@@ -1480,8 +1423,10 @@ x, x.shape
 
 
 
+<div class="bash-block">
+  <pre><code>(tensor([1., 2., 3., 4., 5., 6., 7.]), torch.Size([7]))</code></pre>
+</div>
 
-    (tensor([1., 2., 3., 4., 5., 6., 7.]), torch.Size([7]))
 
 
 
@@ -1495,9 +1440,10 @@ x_reshaped, x_reshaped.shape
 ```
 
 
+<div class="bash-block">
+  <pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))</code></pre>
+</div>
 
-
-    (tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))
 
 
 
@@ -1514,8 +1460,9 @@ z, z.shape
 
 
 
-    (tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))
-
+<div class="bash-block">
+  <pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))</code></pre>
+</div>
 
 
 Remember though, changing the view of a tensor with `torch.view()` really only creates a new view of the *same* tensor.
@@ -1529,12 +1476,9 @@ z[:, 0] = 5
 z, x
 ```
 
-
-
-
-    (tensor([[5., 2., 3., 4., 5., 6., 7.]]), tensor([5., 2., 3., 4., 5., 6., 7.]))
-
-
+<div class="bash-block">
+  <pre><code>(tensor([[5., 2., 3., 4., 5., 6., 7.]]), tensor([5., 2., 3., 4., 5., 6., 7.]))</code></pre>
+</div>
 
 If we wanted to stack our new tensor on top of itself five times, we could do so with `torch.stack()`.
 
@@ -1544,16 +1488,12 @@ If we wanted to stack our new tensor on top of itself five times, we could do so
 x_stacked = torch.stack([x, x, x, x], dim=0) # try changing dim to dim=1 and see what happens
 x_stacked
 ```
-
-
-
-
-    tensor([[5., 2., 3., 4., 5., 6., 7.],
-            [5., 2., 3., 4., 5., 6., 7.],
-            [5., 2., 3., 4., 5., 6., 7.],
-            [5., 2., 3., 4., 5., 6., 7.]])
-
-
+<div class="bash-block">
+  <pre><code>tensor([[5., 2., 3., 4., 5., 6., 7.],
+        [5., 2., 3., 4., 5., 6., 7.],
+        [5., 2., 3., 4., 5., 6., 7.],
+        [5., 2., 3., 4., 5., 6., 7.]])</code></pre>
+</div>
 
 How about removing all single dimensions from a tensor?
 
@@ -1569,13 +1509,13 @@ x_squeezed = x_reshaped.squeeze()
 print(f"\nNew tensor: {x_squeezed}")
 print(f"New shape: {x_squeezed.shape}")
 ```
+<div class="bash-block">
+  <pre><code>Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
+Previous shape: torch.Size([1, 7])
 
-    Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
-    Previous shape: torch.Size([1, 7])
-    
-    New tensor: tensor([5., 2., 3., 4., 5., 6., 7.])
-    New shape: torch.Size([7])
-
+New tensor: tensor([5., 2., 3., 4., 5., 6., 7.])
+New shape: torch.Size([7])</code></pre>
+</div>
 
 And to do the reverse of `torch.squeeze()` you can use `torch.unsqueeze()` to add a dimension value of 1 at a specific index.
 
@@ -1590,11 +1530,13 @@ print(f"\nNew tensor: {x_unsqueezed}")
 print(f"New shape: {x_unsqueezed.shape}")
 ```
 
-    Previous tensor: tensor([5., 2., 3., 4., 5., 6., 7.])
-    Previous shape: torch.Size([7])
-    
-    New tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
-    New shape: torch.Size([1, 7])
+<div class="bash-block">
+  <pre><code>Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
+Previous shape: torch.Size([1, 7])
+
+New tensor: tensor([5., 2., 3., 4., 5., 6., 7.])
+New shape: torch.Size([7])</code></pre>
+</div>
 
 
 You can also rearrange the order of axes values with `torch.permute(input, dims)`, where the `input` gets turned into a *view* with new `dims`.
@@ -1611,8 +1553,10 @@ print(f"Previous shape: {x_original.shape}")
 print(f"New shape: {x_permuted.shape}")
 ```
 
-    Previous shape: torch.Size([224, 224, 3])
-    New shape: torch.Size([3, 224, 224])
+<div class="bash-block">
+  <pre><code>Previous shape: torch.Size([224, 224, 3])
+New shape: torch.Size([3, 224, 224])</code></pre>
+</div>
 
 
 <div class="note-box">
@@ -1634,16 +1578,12 @@ import torch
 x = torch.arange(1, 10).reshape(1, 3, 3)
 x, x.shape
 ```
-
-
-
-
-    (tensor([[[1, 2, 3],
-              [4, 5, 6],
-              [7, 8, 9]]]),
-     torch.Size([1, 3, 3]))
-
-
+<div class="bash-block">
+  <pre><code>(tensor([[[1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]]]),
+ torch.Size([1, 3, 3]))</code></pre>
+</div>
 
 Indexing values goes outer dimension -> inner dimension (check out the square brackets).
 
@@ -1655,12 +1595,15 @@ print(f"Second square bracket: {x[0][0]}")
 print(f"Third square bracket: {x[0][0][0]}")
 ```
 
-    First square bracket:
-    tensor([[1, 2, 3],
-            [4, 5, 6],
-            [7, 8, 9]])
-    Second square bracket: tensor([1, 2, 3])
-    Third square bracket: 1
+<div class="bash-block">
+  <pre><code>First square bracket:
+tensor([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+Second square bracket: tensor([1, 2, 3])
+Third square bracket: 1</code></pre>
+</div>
+
 
 
 You can also use `:` to specify "all values in this dimension" and then use a comma (`,`) to add another dimension.
@@ -1671,12 +1614,9 @@ You can also use `:` to specify "all values in this dimension" and then use a co
 x[:, 0]
 ```
 
-
-
-
-    tensor([[1, 2, 3]])
-
-
+<div class="bash-block">
+  <pre><code>tensor([[1, 2, 3]])</code></pre>
+</div>
 
 
 ```python
@@ -1684,25 +1624,18 @@ x[:, 0]
 x[:, :, 1]
 ```
 
-
-
-
-    tensor([[2, 5, 8]])
-
-
+<div class="bash-block">
+  <pre><code>tensor([[2, 5, 8]])</code></pre>
+</div>
 
 
 ```python
 # Get all values of the 0 dimension but only the 1 index value of the 1st and 2nd dimension
 x[:, 1, 1]
 ```
-
-
-
-
-    tensor([5])
-
-
+<div class="bash-block">
+  <pre><code>tensor([5])</code></pre>
+</div>
 
 
 ```python
@@ -1710,11 +1643,9 @@ x[:, 1, 1]
 x[0, 0, :] # same as x[0][0]
 ```
 
-
-
-
-    tensor([1, 2, 3])
-
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
 
 
 Indexing can be quite confusing to begin with, especially with larger tensors (I still have to try indexing multiple times to get it right). But with a bit of practice and following the data explorer's motto (***visualize, visualize, visualize***), you'll start to get the hang of it.
@@ -1738,13 +1669,10 @@ array = np.arange(1.0, 8.0)
 tensor = torch.from_numpy(array)
 array, tensor
 ```
-
-
-
-
-    (array([1., 2., 3., 4., 5., 6., 7.]),
-     tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))
-
+<div class="bash-block">
+  <pre><code>(array([1., 2., 3., 4., 5., 6., 7.]),
+ tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))</code></pre>
+</div>
 
 
 <div class="note-box">
@@ -1765,12 +1693,10 @@ array = array + 1
 array, tensor
 ```
 
-
-
-
-    (array([2., 3., 4., 5., 6., 7., 8.]),
-     tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))
-
+<div class="bash-block">
+  <pre><code>(array([2., 3., 4., 5., 6., 7., 8.]),
+ tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))</code></pre>
+</div>
 
 
 And if you want to go from PyTorch tensor to NumPy array, you can call `tensor.numpy()`.
@@ -1783,13 +1709,10 @@ numpy_tensor = tensor.numpy() # will be dtype=float32 unless changed
 tensor, numpy_tensor
 ```
 
-
-
-
-    (tensor([1., 1., 1., 1., 1., 1., 1.]),
-     array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))
-
-
+<div class="bash-block">
+  <pre><code>(tensor([1., 1., 1., 1., 1., 1., 1.]),
+ array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))</code></pre>
+</div>
 
 And the same rule applies as above, if you change the original `tensor`, the new `numpy_tensor` stays the same.
 
@@ -1800,11 +1723,10 @@ tensor = tensor + 1
 tensor, numpy_tensor
 ```
 
-
-
-
-    (tensor([2., 2., 2., 2., 2., 2., 2.]),
-     array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))
+<div class="bash-block">
+  <pre><code>(tensor([2., 2., 2., 2., 2., 2., 2.]),
+ array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))</code></pre>
+</div>
 
 
 
@@ -1856,25 +1778,25 @@ print(f"Does Tensor A equal Tensor B? (anywhere)")
 random_tensor_A == random_tensor_B
 ```
 
-    Tensor A:
-    tensor([[0.8016, 0.3649, 0.6286, 0.9663],
-            [0.7687, 0.4566, 0.5745, 0.9200],
-            [0.3230, 0.8613, 0.0919, 0.3102]])
-    
-    Tensor B:
-    tensor([[0.9536, 0.6002, 0.0351, 0.6826],
-            [0.3743, 0.5220, 0.1336, 0.9666],
-            [0.9754, 0.8474, 0.8988, 0.1105]])
-    
-    Does Tensor A equal Tensor B? (anywhere)
+<div class="bash-block">
+  <pre><code>Tensor A:
+tensor([[0.8016, 0.3649, 0.6286, 0.9663],
+        [0.7687, 0.4566, 0.5745, 0.9200],
+        [0.3230, 0.8613, 0.0919, 0.3102]])
+
+Tensor B:
+tensor([[0.9536, 0.6002, 0.0351, 0.6826],
+        [0.3743, 0.5220, 0.1336, 0.9666],
+        [0.9754, 0.8474, 0.8988, 0.1105]])
+
+Does Tensor A equal Tensor B? (anywhere)
 
 
+tensor([[False, False, False, False],
+        [False, False, False, False],
+        [False, False, False, False]])</code></pre>
+</div>
 
-
-
-    tensor([[False, False, False, False],
-            [False, False, False, False],
-            [False, False, False, False]])
 
 
 
@@ -1909,25 +1831,25 @@ print(f"Does Tensor C equal Tensor D? (anywhere)")
 random_tensor_C == random_tensor_D
 ```
 
-    Tensor C:
-    tensor([[0.8823, 0.9150, 0.3829, 0.9593],
-            [0.3904, 0.6009, 0.2566, 0.7936],
-            [0.9408, 0.1332, 0.9346, 0.5936]])
-    
-    Tensor D:
-    tensor([[0.8823, 0.9150, 0.3829, 0.9593],
-            [0.3904, 0.6009, 0.2566, 0.7936],
-            [0.9408, 0.1332, 0.9346, 0.5936]])
-    
-    Does Tensor C equal Tensor D? (anywhere)
+<div class="bash-block">
+  <pre><code>Tensor C:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Tensor D:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Does Tensor C equal Tensor D? (anywhere)
 
 
+tensor([[True, True, True, True],
+        [True, True, True, True],
+        [True, True, True, True]])</code></pre>
+</div>
 
-
-
-    tensor([[True, True, True, True],
-            [True, True, True, True],
-            [True, True, True, True]])
 
 
 
@@ -2014,8 +1936,9 @@ To check if you've got access to a Nvidia GPU, you can run `!nvidia-smi` where t
 ```python
 !nvidia-smi
 ```
-```shell
-Sat Jan 21 08:34:23 2023       
+
+<div class="bash-block">
+  <pre><code>Sat Jan 21 08:34:23 2023       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 515.48.07    Driver Version: 515.48.07    CUDA Version: 11.7     |
 |-------------------------------+----------------------+----------------------+
@@ -2037,20 +1960,23 @@ Sat Jan 21 08:34:23 2023
 |    0   N/A  N/A   2671131      G   /usr/lib/xorg/Xorg                 97MiB |
 |    0   N/A  N/A   2671256      G   /usr/bin/gnome-shell                9MiB |
 +-----------------------------------------------------------------------------+
-```
+</code></pre>
+</div>
+
 
 If you don't have a Nvidia GPU accessible, the above will output something like:
 
-```
-NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.
-```
+<div class="bash-block">
+  <pre><code>NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.</code></pre>
+</div>
+
 
 In that case, go back up and follow the install steps.
 
 If you do have a GPU, the line above will output something like:
 
-```
-Wed Jan 19 22:09:08 2022       
+<div class="bash-block">
+  <pre><code>Wed Jan 19 22:09:08 2022       
 +-----------------------------------------------------------------------------+
 | NVIDIA-SMI 495.46       Driver Version: 460.32.03    CUDA Version: 11.2     |
 |-------------------------------+----------------------+----------------------+
@@ -2069,10 +1995,8 @@ Wed Jan 19 22:09:08 2022
 |        ID   ID                                                   Usage      |
 |=============================================================================|
 |  No running processes found                                                 |
-+-----------------------------------------------------------------------------+
-```
-
-
++-----------------------------------------------------------------------------+</code></pre>
+</div>
 
 ### 2. Getting PyTorch to run on the GPU
 
@@ -2092,11 +2016,9 @@ import torch
 torch.cuda.is_available()
 ```
 
-
-
-
-    True
-
+<div class="bash-block">
+  <pre><code>True</code></pre>
+</div>
 
 
 If the above outputs `True`, PyTorch can see and use the GPU, if it outputs `False`, it can't see the GPU and in that case, you'll have to go back through the installation steps.
@@ -2113,13 +2035,9 @@ Let's create a `device` variable to store what kind of device is available.
 device = "cuda" if torch.cuda.is_available() else "cpu"
 device
 ```
-
-
-
-
-    'cuda'
-
-
+<div class="bash-block">
+  <pre><code>'cuda'</code></pre>
+</div>
 
 If the above output `"cuda"` it means we can set all of our PyTorch code to use the available CUDA device (a GPU) and if it output `"cpu"`, our PyTorch code will stick with the CPU.
 
@@ -2137,10 +2055,9 @@ You can count the number of GPUs PyTorch has access to using [`torch.cuda.device
 torch.cuda.device_count()
 ```
 
-
-
-
-    1
+<div class="bash-block">
+  <pre><code>1</code></pre>
+</div>
 
 
 
@@ -2162,12 +2079,9 @@ torch.backends.mps.is_available() # Note this will print false if you're not run
 ```
 
 
-
-
-    True
-
-
-
+<div class="bash-block">
+  <pre><code>True</code></pre>
+</div>
 
 ```python
 # Set device type
@@ -2175,12 +2089,9 @@ device = "mps" if torch.backends.mps.is_available() else "cpu"
 device
 ```
 
-
-
-
-    'mps'
-
-
+<div class="bash-block">
+  <pre><code>'mps'</code></pre>
+</div>
 
 As before, if the above output `"mps"` it means we can set all of our PyTorch code to use the available Apple Silicon GPU.
 
@@ -2223,14 +2134,12 @@ tensor_on_gpu = tensor.to(device)
 tensor_on_gpu
 ```
 
-    tensor([1, 2, 3]) cpu
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3]) cpu
 
 
-
-
-
-    tensor([1, 2, 3], device='mps:0')
-
+tensor([1, 2, 3], device='mps:0')</code></pre>
+</div>
 
 
 If you have a GPU available, the above code will output something like:
@@ -2259,16 +2168,17 @@ tensor_on_gpu.numpy()
 ```
 
 
-    ---------------------------------------------------------------------------
+<div class="bash-block">
+  <pre><code><span class="traceback">---------------------------------------------------------------------------</span>
 
-    TypeError                                 Traceback (most recent call last)
+<span class="traceback">TypeError                                 Traceback (most recent call last)</span>
+       Cell 157 in &lt;cell line: 2&gt;
+      1 # If tensor is on GPU, can't transform it to NumPy (this will error)
+----&gt; 2 tensor_on_gpu.numpy()
 
-    /home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb Cell 157 in <cell line: 2>()
-          <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y312sdnNjb2RlLXJlbW90ZQ%3D%3D?line=0'>1</a> # If tensor is on GPU, can't transform it to NumPy (this will error)
-    ----> <a href='vscode-notebook-cell://ssh-remote%2B7b22686f73744e616d65223a22544954414e2d525458227d/home/daniel/code/pytorch/pytorch-course/pytorch-deep-learning/00_pytorch_fundamentals.ipynb#Y312sdnNjb2RlLXJlbW90ZQ%3D%3D?line=1'>2</a> tensor_on_gpu.numpy()
+<span class="error-msg">TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.</span></code></pre>
+</div>
 
-
-    TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.
 
 
 Instead, to get a tensor back to CPU and usable with NumPy we can use [`Tensor.cpu()`](https://pytorch.org/docs/stable/generated/torch.Tensor.cpu.html).
@@ -2282,11 +2192,9 @@ tensor_back_on_cpu = tensor_on_gpu.cpu().numpy()
 tensor_back_on_cpu
 ```
 
-
-
-
-    array([1, 2, 3])
-
+<div class="bash-block">
+  <pre><code>array([1, 2, 3])</code></pre>
+</div>
 
 
 The above returns a copy of the GPU tensor in CPU memory so the original tensor is still on GPU.
@@ -2296,12 +2204,9 @@ The above returns a copy of the GPU tensor in CPU memory so the original tensor 
 tensor_on_gpu
 ```
 
-
-
-
-    tensor([1, 2, 3], device='cuda:0')
-
-
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3], device='cuda:0')</code></pre>
+</div>
 
 ## Exercises
 1. Documentation reading - A big part of deep learning (and learning to code in general) is getting familiar with the documentation of a certain framework you're using. We'll be using the PyTorch documentation a lot throughout the rest of this course. So I'd recommend spending 10-minutes reading the following (it's okay if you don't get some things for now, the focus is not yet full understanding, it's awareness). See the documentation on [`torch.Tensor`](https://pytorch.org/docs/stable/tensors.html#torch-tensor) and for [`torch.cuda`](https://pytorch.org/docs/master/notes/cuda.html#cuda-semantics).
