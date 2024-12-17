@@ -117,7 +117,7 @@ torch.__version__
 
 
 
-## 1. Data (preparing and loading)
+## Data (preparing and loading)
 
 I want to stress that "data" in machine learning can be almost anything you can imagine. A table of numbers (like a big Excel spreadsheet), images of any kind, videos (YouTube has lots of data!), audio files like songs or podcasts, protein structures, text and more.
 
@@ -333,7 +333,7 @@ Now instead of just being numbers on a page, our data is a straight line.
 <strong>Note:</strong> Now's a good time to introduce you to the data explorer's motto... "visualize, visualize, visualize!"  Think of this whenever you're working with data and turning it into numbers, if you can visualize something, it can do wonders for understanding.  Machines love numbers and we humans like numbers too but we also like to look at things.
 </div>
 
-## 2. Build model
+## Build model
 
 Now we've got some data, let's build a model to use the blue dots to predict the green dots.
 
@@ -605,7 +605,7 @@ It hasn't even looked at the blue dots to try to predict the green dots.
 
 Time to change that.
 
-## 3. Train model
+## Train model
 
 Right now our model is making predictions using random parameters to make calculations, it's basically guessing (randomly).
 
@@ -980,7 +980,7 @@ It'd likely never guess them *perfectly* (especially when using more complicated
 
 This is the whole idea of machine learning and deep learning, **there are some ideal values that describe our data** and rather than figuring them out by hand, **we can train a model to figure them out programmatically**.
 
-## 4. Making predictions with a trained PyTorch model (inference)
+## Making predictions with a trained PyTorch model (inference)
 
 Once you've trained a model, you'll likely want to make predictions with it.
 
@@ -1051,7 +1051,7 @@ Woohoo! Those red dots are looking far closer than they were before!
 
 Let's get onto saving and reloading a model in PyTorch.
 
-## 5. Saving and loading a PyTorch model
+## Saving and loading a PyTorch model
 
 If you've trained a PyTorch model, chances are you'll want to save it and export it somewhere.
 
@@ -1248,7 +1248,7 @@ It looks like the loaded model predictions are the same as the previous model pr
   </p>
 </div>
 
-## 6. Putting it all together 
+## Putting it all together 
 
 We've covered a fair bit of ground so far. 
 
@@ -1320,7 +1320,7 @@ Using device: cuda
 ```
 Otherwise, you'll be using a CPU for the following computations. This is fine for our small dataset but it will take longer for larger datasets.
 
-### 6.1 Data
+### Data
 
 Let's create some data just like before.
 
@@ -1424,7 +1424,7 @@ plot_predictions(X_train, y_train, X_test, y_test)
     
 
 
-### 6.2 Building a PyTorch linear model
+### Building a PyTorch linear model
 
 We've got some data, now it's time to make a model.
 
@@ -1537,11 +1537,11 @@ Nice! Because of our device agnostic code, the above cell will work regardless o
 
 If you do have access to a CUDA-enabled GPU, you should see an output of something like:
 
-```
-device(type='cuda', index=0)
-```
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)</code></pre>
+</div>
 
-### 6.3 Training
+### Training
 
 Time to build a training and testing loop.
 
@@ -1717,7 +1717,7 @@ Plus, in many real-world machine learning problems, the number of parameters can
 
 I don't know about you but I'd rather write code for a computer to figure those out rather than doing it by hand.
 
-### 6.4 Making predictions
+### Making predictions
 
 Now we've got a trained model, let's turn on it's evaluation mode and make some predictions.
 
@@ -1795,7 +1795,7 @@ Woah! Look at those red dots, they line up almost perfectly with the green dots.
 
 
 
-### 6.5 Saving and loading a model
+### Saving and loading a model
 
 We're happy with our models predictions, so let's save it to file so it can be used later.
 

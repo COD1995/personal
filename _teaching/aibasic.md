@@ -176,8 +176,8 @@ The lecture notes are based on [PyTorch documentation](https://pytorch.org/) and
       <td>Week 1 & Week 2</td>
       <td>
       <ul> 
-      <li><a href="{{ 'assets/courses/basicai/pytorch_fundamentals/' | relative_url }}">PyTorch Fundamentals</a></li>
-      <li><a href="{{ 'assets/courses/basicai/pytorch_workflow/' | relative_url }}">PyTorch Workflow Fundamentals</a></li>
+      <li><a href="{{ 'assets/courses/basicai/01_pytorch_fundamentals/' | relative_url }}">PyTorch Fundamentals</a></li>
+      <li><a href="{{ 'assets/courses/basicai/02_pytorch_workflow/' | relative_url }}">PyTorch Workflow Fundamentals</a></li>
       </ul>
       </td>
     </tr>

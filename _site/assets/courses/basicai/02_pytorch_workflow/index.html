@@ -64,7 +64,7 @@
   <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A4%96&lt;/text&gt;&lt;/svg&gt;">
 
 <link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
-<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/basicai/pytorch_workflow/">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/basicai/02_pytorch_workflow/">
 
 <!-- Dark Mode -->
 <script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
@@ -120,8 +120,6 @@
 
           <!-- Other pages -->
           
-          
-            
           
             
           
@@ -527,7 +525,7 @@
 <div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'1.12.1+cu113'
 </code></pre></div></div>
 
-<h2 id="1-data-preparing-and-loading">1. Data (preparing and loading)</h2>
+<h2 id="data-preparing-and-loading">Data (preparing and loading)</h2>
 
 <p>I want to stress that “data” in machine learning can be almost anything you can imagine. A table of numbers (like a big Excel spreadsheet), images of any kind, videos (YouTube has lots of data!), audio files like songs or podcasts, protein structures, text and more.</p>
 
@@ -727,7 +725,7 @@
 <strong>Note:</strong> Now's a good time to introduce you to the data explorer's motto... "visualize, visualize, visualize!"  Think of this whenever you're working with data and turning it into numbers, if you can visualize something, it can do wonders for understanding.  Machines love numbers and we humans like numbers too but we also like to look at things.
 </div>
 
-<h2 id="2-build-model">2. Build model</h2>
+<h2 id="build-model">Build model</h2>
 
 <p>Now we’ve got some data, let’s build a model to use the blue dots to predict the green dots.</p>
 
@@ -975,7 +973,7 @@
 
 <p>Time to change that.</p>
 
-<h2 id="3-train-model">3. Train model</h2>
+<h2 id="train-model">Train model</h2>
 
 <p>Right now our model is making predictions using random parameters to make calculations, it’s basically guessing (randomly).</p>
 
@@ -1359,7 +1357,7 @@
 
 <p>This is the whole idea of machine learning and deep learning, <strong>there are some ideal values that describe our data</strong> and rather than figuring them out by hand, <strong>we can train a model to figure them out programmatically</strong>.</p>
 
-<h2 id="4-making-predictions-with-a-trained-pytorch-model-inference">4. Making predictions with a trained PyTorch model (inference)</h2>
+<h2 id="making-predictions-with-a-trained-pytorch-model-inference">Making predictions with a trained PyTorch model (inference)</h2>
 
 <p>Once you’ve trained a model, you’ll likely want to make predictions with it.</p>
 
@@ -1415,7 +1413,7 @@
 
 <p>Let’s get onto saving and reloading a model in PyTorch.</p>
 
-<h2 id="5-saving-and-loading-a-pytorch-model">5. Saving and loading a PyTorch model</h2>
+<h2 id="saving-and-loading-a-pytorch-model">Saving and loading a PyTorch model</h2>
 
 <p>If you’ve trained a PyTorch model, chances are you’ll want to save it and export it somewhere.</p>
 
@@ -1594,7 +1592,7 @@
   </p>
 </div>
 
-<h2 id="6-putting-it-all-together">6. Putting it all together</h2>
+<h2 id="putting-it-all-together">Putting it all together</h2>
 
 <p>We’ve covered a fair bit of ground so far.</p>
 
@@ -1649,7 +1647,7 @@
 </code></pre></div></div>
 <p>Otherwise, you’ll be using a CPU for the following computations. This is fine for our small dataset but it will take longer for larger datasets.</p>
 
-<h3 id="61-data">6.1 Data</h3>
+<h3 id="data">Data</h3>
 
 <p>Let’s create some data just like before.</p>
 
@@ -1726,7 +1724,7 @@
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_71_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
 </div>
 
-<h3 id="62-building-a-pytorch-linear-model">6.2 Building a PyTorch linear model</h3>
+<h3 id="building-a-pytorch-linear-model">Building a PyTorch linear model</h3>
 
 <p>We’ve got some data, now it’s time to make a model.</p>
 
@@ -1824,10 +1822,11 @@
 
 <p>If you do have access to a CUDA-enabled GPU, you should see an output of something like:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>device(type='cuda', index=0)
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)</code></pre>
+</div>
 
-<h3 id="63-training">6.3 Training</h3>
+<h3 id="training">Training</h3>
 
 <p>Time to build a training and testing loop.</p>
 
@@ -1987,7 +1986,7 @@
 
 <p>I don’t know about you but I’d rather write code for a computer to figure those out rather than doing it by hand.</p>
 
-<h3 id="64-making-predictions">6.4 Making predictions</h3>
+<h3 id="making-predictions">Making predictions</h3>
 
 <p>Now we’ve got a trained model, let’s turn on it’s evaluation mode and make some predictions.</p>
 
@@ -2042,7 +2041,7 @@
 
 <p>Woah! Look at those red dots, they line up almost perfectly with the green dots. I guess the extra epochs helped.</p>
 
-<h3 id="65-saving-and-loading-a-model">6.5 Saving and loading a model</h3>
+<h3 id="saving-and-loading-a-model">Saving and loading a model</h3>
 
 <p>We’re happy with our models predictions, so let’s save it to file so it can be used later.</p>
 
