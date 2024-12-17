@@ -594,27 +594,28 @@
 <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(tensor([[0.0000],
-         [0.0200],
-         [0.0400],
-         [0.0600],
-         [0.0800],
-         [0.1000],
-         [0.1200],
-         [0.1400],
-         [0.1600],
-         [0.1800]]),
- tensor([[0.3000],
-         [0.3140],
-         [0.3280],
-         [0.3420],
-         [0.3560],
-         [0.3700],
-         [0.3840],
-         [0.3980],
-         [0.4120],
-         [0.4260]]))
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(tensor([[0.0000],
+             [0.0200],
+             [0.0400],
+             [0.0600],
+             [0.0800],
+             [0.1000],
+             [0.1200],
+             [0.1400],
+             [0.1600],
+             [0.1800]]),
+     tensor([[0.3000],
+             [0.3140],
+             [0.3280],
+             [0.3420],
+             [0.3560],
+             [0.3700],
+             [0.3840],
+             [0.3980],
+             [0.4120],
+             [0.4260]]))</code></pre>
+</div>
 
 <p>Beautiful! Now we’re going to move towards building a model that can learn the relationship between <code class="language-plaintext highlighter-rouge">X</code> (<strong>features</strong>) and <code class="language-plaintext highlighter-rouge">y</code> (<strong>labels</strong>).</p>
 
@@ -675,8 +676,9 @@
 <span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(40, 40, 10, 10)
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(40, 40, 10, 10)</code></pre>
+</div>
 
 <p>Wonderful, we’ve got 40 samples for training (<code class="language-plaintext highlighter-rouge">X_train</code> &amp; <code class="language-plaintext highlighter-rouge">y_train</code>) and 10 samples for testing (<code class="language-plaintext highlighter-rouge">X_test</code> &amp; <code class="language-plaintext highlighter-rouge">y_test</code>).</p>
 
@@ -853,11 +855,12 @@
 </span><span class="nf">list</span><span class="p">(</span><span class="n">model_0</span><span class="p">.</span><span class="nf">parameters</span><span class="p">())</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[Parameter containing:
- tensor([0.3367], requires_grad=True),
- Parameter containing:
- tensor([0.1288], requires_grad=True)]
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>[Parameter containing:
+     tensor([0.3367], requires_grad=True),
+     Parameter containing:
+     tensor([0.1288], requires_grad=True)]</code></pre>
+</div>
 
 <p>We can also get the state (what the model contains) of the model using <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.state_dict" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.state_dict()</code></a>.</p>
 
@@ -865,8 +868,9 @@
 </span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>OrderedDict([('weights', tensor([0.3367])), ('bias', tensor([0.1288]))])
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>OrderedDict([('weights', tensor([0.3367])), ('bias', tensor([0.1288]))])</code></pre>
+</div>
 
 <p>Notice how the values for <code class="language-plaintext highlighter-rouge">weights</code> and <code class="language-plaintext highlighter-rouge">bias</code> from <code class="language-plaintext highlighter-rouge">model_0.state_dict()</code> come out as random float tensors?</p>
 
@@ -918,20 +922,21 @@
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Predicted values:</span><span class="se">\n</span><span class="si">{</span><span class="n">y_preds</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Number of testing samples: 10
-Number of predictions made: 10
-Predicted values:
-tensor([[0.3982],
-        [0.4049],
-        [0.4116],
-        [0.4184],
-        [0.4251],
-        [0.4318],
-        [0.4386],
-        [0.4453],
-        [0.4520],
-        [0.4588]])
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Number of testing samples: 10
+    Number of predictions made: 10
+    Predicted values:
+    tensor([[0.3982],
+            [0.4049],
+            [0.4116],
+            [0.4184],
+            [0.4251],
+            [0.4318],
+            [0.4386],
+            [0.4453],
+            [0.4520],
+            [0.4588]])</code></pre>
+</div>
 
 <p>Notice how there’s one prediction value per testing sample.</p>
 
@@ -1291,17 +1296,18 @@ tensor([[0.3982],
             <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | MAE Train Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s"> | MAE Test Loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">}</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch: 0 | MAE Train Loss: 0.31288138031959534 | MAE Test Loss: 0.48106518387794495 
-Epoch: 10 | MAE Train Loss: 0.1976713240146637 | MAE Test Loss: 0.3463551998138428 
-Epoch: 20 | MAE Train Loss: 0.08908725529909134 | MAE Test Loss: 0.21729660034179688 
-Epoch: 30 | MAE Train Loss: 0.053148526698350906 | MAE Test Loss: 0.14464017748832703 
-Epoch: 40 | MAE Train Loss: 0.04543796554207802 | MAE Test Loss: 0.11360953003168106 
-Epoch: 50 | MAE Train Loss: 0.04167863354086876 | MAE Test Loss: 0.09919948130846024 
-Epoch: 60 | MAE Train Loss: 0.03818932920694351 | MAE Test Loss: 0.08886633068323135 
-Epoch: 70 | MAE Train Loss: 0.03476089984178543 | MAE Test Loss: 0.0805937647819519 
-Epoch: 80 | MAE Train Loss: 0.03132382780313492 | MAE Test Loss: 0.07232122868299484 
-Epoch: 90 | MAE Train Loss: 0.02788739837706089 | MAE Test Loss: 0.06473556160926819 
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Epoch: 0 | MAE Train Loss: 0.31288138031959534 | MAE Test Loss: 0.48106518387794495 
+    Epoch: 10 | MAE Train Loss: 0.1976713240146637 | MAE Test Loss: 0.3463551998138428 
+    Epoch: 20 | MAE Train Loss: 0.08908725529909134 | MAE Test Loss: 0.21729660034179688 
+    Epoch: 30 | MAE Train Loss: 0.053148526698350906 | MAE Test Loss: 0.14464017748832703 
+    Epoch: 40 | MAE Train Loss: 0.04543796554207802 | MAE Test Loss: 0.11360953003168106 
+    Epoch: 50 | MAE Train Loss: 0.04167863354086876 | MAE Test Loss: 0.09919948130846024 
+    Epoch: 60 | MAE Train Loss: 0.03818932920694351 | MAE Test Loss: 0.08886633068323135 
+    Epoch: 70 | MAE Train Loss: 0.03476089984178543 | MAE Test Loss: 0.0805937647819519 
+    Epoch: 80 | MAE Train Loss: 0.03132382780313492 | MAE Test Loss: 0.07232122868299484 
+    Epoch: 90 | MAE Train Loss: 0.02788739837706089 | MAE Test Loss: 0.06473556160926819</code></pre>
+</div>
 
 <p>Oh would you look at that! Looks like our loss is going down with every epoch, let’s plot it to find out.</p>
 
@@ -1333,12 +1339,13 @@ Epoch: 90 | MAE Train Loss: 0.02788739837706089 | MAE Test Loss: 0.0647355616092
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">weights: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s">, bias: </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The model learned the following values for weights and bias:
-OrderedDict([('weights', tensor([0.5784])), ('bias', tensor([0.3513]))])
-
-And the original values for weights and bias are:
-weights: 0.7, bias: 0.3
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>The model learned the following values for weights and bias:
+    OrderedDict([('weights', tensor([0.5784])), ('bias', tensor([0.3513]))])
+    
+    And the original values for weights and bias are:
+    weights: 0.7, bias: 0.3</code></pre>
+</div>
 
 <p>Wow! How cool is that?</p>
 
@@ -1382,17 +1389,18 @@ weights: 0.7, bias: 0.3
 <span class="n">y_preds</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[0.8141],
-        [0.8256],
-        [0.8372],
-        [0.8488],
-        [0.8603],
-        [0.8719],
-        [0.8835],
-        [0.8950],
-        [0.9066],
-        [0.9182]])
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[0.8141],
+            [0.8256],
+            [0.8372],
+            [0.8488],
+            [0.8603],
+            [0.8719],
+            [0.8835],
+            [0.8950],
+            [0.9066],
+            [0.9182]])</code></pre>
+</div>
 
 <p>Nice! We’ve made some predictions with our trained model, now how do they look?</p>
 
@@ -1488,15 +1496,9 @@ weights: 0.7, bias: 0.3
 </span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saving model to: models/01_pytorch_workflow_model_0.pth
-</code></pre></div></div>
-
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check the saved file path
-</span><span class="err">!</span><span class="n">ls</span> <span class="o">-</span><span class="n">l</span> <span class="n">models</span><span class="o">/</span><span class="mi">01</span><span class="n">_pytorch_workflow_model_0</span><span class="p">.</span><span class="n">pth</span>
-</code></pre></div></div>
-
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>-rw-rw-r-- 1 daniel daniel 1063 Nov 10 16:07 models/01_pytorch_workflow_model_0.pth
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Saving model to: models/.. .pth</code></pre>
+</div>
 
 <h3 id="loading-a-saved-pytorch-models-state_dict">Loading a saved PyTorch model’s <code class="language-plaintext highlighter-rouge">state_dict()</code>
 </h3>
@@ -1532,8 +1534,9 @@ weights: 0.7, bias: 0.3
 </span><span class="n">loaded_model_0</span><span class="p">.</span><span class="nf">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">))</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;All keys matched successfully&gt;
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>&lt;All keys matched successfully&gt;</code></pre>
+</div>
 
 <p>Excellent! It looks like things matched up.</p>
 
@@ -1566,17 +1569,18 @@ weights: 0.7, bias: 0.3
 </span><span class="n">y_preds</span> <span class="o">==</span> <span class="n">loaded_model_preds</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True]])
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True]])</code></pre>
+</div>
 
 <p>Nice!</p>
 
@@ -1624,8 +1628,9 @@ weights: 0.7, bias: 0.3
 </span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'1.12.1+cu113'
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>'1.12.1+cu113'</code></pre>
+</div>
 
 <p>Now let’s start making our code device agnostic by setting <code class="language-plaintext highlighter-rouge">device="cuda"</code> if it’s available, otherwise it’ll default to <code class="language-plaintext highlighter-rouge">device="cpu"</code>.</p>
 
@@ -1634,8 +1639,9 @@ weights: 0.7, bias: 0.3
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Using device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Using device: cuda
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Using device: cuda</code></pre>
+</div>
 
 <p>If you’ve got access to a GPU, the above should’ve printed out:</p>
 
@@ -1668,27 +1674,28 @@ weights: 0.7, bias: 0.3
 <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(tensor([[0.0000],
-         [0.0200],
-         [0.0400],
-         [0.0600],
-         [0.0800],
-         [0.1000],
-         [0.1200],
-         [0.1400],
-         [0.1600],
-         [0.1800]]),
- tensor([[0.3000],
-         [0.3140],
-         [0.3280],
-         [0.3420],
-         [0.3560],
-         [0.3700],
-         [0.3840],
-         [0.3980],
-         [0.4120],
-         [0.4260]]))
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(tensor([[0.0000],
+             [0.0200],
+             [0.0400],
+             [0.0600],
+             [0.0800],
+             [0.1000],
+             [0.1200],
+             [0.1400],
+             [0.1600],
+             [0.1800]]),
+     tensor([[0.3000],
+             [0.3140],
+             [0.3280],
+             [0.3420],
+             [0.3560],
+             [0.3700],
+             [0.3840],
+             [0.3980],
+             [0.4120],
+             [0.4260]]))</code></pre>
+</div>
 
 <p>Wonderful!</p>
 
@@ -1704,8 +1711,9 @@ weights: 0.7, bias: 0.3
 <span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(40, 40, 10, 10)
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(40, 40, 10, 10)</code></pre>
+</div>
 
 <p>Excellent, let’s visualize them to make sure they look okay.</p>
 
@@ -1775,12 +1783,13 @@ weights: 0.7, bias: 0.3
 <span class="n">model_1</span><span class="p">,</span> <span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">()</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(LinearRegressionModelV2(
-   (linear_layer): Linear(in_features=1, out_features=1, bias=True)
- ),
- OrderedDict([('linear_layer.weight', tensor([[0.7645]])),
-              ('linear_layer.bias', tensor([0.8300]))]))
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(LinearRegressionModelV2(
+       (linear_layer): Linear(in_features=1, out_features=1, bias=True)
+     ),
+     OrderedDict([('linear_layer.weight', tensor([[0.7645]])),
+                  ('linear_layer.bias', tensor([0.8300]))]))</code></pre>
+</div>
 
 <p>Notice the outputs of <code class="language-plaintext highlighter-rouge">model_1.state_dict()</code>, the <code class="language-plaintext highlighter-rouge">nn.Linear()</code> layer created a random <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> parameter for us.</p>
 
@@ -1794,8 +1803,9 @@ weights: 0.7, bias: 0.3
 </span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>device(type='cpu')
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>device(type='cpu')</code></pre>
+</div>
 
 <p>Wonderful, looks like the model’s on the CPU by default.</p>
 
@@ -1806,8 +1816,9 @@ weights: 0.7, bias: 0.3
 </span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>device(type='cuda', index=0)
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)</code></pre>
+</div>
 
 <p>Nice! Because of our device agnostic code, the above cell will work regardless of whether a GPU is available or not.</p>
 
@@ -1920,17 +1931,18 @@ weights: 0.7, bias: 0.3
         <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Train loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s"> | Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Epoch: 0 | Train loss: 0.5551779866218567 | Test loss: 0.5739762187004089
-Epoch: 100 | Train loss: 0.006215683650225401 | Test loss: 0.014086711220443249
-Epoch: 200 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 300 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 400 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 500 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 600 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 700 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 800 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-Epoch: 900 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Epoch: 0 | Train loss: 0.5551779866218567 | Test loss: 0.5739762187004089
+    Epoch: 100 | Train loss: 0.006215683650225401 | Test loss: 0.014086711220443249
+    Epoch: 200 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 300 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 400 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 500 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 600 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 700 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 800 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 900 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882</code></pre>
+</div>
 
 <div class="note-box">
   <strong>Note:</strong>
@@ -1956,13 +1968,14 @@ Epoch: 900 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">weights: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s">, bias: </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>The model learned the following values for weights and bias:
-OrderedDict([('linear_layer.weight', tensor([[0.6968]], device='cuda:0')),
-             ('linear_layer.bias', tensor([0.3025], device='cuda:0'))])
-
-And the original values for weights and bias are:
-weights: 0.7, bias: 0.3
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>The model learned the following values for weights and bias:
+    OrderedDict([('linear_layer.weight', tensor([[0.6968]], device='cuda:0')),
+                 ('linear_layer.bias', tensor([0.3025], device='cuda:0'))])
+    
+    And the original values for weights and bias are:
+    weights: 0.7, bias: 0.3</code></pre>
+</div>
 
 <p>Ho ho! Now that’s pretty darn close to a perfect model.</p>
 
@@ -1987,17 +2000,18 @@ weights: 0.7, bias: 0.3
 <span class="n">y_preds</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[0.8600],
-        [0.8739],
-        [0.8878],
-        [0.9018],
-        [0.9157],
-        [0.9296],
-        [0.9436],
-        [0.9575],
-        [0.9714],
-        [0.9854]], device='cuda:0')
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[0.8600],
+            [0.8739],
+            [0.8878],
+            [0.9018],
+            [0.9157],
+            [0.9296],
+            [0.9436],
+            [0.9575],
+            [0.9714],
+            [0.9854]], device='cuda:0')</code></pre>
+</div>
 
 <p>If you’re making predictions with data on the GPU, you might notice the output of the above has <code class="language-plaintext highlighter-rouge">device='cuda:0'</code> towards the end. That means the data is on CUDA device 0 (the first GPU your system has access to due to zero-indexing), if you end up using multiple GPUs in the future, this number may be higher.</p>
 
@@ -2048,8 +2062,9 @@ weights: 0.7, bias: 0.3
 </span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span> 
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saving model to: models/01_pytorch_workflow_model_1.pth
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Saving model to: models/.. .pth</code></pre>
+</div>
 
 <p>And just to make sure everything worked well, let’s load it back in.</p>
 
@@ -2074,13 +2089,14 @@ weights: 0.7, bias: 0.3
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Model on device:</span><span class="se">\n</span><span class="si">{</span><span class="nf">next</span><span class="p">(</span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Loaded model:
-LinearRegressionModelV2(
-  (linear_layer): Linear(in_features=1, out_features=1, bias=True)
-)
-Model on device:
-cuda:0
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Loaded model:
+    LinearRegressionModelV2(
+      (linear_layer): Linear(in_features=1, out_features=1, bias=True)
+    )
+    Model on device:
+    cuda:0</code></pre>
+</div>
 
 <p>Now we can evaluate the loaded model to see if its predictions line up with the predictions made prior to saving.</p>
 
@@ -2091,17 +2107,18 @@ cuda:0
 <span class="n">y_preds</span> <span class="o">==</span> <span class="n">loaded_model_1_preds</span>
 </code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True],
-        [True]], device='cuda:0')
-</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True]], device='cuda:0')</code></pre>
+</div>
 
 <p>Everything adds up! Nice!</p>
 

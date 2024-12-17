@@ -177,7 +177,9 @@ X[:10], y[:10]
 
 
 
-    (tensor([[0.0000],
+
+<div class="bash-block">
+  <pre><code>(tensor([[0.0000],
              [0.0200],
              [0.0400],
              [0.0600],
@@ -196,7 +198,9 @@ X[:10], y[:10]
              [0.3840],
              [0.3980],
              [0.4120],
-             [0.4260]]))
+             [0.4260]]))</code></pre>
+</div>
+
 
 
 
@@ -265,7 +269,11 @@ len(X_train), len(y_train), len(X_test), len(y_test)
 
 
 
-    (40, 40, 10, 10)
+
+<div class="bash-block">
+  <pre><code>(40, 40, 10, 10)</code></pre>
+</div>
+
 
 
 
@@ -442,10 +450,14 @@ list(model_0.parameters())
 
 
 
-    [Parameter containing:
+
+<div class="bash-block">
+  <pre><code>[Parameter containing:
      tensor([0.3367], requires_grad=True),
      Parameter containing:
-     tensor([0.1288], requires_grad=True)]
+     tensor([0.1288], requires_grad=True)]</code></pre>
+</div>
+
 
 
 
@@ -460,7 +472,11 @@ model_0.state_dict()
 
 
 
-    OrderedDict([('weights', tensor([0.3367])), ('bias', tensor([0.1288]))])
+
+<div class="bash-block">
+  <pre><code>OrderedDict([('weights', tensor([0.3367])), ('bias', tensor([0.1288]))])</code></pre>
+</div>
+
 
 
 
@@ -519,7 +535,9 @@ print(f"Number of predictions made: {len(y_preds)}")
 print(f"Predicted values:\n{y_preds}")
 ```
 
-    Number of testing samples: 10
+
+<div class="bash-block">
+  <pre><code>Number of testing samples: 10
     Number of predictions made: 10
     Predicted values:
     tensor([[0.3982],
@@ -531,7 +549,9 @@ print(f"Predicted values:\n{y_preds}")
             [0.4386],
             [0.4453],
             [0.4520],
-            [0.4588]])
+            [0.4588]])</code></pre>
+</div>
+
 
 
 Notice how there's one prediction value per testing sample.
@@ -876,7 +896,9 @@ for epoch in range(epochs):
             print(f"Epoch: {epoch} | MAE Train Loss: {loss} | MAE Test Loss: {test_loss} ")
 ```
 
-    Epoch: 0 | MAE Train Loss: 0.31288138031959534 | MAE Test Loss: 0.48106518387794495 
+
+<div class="bash-block">
+  <pre><code>Epoch: 0 | MAE Train Loss: 0.31288138031959534 | MAE Test Loss: 0.48106518387794495 
     Epoch: 10 | MAE Train Loss: 0.1976713240146637 | MAE Test Loss: 0.3463551998138428 
     Epoch: 20 | MAE Train Loss: 0.08908725529909134 | MAE Test Loss: 0.21729660034179688 
     Epoch: 30 | MAE Train Loss: 0.053148526698350906 | MAE Test Loss: 0.14464017748832703 
@@ -885,7 +907,9 @@ for epoch in range(epochs):
     Epoch: 60 | MAE Train Loss: 0.03818932920694351 | MAE Test Loss: 0.08886633068323135 
     Epoch: 70 | MAE Train Loss: 0.03476089984178543 | MAE Test Loss: 0.0805937647819519 
     Epoch: 80 | MAE Train Loss: 0.03132382780313492 | MAE Test Loss: 0.07232122868299484 
-    Epoch: 90 | MAE Train Loss: 0.02788739837706089 | MAE Test Loss: 0.06473556160926819 
+    Epoch: 90 | MAE Train Loss: 0.02788739837706089 | MAE Test Loss: 0.06473556160926819</code></pre>
+</div>
+
 
 
 Oh would you look at that! Looks like our loss is going down with every epoch, let's plot it to find out.
@@ -933,11 +957,15 @@ print("\nAnd the original values for weights and bias are:")
 print(f"weights: {weight}, bias: {bias}")
 ```
 
-    The model learned the following values for weights and bias:
+
+<div class="bash-block">
+  <pre><code>The model learned the following values for weights and bias:
     OrderedDict([('weights', tensor([0.5784])), ('bias', tensor([0.3513]))])
     
     And the original values for weights and bias are:
-    weights: 0.7, bias: 0.3
+    weights: 0.7, bias: 0.3</code></pre>
+</div>
+
 
 
 Wow! How cool is that?
@@ -985,7 +1013,9 @@ y_preds
 
 
 
-    tensor([[0.8141],
+
+<div class="bash-block">
+  <pre><code>tensor([[0.8141],
             [0.8256],
             [0.8372],
             [0.8488],
@@ -994,7 +1024,9 @@ y_preds
             [0.8835],
             [0.8950],
             [0.9066],
-            [0.9182]])
+            [0.9182]])</code></pre>
+</div>
+
 
 
 
@@ -1103,16 +1135,11 @@ torch.save(obj=model_0.state_dict(), # only saving the state_dict() only saves t
            f=MODEL_SAVE_PATH) 
 ```
 
-    Saving model to: models/01_pytorch_workflow_model_0.pth
 
+<div class="bash-block">
+  <pre><code>Saving model to: models/.. .pth</code></pre>
+</div>
 
-
-```python
-# Check the saved file path
-!ls -l models/01_pytorch_workflow_model_0.pth
-```
-
-    -rw-rw-r-- 1 daniel daniel 1063 Nov 10 16:07 models/01_pytorch_workflow_model_0.pth
 
 
 ### Loading a saved PyTorch model's `state_dict()`
@@ -1150,11 +1177,9 @@ loaded_model_0 = LinearRegressionModel()
 loaded_model_0.load_state_dict(torch.load(f=MODEL_SAVE_PATH))
 ```
 
-
-
-
-    <All keys matched successfully>
-
+<div class="bash-block">
+  <pre><code>&lt;All keys matched successfully&gt;</code></pre>
+</div>
 
 
 Excellent! It looks like things matched up.
@@ -1194,7 +1219,9 @@ y_preds == loaded_model_preds
 
 
 
-    tensor([[True],
+
+<div class="bash-block">
+  <pre><code>tensor([[True],
             [True],
             [True],
             [True],
@@ -1203,7 +1230,9 @@ y_preds == loaded_model_preds
             [True],
             [True],
             [True],
-            [True]])
+            [True]])</code></pre>
+</div>
+
 
 
 
@@ -1245,7 +1274,6 @@ We'll start by importing the standard libraries we need.
 </div>
 
 
-
 ```python
 # Import PyTorch and matplotlib
 import torch
@@ -1259,7 +1287,11 @@ torch.__version__
 
 
 
-    '1.12.1+cu113'
+
+<div class="bash-block">
+  <pre><code>'1.12.1+cu113'</code></pre>
+</div>
+
 
 
 
@@ -1274,7 +1306,11 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 print(f"Using device: {device}")
 ```
 
-    Using device: cuda
+
+<div class="bash-block">
+  <pre><code>Using device: cuda</code></pre>
+</div>
+
 
 
 If you've got access to a GPU, the above should've printed out:
@@ -1311,7 +1347,9 @@ y = weight * X + bias
 X[:10], y[:10]
 ```
 
-    (tensor([[0.0000],
+
+<div class="bash-block">
+  <pre><code>(tensor([[0.0000],
              [0.0200],
              [0.0400],
              [0.0600],
@@ -1330,7 +1368,9 @@ X[:10], y[:10]
              [0.3840],
              [0.3980],
              [0.4120],
-             [0.4260]]))
+             [0.4260]]))</code></pre>
+</div>
+
 
 
 
@@ -1353,7 +1393,11 @@ len(X_train), len(y_train), len(X_test), len(y_test)
 
 
 
-    (40, 40, 10, 10)
+
+<div class="bash-block">
+  <pre><code>(40, 40, 10, 10)</code></pre>
+</div>
+
 
 
 
@@ -1430,11 +1474,15 @@ model_1, model_1.state_dict()
 
 
 
-    (LinearRegressionModelV2(
+
+<div class="bash-block">
+  <pre><code>(LinearRegressionModelV2(
        (linear_layer): Linear(in_features=1, out_features=1, bias=True)
      ),
      OrderedDict([('linear_layer.weight', tensor([[0.7645]])),
-                  ('linear_layer.bias', tensor([0.8300]))]))
+                  ('linear_layer.bias', tensor([0.8300]))]))</code></pre>
+</div>
+
 
 
 
@@ -1455,7 +1503,11 @@ next(model_1.parameters()).device
 
 
 
-    device(type='cpu')
+
+<div class="bash-block">
+  <pre><code>device(type='cpu')</code></pre>
+</div>
+
 
 
 
@@ -1473,7 +1525,11 @@ next(model_1.parameters()).device
 
 
 
-    device(type='cuda', index=0)
+
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)</code></pre>
+</div>
+
 
 
 
@@ -1596,7 +1652,9 @@ for epoch in range(epochs):
         print(f"Epoch: {epoch} | Train loss: {loss} | Test loss: {test_loss}")
 ```
 
-    Epoch: 0 | Train loss: 0.5551779866218567 | Test loss: 0.5739762187004089
+
+<div class="bash-block">
+  <pre><code>Epoch: 0 | Train loss: 0.5551779866218567 | Test loss: 0.5739762187004089
     Epoch: 100 | Train loss: 0.006215683650225401 | Test loss: 0.014086711220443249
     Epoch: 200 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
     Epoch: 300 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
@@ -1605,7 +1663,9 @@ for epoch in range(epochs):
     Epoch: 600 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
     Epoch: 700 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
     Epoch: 800 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
-    Epoch: 900 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 900 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882</code></pre>
+</div>
+
 
 
 <div class="note-box">
@@ -1635,12 +1695,16 @@ print("\nAnd the original values for weights and bias are:")
 print(f"weights: {weight}, bias: {bias}")
 ```
 
-    The model learned the following values for weights and bias:
+
+<div class="bash-block">
+  <pre><code>The model learned the following values for weights and bias:
     OrderedDict([('linear_layer.weight', tensor([[0.6968]], device='cuda:0')),
                  ('linear_layer.bias', tensor([0.3025], device='cuda:0'))])
     
     And the original values for weights and bias are:
-    weights: 0.7, bias: 0.3
+    weights: 0.7, bias: 0.3</code></pre>
+</div>
+
 
 
 Ho ho! Now that's pretty darn close to a perfect model.
@@ -1671,7 +1735,9 @@ y_preds
 
 
 
-    tensor([[0.8600],
+
+<div class="bash-block">
+  <pre><code>tensor([[0.8600],
             [0.8739],
             [0.8878],
             [0.9018],
@@ -1680,7 +1746,9 @@ y_preds
             [0.9436],
             [0.9575],
             [0.9714],
-            [0.9854]], device='cuda:0')
+            [0.9854]], device='cuda:0')</code></pre>
+</div>
+
 
 
 
@@ -1751,7 +1819,11 @@ torch.save(obj=model_1.state_dict(), # only saving the state_dict() only saves t
            f=MODEL_SAVE_PATH) 
 ```
 
-    Saving model to: models/01_pytorch_workflow_model_1.pth
+
+<div class="bash-block">
+  <pre><code>Saving model to: models/.. .pth</code></pre>
+</div>
+
 
 
 And just to make sure everything worked well, let's load it back in.
@@ -1776,12 +1848,16 @@ print(f"Loaded model:\n{loaded_model_1}")
 print(f"Model on device:\n{next(loaded_model_1.parameters()).device}")
 ```
 
-    Loaded model:
+
+<div class="bash-block">
+  <pre><code>Loaded model:
     LinearRegressionModelV2(
       (linear_layer): Linear(in_features=1, out_features=1, bias=True)
     )
     Model on device:
-    cuda:0
+    cuda:0</code></pre>
+</div>
+
 
 
 Now we can evaluate the loaded model to see if its predictions line up with the predictions made prior to saving.
@@ -1798,7 +1874,9 @@ y_preds == loaded_model_1_preds
 
 
 
-    tensor([[True],
+
+<div class="bash-block">
+  <pre><code>tensor([[True],
             [True],
             [True],
             [True],
@@ -1807,7 +1885,9 @@ y_preds == loaded_model_1_preds
             [True],
             [True],
             [True],
-            [True]], device='cuda:0')
+            [True]], device='cuda:0')</code></pre>
+</div>
+
 
 
 
