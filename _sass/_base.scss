@@ -171,6 +171,10 @@ ul.task-list input[type="checkbox"] {
 
 .card {
   background-color: var(--global-card-bg-color);
+  height: 100%;
+  /* Makes the card fill its parent container */
+  min-height: 348px;
+  /* Ensures a consistent minimum height for all cards */
 
   .card-img {
     width: 100%;
@@ -184,7 +188,14 @@ ul.task-list input[type="checkbox"] {
   .card-body {
     padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   }
+
 }
+
+.row {
+  row-gap: 1.25rem;
+}
+
+
 
 // Citation
 
