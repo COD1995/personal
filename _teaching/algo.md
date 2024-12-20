@@ -1,10 +1,10 @@
 ---
 layout: page
-title: CSE676 Deep Learning
+title: CSE 431/531 Algorithm Analysis and Design
 description: 
-img: assets/img/Deep-learning.png
-year: 2024
-category: graduate
+img: assets/img/algorithm.png
+year: 2025
+category: undergraduate/graduate
 related_publications: false
 toc:
     sidebar: left
@@ -12,18 +12,18 @@ back_link: '/teaching'
 back_text: 'Courses Page'
 enable_heading_styles: true
 ---
+
 <div class="course-description-box">
-  <p>
-    Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data, e.g., features to discriminate between classes. They have been successful in many artificial intelligence problems including image classification, speech recognition, and natural language processing.
-  </p>
-  <p>
-    The course, which will be taught through lectures and projects, will cover the underlying theory, the range of applications to which it has been applied, and learning from very large data sets. The course will cover connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional neural networks, and recurrent neural networks. Methods to train and optimize the architectures and methods to perform effective inference with them will be the main focus. Students will be encouraged to use open-source software libraries such as PyTorch.
-  </p>
-  <p class="course-note">
-    <strong>Pre-requisite:</strong> <a href="{{ '/teaching/machinelearning/' | relative_url }}">Introductory Machine Learning (ML)</a>. A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
+    <p>
+        Introduces basic elements of the design and analysis of algorithms. Topics include asymptotic notations and analysis, divide and conquer, greedy algorithms, dynamic programming, fundamental graph algorithms, NP-completeness, and approximation algorithms.
+    </p>
+    <p>
+    For each topic, beside in-depth coverage, we discuss one or more representative problems and their algorithms. In addition to the design and analysis of algorithms, students are expected to gain substantial discrete mathematics problem solving skills essential for computer scientists and engineers.
+    </p>
+    <p class="course-note">
+    <strong>Pre-requisite:</strong> You should have taken CSE250 (data structure) or similar courses before. We expect you to have certain levels of mathematical maturity: You should have basic understanding of calculus (e.g., limit, differentiation, integration) and linear algebra (e.g., matrix, vector space, linear transformation); You should be comfortable to read and write mathematical proofs, understanding common proof strategies (e.g., proof by induction, contradiction). We also expect you to have some programming experience: know what is a computer program, and be able to read and write code.
   </p>
 </div>
-
 
 ## Course Logistics
 **Course Instructor**: Jue Guo [C]
@@ -223,5 +223,3 @@ Below are the lecture notes. Please note that these notes are updated regularly,
     </tr>
   </tbody>
 </table>
-
-

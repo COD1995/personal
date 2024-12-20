@@ -2175,7 +2175,7 @@ tensor([[True, True, True, True],
   <strong>Note:</strong> When I reference "GPU" throughout this course, I'm referencing a <a href="https://developer.nvidia.com/cuda-gpus" rel="external nofollow noopener" target="_blank">Nvidia GPU with CUDA</a> enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing &amp; not just graphics) unless otherwise specified.
 </div>
 
-<h3 id="1-getting-a-gpu">1. Getting a GPU</h3>
+<h3 id="getting-a-gpu">Getting a GPU</h3>
 
 <p>You may already know what’s going on when I say GPU. But if not, there are a few ways to get access to one.</p>
 
@@ -2286,7 +2286,7 @@ tensor([[True, True, True, True],
 +-----------------------------------------------------------------------------+</code></pre>
 </div>
 
-<h3 id="2-getting-pytorch-to-run-on-the-gpu">2. Getting PyTorch to run on the GPU</h3>
+<h3 id="getting-pytorch-to-run-on-the-gpu">Getting PyTorch to run on the GPU</h3>
 
 <p>Once you’ve got a GPU ready to access, the next step is getting PyTorch to use for storing data (tensors) and computing on data (performing operations on tensors).</p>
 
@@ -2341,7 +2341,7 @@ tensor([[True, True, True, True],
 
 <p>Knowing the number of GPUs PyTorch has access to is helpful incase you wanted to run a specific process on one GPU and another process on another (PyTorch also has features to let you run a process across <em>all</em> GPUs).</p>
 
-<h3 id="21-getting-pytorch-to-run-on-apple-silicon">2.1 Getting PyTorch to run on Apple Silicon</h3>
+<h3 id="getting-pytorch-to-run-on-apple-silicon">Getting PyTorch to run on Apple Silicon</h3>
 
 <p>In order to run PyTorch on Apple’s M1/M2/M3 GPUs you can use the <a href="https://pytorch.org/docs/stable/notes/mps.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.backends.mps</code></a> module.</p>
 
@@ -2377,7 +2377,7 @@ tensor([[True, True, True, True],
     <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span> <span class="c1"># Default to CPU if no GPU is available
 </span></code></pre></div></div>
 
-<h3 id="3-putting-tensors-and-models-on-the-gpu">3. Putting tensors (and models) on the GPU</h3>
+<h3 id="putting-tensors-and-models-on-the-gpu">Putting tensors (and models) on the GPU</h3>
 
 <p>You can put tensors (and models, we’ll see this later) on a specific device by calling <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.to.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">to(device)</code></a> on them. Where <code class="language-plaintext highlighter-rouge">device</code> is the target device you’d like the tensor (or model) to go to.</p>
 
@@ -2419,7 +2419,7 @@ tensor([1, 2, 3], device='cuda:0')
 
 <p>Notice the second tensor has <code class="language-plaintext highlighter-rouge">device='cuda:0'</code>, this means it’s stored on the 0th GPU available (GPUs are 0 indexed, if two GPUs were available, they’d be <code class="language-plaintext highlighter-rouge">'cuda:0'</code> and <code class="language-plaintext highlighter-rouge">'cuda:1'</code> respectively, up to <code class="language-plaintext highlighter-rouge">'cuda:n'</code>).</p>
 
-<h3 id="4-moving-tensors-back-to-the-cpu">4. Moving tensors back to the CPU</h3>
+<h3 id="moving-tensors-back-to-the-cpu">Moving tensors back to the CPU</h3>
 
 <p>What if we wanted to move the tensor back to CPU?</p>
 
@@ -2508,7 +2508,7 @@ tensor([1, 2, 3], device='cuda:0')
       Guo. 
       
       
-        Last updated: December 17, 2024.
+        Last updated: December 20, 2024.
       
     </div>
   </footer>

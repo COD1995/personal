@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Introduction to Patten Recognition
+title: CSE455/555 Introduction to Patten Recognition
 description: 
 img: assets/img/itpr.png
 year: 2024

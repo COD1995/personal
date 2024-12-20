@@ -171,6 +171,10 @@ ul.task-list input[type="checkbox"] {
 
 .card {
   background-color: var(--global-card-bg-color);
+  height: 100%;
+  /* Makes the card fill its parent container */
+  min-height: 348px;
+  /* Ensures a consistent minimum height for all cards */
 
   .card-img {
     width: 100%;
@@ -184,7 +188,14 @@ ul.task-list input[type="checkbox"] {
   .card-body {
     padding: 1.25rem 1.25rem 1.25rem 1.25rem;
   }
+
 }
+
+.row {
+  row-gap: 1.25rem;
+}
+
+
 
 // Citation
 
@@ -1422,32 +1433,73 @@ ninja-keys::part(ninja-input-wrapper) {
 // Course Description Box
 .course-description-box {
   background-color: var(--global-card-bg-color);
-  border-left: 5px solid var(--global-theme-color);
-  padding: 1.5rem;
+  border-left: 6px solid var(--global-theme-color);
+  /* Slightly thicker border for emphasis */
+  padding: 2rem;
+  /* Increased padding for a spacious feel */
   margin: 20px 0;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  line-height: 1.6;
+  border-radius: 12px;
+  /* Softer rounded corners */
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+  /* Subtle shadow for depth */
+  line-height: 1.8;
+  /* Increased line height for readability */
+  position: relative;
+  /* Enable positioning for pseudo-element */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  /* Add hover effect */
+
+  &:hover {
+    transform: translateY(-4px);
+    /* Slight hover lift */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    /* Enhanced shadow on hover */
+  }
+
+  &::before {
+    content: "Course Description";
+    /* Inject text dynamically */
+    display: block;
+    /* Ensure it takes up space */
+    margin-bottom: 1rem;
+    /* Add space below the text */
+    color: var(--global-theme-color);
+    /* Matches border color for consistency */
+    font-size: 1.8rem;
+    /* Larger, prominent text */
+    font-weight: 600;
+    /* Make it bold */
+    text-transform: uppercase;
+    /* Make it stand out */
+  }
+
+  p {
+    margin-bottom: 1rem;
+    color: var(--global-text-color);
+    /* Consistent text color */
+    font-size: 1rem;
+    /* Slightly larger font for better readability */
+  }
+
+  .course-note {
+    background-color: rgba(255, 0, 0, 0.1);
+    padding: 12px;
+    /* Increased padding */
+    border-left: 5px solid #ff4c4c;
+    color: #d63333;
+    font-weight: bold;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    /* Slightly smaller font for differentiation */
+
+    &::before {
+      content: "⚠️ ";
+      /* Add an attention-grabbing icon */
+    }
+  }
 }
 
-.course-description-box h2 {
-  margin-top: 0;
-  color: var(--global-theme-color);
-}
 
-.course-description-box p {
-  margin-bottom: 1rem;
-  color: var(--global-text-color);
-}
-
-.course-description-box .course-note {
-  background-color: rgba(255, 0, 0, 0.1);
-  padding: 10px;
-  border-left: 4px solid #ff4c4c;
-  color: #d63333;
-  font-weight: bold;
-  border-radius: 4px;
-}
 
 .course-thumbnail {
   width: 100%;

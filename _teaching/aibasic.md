@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Basics of Artificial Intelligence
+title: EAS510 Basics of Artificial Intelligence
 description: 
 img: assets/img/aibasic.jpg
 year: 2024

@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Introduction to Machine Learning
+title: CSE474/574 Introduction to Machine Learning
 description: 
 img: assets/img/ml.jpg
 year: 2024
