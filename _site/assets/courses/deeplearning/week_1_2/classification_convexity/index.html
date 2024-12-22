@@ -346,1050 +346,1096 @@
 
     
 <div class="slideshow-wrapper">
-  <!-- Top Controls: Left Arrow, "page input / total", Right Arrow -->
+  <!-- TOP BAR -->
   <div class="slideshow-top-controls">
-    <a class="prev" onclick="plusSlides(-1)">❮</a>
-    <div class="slide-counter">
-      <!-- The user can type a page number here -->
-      <input type="number" id="slideNumberInput" class="slide-number-input" min="1" max="106" value="1">
-      <span class="slash">/</span>
-      <span id="slideTotal">106</span>
+    <!-- Hamburger (Preview Button) pinned on the left -->
+    <div class="preview-left">
+      <div class="slide-preview-button" onclick="togglePreview()">
+        ☰  <!-- or any icon you like -->
+      </div>
     </div>
-    <a class="next" onclick="plusSlides(1)">❯</a>
+
+    <!-- The center group: arrows + slide counter -->
+    <div class="controls-center">
+      <a class="prev" onclick="plusSlides(-1)">❮</a>
+      <div class="slide-counter">
+        <input type="number" id="slideNumberInput" class="slide-number-input" min="1" max="106" value="1">
+        <span class="slash">/</span>
+        <span id="slideTotal">106</span>
+      </div>
+      <a class="next" onclick="plusSlides(1)">❯</a>
+    </div>
   </div>
 
-  <!-- Main Slide Area -->
-  <div class="slideshow-container">
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page001.png" alt="page001.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 1 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page002.png" alt="page002.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 2 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page003.png" alt="page003.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 3 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page004.png" alt="page004.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 4 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page005.png" alt="page005.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 5 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page006.png" alt="page006.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 6 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page007.png" alt="page007.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 7 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page008.png" alt="page008.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 8 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page009.png" alt="page009.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 9 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page010.png" alt="page010.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 10 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page011.png" alt="page011.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 11 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page012.png" alt="page012.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 12 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page013.png" alt="page013.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 13 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page014.png" alt="page014.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 14 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page015.png" alt="page015.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 15 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page016.png" alt="page016.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 16 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page017.png" alt="page017.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 17 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page018.png" alt="page018.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 18 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page019.png" alt="page019.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 19 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page020.png" alt="page020.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 20 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page021.png" alt="page021.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 21 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page022.png" alt="page022.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 22 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page023.png" alt="page023.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 23 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page024.png" alt="page024.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 24 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page025.png" alt="page025.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 25 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page026.png" alt="page026.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 26 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page027.png" alt="page027.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 27 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page028.png" alt="page028.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 28 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page029.png" alt="page029.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 29 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page030.png" alt="page030.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 30 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page031.png" alt="page031.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 31 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page032.png" alt="page032.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 32 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page033.png" alt="page033.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 33 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page034.png" alt="page034.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 34 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page035.png" alt="page035.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 35 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page036.png" alt="page036.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 36 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page037.png" alt="page037.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 37 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page038.png" alt="page038.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 38 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page039.png" alt="page039.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 39 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page040.png" alt="page040.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 40 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page041.png" alt="page041.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 41 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page042.png" alt="page042.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 42 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page043.png" alt="page043.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 43 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page044.png" alt="page044.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 44 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page045.png" alt="page045.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 45 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page046.png" alt="page046.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 46 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page047.png" alt="page047.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 47 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page048.png" alt="page048.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 48 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page049.png" alt="page049.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 49 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page050.png" alt="page050.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 50 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page051.png" alt="page051.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 51 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page052.png" alt="page052.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 52 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page053.png" alt="page053.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 53 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page054.png" alt="page054.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 54 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page055.png" alt="page055.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 55 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page056.png" alt="page056.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 56 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page057.png" alt="page057.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 57 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page058.png" alt="page058.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 58 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page059.png" alt="page059.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 59 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page060.png" alt="page060.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 60 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page061.png" alt="page061.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 61 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page062.png" alt="page062.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 62 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page063.png" alt="page063.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 63 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page064.png" alt="page064.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 64 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page065.png" alt="page065.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 65 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page066.png" alt="page066.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 66 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page067.png" alt="page067.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 67 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page068.png" alt="page068.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 68 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page069.png" alt="page069.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 69 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page070.png" alt="page070.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 70 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page071.png" alt="page071.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 71 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page072.png" alt="page072.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 72 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page073.png" alt="page073.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 73 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page074.png" alt="page074.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 74 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page075.png" alt="page075.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 75 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page076.png" alt="page076.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 76 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page077.png" alt="page077.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 77 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page078.png" alt="page078.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 78 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page079.png" alt="page079.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 79 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page080.png" alt="page080.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 80 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page081.png" alt="page081.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 81 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page082.png" alt="page082.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 82 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page083.png" alt="page083.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 83 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page084.png" alt="page084.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 84 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page085.png" alt="page085.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 85 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page086.png" alt="page086.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 86 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page087.png" alt="page087.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 87 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page088.png" alt="page088.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 88 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page089.png" alt="page089.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 89 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page090.png" alt="page090.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 90 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page091.png" alt="page091.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 91 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page092.png" alt="page092.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 92 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page093.png" alt="page093.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 93 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page094.png" alt="page094.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 94 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page095.png" alt="page095.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 95 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page096.png" alt="page096.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 96 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page097.png" alt="page097.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 97 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page098.png" alt="page098.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 98 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page099.png" alt="page099.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 99 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page100.png" alt="page100.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 100 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page101.png" alt="page101.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 101 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page102.png" alt="page102.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 102 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page103.png" alt="page103.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 103 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page104.png" alt="page104.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 104 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page105.png" alt="page105.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 105 of 106
-        </div>
-        -->
-      </div>
-    
-      <div class="mySlide">
-        <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page106.png" alt="page106.png">
-        <!-- Remove or comment out the caption if you no longer need it
-        <div class="caption">
-          page 106 of 106
-        </div>
-        -->
-      </div>
-    
-  </div>
+  <!-- Main layout: side preview panel + main slideshow area -->
+  <div class="slide-layout">
+    <!-- Collapsible Preview Panel -->
+    <div id="slidePreviewPanel" class="slide-preview-panel">
+      <div class="slide-preview-header">
+      </div>
+      <div class="slide-preview-thumbs">
+        
+        <div class="slide-thumbnail" onclick="showSlides(1)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page001.png" alt="Slide 1">
+          <span>Slide 1</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(2)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page002.png" alt="Slide 2">
+          <span>Slide 2</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(3)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page003.png" alt="Slide 3">
+          <span>Slide 3</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(4)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page004.png" alt="Slide 4">
+          <span>Slide 4</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(5)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page005.png" alt="Slide 5">
+          <span>Slide 5</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(6)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page006.png" alt="Slide 6">
+          <span>Slide 6</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(7)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page007.png" alt="Slide 7">
+          <span>Slide 7</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(8)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page008.png" alt="Slide 8">
+          <span>Slide 8</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(9)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page009.png" alt="Slide 9">
+          <span>Slide 9</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(10)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page010.png" alt="Slide 10">
+          <span>Slide 10</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(11)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page011.png" alt="Slide 11">
+          <span>Slide 11</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(12)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page012.png" alt="Slide 12">
+          <span>Slide 12</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(13)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page013.png" alt="Slide 13">
+          <span>Slide 13</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(14)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page014.png" alt="Slide 14">
+          <span>Slide 14</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(15)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page015.png" alt="Slide 15">
+          <span>Slide 15</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(16)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page016.png" alt="Slide 16">
+          <span>Slide 16</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(17)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page017.png" alt="Slide 17">
+          <span>Slide 17</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(18)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page018.png" alt="Slide 18">
+          <span>Slide 18</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(19)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page019.png" alt="Slide 19">
+          <span>Slide 19</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(20)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page020.png" alt="Slide 20">
+          <span>Slide 20</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(21)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page021.png" alt="Slide 21">
+          <span>Slide 21</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(22)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page022.png" alt="Slide 22">
+          <span>Slide 22</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(23)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page023.png" alt="Slide 23">
+          <span>Slide 23</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(24)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page024.png" alt="Slide 24">
+          <span>Slide 24</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(25)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page025.png" alt="Slide 25">
+          <span>Slide 25</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(26)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page026.png" alt="Slide 26">
+          <span>Slide 26</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(27)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page027.png" alt="Slide 27">
+          <span>Slide 27</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(28)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page028.png" alt="Slide 28">
+          <span>Slide 28</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(29)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page029.png" alt="Slide 29">
+          <span>Slide 29</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(30)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page030.png" alt="Slide 30">
+          <span>Slide 30</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(31)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page031.png" alt="Slide 31">
+          <span>Slide 31</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(32)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page032.png" alt="Slide 32">
+          <span>Slide 32</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(33)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page033.png" alt="Slide 33">
+          <span>Slide 33</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(34)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page034.png" alt="Slide 34">
+          <span>Slide 34</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(35)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page035.png" alt="Slide 35">
+          <span>Slide 35</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(36)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page036.png" alt="Slide 36">
+          <span>Slide 36</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(37)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page037.png" alt="Slide 37">
+          <span>Slide 37</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(38)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page038.png" alt="Slide 38">
+          <span>Slide 38</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(39)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page039.png" alt="Slide 39">
+          <span>Slide 39</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(40)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page040.png" alt="Slide 40">
+          <span>Slide 40</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(41)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page041.png" alt="Slide 41">
+          <span>Slide 41</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(42)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page042.png" alt="Slide 42">
+          <span>Slide 42</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(43)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page043.png" alt="Slide 43">
+          <span>Slide 43</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(44)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page044.png" alt="Slide 44">
+          <span>Slide 44</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(45)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page045.png" alt="Slide 45">
+          <span>Slide 45</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(46)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page046.png" alt="Slide 46">
+          <span>Slide 46</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(47)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page047.png" alt="Slide 47">
+          <span>Slide 47</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(48)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page048.png" alt="Slide 48">
+          <span>Slide 48</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(49)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page049.png" alt="Slide 49">
+          <span>Slide 49</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(50)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page050.png" alt="Slide 50">
+          <span>Slide 50</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(51)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page051.png" alt="Slide 51">
+          <span>Slide 51</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(52)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page052.png" alt="Slide 52">
+          <span>Slide 52</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(53)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page053.png" alt="Slide 53">
+          <span>Slide 53</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(54)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page054.png" alt="Slide 54">
+          <span>Slide 54</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(55)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page055.png" alt="Slide 55">
+          <span>Slide 55</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(56)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page056.png" alt="Slide 56">
+          <span>Slide 56</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(57)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page057.png" alt="Slide 57">
+          <span>Slide 57</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(58)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page058.png" alt="Slide 58">
+          <span>Slide 58</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(59)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page059.png" alt="Slide 59">
+          <span>Slide 59</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(60)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page060.png" alt="Slide 60">
+          <span>Slide 60</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(61)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page061.png" alt="Slide 61">
+          <span>Slide 61</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(62)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page062.png" alt="Slide 62">
+          <span>Slide 62</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(63)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page063.png" alt="Slide 63">
+          <span>Slide 63</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(64)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page064.png" alt="Slide 64">
+          <span>Slide 64</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(65)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page065.png" alt="Slide 65">
+          <span>Slide 65</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(66)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page066.png" alt="Slide 66">
+          <span>Slide 66</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(67)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page067.png" alt="Slide 67">
+          <span>Slide 67</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(68)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page068.png" alt="Slide 68">
+          <span>Slide 68</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(69)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page069.png" alt="Slide 69">
+          <span>Slide 69</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(70)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page070.png" alt="Slide 70">
+          <span>Slide 70</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(71)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page071.png" alt="Slide 71">
+          <span>Slide 71</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(72)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page072.png" alt="Slide 72">
+          <span>Slide 72</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(73)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page073.png" alt="Slide 73">
+          <span>Slide 73</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(74)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page074.png" alt="Slide 74">
+          <span>Slide 74</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(75)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page075.png" alt="Slide 75">
+          <span>Slide 75</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(76)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page076.png" alt="Slide 76">
+          <span>Slide 76</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(77)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page077.png" alt="Slide 77">
+          <span>Slide 77</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(78)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page078.png" alt="Slide 78">
+          <span>Slide 78</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(79)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page079.png" alt="Slide 79">
+          <span>Slide 79</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(80)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page080.png" alt="Slide 80">
+          <span>Slide 80</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(81)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page081.png" alt="Slide 81">
+          <span>Slide 81</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(82)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page082.png" alt="Slide 82">
+          <span>Slide 82</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(83)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page083.png" alt="Slide 83">
+          <span>Slide 83</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(84)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page084.png" alt="Slide 84">
+          <span>Slide 84</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(85)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page085.png" alt="Slide 85">
+          <span>Slide 85</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(86)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page086.png" alt="Slide 86">
+          <span>Slide 86</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(87)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page087.png" alt="Slide 87">
+          <span>Slide 87</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(88)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page088.png" alt="Slide 88">
+          <span>Slide 88</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(89)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page089.png" alt="Slide 89">
+          <span>Slide 89</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(90)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page090.png" alt="Slide 90">
+          <span>Slide 90</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(91)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page091.png" alt="Slide 91">
+          <span>Slide 91</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(92)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page092.png" alt="Slide 92">
+          <span>Slide 92</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(93)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page093.png" alt="Slide 93">
+          <span>Slide 93</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(94)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page094.png" alt="Slide 94">
+          <span>Slide 94</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(95)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page095.png" alt="Slide 95">
+          <span>Slide 95</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(96)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page096.png" alt="Slide 96">
+          <span>Slide 96</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(97)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page097.png" alt="Slide 97">
+          <span>Slide 97</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(98)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page098.png" alt="Slide 98">
+          <span>Slide 98</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(99)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page099.png" alt="Slide 99">
+          <span>Slide 99</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(100)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page100.png" alt="Slide 100">
+          <span>Slide 100</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(101)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page101.png" alt="Slide 101">
+          <span>Slide 101</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(102)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page102.png" alt="Slide 102">
+          <span>Slide 102</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(103)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page103.png" alt="Slide 103">
+          <span>Slide 103</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(104)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page104.png" alt="Slide 104">
+          <span>Slide 104</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(105)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page105.png" alt="Slide 105">
+          <span>Slide 105</span>
+        </div>
+        
+        <div class="slide-thumbnail" onclick="showSlides(106)">
+          <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page106.png" alt="Slide 106">
+          <span>Slide 106</span>
+        </div>
+        
+      </div>
+    </div>
 
-  <!-- Bottom Footer (Progress Bar) - optional -->
-  <div class="slideshow-footer">
-    <div class="slide-progress">
-      <div class="slide-progress-bar"></div>
+    <!-- Main Slide Content -->
+    <div class="main-slide-content">
+      <div class="slideshow-container">
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page001.png" alt="page001.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page002.png" alt="page002.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page003.png" alt="page003.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page004.png" alt="page004.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page005.png" alt="page005.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page006.png" alt="page006.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page007.png" alt="page007.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page008.png" alt="page008.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page009.png" alt="page009.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page010.png" alt="page010.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page011.png" alt="page011.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page012.png" alt="page012.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page013.png" alt="page013.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page014.png" alt="page014.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page015.png" alt="page015.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page016.png" alt="page016.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page017.png" alt="page017.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page018.png" alt="page018.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page019.png" alt="page019.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page020.png" alt="page020.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page021.png" alt="page021.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page022.png" alt="page022.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page023.png" alt="page023.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page024.png" alt="page024.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page025.png" alt="page025.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page026.png" alt="page026.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page027.png" alt="page027.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page028.png" alt="page028.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page029.png" alt="page029.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page030.png" alt="page030.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page031.png" alt="page031.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page032.png" alt="page032.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page033.png" alt="page033.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page034.png" alt="page034.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page035.png" alt="page035.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page036.png" alt="page036.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page037.png" alt="page037.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page038.png" alt="page038.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page039.png" alt="page039.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page040.png" alt="page040.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page041.png" alt="page041.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page042.png" alt="page042.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page043.png" alt="page043.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page044.png" alt="page044.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page045.png" alt="page045.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page046.png" alt="page046.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page047.png" alt="page047.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page048.png" alt="page048.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page049.png" alt="page049.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page050.png" alt="page050.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page051.png" alt="page051.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page052.png" alt="page052.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page053.png" alt="page053.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page054.png" alt="page054.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page055.png" alt="page055.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page056.png" alt="page056.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page057.png" alt="page057.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page058.png" alt="page058.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page059.png" alt="page059.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page060.png" alt="page060.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page061.png" alt="page061.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page062.png" alt="page062.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page063.png" alt="page063.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page064.png" alt="page064.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page065.png" alt="page065.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page066.png" alt="page066.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page067.png" alt="page067.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page068.png" alt="page068.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page069.png" alt="page069.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page070.png" alt="page070.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page071.png" alt="page071.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page072.png" alt="page072.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page073.png" alt="page073.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page074.png" alt="page074.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page075.png" alt="page075.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page076.png" alt="page076.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page077.png" alt="page077.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page078.png" alt="page078.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page079.png" alt="page079.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page080.png" alt="page080.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page081.png" alt="page081.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page082.png" alt="page082.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page083.png" alt="page083.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page084.png" alt="page084.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page085.png" alt="page085.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page086.png" alt="page086.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page087.png" alt="page087.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page088.png" alt="page088.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page089.png" alt="page089.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page090.png" alt="page090.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page091.png" alt="page091.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page092.png" alt="page092.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page093.png" alt="page093.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page094.png" alt="page094.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page095.png" alt="page095.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page096.png" alt="page096.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page097.png" alt="page097.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page098.png" alt="page098.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page099.png" alt="page099.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page100.png" alt="page100.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page101.png" alt="page101.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page102.png" alt="page102.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page103.png" alt="page103.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page104.png" alt="page104.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page105.png" alt="page105.png">
+          </div>
+        
+          <div class="mySlide">
+            <img src="/personal/assets/courses/deeplearning/week_1_2/classification_convexity/page106.png" alt="page106.png">
+          </div>
+        
+      </div>
+
+      <!-- Bottom Range Slider + Progress Bar -->
+      <div class="slideshow-footer-overlap">
+        <div class="slide-range-wrapper">
+          <div class="slide-progress-overlap">
+            <div class="slide-progress-bar-overlap"></div>
+          </div>
+          <input type="range" id="slideRange" min="1" max="106" value="1" step="1" class="slide-range-overlap">
+        </div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
-  // Current slide index (1-based)
   let slideIndex = 1;
   const totalSlides = 106;
 
   // Initialize
   showSlides(slideIndex);
 
-  // Next/previous
+  // Next/previous controls
   function plusSlides(n) {
     showSlides(slideIndex + n);
   }
 
-  // Main function to show slides
+  // Show a specific slide
   function showSlides(n) {
     const slides = document.getElementsByClassName("mySlide");
-
-    // Wrap around if out of range
-    if (n > slides.length) { n = 1; }
-    if (n < 1) { n = slides.length; }
-    slideIndex = n; // update the global index
+    if (n > slides.length) n = 1;
+    if (n < 1) n = slides.length;
+    slideIndex = n;
 
     // Hide all slides
     for (let i = 0; i < slides.length; i++) {
       slides[i].style.display = "none";
     }
-    // Show the current slide
+    // Show current slide
     slides[slideIndex - 1].style.display = "block";
 
-    // Update the <input> value to reflect the current slide
+    // Update typed number input
     const slideNumberInput = document.getElementById("slideNumberInput");
     if (slideNumberInput) {
       slideNumberInput.value = slideIndex;
+    }
+
+    // Update the range slider
+    const slideRange = document.getElementById("slideRange");
+    if (slideRange) {
+      slideRange.value = slideIndex;
     }
 
     // Update the progress bar
     updateProgressBar(slideIndex, slides.length);
   }
 
-  // Update progress bar width
   function updateProgressBar(current, total) {
-    const bar = document.querySelector(".slide-progress-bar");
+    const bar = document.querySelector(".slide-progress-bar-overlap");
     if (!bar) return;
     const percent = (current / total) * 100;
     bar.style.width = percent + "%";
   }
 
   // Keyboard navigation
-  document.addEventListener("keydown", (event) => {
-    if (event.key === "ArrowLeft") {
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "ArrowLeft") {
       plusSlides(-1);
-    } else if (event.key === "ArrowRight") {
+    } else if (e.key === "ArrowRight") {
       plusSlides(1);
     }
   });
 
-  // Listen for manual changes to the input
+  // Typed changes
   const slideNumberInput = document.getElementById("slideNumberInput");
   if (slideNumberInput) {
     slideNumberInput.addEventListener("change", function() {
       let val = parseInt(this.value, 10);
-      if (!isNaN(val)) {
-        showSlides(val);
-      }
+      if (!isNaN(val)) showSlides(val);
     });
+  }
+
+  // Range slider changes
+  const slideRange = document.getElementById("slideRange");
+  if (slideRange) {
+    slideRange.addEventListener("input", function() {
+      let val = parseInt(this.value, 10);
+      if (!isNaN(val)) showSlides(val);
+    });
+  }
+
+  // Toggle the side preview panel
+  function togglePreview() {
+    const panel = document.getElementById("slidePreviewPanel");
+    // Toggle class "open"
+    if (panel.classList.contains("open")) {
+      panel.classList.remove("open");
+    } else {
+      panel.classList.add("open");
+    }
   }
 </script>
 
