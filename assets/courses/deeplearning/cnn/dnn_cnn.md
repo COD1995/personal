@@ -10,5 +10,4 @@ back_text: 'Deep Learning'
 number_heading: false
 enable_heading_styles: true
 ---
-
-<iframe src="{{ 'assets/courses/deeplearning/cnn/dnn_cnn.pdf' | relative_url }}" width="100%" height="2400px"></iframe>
+{% include slide.liquid folder="/assets/courses/deeplearning/cnn/dnn_cnn" %}

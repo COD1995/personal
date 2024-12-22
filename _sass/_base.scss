@@ -1823,3 +1823,116 @@ details.collapsible-callout {
   /* orange-ish color for deprecated warnings */
   font-weight: bold;
 }
+
+// slide
+
+.slideshow-wrapper {
+  max-width: 900px;
+  margin: 2rem auto;
+  background-color: #fff;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  position: relative;
+}
+
+.slideshow-top-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background-color: #f8f8f4;
+  border-bottom: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+
+  .prev,
+  .next {
+    cursor: pointer;
+    font-size: 1.5rem;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+    border: 1px solid #ddd;
+    user-select: none;
+    transition: background 0.3s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+    }
+  }
+
+  .slide-counter {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+
+    .slide-number-input {
+      width: 50px;
+      text-align: center;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      padding: 0.2rem;
+      outline: none;
+
+      &:focus {
+        border-color: #666;
+      }
+    }
+
+    .slash {
+      font-size: 1.1rem;
+      color: #555;
+    }
+  }
+}
+
+.slideshow-container {
+  position: relative;
+  padding: 1rem;
+
+  .mySlide {
+    display: none;
+    text-align: center;
+
+    img {
+      max-width: 90%;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    /* Remove .caption if you’re not using it anymore
+    .caption {
+      margin-top: 0.5rem;
+      color: #666;
+      font-size: 0.9rem;
+    }
+    */
+  }
+}
+
+.slideshow-footer {
+  background: #f8f8f4;
+  border-top: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+
+  .slide-progress {
+    width: 100%;
+    height: 6px;
+    background: #ddd;
+    border-radius: 3px;
+    overflow: hidden;
+    position: relative;
+
+    .slide-progress-bar {
+      width: 0%;
+      height: 100%;
+      background: #fa9;
+      transition: width 0.3s ease;
+    }
+  }
+}

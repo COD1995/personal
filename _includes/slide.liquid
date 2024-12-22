@@ -1,0 +1,123 @@
+{% comment %}
+Usage:
+  {% include slide.liquid folder="/assets/courses/deeplearning/cnn/dnn_cnn" %}
+{% endcomment %}
+
+{% assign target_folder = include.folder %}
+{% assign my_slides = site.static_files 
+  | where_exp: "file", "file.path contains target_folder" 
+  | sort: "path" 
+%}
+
+<div class="slideshow-wrapper">
+  <!-- Top Controls: Left Arrow, "page input / total", Right Arrow -->
+  <div class="slideshow-top-controls">
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <div class="slide-counter">
+      <!-- The user can type a page number here -->
+      <input 
+        type="number"
+        id="slideNumberInput"
+        class="slide-number-input"
+        min="1"
+        max="{{ my_slides.size }}"
+        value="1"
+      />
+      <span class="slash">/</span>
+      <span id="slideTotal">{{ my_slides.size }}</span>
+    </div>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+  </div>
+
+  <!-- Main Slide Area -->
+  <div class="slideshow-container">
+    {% for file in my_slides %}
+      <div class="mySlide">
+        <img 
+          src="{{ file.path | relative_url }}"
+          alt="{{ file.name }}"
+        />
+        <!-- Remove or comment out the caption if you no longer need it
+        <div class="caption">
+          page {{ forloop.index }} of {{ my_slides.size }}
+        </div>
+        -->
+      </div>
+    {% endfor %}
+  </div>
+
+  <!-- Bottom Footer (Progress Bar) - optional -->
+  <div class="slideshow-footer">
+    <div class="slide-progress">
+      <div class="slide-progress-bar"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Current slide index (1-based)
+  let slideIndex = 1;
+  const totalSlides = {{ my_slides.size }};
+
+  // Initialize
+  showSlides(slideIndex);
+
+  // Next/previous
+  function plusSlides(n) {
+    showSlides(slideIndex + n);
+  }
+
+  // Main function to show slides
+  function showSlides(n) {
+    const slides = document.getElementsByClassName("mySlide");
+
+    // Wrap around if out of range
+    if (n > slides.length) { n = 1; }
+    if (n < 1) { n = slides.length; }
+    slideIndex = n; // update the global index
+
+    // Hide all slides
+    for (let i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";
+    }
+    // Show the current slide
+    slides[slideIndex - 1].style.display = "block";
+
+    // Update the <input> value to reflect the current slide
+    const slideNumberInput = document.getElementById("slideNumberInput");
+    if (slideNumberInput) {
+      slideNumberInput.value = slideIndex;
+    }
+
+    // Update the progress bar
+    updateProgressBar(slideIndex, slides.length);
+  }
+
+  // Update progress bar width
+  function updateProgressBar(current, total) {
+    const bar = document.querySelector(".slide-progress-bar");
+    if (!bar) return;
+    const percent = (current / total) * 100;
+    bar.style.width = percent + "%";
+  }
+
+  // Keyboard navigation
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowLeft") {
+      plusSlides(-1);
+    } else if (event.key === "ArrowRight") {
+      plusSlides(1);
+    }
+  });
+
+  // Listen for manual changes to the input
+  const slideNumberInput = document.getElementById("slideNumberInput");
+  if (slideNumberInput) {
+    slideNumberInput.addEventListener("change", function() {
+      let val = parseInt(this.value, 10);
+      if (!isNaN(val)) {
+        showSlides(val);
+      }
+    });
+  }
+</script>
