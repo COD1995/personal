@@ -1,0 +1,39 @@
+<!-- _includes/semester-year-toggle.liquid -->
+
+<div class="semester-selector">
+  <label for="semesterYearSelect" class="semester-label">
+    <strong>Select Semester &amp; Year:</strong>
+  </label>
+  <select id="semesterYearSelect" class="semester-select">
+    {% for s in include.semesters %}
+      <option 
+        value="{{ s.value }}"
+        {% if s.selected %} selected {% endif %}
+      >
+        {{ s.label }}
+      </option>
+    {% endfor %}
+  </select>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const selectEl = document.getElementById("semesterYearSelect");
+  const blocks   = document.querySelectorAll("[data-semester-year]");
+
+  function showSelected(val) {
+    blocks.forEach(block => {
+      const semYear = block.getAttribute("data-semester-year");
+      block.style.display = (semYear === val) ? "block" : "none";
+    });
+  }
+
+  // On load, show whichever is pre-selected
+  showSelected(selectEl.value);
+
+  // On user change
+  selectEl.addEventListener("change", function() {
+    showSelected(this.value);
+  });
+});
+</script>

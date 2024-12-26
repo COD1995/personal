@@ -17,7 +17,7 @@
   
   
     
-      CSE676 Deep Learning | Jue Guo
+      CSE676 <br>Deep Learning | Jue Guo
     
   
 </title>
@@ -120,6 +120,8 @@
 
           <!-- Other pages -->
           
+          
+            
           
             
           
@@ -352,98 +354,207 @@
 <div class="post">
   <article>
     <header class="post-header">
-      <h1 class="post-title">CSE676 Deep Learning</h1>
+      <h1 class="post-title">CSE676 <br>Deep Learning</h1>
       <p class="post-description"></p>
     </header>
 
-    <div class="course-description-box">
+      <!-- Course description -->
+  <div class="course-description-box">
+    <p>
+      Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in
+      a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data,
+      e.g., features to discriminate between classes. They have been successful in many artificial intelligence
+      problems including image classification, speech recognition, and natural language processing.
+    </p>
+    <p>
+      The course, which will be taught through lectures and projects, will cover the underlying theory, the range
+      of applications to which it has been applied, and learning from very large data sets. The course will cover
+      connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional
+      neural networks, and recurrent neural networks. Methods to train and optimize the architectures and methods
+      to perform effective inference with them will be the main focus. Students will be encouraged to use open-source
+      software libraries such as PyTorch.
+    </p>
+    <p class="course-note">
+      <strong>Pre-requisite:</strong>
+      <a href="/personal/teaching/machinelearning/">
+        Introductory Machine Learning (ML)
+      </a>.
+      A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
+    </p>
+  </div>
+
+  <!-- Course Logistics -->
+  <h2>Instructor Information</h2>
+  <p><strong>Course Instructor</strong>: Jue Guo [C]</p>
+  <ul>
+    <li>
+      <em>Research Area:</em>
+      Optimization for machine learning, Adversarial Learning, Continual Learning, and Graph Learning
+    </li>
+    <li>
+      Interested in participating in our research? Reach to me by
+      <a href="mailto:jueguo@buffalo.edu">email</a>.
+    </li>
+  </ul>
+
+
+<!-- Outline heading + short intro text -->
+<div class="outline-top">
+  <h2>Course Outline and Logistics</h2>
   <p>
-    Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data, e.g., features to discriminate between classes. They have been successful in many artificial intelligence problems including image classification, speech recognition, and natural language processing.
-  </p>
-  <p>
-    The course, which will be taught through lectures and projects, will cover the underlying theory, the range of applications to which it has been applied, and learning from very large data sets. The course will cover connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional neural networks, and recurrent neural networks. Methods to train and optimize the architectures and methods to perform effective inference with them will be the main focus. Students will be encouraged to use open-source software libraries such as PyTorch.
-  </p>
-  <p class="course-note">
-    <strong>Pre-requisite:</strong> <a href="/personal/teaching/machinelearning/">Introductory Machine Learning (ML)</a>. A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
+    Check out the <a href="#lecture-notes">course material</a> under lecture notes.
   </p>
 </div>
 
-<h2 id="course-logistics">Course Logistics</h2>
-<p><strong>Course Instructor</strong>: Jue Guo [C]</p>
+<!-- The semester-year selector snippet, placed just below the outline -->
+<div class="semester-year-snippet">
+  <!-- _includes/semester-year-toggle.liquid -->
+
+<div class="semester-selector">
+  <label for="semesterYearSelect" class="semester-label">
+    <strong>Select Semester &amp; Year:</strong>
+  </label>
+  <select id="semesterYearSelect" class="semester-select">
+    
+      <option value="fall-2024" selected>
+        Fall 2024
+      </option>
+    
+  </select>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const selectEl = document.getElementById("semesterYearSelect");
+  const blocks   = document.querySelectorAll("[data-semester-year]");
+
+  function showSelected(val) {
+    blocks.forEach(block => {
+      const semYear = block.getAttribute("data-semester-year");
+      block.style.display = (semYear === val) ? "block" : "none";
+    });
+  }
+
+  // On load, show whichever is pre-selected
+  showSelected(selectEl.value);
+
+  // On user change
+  selectEl.addEventListener("change", function() {
+    showSelected(this.value);
+  });
+});
+</script>
+
+</div>
+
+<!-- Then your toggled blocks (course-info tables, etc.) below -->
+<div class="outline-content">
+  <!-- For example, "Fall 2024" partial -->
+  <div data-semester-year="fall-2024" style="display: none;">
+    <div class="course-semester-info">
+  <p><strong>Course Hours:</strong> Session [C]; <em>Tuesday and Thursday 2:00PM-3:20PM</em></p>
+  <p><strong>Office Hours:</strong> 3:00pm - 4:00pm on Friday</p>
+  <p><strong>TA:</strong> Shijie Zhou ( <a href="mailto:shijiezh@buffalo.edu">shijiezh@buffalo.edu</a> )</p>
+
+  <hr>
+
+    <table class="styled-table">
+    <thead>
+        <tr>
+        <th>Week(s)</th>
+        <th>Topics Covered</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Week 1 and Week 2</td>
+        <td>Math, Machine Learning Review, and Linear Regression</td>
+        </tr>
+        <tr>
+        <td>Week 3 and Week 4</td>
+        <td>Review on Linear Regression, Softmax Regression, and MLP</td>
+        </tr>
+        <tr>
+        <td>Week 5 and Week 6</td>
+        <td>Optimization, CNN, and Efficient-Net Paper Reading</td>
+        </tr>
+        <tr>
+        <td>Week 7 (One Class)</td>
+        <td>Midterm (Coverage on Weeks 1, 2, 3, 4, 5)</td>
+        </tr>
+        <tr>
+        <td>Week 8 and Week 9</td>
+        <td>Recurrent Neural Networks and Paper Read on Transformer</td>
+        </tr>
+        <tr>
+        <td>Week 10, Week 11, Week 12, and Week 13</td>
+        <td>Graph Neural Network Paper Read</td>
+        </tr>
+        <tr>
+        <td>Week 14 and Week 15</td>
+        <td>Catch up Time on the Material if Needed<br>Final and Review</td>
+        </tr>
+    </tbody>
+    </table>
+
+    <h3>Evaluation Components</h3>
+    <table class="evaluation-table">
+        <thead>
+        <tr>
+            <th>Component</th>
+            <th>Weight / Details</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>Attendance</strong></td>
+            <td>10% (Random Attendance Check)</td>
+        </tr>
+        <tr>
+            <td><strong>Programming Assignments</strong></td>
+            <td>30% (2 PAs)</td>
+        </tr>
+        <tr>
+            <td><strong>Midterm</strong></td>
+            <td>30%</td>
+        </tr>
+        <tr>
+            <td><strong>Final</strong></td>
+            <td>30%</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+  </div>
+  
+  <!-- "Summer 2025" partial -->
+  <div data-semester-year="summer-2025" style="display: none;">
+  </div>
+
+  <!-- "Spring 2026" partial -->
+  <div data-semester-year="spring-2026" style="display: none;">
+  </div>
+</div>
+
+
+<h3>Note on Logistics</h3>
 <ul>
-  <li>
-<em>Research Area:</em> Optimization for machine learning, Adversarial Learning,
-Continual Learning and Graph Learning</li>
-  <li>Interested in participating in our research? Reach to me by <a href="mailto:jueguo@buffalo.edu">email</a>.</li>
+  <li>A week-ahead notice for mid-term, based on the pace of the course.</li>
+  <li>The logistic is <span style="color:red;">subject to change</span> based on
+      the overall pace and the performance of the class.</li>
 </ul>
 
-<p><strong>Course Hours:</strong> Session [C]; <em>Tuesday and Thursday 2:00PM-3:20PM</em></p>
+  <!-- Grading Section -->
+<h2>Grading</h2>
+<p>
+  The following is the outline of the grading:
+</p>
 
-<p><strong>Office Hours:</strong> 3:00pm - 4:00pm on Friday</p>
-
-<h2 id="course-outline">Course Outline</h2>
-<p>Check out the <a href="#lecture-notes">course material</a> under lecture notes.</p>
-
-<table class="styled-table">
-  <thead>
-    <tr>
-      <th>Week(s)</th>
-      <th>Topics Covered</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Week 1 and Week 2</td>
-      <td>Math, Machine Learning Review, and Linear Regression</td>
-    </tr>
-    <tr>
-      <td>Week 3 and Week 4</td>
-      <td>Review on Linear Regression, Softmax Regression, and MLP</td>
-    </tr>
-    <tr>
-      <td>Week 5 and Week 6</td>
-      <td>Optimization, CNN, and Efficient-Net Paper Reading</td>
-    </tr>
-    <tr>
-      <td>Week 7 (One Class)</td>
-      <td>Midterm (Coverage on Weeks 1, 2, 3, 4, 5)</td>
-    </tr>
-    <tr>
-      <td>Week 8 and Week 9</td>
-      <td>Recurrent Neural Networks and Paper Read on Transformer</td>
-    </tr>
-    <tr>
-      <td>Week 10, Week 11, Week 12, and Week 13</td>
-      <td>Graph Neural Network Paper Read</td>
-    </tr>
-    <tr>
-      <td>Week 14 and Week 15</td>
-      <td>Catch up Time on the Material if Needed<br>Final and Review</td>
-    </tr>
-  </tbody>
-</table>
-
-<h2 id="grading">Grading</h2>
-
-<p>The following is the outline of the grading:</p>
-
-<h3 id="grading-components">Grading Components</h3>
-
-<p>We will have</p>
-<ul>
-  <li>
-<strong>Attendance:</strong> 10 percent (Random Attendance Check)</li>
-  <li>
-<strong>Programming Assignment:</strong> 30 percent (2 PA)</li>
-  <li>
-<strong>Midterm:</strong> 30 percent</li>
-  <li>
-<strong>Final:</strong> 30 percent</li>
-</ul>
-
-<h3 id="grading-rubric">Grading Rubric</h3>
-
-<p>This course is <strong>absolute</strong> grading, meaning no curve, as there is a certain standard we need to uphold for students to have a good knowledge of deep learning.</p>
+<h3>Grading Rubric</h3>
+<p>
+  This course is <strong>absolute</strong> grading, meaning no curve, as there is a certain standard we need to
+  uphold for students to have a good knowledge of deep learning.
+</p>
 
 <table class="styled-table">
   <thead>
@@ -457,53 +568,56 @@ Continual Learning and Graph Learning</li>
   <tbody>
     <tr>
       <td>95-100</td>
-      <td>A</td>
+<td>A</td>
       <td>70-74</td>
-      <td>C+</td>
+<td>C+</td>
     </tr>
     <tr>
       <td>90-94</td>
-      <td>A-</td>
+<td>A-</td>
       <td>65-69</td>
-      <td>C</td>
+<td>C</td>
     </tr>
     <tr>
       <td>85-89</td>
-      <td>B+</td>
+<td>B+</td>
       <td>60-64</td>
-      <td>C-</td>
+<td>C-</td>
     </tr>
     <tr>
       <td>80-84</td>
-      <td>B</td>
+<td>B</td>
       <td>55-59</td>
-      <td>D</td>
+<td>D</td>
     </tr>
     <tr>
       <td>75-79</td>
-      <td>B-</td>
+<td>B-</td>
       <td>0-54</td>
-      <td>F</td>
+<td>F</td>
     </tr>
   </tbody>
 </table>
 
-<h3 id="note-on-logistics">Note on Logistics</h3>
-<ul>
-  <li>A week-ahead notice for mid-term, based on the pace of the course.</li>
-  <li>The logistic is <span style="color:red;">subject to change</span> based on the overall pace and the performance of the class.</li>
-</ul>
-
+<!-- Lecture Notes -->
 <h2 id="lecture-notes">Lecture Notes</h2>
-<p>The notes are based on <a href="https://d2l.ai/" rel="external nofollow noopener" target="_blank">Dive into Deep Learning</a>. Throughout my teaching, I have noticed that students sometimes struggle with understanding the derivations in the textbook due to the omission of several steps. To address this, I have expanded the derivations and provided more detailed explanations.</p>
-
-<p>Below are the lecture notes. Please note that these notes are updated regularly, so be sure to check back often for the latest updates.</p>
+<p>
+  The notes are based on
+  <a href="https://d2l.ai/" target="_blank" rel="external nofollow noopener">Dive into Deep Learning</a>.
+  Throughout my teaching, I have noticed that students sometimes struggle with understanding the derivations in
+  the textbook due to the omission of several steps. To address this, I have expanded the derivations and provided
+  more detailed explanations.
+</p>
+<p>
+  Below are the lecture notes. Please note that these notes are updated regularly, so be sure to check back often
+  for the latest updates.
+</p>
 
 <table class="styled-table">
   <thead>
     <tr>
       <th>Topic</th>
-      <th>Description</th>
+      <th>Notes</th>
     </tr>
   </thead>
   <tbody>
@@ -512,10 +626,14 @@ Continual Learning and Graph Learning</li>
       <td>
         <ul>
           <li>
-          <a href="/personal/assets/courses/deeplearning/week_1_2/introduction">Introduction, Preliminaries &amp; Linear Neural Network</a>
+            <a href="/personal/assets/courses/deeplearning/week_1_2/introduction">
+              Introduction, Preliminaries &amp; Linear Neural Network
+            </a>
           </li>
           <li>
-          <a href="/personal/assets/courses/deeplearning/week_1_2/classification_convexity">Linear Neural Network for Classification &amp; Start of Optimization</a>
+            <a href="/personal/assets/courses/deeplearning/week_1_2/classification_convexity">
+              Linear Neural Network for Classification &amp; Start of Optimization
+            </a>
           </li>
         </ul>
       </td>
@@ -525,23 +643,31 @@ Continual Learning and Graph Learning</li>
       <td>
         <ul>
           <li>
-          <a href="/personal/assets/courses/deeplearning/optimization/convexity_gd">Convexity &amp; Gradient Descent</a>
+            <a href="/personal/assets/courses/deeplearning/optimization/convexity_gd">
+              Convexity &amp; Gradient Descent
+            </a>
           </li>
           <li>
-          <a href="/personal/assets/courses/deeplearning/optimization/stochastic_gd">Stochastic Gradient Descent</a>
+            <a href="/personal/assets/courses/deeplearning/optimization/stochastic_gd">
+              Stochastic Gradient Descent
+            </a>
           </li>
           <li>
-          <a href="/personal/assets/courses/deeplearning/optimization/optimization_algorithms">Optimization Algorithms</a>
+            <a href="/personal/assets/courses/deeplearning/optimization/optimization_algorithms">
+              Optimization Algorithms
+            </a>
           </li>
         </ul>
       </td>
     </tr>
     <tr>
-    <td>DNN and CNN</td>
+      <td>DNN and CNN</td>
       <td>
         <ul>
           <li>
-            <a href="/personal/assets/courses/deeplearning/cnn/dnn_cnn">DNN and CNNs</a>
+            <a href="/personal/assets/courses/deeplearning/cnn/dnn_cnn">
+              DNN and CNNs
+            </a>
           </li>
         </ul>
       </td>
@@ -549,32 +675,39 @@ Continual Learning and Graph Learning</li>
     <tr>
       <td>RNN</td>
       <td>
-      <ul>
-        <li>
-          <a href="/personal/assets/courses/deeplearning/rnn/markov">Markov Models and \(n\)-gram</a>
-        </li>
-        <li>
-          <a href="/personal/assets/courses/deeplearning/rnn/vinilla_rnn">Recurrent Neural Networks</a>
-        </li>
-        <li>
-          <a href="/personal/assets/courses/deeplearning/rnn/modern_rnn">Modern Recurrent Neural Networks</a>
-        </li>
-      </ul>
+        <ul>
+          <li>
+            <a href="/personal/assets/courses/deeplearning/rnn/markov">
+              Markov Models and \(n\)-gram
+            </a>
+          </li>
+          <li>
+            <a href="/personal/assets/courses/deeplearning/rnn/vinilla_rnn">
+              Recurrent Neural Networks
+            </a>
+          </li>
+          <li>
+            <a href="/personal/assets/courses/deeplearning/rnn/modern_rnn">
+              Modern Recurrent Neural Networks
+            </a>
+          </li>
+        </ul>
       </td>
     </tr>
     <tr>
       <td>GNN</td>
       <td>
         <ul>
-            <li>
-            <a href="/personal/assets/courses/deeplearning/gnnpapers/grl">Graph Representation Learning</a>
-            </li>
+          <li>
+            <a href="/personal/assets/courses/deeplearning/gnnpapers/grl">
+              Graph Representation Learning
+            </a>
+          </li>
         </ul>
       </td>
     </tr>
   </tbody>
 </table>
-
 
 
     
@@ -598,7 +731,7 @@ Continual Learning and Graph Learning</li>
       Guo. 
       
       
-        Last updated: December 22, 2024.
+        Last updated: December 26, 2024.
       
     </div>
   </footer>
