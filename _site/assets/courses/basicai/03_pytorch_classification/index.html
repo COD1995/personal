@@ -1901,6 +1901,37 @@ Epoch: 900 | Train loss: 0.05571, Test loss: 0.00603</code></pre>
 
 <p>It means our model at least has <em>some</em> capacity to learn.</p>
 
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    A helpful troubleshooting step when building deep learning models is to start as small as possible to see if the model works before scaling it up.
+  </p>
+  <p>
+    This could mean starting with a simple neural network (few layers, fewer hidden neurons) and a small dataset (like the one we've made), then <strong>overfitting</strong> (making the model perform too well) on that small example. Afterward, you can increase the dataset size or the model design to <em>reduce</em> overfitting.
+  </p>
+</div>
+
+<p>So what could it be?</p>
+
+<p>Let’s find out.</p>
+
+<h2 id="the-missing-piece-non-linearity">The missing piece: non-linearity</h2>
+
+<p>First, let’s recreate the data to start off fresh. We’ll use the same setup as before.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Make and plot data
+</span><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span> <span class="n">sklearn.datasets</span> <span class="kn">import</span> <span class="n">make_circles</span>
+
+<span class="n">n_samples</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="nf">make_circles</span><span class="p">(</span><span class="n">n_samples</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span>
+    <span class="n">noise</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">cm</span><span class="p">.</span><span class="n">RdBu</span><span class="p">);</span>
+</code></pre></div></div>
 
 
     

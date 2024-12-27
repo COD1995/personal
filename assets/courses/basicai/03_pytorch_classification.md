@@ -1568,3 +1568,36 @@ This is a good thing.
 
 It means our model at least has *some* capacity to learn.
 
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    A helpful troubleshooting step when building deep learning models is to start as small as possible to see if the model works before scaling it up.
+  </p>
+  <p>
+    This could mean starting with a simple neural network (few layers, fewer hidden neurons) and a small dataset (like the one we've made), then <strong>overfitting</strong> (making the model perform too well) on that small example. Afterward, you can increase the dataset size or the model design to <em>reduce</em> overfitting.
+  </p>
+</div>
+
+So what could it be?
+
+Let's find out.
+
+## The missing piece: non-linearity 
+
+First, let's recreate the data to start off fresh. We'll use the same setup as before. 
+
+
+```python
+# Make and plot data
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_circles
+
+n_samples = 1000
+
+X, y = make_circles(n_samples=1000,
+    noise=0.03,
+    random_state=42,
+)
+
+plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdBu);
+```
