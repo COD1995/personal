@@ -232,8 +232,6 @@
             
           
             
-          
-            
               
                 
                 <li class="nav-item ">
@@ -286,10 +284,6 @@
       
         
           <div class="row">
-            <!-- sidebar, which will move to the top on a small screen -->
-            <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
-            </div>
             <!-- main content area -->
             <div class="col-sm-9">
 
@@ -904,6 +898,1010 @@ tensor([1., 1., 1., 1., 0.]))</code></pre>
 
 <p>Nice! Looks like we’ve now got 800 training samples and 200 testing samples.</p>
 
+<h2 id="building-a-model">Building a model</h2>
+
+<p>We’ve got some data ready, now it’s time to build a model.</p>
+
+<p>We’ll break it down into a few parts.</p>
+
+<ol>
+  <li>Setting up device agnostic code (so our model can run on CPU or GPU if it’s available).</li>
+  <li>Constructing a model by subclassing <code class="language-plaintext highlighter-rouge">nn.Module</code>.</li>
+  <li>Defining a loss function and optimizer.</li>
+  <li>Creating a training loop (this’ll be in the next section).</li>
+</ol>
+
+<p>The good news is we’ve been through all of the above steps before in notebook 01.</p>
+
+<p>Except now we’ll be adjusting them so they work with a classification dataset.</p>
+
+<p>Let’s start by importing PyTorch and <code class="language-plaintext highlighter-rouge">torch.nn</code> as well as setting up device agnostic code.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Standard PyTorch imports
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="c1"># Make device agnostic code
+</span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
+<span class="n">device</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+<pre><code>'cuda'</code></pre>
+</div>
+
+<p>Excellent, now <code class="language-plaintext highlighter-rouge">device</code> is setup, we can use it for any data or models we create and PyTorch will handle it on the CPU (default) or GPU if it’s available.</p>
+
+<p>How about we create a model?</p>
+
+<p>We’ll want a model capable of handling our <code class="language-plaintext highlighter-rouge">X</code> data as inputs and producing something in the shape of our <code class="language-plaintext highlighter-rouge">y</code> data as outputs.</p>
+
+<p>In other words, given <code class="language-plaintext highlighter-rouge">X</code> (features) we want our model to predict <code class="language-plaintext highlighter-rouge">y</code> (label).</p>
+
+<p>This setup where you have features and labels is referred to as <strong>supervised learning</strong>. Because your data is telling your model what the outputs should be given a certain input.</p>
+
+<p>To create such a model it’ll need to handle the input and output shapes of <code class="language-plaintext highlighter-rouge">X</code> and <code class="language-plaintext highlighter-rouge">y</code>.</p>
+
+<p>Remember how I said input and output shapes are important? Here we’ll see why.</p>
+
+<p>Let’s create a model class that:</p>
+<ol>
+  <li>Subclasses <code class="language-plaintext highlighter-rouge">nn.Module</code> (almost all PyTorch models are subclasses of <code class="language-plaintext highlighter-rouge">nn.Module</code>).</li>
+  <li>Creates 2 <code class="language-plaintext highlighter-rouge">nn.Linear</code> layers in the constructor capable of handling the input and output shapes of <code class="language-plaintext highlighter-rouge">X</code> and <code class="language-plaintext highlighter-rouge">y</code>.</li>
+  <li>Defines a <code class="language-plaintext highlighter-rouge">forward()</code> method containing the forward pass computation of the model.</li>
+  <li>Instantiates the model class and sends it to the target <code class="language-plaintext highlighter-rouge">device</code>.</li>
+</ol>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1. Construct a model class that subclasses nn.Module
+</span><span class="k">class</span> <span class="nc">CircleModelV0</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
+        <span class="c1"># 2. Create 2 nn.Linear layers capable of handling X and y input and output shapes
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span> <span class="c1"># takes in 2 features (X), produces 5 features
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># takes in 5 features, produces 1 feature (y)
+</span>    
+    <span class="c1"># 3. Define a forward method containing the forward pass computation
+</span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="c1"># Return the output of layer_2, a single feature, the same shape as y
+</span>        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">layer_2</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">layer_1</span><span class="p">(</span><span class="n">x</span><span class="p">))</span> <span class="c1"># computation goes through layer_1 first then the output of layer_1 goes through layer_2
+</span>
+<span class="c1"># 4. Create an instance of the model and send it to target device
+</span><span class="n">model_0</span> <span class="o">=</span> <span class="nc">CircleModelV0</span><span class="p">().</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">model_0</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+<pre><code>CircleModelV0(
+(layer_1): Linear(in_features=2, out_features=5, bias=True)
+(layer_2): Linear(in_features=5, out_features=1, bias=True)
+)</code></pre>
+</div>
+
+<p>What’s going on here?</p>
+
+<p>We’ve seen a few of these steps before.</p>
+
+<p>The only major change is what’s happening between <code class="language-plaintext highlighter-rouge">self.layer_1</code> and <code class="language-plaintext highlighter-rouge">self.layer_2</code>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">self.layer_1</code> takes 2 input features <code class="language-plaintext highlighter-rouge">in_features=2</code> and produces 5 output features <code class="language-plaintext highlighter-rouge">out_features=5</code>.</p>
+
+<p>This is known as having 5 <strong>hidden units</strong> or <strong>neurons</strong>.</p>
+
+<p>This layer turns the input data from having 2 features to 5 features.</p>
+
+<p>Why do this?</p>
+
+<p>This allows the model to learn patterns from 5 numbers rather than just 2 numbers, <em>potentially</em> leading to better outputs.</p>
+
+<p>I say potentially because sometimes it doesn’t work.</p>
+
+<p>The number of hidden units you can use in neural network layers is a <strong>hyperparameter</strong> (a value you can set yourself) and there’s no set in stone value you have to use.</p>
+
+<p>Generally more is better but there’s also such a thing as too much. The amount you choose will depend on your model type and dataset you’re working with.</p>
+
+<p>Since our dataset is small and simple, we’ll keep it small.</p>
+
+<p>The only rule with hidden units is that the next layer, in our case, <code class="language-plaintext highlighter-rouge">self.layer_2</code> has to take the same <code class="language-plaintext highlighter-rouge">in_features</code> as the previous layer <code class="language-plaintext highlighter-rouge">out_features</code>.</p>
+
+<p>That’s why <code class="language-plaintext highlighter-rouge">self.layer_2</code> has <code class="language-plaintext highlighter-rouge">in_features=5</code>, it takes the <code class="language-plaintext highlighter-rouge">out_features=5</code> from <code class="language-plaintext highlighter-rouge">self.layer_1</code> and performs a linear computation on them, turning them into <code class="language-plaintext highlighter-rouge">out_features=1</code> (the same shape as <code class="language-plaintext highlighter-rouge">y</code>).</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_a_visual_example_of_what_a_classification_neural_network_with_linear_activation_looks_like_on_the_tensorflow_playground3">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/02-tensorflow-playground-linear-activation.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 3: A visual example of what a classification neural network with linear activation looks like on the tensorflow playground
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><em>A visual example of what a similar classification neural network to the one we’ve just built looks like. Try creating one of your own on the <a href="https://playground.tensorflow.org/" rel="external nofollow noopener" target="_blank">TensorFlow Playground website</a>.</em></p>
+
+<p>You can also do the same as above using <a href="https://pytorch.org/docs/stable/generated/torch.nn.Sequential.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.Sequential</code></a>.</p>
+
+<p><code class="language-plaintext highlighter-rouge">nn.Sequential</code> performs a forward pass computation of the input data through the layers in the order they appear.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Replicate CircleModelV0 with nn.Sequential
+</span><span class="n">model_0</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">(</span>
+    <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">5</span><span class="p">),</span>
+    <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="n">model_0</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+<pre><code>Sequential(
+(0): Linear(in_features=2, out_features=5, bias=True)
+(1): Linear(in_features=5, out_features=1, bias=True)
+)</code></pre>
+</div>
+
+<p>Woah, that looks much simpler than subclassing <code class="language-plaintext highlighter-rouge">nn.Module</code>, why not just always use <code class="language-plaintext highlighter-rouge">nn.Sequential</code>?</p>
+
+<p><code class="language-plaintext highlighter-rouge">nn.Sequential</code> is fantastic for straight-forward computations, however, as the namespace says, it <em>always</em> runs in sequential order.</p>
+
+<p>So if you’d like something else to happen (rather than just straight-forward sequential computation) you’ll want to define your own custom <code class="language-plaintext highlighter-rouge">nn.Module</code> subclass.</p>
+
+<p>Now we’ve got a model, let’s see what happens when we pass some data through it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Make predictions with the model
+</span><span class="n">untrained_preds</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Length of predictions: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">untrained_preds</span><span class="p">)</span><span class="si">}</span><span class="s">, Shape: </span><span class="si">{</span><span class="n">untrained_preds</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Length of test samples: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span><span class="si">}</span><span class="s">, Shape: </span><span class="si">{</span><span class="n">y_test</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">First 10 predictions:</span><span class="se">\n</span><span class="si">{</span><span class="n">untrained_preds</span><span class="p">[</span><span class="si">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">First 10 test labels:</span><span class="se">\n</span><span class="si">{</span><span class="n">y_test</span><span class="p">[</span><span class="si">:</span><span class="mi">10</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[-0.4279],
+        [-0.3417],
+        [-0.5975],
+        [-0.3801],
+        [-0.5078],
+        [-0.4559],
+        [-0.2842],
+        [-0.3107],
+        [-0.6010],
+        [-0.3350]], device='cuda:0', grad_fn=&lt;SliceBackward0&gt;)</code></pre>
+</div>
+
+<p>Hmm, it seems there are the same amount of predictions as there are test labels but the predictions don’t look like they’re in the same form or shape as the test labels.</p>
+
+<p>We’ve got a couple steps we can do to fix this, we’ll see these later on.</p>
+
+<h3 id="setup-loss-function-and-optimizer">Setup loss function and optimizer</h3>
+
+<p>We’ve setup a loss (also called a criterion or cost function) and optimizer before in <a href="https://www.learnpytorch.io/01_pytorch_workflow/#creating-a-loss-function-and-optimizer-in-pytorch" rel="external nofollow noopener" target="_blank">notebook 01</a>.</p>
+
+<p>But different problem types require different loss functions.</p>
+
+<p>For example, for a regression problem (predicting a number) you might use mean absolute error (MAE) loss.</p>
+
+<p>And for a binary classification problem (like ours), you’ll often use <a href="https://towardsdatascience.com/understanding-binary-cross-entropy-log-loss-a-visual-explanation-a3ac6025181a" rel="external nofollow noopener" target="_blank">binary cross entropy</a> as the loss function.</p>
+
+<p>However, the same optimizer function can often be used across different problem spaces.</p>
+
+<p>For example, the stochastic gradient descent optimizer (SGD, <code class="language-plaintext highlighter-rouge">torch.optim.SGD()</code>) can be used for a range of problems, and the same applies to the Adam optimizer (<code class="language-plaintext highlighter-rouge">torch.optim.Adam()</code>).</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>Loss function/Optimizer</th>
+<th>Problem type</th>
+<th>PyTorch Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Stochastic Gradient Descent (SGD) optimizer</td>
+<td>Classification, regression, many others.</td>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.optim.SGD.html" rel="external nofollow noopener" target="_blank"><code>torch.optim.SGD()</code></a></td>
+</tr>
+<tr>
+<td>Adam Optimizer</td>
+<td>Classification, regression, many others.</td>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.optim.Adam.html" rel="external nofollow noopener" target="_blank"><code>torch.optim.Adam()</code></a></td>
+</tr>
+<tr>
+<td>Binary cross entropy loss</td>
+<td>Binary classification</td>
+<td>
+<a href="https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html" rel="external nofollow noopener" target="_blank"><code>torch.nn.BCELossWithLogits</code></a> or <a href="https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html" rel="external nofollow noopener" target="_blank"><code>torch.nn.BCELoss</code></a>
+</td>
+</tr>
+<tr>
+<td>Cross entropy loss</td>
+<td>Multi-class classification</td>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html" rel="external nofollow noopener" target="_blank"><code>torch.nn.CrossEntropyLoss</code></a></td>
+</tr>
+<tr>
+<td>Mean absolute error (MAE) or L1 Loss</td>
+<td>Regression</td>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html" rel="external nofollow noopener" target="_blank"><code>torch.nn.L1Loss</code></a></td>
+</tr>
+<tr>
+<td>Mean squared error (MSE) or L2 Loss</td>
+<td>Regression</td>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.nn.MSELoss.html#torch.nn.MSELoss" rel="external nofollow noopener" target="_blank"><code>torch.nn.MSELoss</code></a></td>
+</tr>
+</tbody>
+</table>
+
+<p><em>Table of various loss functions and optimizers, there are more but these are some common ones you’ll see.</em></p>
+
+<p>Since we’re working with a binary classification problem, let’s use a binary cross entropy loss function.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    A <em>loss function</em> measures how <em>wrong</em> your model predictions are. 
+    The higher the loss, the worse your model is performing.
+  </p>
+  <p>
+    In the PyTorch documentation, loss functions are sometimes called 
+    "<em>loss criterion</em>" or just "<em>criterion</em>". These terms all describe 
+    the same concept.
+  </p>
+</div>
+
+<p>PyTorch has two binary cross entropy implementations:</p>
+<ol>
+  <li>
+<a href="https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.nn.BCELoss()</code></a> - Creates a loss function that measures the binary cross entropy between the target (label) and input (features).</li>
+  <li>
+<a href="https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.nn.BCEWithLogitsLoss()</code></a> - This is the same as above except it has a sigmoid layer (<a href="https://pytorch.org/docs/stable/generated/torch.nn.Sigmoid.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.Sigmoid</code></a>) built-in (we’ll see what this means soon).</li>
+</ol>
+
+<p>Which one should you use?</p>
+
+<p>The <a href="https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html" rel="external nofollow noopener" target="_blank">documentation for <code class="language-plaintext highlighter-rouge">torch.nn.BCEWithLogitsLoss()</code></a> states that it’s more numerically stable than using <code class="language-plaintext highlighter-rouge">torch.nn.BCELoss()</code> after a <code class="language-plaintext highlighter-rouge">nn.Sigmoid</code> layer.</p>
+
+<p>So generally, implementation 2 is a better option. However for advanced usage, you may want to separate the combination of <code class="language-plaintext highlighter-rouge">nn.Sigmoid</code> and <code class="language-plaintext highlighter-rouge">torch.nn.BCELoss()</code> but that is beyond the scope of this notebook.</p>
+
+<p>Knowing this, let’s create a loss function and an optimizer.</p>
+
+<p>For the optimizer we’ll use <code class="language-plaintext highlighter-rouge">torch.optim.SGD()</code> to optimize the model parameters with learning rate 0.1.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    There's a 
+    <a href="https://discuss.pytorch.org/t/bceloss-vs-bcewithlogitsloss/33586/4" rel="external nofollow noopener" target="_blank">
+      discussion on the PyTorch forums
+    </a> 
+    about using <code>nn.BCELoss</code> vs. <code>nn.BCEWithLogitsLoss</code>. 
+  </p>
+  <p>
+    It can be confusing at first, but—as with many things—practice helps solidify 
+    the differences and best usage scenarios.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a loss function
+# loss_fn = nn.BCELoss() # BCELoss = no sigmoid built-in
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">BCEWithLogitsLoss</span><span class="p">()</span> <span class="c1"># BCEWithLogitsLoss = sigmoid built-in
+</span>
+<span class="c1"># Create an optimizer
+</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_0</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> 
+                            <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now let’s also create an <strong>evaluation metric</strong>.</p>
+
+<p>An evaluation metric can be used to offer another perspective on how your model is going.</p>
+
+<p>If a loss function measures how <em>wrong</em> your model is, I like to think of evaluation metrics as measuring how <em>right</em> it is.</p>
+
+<p>Of course, you could argue both of these are doing the same thing but evaluation metrics offer a different perspective.</p>
+
+<p>After all, when evaluating your models it’s good to look at things from multiple points of view.</p>
+
+<p>There are several evaluation metrics that can be used for classification problems but let’s start out with <strong>accuracy</strong>.</p>
+
+<p>Accuracy can be measured by dividing the total number of correct predictions over the total number of predictions.</p>
+
+<p>For example, a model that makes 99 correct predictions out of 100 will have an accuracy of 99%.</p>
+
+<p>Let’s write a function to do so.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Calculate accuracy (a classification metric)
+</span><span class="k">def</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
+    <span class="n">correct</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">eq</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">).</span><span class="nf">sum</span><span class="p">().</span><span class="nf">item</span><span class="p">()</span> <span class="c1"># torch.eq() calculates where two tensors are equal
+</span>    <span class="n">acc</span> <span class="o">=</span> <span class="p">(</span><span class="n">correct</span> <span class="o">/</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span> <span class="o">*</span> <span class="mi">100</span> 
+    <span class="k">return</span> <span class="n">acc</span>
+</code></pre></div></div>
+
+<p>Excellent! We can now use this function whilst training our model to measure it’s performance alongside the loss.</p>
+
+<h2 id="train-model">Train model</h2>
+
+<p>Okay, now we’ve got a loss function and optimizer ready to go, let’s train a model.</p>
+
+<p>Do you remember the steps in a PyTorch training loop?</p>
+
+<p>If not, here’s a reminder.</p>
+
+<p>Steps in training:</p>
+
+<details class="collapsible-callout">
+  <summary>PyTorch training loop steps</summary>
+  <ol>
+    <li>
+<strong>Forward pass</strong> - The model goes through all of the training data once, performing its 
+      <code>forward()</code> function calculations (<code>model(x_train)</code>).
+    </li>
+    <li>
+<strong>Calculate the loss</strong> - The model's outputs (predictions) are compared to the ground truth and 
+      evaluated to see how wrong they are (<code>loss = loss_fn(y_pred, y_train)</code>).
+    </li>
+    <li>
+<strong>Zero gradients</strong> - The optimizer's gradients are set to zero (they are accumulated by default) 
+      so they can be recalculated for the specific training step (<code>optimizer.zero_grad()</code>).
+    </li>
+    <li>
+<strong>Perform backpropagation on the loss</strong> - Computes the gradient of the loss with respect to every 
+      model parameter to be updated (each parameter with <code>requires_grad=True</code>). This is known as 
+      <strong>backpropagation</strong>, hence "backwards" (<code>loss.backward()</code>).
+    </li>
+    <li>
+<strong>Step the optimizer (gradient descent)</strong> - Update the parameters with 
+      <code>requires_grad=True</code> with respect to the loss gradients in order to improve them 
+      (<code>optimizer.step()</code>).
+    </li>
+  </ol>
+</details>
+
+<h3 id="going-from-raw-model-outputs-to-predicted-labels-logits---prediction-probabilities---prediction-labels">Going from raw model outputs to predicted labels (logits -&gt; prediction probabilities -&gt; prediction labels)</h3>
+
+<p>Before the training loop steps, let’s see what comes out of our model during the forward pass (the forward pass is defined by the <code class="language-plaintext highlighter-rouge">forward()</code> method).</p>
+
+<p>To do so, let’s pass the model some data.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># View the frist 5 outputs of the forward pass on the test data
+</span><span class="n">y_logits</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">))[:</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">y_logits</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[-0.4279],
+        [-0.3417],
+        [-0.5975],
+        [-0.3801],
+        [-0.5078]], device='cuda:0', grad_fn=&lt;SliceBackward0&gt;)</code></pre>
+</div>
+
+<p>Since our model hasn’t been trained, these outputs are basically random.</p>
+
+<p>But <em>what</em> are they?</p>
+
+<p>They’re the output of our <code class="language-plaintext highlighter-rouge">forward()</code> method.</p>
+
+<p>Which implements two layers of <code class="language-plaintext highlighter-rouge">nn.Linear()</code> which internally calls the following equation:</p>
+
+\[\mathbf{y} = x \cdot \mathbf{Weights}^T  + \mathbf{bias}\]
+
+<p>The <em>raw outputs</em> (unmodified) of this equation ($\mathbf{y}$) and in turn, the raw outputs of our model are often referred to as <a href="https://datascience.stackexchange.com/a/31045" rel="external nofollow noopener" target="_blank"><strong>logits</strong></a>.</p>
+
+<p>That’s what our model is outputing above when it takes in the input data ($x$ in the equation or <code class="language-plaintext highlighter-rouge">X_test</code> in the code), logits.</p>
+
+<p>However, these numbers are hard to interpret.</p>
+
+<p>We’d like some numbers that are comparable to our truth labels.</p>
+
+<p>To get our model’s raw outputs (logits) into such a form, we can use the <a href="https://pytorch.org/docs/stable/generated/torch.sigmoid.html" rel="external nofollow noopener" target="_blank">sigmoid activation function</a>.</p>
+
+<p>Let’s try it out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Use sigmoid on model logits
+</span><span class="n">y_pred_probs</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">y_logits</span><span class="p">)</span>
+<span class="n">y_pred_probs</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[0.3946],
+        [0.4154],
+        [0.3549],
+        [0.4061],
+        [0.3757]], device='cuda:0', grad_fn=&lt;SigmoidBackward0&gt;)</code></pre>
+</div>
+
+<p>Okay, it seems like the outputs now have some kind of consistency (even though they’re still random).</p>
+
+<p>They’re now in the form of <strong>prediction probabilities</strong> (I usually refer to these as <code class="language-plaintext highlighter-rouge">y_pred_probs</code>), in other words, the values are now how much the model thinks the data point belongs to one class or another.</p>
+
+<p>In our case, since we’re dealing with binary classification, our ideal outputs are 0 or 1.</p>
+
+<p>So these values can be viewed as a decision boundary.</p>
+
+<p>The closer to 0, the more the model thinks the sample belongs to class 0, the closer to 1, the more the model thinks the sample belongs to class 1.</p>
+
+<p>More specificially:</p>
+<ul>
+  <li>If <code class="language-plaintext highlighter-rouge">y_pred_probs</code> &gt;= 0.5, <code class="language-plaintext highlighter-rouge">y=1</code> (class 1)</li>
+  <li>If <code class="language-plaintext highlighter-rouge">y_pred_probs</code> &lt; 0.5, <code class="language-plaintext highlighter-rouge">y=0</code> (class 0)</li>
+</ul>
+
+<p>To turn our prediction probabilities into prediction labels, we can round the outputs of the sigmoid activation function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Find the predicted labels (round the prediction probabilities)
+</span><span class="n">y_preds</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">y_pred_probs</span><span class="p">)</span>
+
+<span class="c1"># In full
+</span><span class="n">y_pred_labels</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">))[:</span><span class="mi">5</span><span class="p">]))</span>
+
+<span class="c1"># Check for equality
+</span><span class="nf">print</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">eq</span><span class="p">(</span><span class="n">y_preds</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">(),</span> <span class="n">y_pred_labels</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">()))</span>
+
+<span class="c1"># Get rid of extra dimension
+</span><span class="n">y_preds</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+    <pre><code>tensor([True, True, True, True, True], device='cuda:0')</code></pre>
+</div>
+
+<div class="bash-block">
+  <pre><code>tensor([0., 0., 0., 0., 0.], device='cuda:0', grad_fn=&lt;SqueezeBackward0&gt;)</code></pre>
+</div>
+
+<p>Excellent! Now it looks like our model’s predictions are in the same form as our truth labels (<code class="language-plaintext highlighter-rouge">y_test</code>).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_test</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+<pre><code>tensor([1., 0., 1., 0., 1.])</code></pre>
+</div>
+
+<p>This means we’ll be able to compare our model’s predictions to the test labels to see how well it’s performing.</p>
+
+<p>To recap, we converted our model’s raw outputs (logits) to prediction probabilities using a sigmoid activation function.</p>
+
+<p>And then converted the prediction probabilities to prediction labels by rounding them.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The use of the sigmoid activation function is often only for binary classification logits. For multi-class classification, we'll be looking at using the <a href="https://pytorch.org/docs/stable/generated/torch.nn.Softmax.html" rel="external nofollow noopener" target="_blank">softmax activation function</a> (this will come later on).
+  </p>
+  <p>
+    Also, the sigmoid activation function is <em>not</em> required when passing our model's raw outputs to <code>nn.BCEWithLogitsLoss</code>. The "logits" in logits loss indicates it works on the model's raw logits output—because it has a sigmoid function built in.
+  </p>
+</div>
+
+<h3 id="building-a-training-and-testing-loop">Building a training and testing loop</h3>
+
+<p>Alright, we’ve discussed how to take our raw model outputs and convert them to prediction labels, now let’s build a training loop.</p>
+
+<p>Let’s start by training for 100 epochs and outputing the model’s progress every 10 epochs.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Set the number of epochs
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Put data to target device
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Build training and evaluation loop
+</span><span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1">### Training
+</span>    <span class="n">model_0</span><span class="p">.</span><span class="nf">train</span><span class="p">()</span>
+
+    <span class="c1"># 1. Forward pass (model outputs raw logits)
+</span>    <span class="n">y_logits</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_train</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span> <span class="c1"># squeeze to remove extra `1` dimensions, this won't work unless model and data are on same device 
+</span>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">y_logits</span><span class="p">))</span> <span class="c1"># turn logits -&gt; pred probs -&gt; pred labls
+</span>  
+    <span class="c1"># 2. Calculate loss/accuracy
+</span>    <span class="c1"># loss = loss_fn(torch.sigmoid(y_logits), # Using nn.BCELoss you need torch.sigmoid()
+</span>    <span class="c1">#                y_train) 
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_logits</span><span class="p">,</span> <span class="c1"># Using nn.BCEWithLogitsLoss works with raw logits
+</span>                   <span class="n">y_train</span><span class="p">)</span> 
+    <span class="n">acc</span> <span class="o">=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> 
+                      <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span> 
+
+    <span class="c1"># 3. Optimizer zero grad
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># 4. Loss backwards
+</span>    <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+    <span class="c1"># 5. Optimizer step
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1">### Testing
+</span>    <span class="n">model_0</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+        <span class="c1"># 1. Forward pass
+</span>        <span class="n">test_logits</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span> 
+        <span class="n">test_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">test_logits</span><span class="p">))</span>
+        <span class="c1"># 2. Caculate loss/accuracy
+</span>        <span class="n">test_loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_logits</span><span class="p">,</span>
+                            <span class="n">y_test</span><span class="p">)</span>
+        <span class="n">test_acc</span> <span class="o">=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+                               <span class="n">y_pred</span><span class="o">=</span><span class="n">test_pred</span><span class="p">)</span>
+
+    <span class="c1"># Print out what's happening every 10 epochs
+</span>    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Accuracy: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">% | Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Test acc: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+<pre><code>Epoch: 0 | Loss: 0.72090, Accuracy: 50.00% | Test loss: 0.72196, Test acc: 50.00%
+Epoch: 10 | Loss: 0.70291, Accuracy: 50.00% | Test loss: 0.70542, Test acc: 50.00%
+Epoch: 20 | Loss: 0.69659, Accuracy: 50.00% | Test loss: 0.69942, Test acc: 50.00%
+Epoch: 30 | Loss: 0.69432, Accuracy: 43.25% | Test loss: 0.69714, Test acc: 41.00%
+Epoch: 40 | Loss: 0.69349, Accuracy: 47.00% | Test loss: 0.69623, Test acc: 46.50%
+Epoch: 50 | Loss: 0.69319, Accuracy: 49.00% | Test loss: 0.69583, Test acc: 46.00%
+Epoch: 60 | Loss: 0.69308, Accuracy: 50.12% | Test loss: 0.69563, Test acc: 46.50%
+Epoch: 70 | Loss: 0.69303, Accuracy: 50.38% | Test loss: 0.69551, Test acc: 46.00%
+Epoch: 80 | Loss: 0.69302, Accuracy: 51.00% | Test loss: 0.69543, Test acc: 46.00%
+Epoch: 90 | Loss: 0.69301, Accuracy: 51.00% | Test loss: 0.69537, Test acc: 46.00%</code></pre>
+</div>
+
+<h2 id="make-predictions-and-evaluate-the-model">Make predictions and evaluate the model</h2>
+
+<p>From the metrics it looks like our model is random guessing.</p>
+
+<p>How could we investigate this further?</p>
+
+<p>I’ve got an idea.</p>
+
+<p>The data explorer’s motto!</p>
+
+<p>“Visualize, visualize, visualize!”</p>
+
+<p>Let’s make a plot of our model’s predictions, the data it’s trying to predict on and the decision boundary it’s creating for whether something is class 0 or class 1.</p>
+
+<p>To do so, we’ll write some code to download and import the <a href="https://github.com/mrdbourke/pytorch-deep-learning/blob/main/helper_functions.py" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">helper_functions.py</code> script</a> from the <a href="https://github.com/mrdbourke/pytorch-deep-learning" rel="external nofollow noopener" target="_blank">Learn PyTorch for Deep Learning repo</a>.</p>
+
+<p>It contains a helpful function called <code class="language-plaintext highlighter-rouge">plot_decision_boundary()</code> which creates a NumPy meshgrid to visually plot the different points where our model is predicting certain classes.</p>
+
+<p>We’ll also import <code class="language-plaintext highlighter-rouge">plot_predictions()</code> which we wrote in notebook 01 to use later.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">requests</span>
+<span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span> 
+
+<span class="c1"># Download helper functions from Learn PyTorch repo (if not already downloaded)
+</span><span class="k">if</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">helper_functions.py</span><span class="sh">"</span><span class="p">).</span><span class="nf">is_file</span><span class="p">():</span>
+  <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">helper_functions.py already exists, skipping download</span><span class="sh">"</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+  <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Downloading helper_functions.py</span><span class="sh">"</span><span class="p">)</span>
+  <span class="n">request</span> <span class="o">=</span> <span class="n">requests</span><span class="p">.</span><span class="nf">get</span><span class="p">(</span><span class="sh">"</span><span class="s">https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/helper_functions.py</span><span class="sh">"</span><span class="p">)</span>
+  <span class="k">with</span> <span class="nf">open</span><span class="p">(</span><span class="sh">"</span><span class="s">helper_functions.py</span><span class="sh">"</span><span class="p">,</span> <span class="sh">"</span><span class="s">wb</span><span class="sh">"</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">f</span><span class="p">.</span><span class="nf">write</span><span class="p">(</span><span class="n">request</span><span class="p">.</span><span class="n">content</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="n">helper_functions</span> <span class="kn">import</span> <span class="n">plot_predictions</span><span class="p">,</span> <span class="n">plot_decision_boundary</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+<pre><code>helper_functions.py already exists, skipping download</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot decision boundaries for training and test sets
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Train</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model_0</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Test</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model_0</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_55_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Oh wow, it seems like we’ve found the cause of model’s performance issue.</p>
+
+<p>It’s currently trying to split the red and blue dots using a straight line…</p>
+
+<p>That explains the 50% accuracy. Since our data is circular, drawing a straight line can at best cut it down the middle.</p>
+
+<p>In machine learning terms, our model is <strong>underfitting</strong>, meaning it’s not learning predictive patterns from the data.</p>
+
+<p>How could we improve this?</p>
+
+<h2 id="improving-a-model-from-a-model-perspective">Improving a model (from a model perspective)</h2>
+
+<p>Let’s try to fix our model’s underfitting problem.</p>
+
+<p>Focusing specifically on the model (not the data), there are a few ways we could do this.</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>Model improvement technique*</th>
+<th>What does it do?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Add more layers</strong></td>
+<td>Each layer <em>potentially</em> increases the learning capabilities of the model with each layer being able to learn some kind of new pattern in the data. More layers are often referred to as making your neural network <em>deeper</em>.</td>
+</tr>
+<tr>
+<td><strong>Add more hidden units</strong></td>
+<td>Similar to the above, more hidden units per layer means a <em>potential</em> increase in learning capabilities of the model. More hidden units are often referred to as making your neural network <em>wider</em>.</td>
+</tr>
+<tr>
+<td><strong>Fitting for longer (more epochs)</strong></td>
+<td>Your model might learn more if it had more opportunities to look at the data.</td>
+</tr>
+<tr>
+<td><strong>Changing the activation functions</strong></td>
+<td>Some data just can't be fit with only straight lines (like what we've seen), using non-linear activation functions can help with this (hint, hint).</td>
+</tr>
+<tr>
+<td><strong>Change the learning rate</strong></td>
+<td>Less model specific, but still related, the learning rate of the optimizer decides how much a model should change its parameters each step, too much and the model overcorrects, too little and it doesn't learn enough.</td>
+</tr>
+<tr>
+<td><strong>Change the loss function</strong></td>
+<td>Again, less model specific but still important, different problems require different loss functions. For example, a binary cross entropy loss function won't work with a multi-class classification problem.</td>
+</tr>
+<tr>
+<td><strong>Use transfer learning</strong></td>
+<td>Take a pretrained model from a problem domain similar to yours and adjust it to your own problem.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="note-box">
+  <strong>Note:</strong> 
+  <p>
+    Because you can adjust all of these by hand, they're referred to as <strong>hyperparameters</strong>. And this is also where machine learning's half art, half science aspect comes in—there's no real way to know upfront what the best combination of values is for your project. 
+  </p>
+  <p>
+    Best to follow the data scientist's motto: <em>"experiment, experiment, experiment"</em>.
+  </p>
+</div>
+
+<p>Let’s see what happens if we add an extra layer to our model, fit for longer (<code class="language-plaintext highlighter-rouge">epochs=1000</code> instead of <code class="language-plaintext highlighter-rouge">epochs=100</code>) and increase the number of hidden units from <code class="language-plaintext highlighter-rouge">5</code> to <code class="language-plaintext highlighter-rouge">10</code>.</p>
+
+<p>We’ll follow the same steps we did above but with a few changed hyperparameters.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">CircleModelV1</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="c1"># extra layer
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">layer_3</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span> <span class="c1"># note: always make sure forward is spelt correctly!
+</span>        <span class="c1"># Creating a model like this is the same as below, though below
+</span>        <span class="c1"># generally benefits from speedups where possible.
+</span>        <span class="c1"># z = self.layer_1(x)
+</span>        <span class="c1"># z = self.layer_2(z)
+</span>        <span class="c1"># z = self.layer_3(z)
+</span>        <span class="c1"># return z
+</span>        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">layer_3</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">layer_2</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">layer_1</span><span class="p">(</span><span class="n">x</span><span class="p">)))</span>
+
+<span class="n">model_1</span> <span class="o">=</span> <span class="nc">CircleModelV1</span><span class="p">().</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">model_1</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>CircleModelV1(
+  (layer_1): Linear(in_features=2, out_features=10, bias=True)
+  (layer_2): Linear(in_features=10, out_features=10, bias=True)
+  (layer_3): Linear(in_features=10, out_features=1, bias=True)
+)</code></pre>
+</div>
+
+<p>Now we’ve got a model, we’ll recreate a loss function and optimizer instance, using the same settings as before.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># loss_fn = nn.BCELoss() # Requires sigmoid on input
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">BCEWithLogitsLoss</span><span class="p">()</span> <span class="c1"># Does not require sigmoid on input
+</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Beautiful, model, optimizer and loss function ready, let’s make a training loop.</p>
+
+<p>This time we’ll train for longer (<code class="language-plaintext highlighter-rouge">epochs=1000</code> vs <code class="language-plaintext highlighter-rouge">epochs=100</code>) and see if it improves our model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span> <span class="c1"># Train for longer
+</span>
+<span class="c1"># Put data to target device
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1">### Training
+</span>    <span class="c1"># 1. Forward pass
+</span>    <span class="n">y_logits</span> <span class="o">=</span> <span class="nf">model_1</span><span class="p">(</span><span class="n">X_train</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">y_logits</span><span class="p">))</span> <span class="c1"># logits -&gt; prediction probabilities -&gt; prediction labels
+</span>
+    <span class="c1"># 2. Calculate loss/accuracy
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_logits</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">acc</span> <span class="o">=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> 
+                      <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+
+    <span class="c1"># 3. Optimizer zero grad
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># 4. Loss backwards
+</span>    <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+    <span class="c1"># 5. Optimizer step
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1">### Testing
+</span>    <span class="n">model_1</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+        <span class="c1"># 1. Forward pass
+</span>        <span class="n">test_logits</span> <span class="o">=</span> <span class="nf">model_1</span><span class="p">(</span><span class="n">X_test</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span> 
+        <span class="n">test_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">test_logits</span><span class="p">))</span>
+        <span class="c1"># 2. Caculate loss/accuracy
+</span>        <span class="n">test_loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_logits</span><span class="p">,</span>
+                            <span class="n">y_test</span><span class="p">)</span>
+        <span class="n">test_acc</span> <span class="o">=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+                               <span class="n">y_pred</span><span class="o">=</span><span class="n">test_pred</span><span class="p">)</span>
+
+    <span class="c1"># Print out what's happening every 10 epochs
+</span>    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Accuracy: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">% | Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Test acc: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="sh">"</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Epoch: 0   | Loss: 0.69396, Accuracy: 50.88% | Test loss: 0.69261, Test acc: 51.00%
+Epoch: 100 | Loss: 0.69305, Accuracy: 50.38% | Test loss: 0.69379, Test acc: 48.00%
+Epoch: 200 | Loss: 0.69299, Accuracy: 51.12% | Test loss: 0.69437, Test acc: 46.00%
+Epoch: 300 | Loss: 0.69298, Accuracy: 51.62% | Test loss: 0.69458, Test acc: 45.00%
+Epoch: 400 | Loss: 0.69298, Accuracy: 51.12% | Test loss: 0.69465, Test acc: 46.00%
+Epoch: 500 | Loss: 0.69298, Accuracy: 51.00% | Test loss: 0.69467, Test acc: 46.00%
+Epoch: 600 | Loss: 0.69298, Accuracy: 51.00% | Test loss: 0.69468, Test acc: 46.00%
+Epoch: 700 | Loss: 0.69298, Accuracy: 51.00% | Test loss: 0.69468, Test acc: 46.00%
+Epoch: 800 | Loss: 0.69298, Accuracy: 51.00% | Test loss: 0.69468, Test acc: 46.00%
+Epoch: 900 | Loss: 0.69298, Accuracy: 51.00% | Test loss: 0.69468, Test acc: 46.00%</code></pre>
+</div>
+
+<p>What? Our model trained for longer and with an extra layer but it still looks like it didn’t learn any patterns better than random guessing.</p>
+
+<p>Let’s visualize.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot decision boundaries for training and test sets
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Train</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model_1</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Test</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model_1</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_64_0.png" alt="A local PyTorch classification image" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Hmmm.</p>
+
+<p>Our model is still drawing a straight line between the red and blue dots.</p>
+
+<p>If our model is drawing a straight line, could it model linear data?</p>
+
+<h3 id="preparing-data-to-see-if-our-model-can-model-a-straight-line">Preparing data to see if our model can model a straight line</h3>
+<p>Let’s create some linear data to see if our model’s able to model it and we’re not just using a model that can’t learn anything.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create some data (same as notebook 01)
+</span><span class="n">weight</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="mf">0.3</span>
+<span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mf">0.01</span>
+
+<span class="c1"># Create data
+</span><span class="n">X_regression</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="p">).</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y_regression</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">X_regression</span> <span class="o">+</span> <span class="n">bias</span> <span class="c1"># linear regression formula
+</span>
+<span class="c1"># Check the data
+</span><span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">X_regression</span><span class="p">))</span>
+<span class="n">X_regression</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">y_regression</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>100
+
+(tensor([[0.0000],
+         [0.0100],
+         [0.0200],
+         [0.0300],
+         [0.0400]]),
+ tensor([[0.3000],
+         [0.3070],
+         [0.3140],
+         [0.3210],
+         [0.3280]]))</code></pre>
+</div>
+
+<p>Wonderful, now let’s split our data into training and test sets.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create train and test splits
+</span><span class="n">train_split</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_regression</span><span class="p">))</span> <span class="c1"># 80% of data used for training set
+</span><span class="n">X_train_regression</span><span class="p">,</span> <span class="n">y_train_regression</span> <span class="o">=</span> <span class="n">X_regression</span><span class="p">[:</span><span class="n">train_split</span><span class="p">],</span> <span class="n">y_regression</span><span class="p">[:</span><span class="n">train_split</span><span class="p">]</span>
+<span class="n">X_test_regression</span><span class="p">,</span> <span class="n">y_test_regression</span> <span class="o">=</span> <span class="n">X_regression</span><span class="p">[</span><span class="n">train_split</span><span class="p">:],</span> <span class="n">y_regression</span><span class="p">[</span><span class="n">train_split</span><span class="p">:]</span>
+
+<span class="c1"># Check the lengths of each split
+</span><span class="nf">print</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">X_train_regression</span><span class="p">),</span> 
+    <span class="nf">len</span><span class="p">(</span><span class="n">y_train_regression</span><span class="p">),</span> 
+    <span class="nf">len</span><span class="p">(</span><span class="n">X_test_regression</span><span class="p">),</span> 
+    <span class="nf">len</span><span class="p">(</span><span class="n">y_test_regression</span><span class="p">))</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>80 80 20 20</code></pre>
+</div>
+
+<p>Beautiful, let’s see how the data looks.</p>
+
+<p>To do so, we’ll use the <code class="language-plaintext highlighter-rouge">plot_predictions()</code> function we created in notebook 01.</p>
+
+<p>It’s contained within the <a href="https://github.com/mrdbourke/pytorch-deep-learning/blob/main/helper_functions.py" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">helper_functions.py</code> script</a> on the Learn PyTorch for Deep Learning repo which we downloaded above.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">X_train_regression</span><span class="p">,</span>
+    <span class="n">train_labels</span><span class="o">=</span><span class="n">y_train_regression</span><span class="p">,</span>
+    <span class="n">test_data</span><span class="o">=</span><span class="n">X_test_regression</span><span class="p">,</span>
+    <span class="n">test_labels</span><span class="o">=</span><span class="n">y_test_regression</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_71_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<h3 id="adjusting-model_1-to-fit-a-straight-line">Adjusting <code class="language-plaintext highlighter-rouge">model_1</code> to fit a straight line</h3>
+
+<p>Now we’ve got some data, let’s recreate <code class="language-plaintext highlighter-rouge">model_1</code> but with a loss function suited to our regression data.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Same architecture as model_1 (but using nn.Sequential)
+</span><span class="n">model_2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">(</span>
+    <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="n">model_2</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Sequential(
+  (0): Linear(in_features=1, out_features=10, bias=True)
+  (1): Linear(in_features=10, out_features=10, bias=True)
+  (2): Linear(in_features=10, out_features=1, bias=True)
+)</code></pre>
+</div>
+
+<p>We’ll setup the loss function to be <code class="language-plaintext highlighter-rouge">nn.L1Loss()</code> (the same as mean absolute error) and the optimizer to be <code class="language-plaintext highlighter-rouge">torch.optim.SGD()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Loss and optimizer
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">L1Loss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">model_2</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Now let’s train the model using the regular training loop steps for <code class="language-plaintext highlighter-rouge">epochs=1000</code> (just like <code class="language-plaintext highlighter-rouge">model_1</code>).</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    We've been writing similar training loop code over and over again. 
+    I've made it that way on purpose though, to keep practicing.
+  </p>
+  <p>
+    However, do you have ideas how we could functionize this? 
+    That would save a fair bit of coding in the future. 
+    Potentially there could be a function for training and a function for testing.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Train the model
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Set the number of epochs
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1"># Put data to target device
+</span><span class="n">X_train_regression</span><span class="p">,</span> <span class="n">y_train_regression</span> <span class="o">=</span> <span class="n">X_train_regression</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_train_regression</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">X_test_regression</span><span class="p">,</span> <span class="n">y_test_regression</span> <span class="o">=</span> <span class="n">X_test_regression</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_test_regression</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1">### Training 
+</span>    <span class="c1"># 1. Forward pass
+</span>    <span class="n">y_pred</span> <span class="o">=</span> <span class="nf">model_2</span><span class="p">(</span><span class="n">X_train_regression</span><span class="p">)</span>
+    
+    <span class="c1"># 2. Calculate loss (no accuracy since it's a regression problem, not classification)
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_train_regression</span><span class="p">)</span>
+
+    <span class="c1"># 3. Optimizer zero grad
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># 4. Loss backwards
+</span>    <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+    <span class="c1"># 5. Optimizer step
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1">### Testing
+</span>    <span class="n">model_2</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+      <span class="c1"># 1. Forward pass
+</span>      <span class="n">test_pred</span> <span class="o">=</span> <span class="nf">model_2</span><span class="p">(</span><span class="n">X_test_regression</span><span class="p">)</span>
+      <span class="c1"># 2. Calculate the loss 
+</span>      <span class="n">test_loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_pred</span><span class="p">,</span> <span class="n">y_test_regression</span><span class="p">)</span>
+
+    <span class="c1"># Print out what's happening
+</span>    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span> 
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Train loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>
+Epoch: 0   | Train loss: 0.75986, Test loss: 0.54143
+Epoch: 100 | Train loss: 0.09309, Test loss: 0.02901
+Epoch: 200 | Train loss: 0.07376, Test loss: 0.02850
+Epoch: 300 | Train loss: 0.06745, Test loss: 0.00615
+Epoch: 400 | Train loss: 0.06107, Test loss: 0.02004
+Epoch: 500 | Train loss: 0.05698, Test loss: 0.01061
+Epoch: 600 | Train loss: 0.04857, Test loss: 0.01326
+Epoch: 700 | Train loss: 0.06109, Test loss: 0.02127
+Epoch: 800 | Train loss: 0.05599, Test loss: 0.01426
+Epoch: 900 | Train loss: 0.05571, Test loss: 0.00603</code></pre>
+</div>
+
+<p>Okay, unlike <code class="language-plaintext highlighter-rouge">model_1</code> on the classification data, it looks like <code class="language-plaintext highlighter-rouge">model_2</code>’s loss is actually going down.</p>
+
+<p>Let’s plot its predictions to see if that’s so.</p>
+
+<p>And remember, since our model and data are using the target <code class="language-plaintext highlighter-rouge">device</code>, and this device may be a GPU, however, our plotting function uses matplotlib and matplotlib can’t handle data on the GPU.</p>
+
+<p>To handle that, we’ll send all of our data to the CPU using <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.cpu.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.cpu()</code></a> when we pass it to <code class="language-plaintext highlighter-rouge">plot_predictions()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Turn on evaluation mode
+</span><span class="n">model_2</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+
+<span class="c1"># Make predictions (inference)
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+    <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_2</span><span class="p">(</span><span class="n">X_test_regression</span><span class="p">)</span>
+
+<span class="c1"># Plot data and predictions with data on the CPU (matplotlib can't handle data on the GPU)
+# (try removing .cpu() from one of the below and see what happens)
+</span><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">X_train_regression</span><span class="p">.</span><span class="nf">cpu</span><span class="p">(),</span>
+                 <span class="n">train_labels</span><span class="o">=</span><span class="n">y_train_regression</span><span class="p">.</span><span class="nf">cpu</span><span class="p">(),</span>
+                 <span class="n">test_data</span><span class="o">=</span><span class="n">X_test_regression</span><span class="p">.</span><span class="nf">cpu</span><span class="p">(),</span>
+                 <span class="n">test_labels</span><span class="o">=</span><span class="n">y_test_regression</span><span class="p">.</span><span class="nf">cpu</span><span class="p">(),</span>
+                 <span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">.</span><span class="nf">cpu</span><span class="p">());</span>
+</code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_79_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Alright, it looks like our model is able to do far better than random guessing on straight lines.</p>
+
+<p>This is a good thing.</p>
+
+<p>It means our model at least has <em>some</em> capacity to learn.</p>
+
+
 
     
 
@@ -911,6 +1909,10 @@ tensor([1., 1., 1., 1., 0.]))</code></pre>
   </article>
 </div>
 </div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top"></nav>
+            </div>
           </div>
         
       
@@ -926,7 +1928,7 @@ tensor([1., 1., 1., 1., 0.]))</code></pre>
       Guo. 
       
       
-        Last updated: December 26, 2024.
+        Last updated: December 27, 2024.
       
     </div>
   </footer>

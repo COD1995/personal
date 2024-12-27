@@ -64,6 +64,7 @@ Jue’s technical proficiency is demonstrated by his expertise in python, pytorc
       transition: border-color 0.3s;
     ">
       <option value="all">All Years</option>
+      <option value="2025">2025</option>
       <option value="2024">2024</option>
       <option value="2023">2023</option>
     </select>
@@ -82,6 +83,14 @@ Jue’s technical proficiency is demonstrated by his expertise in python, pytorc
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
   ">
     <tbody>
+      <tr data-year="2025">
+        <td style="font-weight:600; padding:0.75rem;">Jan 22, 2025</td>
+        <td style="padding:0.75rem;">
+          <a href="{{ '/teaching/aibasic' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">
+            start teaching basics of artificial intelligence
+          </a>
+        </td>
+      </tr>
       <!-- 2024 Courses -->
       <tr data-year="2024">
         <td style="font-weight:600; padding:0.75rem; width:150px;">Aug 26, 2024</td>
@@ -101,7 +110,6 @@ Jue’s technical proficiency is demonstrated by his expertise in python, pytorc
           <a href="{{ '/teaching/machinelearning' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">start teaching machine learning</a>
         </td>
       </tr>
-
       <!-- 2023 Courses -->
       <tr data-year="2023">
         <td style="font-weight:600; padding:0.75rem;">Aug 28, 2023</td>
@@ -156,6 +164,7 @@ Jue’s technical proficiency is demonstrated by his expertise in python, pytorc
   });
 </script>
 
+--- 
 
 
 

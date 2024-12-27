@@ -2133,9 +2133,12 @@ details.collapsible-callout {
     width: 100%;
     border-collapse: collapse;
     margin-top: 1rem;
+    color: #333;
 
     thead {
-      background-color: #f2f2f2;
+      background-color: #ffebcc;
+      /* Example pastel color */
+      color: #555;
     }
 
     th,
@@ -2149,8 +2152,11 @@ details.collapsible-callout {
       text-align: left;
     }
 
-    tbody tr:hover {
-      background-color: #fafafa;
+    /* Force NO hover effect */
+    tbody tr:hover,
+    tbody tr:hover td {
+      background-color: transparent !important;
+      color: inherit !important;
     }
   }
 }

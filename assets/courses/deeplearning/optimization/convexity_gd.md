@@ -4,7 +4,7 @@ title: Convexity and Gradient Descent
 description: 
 related_publications: false
 toc:
-    sidebar: left
+    sidebar: right
 back_link: '/teaching/deeplearnig'
 back_text: 'Deep Learning Course Page'
 number_heading: false
