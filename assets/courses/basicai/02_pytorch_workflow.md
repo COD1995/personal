@@ -4,7 +4,7 @@ title: PyTorch Workflow Fundamentals
 description: 
 related_publications: false
 toc:
-    sidebar: left
+    sidebar: right
 back_link: '/teaching/aibasic'
 back_text: 'AI Basics'
 number_heading: true

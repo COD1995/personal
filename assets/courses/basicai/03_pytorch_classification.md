@@ -1601,3 +1601,388 @@ X, y = make_circles(n_samples=1000,
 
 plt.scatter(X[:, 0], X[:, 1], c=y, cmap=plt.cm.RdBu);
 ```
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_83_0.png" | relative_url }}" 
+    alt="png"
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Nice! Now let's split it into training and test sets using 80% of the data for training and 20% for testing.
+
+```python
+# Convert to tensors and split into train and test sets
+import torch
+from sklearn.model_selection import train_test_split
+
+# Turn data into tensors
+X = torch.from_numpy(X).type(torch.float)
+y = torch.from_numpy(y).type(torch.float)
+
+# Split into train and test sets
+X_train, X_test, y_train, y_test = train_test_split(X, 
+                                                    y, 
+                                                    test_size=0.2,
+                                                    random_state=42
+)
+
+X_train[:5], y_train[:5]
+```
+<div class="bash-block">
+  <pre><code>(tensor([[ 0.6579, -0.4651],
+         [ 0.6319, -0.7347],
+         [-1.0086, -0.1240],
+         [-0.9666, -0.2256],
+         [-0.1666,  0.7994]]),
+ tensor([1., 0., 0., 0., 1.]))</code></pre>
+</div>
+
+### Building a model with non-linearity 
+Now here comes the fun part.
+
+What kind of pattern do you think you could draw with unlimited straight (linear) and non-straight (non-linear) lines?
+
+I bet you could get pretty creative.
+
+So far our neural networks have only been using linear (straight) line functions.
+
+But the data we've been working with is non-linear (circles).
+
+What do you think will happen when we introduce the capability for our model to use **non-linear activation functions**?
+
+Well let's see.
+
+PyTorch has a bunch of [ready-made non-linear activation functions](https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity) that do similar but different things. 
+
+One of the most common and best performing is [ReLU](https://en.wikipedia.org/wiki/Rectifier_(neural_networks)) (rectified linear-unit, [`torch.nn.ReLU()`](https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html)).
+
+Rather than talk about it, let's put it in our neural network between the hidden layers in the forward pass and see what happens.
+
+
+```python
+# Build model with non-linear activation function
+from torch import nn
+class CircleModelV2(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.layer_1 = nn.Linear(in_features=2, out_features=10)
+        self.layer_2 = nn.Linear(in_features=10, out_features=10)
+        self.layer_3 = nn.Linear(in_features=10, out_features=1)
+        self.relu = nn.ReLU() # <- add in ReLU activation function
+        # Can also put sigmoid in the model 
+        # This would mean you don't need to use it on the predictions
+        # self.sigmoid = nn.Sigmoid()
+
+    def forward(self, x):
+      # Intersperse the ReLU activation function between layers
+       return self.layer_3(self.relu(self.layer_2(self.relu(self.layer_1(x)))))
+
+model_3 = CircleModelV2().to(device)
+print(model_3)
+```
+<div class="bash-block">
+  <pre><code>CircleModelV2(
+  (layer_1): Linear(in_features=2, out_features=10, bias=True)
+  (layer_2): Linear(in_features=10, out_features=10, bias=True)
+  (layer_3): Linear(in_features=10, out_features=1, bias=True)
+  (relu): ReLU()
+)</code></pre>
+</div>
+
+<div class="row mt-3">
+  {% assign figure_counter = figure_counter | plus: 1 %}
+  <div class="col-sm mt-3 mt-md-0 text-center">
+    {% include figure.liquid
+        figure_number=figure_counter
+        loading="eager"
+        path="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/02-tensorflow-playground-relu-activation.png"
+        class="img-fluid rounded"
+        caption="A visual example of what a similar classification neural network to the one we've just built (using ReLU activation) looks like. Try creating one of your own on the <a href='https://playground.tensorflow.org/'>TensorFlow Playground website</a>."
+        id="fig_tensorflow_playground_relu_activation" %}
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong> <em>Where should I put the non-linear activation functions when constructing a neural network?</em>
+
+  <p>
+    A rule of thumb is to place them between hidden layers and just after the output layer. However, there is no set-in-stone option. As you learn more about neural networks and deep learning, you'll discover various ways to arrange components.
+  </p>
+  <p>
+    In the meantime, the best approach is to <strong>experiment, experiment, experiment</strong>.
+  </p>
+</div>
+
+Now we've got a model ready to go, let's create a binary classification loss function as well as an optimizer.
+
+
+```python
+# Setup loss and optimizer 
+loss_fn = nn.BCEWithLogitsLoss()
+optimizer = torch.optim.SGD(model_3.parameters(), lr=0.1)
+```
+
+Wonderful! 
+
+### Training a model with non-linearity
+
+You know the drill, model, loss function, optimizer ready to go, let's create a training and testing loop.
+
+```python
+# Fit the model
+torch.manual_seed(42)
+epochs = 1000
+
+# Put all data on target device
+X_train, y_train = X_train.to(device), y_train.to(device)
+X_test, y_test = X_test.to(device), y_test.to(device)
+
+for epoch in range(epochs):
+    # 1. Forward pass
+    y_logits = model_3(X_train).squeeze()
+    y_pred = torch.round(torch.sigmoid(y_logits)) # logits -> prediction probabilities -> prediction labels
+    
+    # 2. Calculate loss and accuracy
+    loss = loss_fn(y_logits, y_train) # BCEWithLogitsLoss calculates loss using logits
+    acc = accuracy_fn(y_true=y_train, 
+                      y_pred=y_pred)
+    
+    # 3. Optimizer zero grad
+    optimizer.zero_grad()
+
+    # 4. Loss backward
+    loss.backward()
+
+    # 5. Optimizer step
+    optimizer.step()
+
+    ### Testing
+    model_3.eval()
+    with torch.inference_mode():
+      # 1. Forward pass
+      test_logits = model_3(X_test).squeeze()
+      test_pred = torch.round(torch.sigmoid(test_logits)) # logits -> prediction probabilities -> prediction labels
+      # 2. Calculate loss and accuracy
+      test_loss = loss_fn(test_logits, y_test)
+      test_acc = accuracy_fn(y_true=y_test,
+                             y_pred=test_pred)
+
+    # Print out what's happening
+    if epoch % 100 == 0:
+        print(f"Epoch: {epoch} | Loss: {loss:.5f}, Accuracy: {acc:.2f}% | Test Loss: {test_loss:.5f}, Test Accuracy: {test_acc:.2f}%")
+```
+<div class="bash-block">
+  <pre><code>Epoch: 0   | Loss: 0.69295, Accuracy: 50.00% | Test Loss: 0.69319, Test Accuracy: 50.00%
+Epoch: 100 | Loss: 0.69115, Accuracy: 52.88% | Test Loss: 0.69102, Test Accuracy: 52.50%
+Epoch: 200 | Loss: 0.68977, Accuracy: 53.37% | Test Loss: 0.68940, Test Accuracy: 55.00%
+Epoch: 300 | Loss: 0.68795, Accuracy: 53.00% | Test Loss: 0.68723, Test Accuracy: 56.00%
+Epoch: 400 | Loss: 0.68517, Accuracy: 52.75% | Test Loss: 0.68411, Test Accuracy: 56.50%
+Epoch: 500 | Loss: 0.68102, Accuracy: 52.75% | Test Loss: 0.67941, Test Accuracy: 56.50%
+Epoch: 600 | Loss: 0.67515, Accuracy: 54.50% | Test Loss: 0.67285, Test Accuracy: 56.00%
+Epoch: 700 | Loss: 0.66659, Accuracy: 58.38% | Test Loss: 0.66322, Test Accuracy: 59.00%
+Epoch: 800 | Loss: 0.65160, Accuracy: 64.00% | Test Loss: 0.64757, Test Accuracy: 67.50%
+Epoch: 900 | Loss: 0.62362, Accuracy: 74.00% | Test Loss: 0.62145, Test Accuracy: 79.00%</code></pre>
+</div>
+
+Ho ho! That's looking far better!
+
+### Evaluating a model trained with non-linear activation functions
+
+Remember how our circle data is non-linear? Well, let's see how our models predictions look now the model's been trained with non-linear activation functions.
+
+```python
+# Make predictions
+model_3.eval()
+with torch.inference_mode():
+    y_preds = torch.round(torch.sigmoid(model_3(X_test))).squeeze()
+y_preds[:10], y[:10] # want preds in same format as truth labels
+```
+<div class="bash-block">
+  <pre><code>(tensor([1., 0., 1., 0., 0., 1., 0., 0., 1., 0.], device='cuda:0'),
+ tensor([1., 1., 1., 1., 0., 1., 1., 1., 1., 0.]))</code></pre>
+</div>
+
+```python
+# Plot decision boundaries for training and test sets
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.title("Train")
+plot_decision_boundary(model_1, X_train, y_train) # model_1 = no non-linearity
+plt.subplot(1, 2, 2)
+plt.title("Test")
+plot_decision_boundary(model_3, X_test, y_test) # model_3 = has non-linearity
+```
+
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_96_0.png" | relative_url }}" 
+    alt="png" 
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Nice! Not perfect but still far better than before.
+
+Potentially you could try a few tricks to improve the test accuracy of the model? (hint: head back to section 5 for tips on improving the model)
+
+## Replicating non-linear activation functions
+
+We saw before how adding non-linear activation functions to our model can help it to model non-linear data.
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Much of the data you'll encounter in the wild is non-linear (or a combination of linear and non-linear). Right now, we've been working with dots on a 2D plot. But imagine if you had images of plants you'd like to classify—there are many different plant shapes.
+  </p>
+  <p>
+    Or consider text from Wikipedia you'd like to summarize—there are countless ways words can be put together (both linear and non-linear patterns).
+  </p>
+</div>
+
+But what does a non-linear activation *look* like?
+
+How about we replicate some and what they do?
+
+Let's start by creating a small amount of data.
+
+
+```python
+# Create a toy tensor (similar to the data going into our model(s))
+A = torch.arange(-10, 10, 1, dtype=torch.float32)
+A
+```
+
+<div class="bash-block">
+  <pre><code>tensor([-10.,  -9.,  -8.,  -7.,  -6.,  -5.,  -4.,  -3.,  -2.,  -1.,
+          0.,   1.,   2.,   3.,   4.,   5.,   6.,   7.,   8.,   9.])</code></pre>
+</div>
+
+Wonderful, now let's plot it.
+
+
+```python
+# Visualize the toy tensor
+plt.plot(A);
+```
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_101_0.png" | relative_url }}" 
+    alt="png" 
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+A straight line, nice.
+
+Now let's see how the ReLU activation function influences it.
+
+And instead of using PyTorch's ReLU (`torch.nn.ReLU`), we'll recreate it ourselves.
+
+The ReLU function turns all negatives to 0 and leaves the positive values as they are.
+
+```python
+# Create ReLU function by hand 
+def relu(x):
+  return torch.maximum(torch.tensor(0), x) # inputs must be tensors
+
+# Pass toy tensor through ReLU function
+relu(A)
+```
+<div class="bash-block">
+  <pre><code>tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 2., 3., 4., 5., 6., 7.,
+        8., 9.])</code></pre>
+</div>
+
+It looks like our ReLU function worked, all of the negative values are zeros.
+
+Let's plot them.
+
+
+```python
+# Plot ReLU activated toy tensor
+plt.plot(relu(A));
+```
+
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_105_0.png" | relative_url }}"
+    alt="png"
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Nice! That looks exactly like the shape of the ReLU function on the [Wikipedia page for ReLU](https://en.wikipedia.org/wiki/Rectifier_(neural_networks)).
+
+How about we try the [sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function) we've been using?
+
+The sigmoid function formula goes like so:
+
+$$ out_i = \frac{1}{1+e^{-input_i}} $$ 
+
+Or using $$x$$ as input:
+
+$$ S(x) = \frac{1}{1+e^{-x_i}} $$
+
+Where $$S$$ stands for sigmoid, $e$ stands for [exponential](https://en.wikipedia.org/wiki/Exponential_function) ([`torch.exp()`](https://pytorch.org/docs/stable/generated/torch.exp.html)) and $$i$$ stands for a particular element in a tensor.
+
+Let's build a function to replicate the sigmoid function with PyTorch.
+
+```python
+# Create a custom sigmoid function
+def sigmoid(x):
+  return 1 / (1 + torch.exp(-x))
+
+# Test custom sigmoid on toy tensor
+sigmoid(A)
+```
+<div class="bash-block">
+  <pre><code>tensor([4.5398e-05, 1.2339e-04, 3.3535e-04, 9.1105e-04, 2.4726e-03, 6.6929e-03,
+        1.7986e-02, 4.7426e-02, 1.1920e-01, 2.6894e-01, 5.0000e-01, 7.3106e-01,
+        8.8080e-01, 9.5257e-01, 9.8201e-01, 9.9331e-01, 9.9753e-01, 9.9909e-01,
+        9.9966e-01, 9.9988e-01])</code></pre>
+</div>
+
+Woah, those values look a lot like prediction probabilities we've seen earlier, let's see what they look like visualized.
+
+
+```python
+# Plot sigmoid activated toy tensor
+plt.plot(sigmoid(A));
+```
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_109_0.png" | relative_url }}"
+    alt="png"
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Looking good! We've gone from a straight line to a curved line.
+
+Now there's plenty more [non-linear activation functions](https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity) that exist in PyTorch that we haven't tried.
+
+But these two are two of the most common.
+
+And the point remains, what patterns could you draw using an unlimited amount of linear (straight) and non-linear (not straight) lines?
+
+Almost anything right?
+
+That's exactly what our model is doing when we combine linear and non-linear functions.
+
+Instead of telling our model what to do, we give it tools to figure out how to best discover patterns in the data.
+
+And those tools are linear and non-linear functions.
+
+## Putting things together by building a multi-class PyTorch model
+
+We've covered a fair bit.
+
+But now let's put it all together using a multi-class classification problem.
+
+Recall a **binary classification** problem deals with classifying something as one of two options (e.g. a photo as a cat photo or a dog photo) where as a **multi-class classification** problem deals with classifying something from a list of *more than* two options (e.g. classifying a photo as a cat a dog or a chicken).

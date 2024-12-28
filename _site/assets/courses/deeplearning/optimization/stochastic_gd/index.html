@@ -283,14 +283,6 @@
       
         
 
-
-  <div class="fixed-bottom-button">
-    <a href="/personal/teaching/deeplearnig" class="btn-back-course">
-      ← Deep Learning
-    </a>
-  </div>
-
-
 <!-- Always apply separation lines (scoped to article) -->
 
   <style type="text/css">
@@ -376,7 +368,7 @@
       Guo. 
       
       
-        Last updated: December 27, 2024.
+        Last updated: December 28, 2024.
       
     </div>
   </footer>
@@ -557,5 +549,94 @@
 
     
 
+
+    <!-- Inline JS snippet to append the Back link after TOC injection -->
+    <script>
+    window.addEventListener("load", function() {
+      
+      const linkHTML = `
+        <div class="back-link">
+          <a href="/personal/teaching/deeplearnig">
+            <!-- Arrow icon (inline SVG) -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="currentColor"
+            >
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+            </svg>
+            <span>Deep Learning</span>
+          </a>
+        </div>
+      `;
+
+      const tocSidebar = document.getElementById("toc-sidebar");
+      if (tocSidebar) {
+        tocSidebar.insertAdjacentHTML('beforeend', linkHTML);
+      }
+      
+    });
+    </script>
+
+    <!-- Inline JS to auto-number TOC items in #toc-sidebar -->
+    <script>
+    window.addEventListener("load", function() {
+      // 1) Extract user offset from front matter or default=1
+      
+      const userOffset = parseInt("1", 10);
+      // e.g. if user sets 2 => userOffset=2. If none => userOffset=1
+
+      // We'll define two cases:
+      // A) If userOffset=2 => top-level headings => "3.1", "3.2" ...
+      // B) If userOffset=1 => top-level => "1", "2", sub => "2.1" etc.
+      // We'll handle that with a simple 'if' inside the logic.
+
+      const rootUl = document.querySelector("#toc-sidebar > ul");
+      if (!rootUl) return;
+
+      function numberList(ulElement, prefix = "", startIndex = 1) {
+        const liElements = ulElement.querySelectorAll(":scope > li");
+        let index = startIndex;
+
+        liElements.forEach(li => {
+          let label;
+          if (!prefix) {
+            // top-level: check userOffset
+            if (userOffset === 2) {
+              // => first top-level heading => 3.1 => label = "3.index"
+              const topLevel = userOffset + 1;  // 2+1=3
+              label = `${topLevel}.${index}`;   // => "3.1"
+            } else {
+              // => userOffset=1 or anything else => top-level => "1", "2", "3"...
+              // so label = index
+              label = String(index);
+            }
+          } else {
+            // nested => prefix.index => e.g. "3.2.1"
+            label = `${prefix}.${index}`;
+          }
+
+          const link = li.querySelector(":scope > a");
+          if (link) {
+            link.textContent = label + " " + link.textContent;
+          }
+
+          // If nested <ul>, recurse with sub-level starting at 1
+          const nestedUl = li.querySelector(":scope > ul");
+          if (nestedUl) {
+            numberList(nestedUl, label, 1);
+          }
+
+          index++;
+        });
+      }
+
+      // 2) Call the function on the top-level <ul>, prefix="", startIndex=1
+      numberList(rootUl, "", 1);
+    });
+    </script>
   </body>
 </html>

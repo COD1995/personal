@@ -286,14 +286,7 @@
           <div class="row">
             <!-- main content area -->
             <div class="col-sm-9">
-
-
-  <div class="fixed-bottom-button">
-    <a href="/personal/teaching/aibasic" class="btn-back-course">
-      ← AI Basics
-    </a>
-  </div>
-
+              
 
 <!-- Always apply separation lines (scoped to article) -->
 
@@ -1932,6 +1925,362 @@ Epoch: 900 | Train loss: 0.05571, Test loss: 0.00603</code></pre>
 
 <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">X</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">c</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="n">plt</span><span class="p">.</span><span class="n">cm</span><span class="p">.</span><span class="n">RdBu</span><span class="p">);</span>
 </code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_83_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Nice! Now let’s split it into training and test sets using 80% of the data for training and 20% for testing.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Convert to tensors and split into train and test sets
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">from</span> <span class="n">sklearn.model_selection</span> <span class="kn">import</span> <span class="n">train_test_split</span>
+
+<span class="c1"># Turn data into tensors
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">from_numpy</span><span class="p">(</span><span class="n">X</span><span class="p">).</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">from_numpy</span><span class="p">(</span><span class="n">y</span><span class="p">).</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">)</span>
+
+<span class="c1"># Split into train and test sets
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="nf">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> 
+                                                    <span class="n">y</span><span class="p">,</span> 
+                                                    <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                                                    <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span>
+<span class="p">)</span>
+
+<span class="n">X_train</span><span class="p">[:</span><span class="mi">5</span><span class="p">],</span> <span class="n">y_train</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(tensor([[ 0.6579, -0.4651],
+         [ 0.6319, -0.7347],
+         [-1.0086, -0.1240],
+         [-0.9666, -0.2256],
+         [-0.1666,  0.7994]]),
+ tensor([1., 0., 0., 0., 1.]))</code></pre>
+</div>
+
+<h3 id="building-a-model-with-non-linearity">Building a model with non-linearity</h3>
+<p>Now here comes the fun part.</p>
+
+<p>What kind of pattern do you think you could draw with unlimited straight (linear) and non-straight (non-linear) lines?</p>
+
+<p>I bet you could get pretty creative.</p>
+
+<p>So far our neural networks have only been using linear (straight) line functions.</p>
+
+<p>But the data we’ve been working with is non-linear (circles).</p>
+
+<p>What do you think will happen when we introduce the capability for our model to use <strong>non-linear activation functions</strong>?</p>
+
+<p>Well let’s see.</p>
+
+<p>PyTorch has a bunch of <a href="https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity" rel="external nofollow noopener" target="_blank">ready-made non-linear activation functions</a> that do similar but different things.</p>
+
+<p>One of the most common and best performing is <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" rel="external nofollow noopener" target="_blank">ReLU</a> (rectified linear-unit, <a href="https://pytorch.org/docs/stable/generated/torch.nn.ReLU.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.nn.ReLU()</code></a>).</p>
+
+<p>Rather than talk about it, let’s put it in our neural network between the hidden layers in the forward pass and see what happens.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Build model with non-linear activation function
+</span><span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+<span class="k">class</span> <span class="nc">CircleModelV2</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">layer_1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">layer_3</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">relu</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">()</span> <span class="c1"># &lt;- add in ReLU activation function
+</span>        <span class="c1"># Can also put sigmoid in the model 
+</span>        <span class="c1"># This would mean you don't need to use it on the predictions
+</span>        <span class="c1"># self.sigmoid = nn.Sigmoid()
+</span>
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+      <span class="c1"># Intersperse the ReLU activation function between layers
+</span>       <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">layer_3</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">relu</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">layer_2</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">relu</span><span class="p">(</span><span class="n">self</span><span class="p">.</span><span class="nf">layer_1</span><span class="p">(</span><span class="n">x</span><span class="p">)))))</span>
+
+<span class="n">model_3</span> <span class="o">=</span> <span class="nc">CircleModelV2</span><span class="p">().</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">model_3</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>CircleModelV2(
+  (layer_1): Linear(in_features=2, out_features=10, bias=True)
+  (layer_2): Linear(in_features=10, out_features=10, bias=True)
+  (layer_3): Linear(in_features=10, out_features=1, bias=True)
+  (relu): ReLU()
+)</code></pre>
+</div>
+
+<div class="row mt-3">
+  
+  <div class="col-sm mt-3 mt-md-0 text-center">
+    <figure id="fig_tensorflow_playground_relu_activation4">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/02-tensorflow-playground-relu-activation.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 4: A visual example of what a similar classification neural network to the one we've just built (using ReLU activation) looks like. Try creating one of your own on the <a href="https://playground.tensorflow.org/" rel="external nofollow noopener" target="_blank">TensorFlow Playground website</a>.
+    </figcaption>
+  
+</figure>
+
+  </div>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong> <em>Where should I put the non-linear activation functions when constructing a neural network?</em>
+
+  <p>
+    A rule of thumb is to place them between hidden layers and just after the output layer. However, there is no set-in-stone option. As you learn more about neural networks and deep learning, you'll discover various ways to arrange components.
+  </p>
+  <p>
+    In the meantime, the best approach is to <strong>experiment, experiment, experiment</strong>.
+  </p>
+</div>
+
+<p>Now we’ve got a model ready to go, let’s create a binary classification loss function as well as an optimizer.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Setup loss and optimizer 
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">BCEWithLogitsLoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">model_3</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Wonderful!</p>
+
+<h3 id="training-a-model-with-non-linearity">Training a model with non-linearity</h3>
+
+<p>You know the drill, model, loss function, optimizer ready to go, let’s create a training and testing loop.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Fit the model
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span>
+
+<span class="c1"># Put all data on target device
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1"># 1. Forward pass
+</span>    <span class="n">y_logits</span> <span class="o">=</span> <span class="nf">model_3</span><span class="p">(</span><span class="n">X_train</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">y_logits</span><span class="p">))</span> <span class="c1"># logits -&gt; prediction probabilities -&gt; prediction labels
+</span>    
+    <span class="c1"># 2. Calculate loss and accuracy
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_logits</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span> <span class="c1"># BCEWithLogitsLoss calculates loss using logits
+</span>    <span class="n">acc</span> <span class="o">=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> 
+                      <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">)</span>
+    
+    <span class="c1"># 3. Optimizer zero grad
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># 4. Loss backward
+</span>    <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+    <span class="c1"># 5. Optimizer step
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1">### Testing
+</span>    <span class="n">model_3</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+      <span class="c1"># 1. Forward pass
+</span>      <span class="n">test_logits</span> <span class="o">=</span> <span class="nf">model_3</span><span class="p">(</span><span class="n">X_test</span><span class="p">).</span><span class="nf">squeeze</span><span class="p">()</span>
+      <span class="n">test_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">test_logits</span><span class="p">))</span> <span class="c1"># logits -&gt; prediction probabilities -&gt; prediction labels
+</span>      <span class="c1"># 2. Calculate loss and accuracy
+</span>      <span class="n">test_loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_logits</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+      <span class="n">test_acc</span> <span class="o">=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span>
+                             <span class="n">y_pred</span><span class="o">=</span><span class="n">test_pred</span><span class="p">)</span>
+
+    <span class="c1"># Print out what's happening
+</span>    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Accuracy: </span><span class="si">{</span><span class="n">acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">% | Test Loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s">, Test Accuracy: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Epoch: 0   | Loss: 0.69295, Accuracy: 50.00% | Test Loss: 0.69319, Test Accuracy: 50.00%
+Epoch: 100 | Loss: 0.69115, Accuracy: 52.88% | Test Loss: 0.69102, Test Accuracy: 52.50%
+Epoch: 200 | Loss: 0.68977, Accuracy: 53.37% | Test Loss: 0.68940, Test Accuracy: 55.00%
+Epoch: 300 | Loss: 0.68795, Accuracy: 53.00% | Test Loss: 0.68723, Test Accuracy: 56.00%
+Epoch: 400 | Loss: 0.68517, Accuracy: 52.75% | Test Loss: 0.68411, Test Accuracy: 56.50%
+Epoch: 500 | Loss: 0.68102, Accuracy: 52.75% | Test Loss: 0.67941, Test Accuracy: 56.50%
+Epoch: 600 | Loss: 0.67515, Accuracy: 54.50% | Test Loss: 0.67285, Test Accuracy: 56.00%
+Epoch: 700 | Loss: 0.66659, Accuracy: 58.38% | Test Loss: 0.66322, Test Accuracy: 59.00%
+Epoch: 800 | Loss: 0.65160, Accuracy: 64.00% | Test Loss: 0.64757, Test Accuracy: 67.50%
+Epoch: 900 | Loss: 0.62362, Accuracy: 74.00% | Test Loss: 0.62145, Test Accuracy: 79.00%</code></pre>
+</div>
+
+<p>Ho ho! That’s looking far better!</p>
+
+<h3 id="evaluating-a-model-trained-with-non-linear-activation-functions">Evaluating a model trained with non-linear activation functions</h3>
+
+<p>Remember how our circle data is non-linear? Well, let’s see how our models predictions look now the model’s been trained with non-linear activation functions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Make predictions
+</span><span class="n">model_3</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+    <span class="n">y_preds</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">round</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">sigmoid</span><span class="p">(</span><span class="nf">model_3</span><span class="p">(</span><span class="n">X_test</span><span class="p">))).</span><span class="nf">squeeze</span><span class="p">()</span>
+<span class="n">y_preds</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span> <span class="c1"># want preds in same format as truth labels
+</span></code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(tensor([1., 0., 1., 0., 0., 1., 0., 0., 1., 0.], device='cuda:0'),
+ tensor([1., 1., 1., 1., 0., 1., 1., 1., 1., 0.]))</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot decision boundaries for training and test sets
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">6</span><span class="p">))</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Train</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model_1</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span> <span class="c1"># model_1 = no non-linearity
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Test</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">plot_decision_boundary</span><span class="p">(</span><span class="n">model_3</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span> <span class="c1"># model_3 = has non-linearity
+</span></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_96_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Nice! Not perfect but still far better than before.</p>
+
+<p>Potentially you could try a few tricks to improve the test accuracy of the model? (hint: head back to section 5 for tips on improving the model)</p>
+
+<h2 id="replicating-non-linear-activation-functions">Replicating non-linear activation functions</h2>
+
+<p>We saw before how adding non-linear activation functions to our model can help it to model non-linear data.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Much of the data you'll encounter in the wild is non-linear (or a combination of linear and non-linear). Right now, we've been working with dots on a 2D plot. But imagine if you had images of plants you'd like to classify—there are many different plant shapes.
+  </p>
+  <p>
+    Or consider text from Wikipedia you'd like to summarize—there are countless ways words can be put together (both linear and non-linear patterns).
+  </p>
+</div>
+
+<p>But what does a non-linear activation <em>look</em> like?</p>
+
+<p>How about we replicate some and what they do?</p>
+
+<p>Let’s start by creating a small amount of data.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a toy tensor (similar to the data going into our model(s))
+</span><span class="n">A</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+<span class="n">A</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([-10.,  -9.,  -8.,  -7.,  -6.,  -5.,  -4.,  -3.,  -2.,  -1.,
+          0.,   1.,   2.,   3.,   4.,   5.,   6.,   7.,   8.,   9.])</code></pre>
+</div>
+
+<p>Wonderful, now let’s plot it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Visualize the toy tensor
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">A</span><span class="p">);</span>
+</code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_101_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>A straight line, nice.</p>
+
+<p>Now let’s see how the ReLU activation function influences it.</p>
+
+<p>And instead of using PyTorch’s ReLU (<code class="language-plaintext highlighter-rouge">torch.nn.ReLU</code>), we’ll recreate it ourselves.</p>
+
+<p>The ReLU function turns all negatives to 0 and leaves the positive values as they are.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create ReLU function by hand 
+</span><span class="k">def</span> <span class="nf">relu</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">torch</span><span class="p">.</span><span class="nf">maximum</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">x</span><span class="p">)</span> <span class="c1"># inputs must be tensors
+</span>
+<span class="c1"># Pass toy tensor through ReLU function
+</span><span class="nf">relu</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 0., 1., 2., 3., 4., 5., 6., 7.,
+        8., 9.])</code></pre>
+</div>
+
+<p>It looks like our ReLU function worked, all of the negative values are zeros.</p>
+
+<p>Let’s plot them.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot ReLU activated toy tensor
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="nf">relu</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_105_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Nice! That looks exactly like the shape of the ReLU function on the <a href="https://en.wikipedia.org/wiki/Rectifier_(neural_networks)" rel="external nofollow noopener" target="_blank">Wikipedia page for ReLU</a>.</p>
+
+<p>How about we try the <a href="https://en.wikipedia.org/wiki/Sigmoid_function" rel="external nofollow noopener" target="_blank">sigmoid function</a> we’ve been using?</p>
+
+<p>The sigmoid function formula goes like so:</p>
+
+\[out_i = \frac{1}{1+e^{-input_i}}\]
+
+<p>Or using \(x\) as input:</p>
+
+\[S(x) = \frac{1}{1+e^{-x_i}}\]
+
+<p>Where \(S\) stands for sigmoid, $e$ stands for <a href="https://en.wikipedia.org/wiki/Exponential_function" rel="external nofollow noopener" target="_blank">exponential</a> (<a href="https://pytorch.org/docs/stable/generated/torch.exp.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.exp()</code></a>) and \(i\) stands for a particular element in a tensor.</p>
+
+<p>Let’s build a function to replicate the sigmoid function with PyTorch.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a custom sigmoid function
+</span><span class="k">def</span> <span class="nf">sigmoid</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+  <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">torch</span><span class="p">.</span><span class="nf">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
+
+<span class="c1"># Test custom sigmoid on toy tensor
+</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([4.5398e-05, 1.2339e-04, 3.3535e-04, 9.1105e-04, 2.4726e-03, 6.6929e-03,
+        1.7986e-02, 4.7426e-02, 1.1920e-01, 2.6894e-01, 5.0000e-01, 7.3106e-01,
+        8.8080e-01, 9.5257e-01, 9.8201e-01, 9.9331e-01, 9.9753e-01, 9.9909e-01,
+        9.9966e-01, 9.9988e-01])</code></pre>
+</div>
+
+<p>Woah, those values look a lot like prediction probabilities we’ve seen earlier, let’s see what they look like visualized.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot sigmoid activated toy tensor
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="nf">sigmoid</span><span class="p">(</span><span class="n">A</span><span class="p">));</span>
+</code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/02_pytorch_classification_files/02_pytorch_classification_109_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Looking good! We’ve gone from a straight line to a curved line.</p>
+
+<p>Now there’s plenty more <a href="https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity" rel="external nofollow noopener" target="_blank">non-linear activation functions</a> that exist in PyTorch that we haven’t tried.</p>
+
+<p>But these two are two of the most common.</p>
+
+<p>And the point remains, what patterns could you draw using an unlimited amount of linear (straight) and non-linear (not straight) lines?</p>
+
+<p>Almost anything right?</p>
+
+<p>That’s exactly what our model is doing when we combine linear and non-linear functions.</p>
+
+<p>Instead of telling our model what to do, we give it tools to figure out how to best discover patterns in the data.</p>
+
+<p>And those tools are linear and non-linear functions.</p>
+
+<h2 id="putting-things-together-by-building-a-multi-class-pytorch-model">Putting things together by building a multi-class PyTorch model</h2>
+
+<p>We’ve covered a fair bit.</p>
+
+<p>But now let’s put it all together using a multi-class classification problem.</p>
+
+<p>Recall a <strong>binary classification</strong> problem deals with classifying something as one of two options (e.g. a photo as a cat photo or a dog photo) where as a <strong>multi-class classification</strong> problem deals with classifying something from a list of <em>more than</em> two options (e.g. classifying a photo as a cat a dog or a chicken).</p>
 
 
     
@@ -1939,10 +2288,13 @@ Epoch: 900 | Train loss: 0.05571, Test loss: 0.00603</code></pre>
     
   </article>
 </div>
-</div>
+
+            </div>
             <!-- sidebar, which will move to the top on a small screen -->
             <div class="col-sm-3">
-              <nav id="toc-sidebar" class="sticky-top"></nav>
+              <nav id="toc-sidebar" class="sticky-top">
+                <!-- The TOC is injected by JS or jekyll-toc plugin -->
+              </nav>
             </div>
           </div>
         
@@ -1959,7 +2311,7 @@ Epoch: 900 | Train loss: 0.05571, Test loss: 0.00603</code></pre>
       Guo. 
       
       
-        Last updated: December 27, 2024.
+        Last updated: December 28, 2024.
       
     </div>
   </footer>
@@ -2143,5 +2495,94 @@ Epoch: 900 | Train loss: 0.05571, Test loss: 0.00603</code></pre>
 
     
 
+
+    <!-- Inline JS snippet to append the Back link after TOC injection -->
+    <script>
+    window.addEventListener("load", function() {
+      
+      const linkHTML = `
+        <div class="back-link">
+          <a href="/personal/teaching/aibasic">
+            <!-- Arrow icon (inline SVG) -->
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="currentColor"
+            >
+              <path d="M0 0h24v24H0z" fill="none"/>
+              <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+            </svg>
+            <span>AI Basics</span>
+          </a>
+        </div>
+      `;
+
+      const tocSidebar = document.getElementById("toc-sidebar");
+      if (tocSidebar) {
+        tocSidebar.insertAdjacentHTML('beforeend', linkHTML);
+      }
+      
+    });
+    </script>
+
+    <!-- Inline JS to auto-number TOC items in #toc-sidebar -->
+    <script>
+    window.addEventListener("load", function() {
+      // 1) Extract user offset from front matter or default=1
+      
+      const userOffset = parseInt("2", 10);
+      // e.g. if user sets 2 => userOffset=2. If none => userOffset=1
+
+      // We'll define two cases:
+      // A) If userOffset=2 => top-level headings => "3.1", "3.2" ...
+      // B) If userOffset=1 => top-level => "1", "2", sub => "2.1" etc.
+      // We'll handle that with a simple 'if' inside the logic.
+
+      const rootUl = document.querySelector("#toc-sidebar > ul");
+      if (!rootUl) return;
+
+      function numberList(ulElement, prefix = "", startIndex = 1) {
+        const liElements = ulElement.querySelectorAll(":scope > li");
+        let index = startIndex;
+
+        liElements.forEach(li => {
+          let label;
+          if (!prefix) {
+            // top-level: check userOffset
+            if (userOffset === 2) {
+              // => first top-level heading => 3.1 => label = "3.index"
+              const topLevel = userOffset + 1;  // 2+1=3
+              label = `${topLevel}.${index}`;   // => "3.1"
+            } else {
+              // => userOffset=1 or anything else => top-level => "1", "2", "3"...
+              // so label = index
+              label = String(index);
+            }
+          } else {
+            // nested => prefix.index => e.g. "3.2.1"
+            label = `${prefix}.${index}`;
+          }
+
+          const link = li.querySelector(":scope > a");
+          if (link) {
+            link.textContent = label + " " + link.textContent;
+          }
+
+          // If nested <ul>, recurse with sub-level starting at 1
+          const nestedUl = li.querySelector(":scope > ul");
+          if (nestedUl) {
+            numberList(nestedUl, label, 1);
+          }
+
+          index++;
+        });
+      }
+
+      // 2) Call the function on the top-level <ul>, prefix="", startIndex=1
+      numberList(rootUl, "", 1);
+    });
+    </script>
   </body>
 </html>

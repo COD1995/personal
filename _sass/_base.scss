@@ -1385,44 +1385,6 @@ ninja-keys::part(ninja-input-wrapper) {
   border-right: 5px solid var(--global-hover-color);
 }
 
-
-// back link button 
-.fixed-bottom-button {
-  position: fixed;
-  bottom: 60px;
-  /* Distance from the bottom of the page */
-  left: 40px;
-  /* Distance from the left side of the page */
-  z-index: 1000;
-  /* High enough to stay above other elements */
-}
-
-.btn-back-course {
-  display: inline-block;
-  padding: 0.3rem 0.8rem;
-  background-color: var(--global-theme-color);
-  color: var(--global-bg-color);
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 0.75rem;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.btn-back-course:hover {
-  background-color: var(--global-hover-color);
-  color: var(--global-bg-color) !important;
-  /* Ensures text color stays consistent */
-  transform: translateY(-1px);
-  text-decoration: none;
-}
-
-.btn-back-course:active {
-  transform: translateY(0);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
 /* Media query to hide the button on mobile devices */
 @media (max-width: 768px) {
   .fixed-bottom-button {
@@ -2275,4 +2237,54 @@ table.dataframe tbody th {
   border-bottom: 1px solid #ddd;
   text-align: right;
   /* or left, depending on preference */
+}
+
+/* Make sure you import or include this in your main SCSS pipeline */
+
+/* The "Back" link inside #toc-sidebar */
+#toc-sidebar {
+  .back-link {
+    margin-top: 1rem;
+    text-align: right;
+    /* right-align in the sidebar */
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+    /* spacing + divider above the button */
+
+    a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      /* space between arrow and text */
+      background-color: #5bbfb8;
+      /* teal background */
+      color: #fff;
+      /* white text/icon */
+      text-decoration: none;
+      padding: 0.3rem 0.6rem;
+      /* smaller pill size */
+      border-radius: 1.5rem;
+      /* pill shape */
+      font-size: 0.85rem;
+      /* smaller text */
+      font-weight: 400;
+      /* normal weight */
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: #4FAFA8;
+        /* darken teal on hover */
+        color: #fff;
+        /* keep text/icon white */
+      }
+
+      /* SVG arrow smaller + thinner */
+      svg {
+        width: 16px;
+        height: 16px;
+        fill: currentColor;
+        /* inherits the link’s color (white) */
+      }
+    }
+  }
 }

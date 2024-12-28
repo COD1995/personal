@@ -8,14 +8,6 @@ layout: default
   </style>
 {% endif %}
 
-{% if page.back_link %}
-  <div class="fixed-bottom-button">
-    <a href="{{ page.back_link | relative_url }}" class="btn-back-course">
-      &larr; {{ page.back_text | default: "Back to Previous Page" }}
-    </a>
-  </div>
-{% endif %}
-
 <!-- Always apply separation lines (scoped to article) -->
 {% if page.enable_heading_styles %}
   <style type="text/css">
