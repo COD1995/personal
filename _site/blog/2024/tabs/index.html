@@ -228,6 +228,8 @@
             
           
             
+          
+            
               
                 
                 <li class="nav-item ">
@@ -357,7 +359,7 @@ Content 2
 
 <p>With this you can generate visualizations like:</p>
 
-<ul id="log" class="tab" data-tab="a2a1390b-854b-4ece-b886-61a9718b17b5" data-name="log">
+<ul id="log" class="tab" data-tab="1e3a217c-e3a7-45db-a763-b4ac6ae498d2" data-name="log">
   
       <li class="active" id="log-php">
           <a href="#">php </a>
@@ -372,7 +374,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="a2a1390b-854b-4ece-b886-61a9718b17b5" data-name="log">
+<ul class="tab-content" id="1e3a217c-e3a7-45db-a763-b4ac6ae498d2" data-name="log">
   
       <li class="active">
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">var_dump</span><span class="p">(</span><span class="s1">'hello'</span><span class="p">);</span>
@@ -396,7 +398,7 @@ Content 2
 
 <h2 id="another-example">Another example</h2>
 
-<ul id="data-struct" class="tab" data-tab="9718441c-a56e-4d24-add8-318fae5cbf8f" data-name="data-struct">
+<ul id="data-struct" class="tab" data-tab="19d4de52-b15c-49ba-84e4-0cb1c13ddce6" data-name="data-struct">
   
       <li class="active" id="data-struct-yaml">
           <a href="#">yaml </a>
@@ -407,7 +409,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="9718441c-a56e-4d24-add8-318fae5cbf8f" data-name="data-struct">
+<ul class="tab-content" id="19d4de52-b15c-49ba-84e4-0cb1c13ddce6" data-name="data-struct">
   
       <li class="active">
 <div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">hello</span><span class="pi">:</span>
@@ -429,7 +431,7 @@ Content 2
 
 <h2 id="tabs-for-something-else">Tabs for something else</h2>
 
-<ul id="something-else" class="tab" data-tab="f69ba8d9-8491-4060-b8cb-907e61e7a74d" data-name="something-else">
+<ul id="something-else" class="tab" data-tab="52680565-481a-43bf-8b20-1ad863f408bf" data-name="something-else">
   
       <li class="active" id="something-else-text">
           <a href="#">text </a>
@@ -444,7 +446,7 @@ Content 2
       </li>
   
 </ul>
-<ul class="tab-content" id="f69ba8d9-8491-4060-b8cb-907e61e7a74d" data-name="something-else">
+<ul class="tab-content" id="52680565-481a-43bf-8b20-1ad863f408bf" data-name="something-else">
   
       <li class="active">
 <p>Regular text</p>
@@ -546,7 +548,7 @@ Content 2
       Guo. 
       
       
-        Last updated: December 28, 2024.
+        Last updated: December 29, 2024.
       
     </div>
   </footer>
@@ -737,42 +739,44 @@ Content 2
     });
     </script>
 
-    <!-- Inline JS to auto-number TOC items in #toc-sidebar -->
+    <!-- Inline JS to number the TOC items, handling userOffset for ANY > 2 -->
     <script>
     window.addEventListener("load", function() {
-      // 1) Extract user offset from front matter or default=1
+      // Convert page.start_h1_number to an integer, default=1 if missing
       
-      const userOffset = parseInt("1", 10);
-      // e.g. if user sets 2 => userOffset=2. If none => userOffset=1
+      const userOffset = parseInt("1", 10); 
+      // e.g. if user sets 2 => userOffset=2; if 3 => userOffset=3; if none => 1
 
-      // We'll define two cases:
-      // A) If userOffset=2 => top-level headings => "3.1", "3.2" ...
-      // B) If userOffset=1 => top-level => "1", "2", sub => "2.1" etc.
-      // We'll handle that with a simple 'if' inside the logic.
+      // We'll define:
+      // - If userOffset=1 => top-level => "1", "2", "3"...
+      // - If userOffset>1 => top-level => (userOffset+1).index => e.g. for 3 => "4.1", "4.2"
+      //   for 2 => "3.1", "3.2", for 4 => "5.1", "5.2", etc.
 
       const rootUl = document.querySelector("#toc-sidebar > ul");
       if (!rootUl) return;
 
-      function numberList(ulElement, prefix = "", startIndex = 1) {
-        const liElements = ulElement.querySelectorAll(":scope > li");
-        let index = startIndex;
+      function numberList(ul, prefix="", startIndex=1) {
+        const liElements = ul.querySelectorAll(":scope > li");
+        let idx = startIndex;
 
         liElements.forEach(li => {
           let label;
           if (!prefix) {
-            // top-level: check userOffset
-            if (userOffset === 2) {
-              // => first top-level heading => 3.1 => label = "3.index"
-              const topLevel = userOffset + 1;  // 2+1=3
-              label = `${topLevel}.${index}`;   // => "3.1"
+            // top-level
+            if (userOffset === 1) {
+              // "1", "2", "3" etc.
+              label = String(idx);
             } else {
-              // => userOffset=1 or anything else => top-level => "1", "2", "3"...
-              // so label = index
-              label = String(index);
+              // userOffset=2 => top-level => "3.x"
+              // userOffset=3 => top-level => "4.x"
+              // => label = (userOffset+1).idx
+              const topLevelPrefix = userOffset + 1; 
+              label = `${topLevelPrefix}.${idx}`; 
             }
           } else {
-            // nested => prefix.index => e.g. "3.2.1"
-            label = `${prefix}.${index}`;
+            // nested => prefix + "." + idx
+            // e.g. "3.2.1"
+            label = `${prefix}.${idx}`;
           }
 
           const link = li.querySelector(":scope > a");
@@ -780,18 +784,15 @@ Content 2
             link.textContent = label + " " + link.textContent;
           }
 
-          // If nested <ul>, recurse with sub-level starting at 1
-          const nestedUl = li.querySelector(":scope > ul");
-          if (nestedUl) {
-            numberList(nestedUl, label, 1);
+          const nested = li.querySelector(":scope > ul");
+          if (nested) {
+            numberList(nested, label, 1);
           }
-
-          index++;
+          idx++;
         });
       }
 
-      // 2) Call the function on the top-level <ul>, prefix="", startIndex=1
-      numberList(rootUl, "", 1);
+      numberList(rootUl);
     });
     </script>
   </body>

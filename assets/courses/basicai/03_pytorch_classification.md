@@ -1986,3 +1986,602 @@ We've covered a fair bit.
 But now let's put it all together using a multi-class classification problem.
 
 Recall a **binary classification** problem deals with classifying something as one of two options (e.g. a photo as a cat photo or a dog photo) where as a **multi-class classification** problem deals with classifying something from a list of *more than* two options (e.g. classifying a photo as a cat a dog or a chicken).
+
+<div class="row mt-3">
+    {% assign figure_counter = figure_counter | plus: 1 %}
+    <div class="col-sm mt-3 mt-md-0">
+        {% include figure.liquid
+            figure_number=figure_counter
+            loading="eager"
+            path="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/02-binary-vs-multi-class-classification.png"
+            class="img-fluid rounded"
+            caption="Example of binary vs. multi-class classification. Binary deals with two classes (one thing or another), whereas multi-class classification can deal with any number of classes over two. For instance, the popular ImageNet-1k dataset is used as a computer vision benchmark and has 1000 classes."
+            id="fig_binary_vs_multi_class"
+        %}
+    </div>
+</div>
+
+### Creating multi-class classification data
+
+To begin a multi-class classification problem, let's create some multi-class data.
+
+To do so, we can leverage Scikit-Learn's [`make_blobs()`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_blobs.html) method.
+
+This method will create however many classes (using the `centers` parameter) we want.
+
+Specifically, let's do the following:
+
+1. Create some multi-class data with `make_blobs()`.
+2. Turn the data into tensors (the default of `make_blobs()` is to use NumPy arrays).
+3. Split the data into training and test sets using `train_test_split()`.
+4. Visualize the data.
+
+```python
+# Import dependencies
+import torch
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+from sklearn.model_selection import train_test_split
+
+# Set the hyperparameters for data creation
+NUM_CLASSES = 4
+NUM_FEATURES = 2
+RANDOM_SEED = 42
+
+# 1. Create multi-class data
+X_blob, y_blob = make_blobs(n_samples=1000,
+    n_features=NUM_FEATURES, # X features
+    centers=NUM_CLASSES, # y labels 
+    cluster_std=1.5, # give the clusters a little shake up (try changing this to 1.0, the default)
+    random_state=RANDOM_SEED
+)
+
+# 2. Turn data into tensors
+X_blob = torch.from_numpy(X_blob).type(torch.float)
+y_blob = torch.from_numpy(y_blob).type(torch.LongTensor)
+print(X_blob[:5], y_blob[:5])
+
+# 3. Split into train and test sets
+X_blob_train, X_blob_test, y_blob_train, y_blob_test = train_test_split(X_blob,
+    y_blob,
+    test_size=0.2,
+    random_state=RANDOM_SEED
+)
+
+# 4. Plot data
+plt.figure(figsize=(10, 7))
+plt.scatter(X_blob[:, 0], X_blob[:, 1], c=y_blob, cmap=plt.cm.RdYlBu);
+```
+<div class="bash-block">
+  <pre><code>tensor([[-8.4134,  6.9352],
+        [-5.7665, -6.4312],
+        [-6.0421, -6.7661],
+        [ 3.9508,  0.6984],
+        [ 4.2505, -0.2815]]) tensor([3, 2, 2, 1, 1])</code></pre>
+</div>
+
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_113_1.png" | relative_url }}"
+    alt="png"
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Nice! Looks like we've got some multi-class data ready to go.
+
+Let's build a model to separate the coloured blobs. 
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    Does this dataset need non-linearity? Or could you draw a succession of straight lines to separate it?
+  </p>
+</div>
+
+### Building a multi-class classification model in PyTorch
+
+We've created a few models in PyTorch so far.
+
+You might also be starting to get an idea of how flexible neural networks are.
+
+How about we build one similar to `model_3` but this is still capable of handling multi-class data?
+
+To do so, let's create a subclass of `nn.Module` that takes in three hyperparameters:
+* `input_features` - the number of `X` features coming into the model.
+* `output_features` - the ideal numbers of output features we'd like (this will be equivalent to `NUM_CLASSES` or the number of classes in your multi-class classification problem).
+* `hidden_units` - the number of hidden neurons we'd like each hidden layer to use.
+
+Since we're putting things together, let's setup some device agnostic code (we don't have to do this again in the same notebook, it's only a reminder).
+
+Then we'll create the model class using the hyperparameters above.
+
+
+```python
+# Create device agnostic code
+device = "cuda" if torch.cuda.is_available() else "cpu"
+device
+```
+<div class="bash-block">
+  <pre><code>'cuda'</code></pre>
+</div>
+
+```python
+from torch import nn
+
+# Build model
+class BlobModel(nn.Module):
+    def __init__(self, input_features, output_features, hidden_units=8):
+        """Initializes all required hyperparameters for a multi-class classification model.
+
+        Args:
+            input_features (int): Number of input features to the model.
+            out_features (int): Number of output features of the model
+              (how many classes there are).
+            hidden_units (int): Number of hidden units between layers, default 8.
+        """
+        super().__init__()
+        self.linear_layer_stack = nn.Sequential(
+            nn.Linear(in_features=input_features, out_features=hidden_units),
+            # nn.ReLU(), # <- does our dataset require non-linear layers? (try uncommenting and see if the results change)
+            nn.Linear(in_features=hidden_units, out_features=hidden_units),
+            # nn.ReLU(), # <- does our dataset require non-linear layers? (try uncommenting and see if the results change)
+            nn.Linear(in_features=hidden_units, out_features=output_features), # how many classes are there?
+        )
+    
+    def forward(self, x):
+        return self.linear_layer_stack(x)
+
+# Create an instance of BlobModel and send it to the target device
+model_4 = BlobModel(input_features=NUM_FEATURES, 
+                    output_features=NUM_CLASSES, 
+                    hidden_units=8).to(device)
+model_4
+```
+
+<div class="bash-block">
+  <pre><code>BlobModel(
+  (linear_layer_stack): Sequential(
+    (0): Linear(in_features=2, out_features=8, bias=True)
+    (1): Linear(in_features=8, out_features=8, bias=True)
+    (2): Linear(in_features=8, out_features=4, bias=True)
+  )
+)</code></pre>
+</div>
+
+Excellent! Our multi-class model is ready to go, let's create a loss function and optimizer for it.
+
+### Creating a loss function and optimizer for a multi-class PyTorch model
+
+Since we're working on a multi-class classification problem, we'll use the `nn.CrossEntropyLoss()` method as our loss function.
+
+And we'll stick with using SGD with a learning rate of 0.1 for optimizing our `model_4` parameters.
+
+```python
+# Create loss and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(model_4.parameters(), 
+                            lr=0.1) # exercise: try changing the learning rate here and seeing what happens to the model's performance
+```
+
+### Getting prediction probabilities for a multi-class PyTorch model
+
+Alright, we've got a loss function and optimizer ready, and we're ready to train our model but before we do let's do a single forward pass with our model to see if it works.
+
+```python
+# Perform a single forward pass on the data (we'll need to put it to the target device for it to work)
+model_4(X_blob_train.to(device))[:5]
+```
+<div class="bash-block">
+<pre><code>tensor([[-1.2711, -0.6494, -1.4740, -0.7044],
+        [ 0.2210, -1.5439,  0.0420,  1.1531],
+        [ 2.8698,  0.9143,  3.3169,  1.4027],
+        [ 1.9576,  0.3125,  2.2244,  1.1324],
+        [ 0.5458, -1.2381,  0.4441,  1.1804]], device='cuda:0',
+       grad_fn=&lt;SliceBackward0&gt;)</code></pre>
+</div>
+
+What's coming out here?
+
+It looks like we get one value per feature of each sample.
+
+Let's check the shape to confirm.
+
+
+```python
+# How many elements in a single prediction sample?
+model_4(X_blob_train.to(device))[0].shape, NUM_CLASSES 
+```
+
+<div class="bash-block">
+  <pre><code>(torch.Size([4]), 4)</code></pre>
+</div>
+
+Wonderful, our model is predicting one value for each class that we have.
+
+Do you remember what the raw outputs of our model are called?
+
+Hint: it rhymes with "frog splits" (no animals were harmed in the creation of these materials).
+
+If you guessed *logits*, you'd be correct.
+
+So right now our model is outputing logits but what if we wanted to figure out exactly which label is was giving the sample?
+
+As in, how do we go from `logits -> prediction probabilities -> prediction labels` just like we did with the binary classification problem?
+
+That's where the [softmax activation function](https://en.wikipedia.org/wiki/Softmax_function) comes into play.
+
+The softmax function calculates the probability of each prediction class being the actual predicted class compared to all other possible classes.
+
+If this doesn't make sense, let's see in code.
+
+```python
+# Make prediction logits with model
+y_logits = model_4(X_blob_test.to(device))
+
+# Perform softmax calculation on logits across dimension 1 to get prediction probabilities
+y_pred_probs = torch.softmax(y_logits, dim=1) 
+print(y_logits[:5])
+print(y_pred_probs[:5])
+```
+
+<div class="bash-block">
+  <pre><code>tensor([
+    [-1.2549, -0.8112, -1.4795, -0.5696],
+    [ 1.7168, -1.2270,  1.7367,  2.1010],
+    [ 2.2400,  0.7714,  2.6020,  1.0107],
+    [-0.7993, -0.3723, -0.9138, -0.5388],
+    [-0.4332, -1.6117, -0.6891,  0.6852]
+], device='cuda:0', grad_fn=&lt;SliceBackward0&gt;)
+
+tensor([
+    [0.1872, 0.2918, 0.1495, 0.3715],
+    [0.2824, 0.0149, 0.2881, 0.4147],
+    [0.3380, 0.0778, 0.4854, 0.0989],
+    [0.2118, 0.3246, 0.1889, 0.2748],
+    [0.1945, 0.0598, 0.1506, 0.5951]
+], device='cuda:0', grad_fn=&lt;SliceBackward0&gt;)</code></pre>
+</div>
+
+Hmm, what's happened here?
+
+It may still look like the outputs of the softmax function are jumbled numbers (and they are, since our model hasn't been trained and is predicting using random patterns) but there's a very specific thing different about each sample.
+
+After passing the logits through the softmax function, each individual sample now adds to 1 (or very close to).
+
+Let's check.
+
+```python
+# Sum the first sample output of the softmax activation function 
+torch.sum(y_pred_probs[0])
+```
+<div class="bash-block">
+  <pre><code>tensor(1., device='cuda:0', grad_fn=&lt;SumBackward0&gt;)</code></pre>
+</div>
+
+These prediction probabilities are essentially saying how much the model *thinks* the target `X` sample (the input) maps to each class.
+
+Since there's one value for each class in `y_pred_probs`, the index of the *highest* value is the class the model thinks the specific data sample *most* belongs to.
+
+We can check which index has the highest value using `torch.argmax()`.
+
+
+```python
+# Which class does the model think is *most* likely at the index 0 sample?
+print(y_pred_probs[0])
+print(torch.argmax(y_pred_probs[0]))
+```
+
+<div class="bash-block">
+  <pre><code>tensor([0.1872, 0.2918, 0.1495, 0.3715], device='cuda:0', grad_fn=&lt;SelectBackward0&gt;)
+tensor(3, device='cuda:0')</code></pre>
+</div>
+
+You can see the output of `torch.argmax()` returns 3, so for the features (`X`) of the sample at index 0, the model is predicting that the most likely class value (`y`) is 3.
+
+Of course, right now this is just random guessing so it's got a 25% chance of being right (since there's four classes). But we can improve those chances by training the model.
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    To summarize the above, a model's raw output is referred to as <strong>logits</strong>.
+  </p>
+  <p>
+    For a multi-class classification problem, to turn the logits into <strong>prediction probabilities</strong>, you use the softmax activation function (<code>torch.softmax</code>).
+  </p>
+  <p>
+    The index of the value with the highest <strong>prediction probability</strong> is the class number the model thinks is <em>most</em> likely given the input features for that sample (although this is a prediction, it doesn't mean it will be correct).
+  </p>
+</div>
+
+### Creating a training and testing loop for a multi-class PyTorch model
+
+Alright, now we've got all of the preparation steps out of the way, let's write a training and testing loop to improve and evaluate our model.
+
+We've done many of these steps before so much of this will be practice.
+
+The only difference is that we'll be adjusting the steps to turn the model outputs (logits) to prediction probabilities (using the softmax activation function) and then to prediction labels (by taking the argmax of the output of the softmax activation function).
+
+Let's train the model for `epochs=100` and evaluate it every 10 epochs.
+
+```python
+# Fit the model
+torch.manual_seed(42)
+
+# Set number of epochs
+epochs = 100
+
+# Put data to target device
+X_blob_train, y_blob_train = X_blob_train.to(device), y_blob_train.to(device)
+X_blob_test, y_blob_test = X_blob_test.to(device), y_blob_test.to(device)
+
+for epoch in range(epochs):
+    ### Training
+    model_4.train()
+
+    # 1. Forward pass
+    y_logits = model_4(X_blob_train) # model outputs raw logits 
+    y_pred = torch.softmax(y_logits, dim=1).argmax(dim=1) # go from logits -> prediction probabilities -> prediction labels
+    # print(y_logits)
+    # 2. Calculate loss and accuracy
+    loss = loss_fn(y_logits, y_blob_train) 
+    acc = accuracy_fn(y_true=y_blob_train,
+                      y_pred=y_pred)
+
+    # 3. Optimizer zero grad
+    optimizer.zero_grad()
+
+    # 4. Loss backwards
+    loss.backward()
+
+    # 5. Optimizer step
+    optimizer.step()
+
+    ### Testing
+    model_4.eval()
+    with torch.inference_mode():
+      # 1. Forward pass
+      test_logits = model_4(X_blob_test)
+      test_pred = torch.softmax(test_logits, dim=1).argmax(dim=1)
+      # 2. Calculate test loss and accuracy
+      test_loss = loss_fn(test_logits, y_blob_test)
+      test_acc = accuracy_fn(y_true=y_blob_test,
+                             y_pred=test_pred)
+
+    # Print out what's happening
+    if epoch % 10 == 0:
+        print(f"Epoch: {epoch} | Loss: {loss:.5f}, Acc: {acc:.2f}% | Test Loss: {test_loss:.5f}, Test Acc: {test_acc:.2f}%") 
+```
+
+<div class="bash-block">
+  <pre><code>Epoch: 0  | Loss: 1.04324, Acc: 65.50% | Test Loss: 0.57861, Test Acc: 95.50%
+Epoch: 10 | Loss: 0.14398, Acc: 99.12% | Test Loss: 0.13037, Test Acc: 99.00%
+Epoch: 20 | Loss: 0.08062, Acc: 99.12% | Test Loss: 0.07216, Test Acc: 99.50%
+Epoch: 30 | Loss: 0.05924, Acc: 99.12% | Test Loss: 0.05133, Test Acc: 99.50%
+Epoch: 40 | Loss: 0.04892, Acc: 99.00% | Test Loss: 0.04098, Test Acc: 99.50%
+Epoch: 50 | Loss: 0.04295, Acc: 99.00% | Test Loss: 0.03486, Test Acc: 99.50%
+Epoch: 60 | Loss: 0.03910, Acc: 99.00% | Test Loss: 0.03083, Test Acc: 99.50%
+Epoch: 70 | Loss: 0.03643, Acc: 99.00% | Test Loss: 0.02799, Test Acc: 99.50%
+Epoch: 80 | Loss: 0.03448, Acc: 99.00% | Test Loss: 0.02587, Test Acc: 99.50%
+Epoch: 90 | Loss: 0.03300, Acc: 99.12% | Test Loss: 0.02423, Test Acc: 99.50%
+  </code></pre>
+</div>
+
+### Making and evaluating predictions with a PyTorch multi-class model
+
+It looks like our trained model is performing pretty well.
+
+But to make sure of this, let's make some predictions and visualize them.
+
+```python
+# Make predictions
+model_4.eval()
+with torch.inference_mode():
+    y_logits = model_4(X_blob_test)
+
+# View the first 10 predictions
+y_logits[:10]
+```
+
+<div class="bash-block">
+  <pre><code> tensor([[  4.3377,  10.3539, -14.8948,  -9.7642],
+        [  5.0142, -12.0371,   3.3860,  10.6699],
+        [ -5.5885, -13.3448,  20.9894,  12.7711],
+        [  1.8400,   7.5599,  -8.6016,  -6.9942],
+        [  8.0726,   3.2906, -14.5998,  -3.6186],
+        [  5.5844, -14.9521,   5.0168,  13.2890],
+        [ -5.9739, -10.1913,  18.8655,   9.9179],
+        [  7.0755,  -0.7601,  -9.5531,   0.1736],
+        [ -5.5918, -18.5990,  25.5309,  17.5799],
+        [  7.3142,   0.7197, -11.2017,  -1.2011]], device='cuda:0')
+  </code></pre>
+</div>
+
+Alright, looks like our model's predictions are still in logit form.
+
+Though to evaluate them, they'll have to be in the same form as our labels (`y_blob_test`) which are in integer form.
+
+Let's convert our model's prediction logits to prediction probabilities (using `torch.softmax()`) then to prediction labels (by taking the `argmax()` of each sample).
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    It's possible to skip the <code>torch.softmax()</code> function and go straight from <strong>predicted logits</strong> to <strong>predicted labels</strong> by calling <code>torch.argmax()</code> directly on the logits.
+  </p>
+  <p>
+    For example, <code>y_preds = torch.argmax(y_logits, dim=1)</code>, this saves a computation step (no <code>torch.softmax()</code>) but results in no prediction probabilities being available to use.
+  </p>
+</div>
+
+```python
+# Turn predicted logits in prediction probabilities
+y_pred_probs = torch.softmax(y_logits, dim=1)
+
+# Turn prediction probabilities into prediction labels
+y_preds = y_pred_probs.argmax(dim=1)
+
+# Compare first 10 model preds and test labels
+print(f"Predictions: {y_preds[:10]}\nLabels: {y_blob_test[:10]}")
+print(f"Test accuracy: {accuracy_fn(y_true=y_blob_test, y_pred=y_preds)}%")
+```
+<div class="bash-block">
+  <pre><code>Predictions: tensor([1, 3, 2, 1, 0, 3, 2, 0, 2, 0], device='cuda:0')
+Labels:      tensor([1, 3, 2, 1, 0, 3, 2, 0, 2, 0], device='cuda:0')
+Test accuracy: 99.5%
+  </code></pre>
+</div>
+
+Nice! Our model predictions are now in the same form as our test labels.
+
+Let's visualize them with `plot_decision_boundary()`, remember because our data is on the GPU, we'll have to move it to the CPU for use with matplotlib (`plot_decision_boundary()` does this automatically for us).
+
+
+```python
+plt.figure(figsize=(12, 6))
+plt.subplot(1, 2, 1)
+plt.title("Train")
+plot_decision_boundary(model_4, X_blob_train, y_blob_train)
+plt.subplot(1, 2, 2)
+plt.title("Test")
+plot_decision_boundary(model_4, X_blob_test, y_blob_test)
+```
+
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/02_pytorch_classification_files/02_pytorch_classification_138_0.png" | relative_url }}" 
+    alt="02 PyTorch Classification Visualization"
+    class="img-fluid"
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+## More classification evaluation metrics
+
+So far we've only covered a couple of ways of evaluating a classification model (accuracy, loss and visualizing predictions).
+
+These are some of the most common methods you'll come across and are a good starting point.
+
+However, you may want to evaluate your classification model using more metrics such as the following:
+
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th><strong>Metric name/Evaluation method</strong></th>
+        <th><strong>Definition</strong></th>
+        <th><strong>Code</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Accuracy</td>
+        <td>Out of 100 predictions, how many does your model get correct? E.g., 95% accuracy means it gets 95/100 predictions correct.</td>
+        <td><a href="https://torchmetrics.readthedocs.io/en/stable/classification/accuracy.html#id3" target="_blank">torchmetrics.Accuracy()</a> or <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html" target="_blank">sklearn.metrics.accuracy_score()</a></td>
+      </tr>
+      <tr>
+        <td>Precision</td>
+        <td>Proportion of true positives over the total number of samples. Higher precision leads to fewer false positives (model predicts 1 when it should've been 0).</td>
+        <td><a href="https://torchmetrics.readthedocs.io/en/stable/classification/precision.html#id4" target="_blank">torchmetrics.Precision()</a> or <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html" target="_blank">sklearn.metrics.precision_score()</a></td>
+      </tr>
+      <tr>
+        <td>Recall</td>
+        <td>Proportion of true positives over the total number of true positives and false negatives (model predicts 0 when it should've been 1). Higher recall leads to fewer false negatives.</td>
+        <td><a href="https://torchmetrics.readthedocs.io/en/stable/classification/recall.html#id5" target="_blank">torchmetrics.Recall()</a> or <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.recall_score.html" target="_blank">sklearn.metrics.recall_score()</a></td>
+      </tr>
+      <tr>
+        <td>F1-score</td>
+        <td>Combines precision and recall into one metric. 1 is best, 0 is worst.</td>
+        <td><a href="https://torchmetrics.readthedocs.io/en/stable/classification/f1_score.html#f1score" target="_blank">torchmetrics.F1Score()</a> or <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html" target="_blank">sklearn.metrics.f1_score()</a></td>
+      </tr>
+      <tr>
+        <td><a href="https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/" target="_blank">Confusion matrix</a></td>
+        <td>Compares the predicted values with the true values in a tabular way. If 100% correct, all values in the matrix will be on the diagonal (from top left to bottom right).</td>
+        <td><a href="https://torchmetrics.readthedocs.io/en/stable/classification/confusion_matrix.html#confusionmatrix" target="_blank">torchmetrics.ConfusionMatrix</a> or <a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.ConfusionMatrixDisplay.html#sklearn.metrics.ConfusionMatrixDisplay.from_predictions" target="_blank">sklearn.metrics.plot_confusion_matrix()</a></td>
+      </tr>
+      <tr>
+        <td>Classification report</td>
+        <td>Collection of some of the main classification metrics such as precision, recall, and F1-score.</td>
+        <td><a href="https://scikit-learn.org/stable/modules/generated/sklearn.metrics.classification_report.html" target="_blank">sklearn.metrics.classification_report()</a></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Scikit-Learn (a popular and world-class machine learning library) has many implementations of the above metrics and you're looking for a PyTorch-like version, check out [TorchMetrics](https://torchmetrics.readthedocs.io/en/latest/), especially the [TorchMetrics classification section](https://torchmetrics.readthedocs.io/en/stable/pages/classification.html). 
+
+Let's try the `torchmetrics.Accuracy` metric out.
+
+```python
+try:
+    from torchmetrics import Accuracy
+except:
+    !pip install torchmetrics==0.9.3 # this is the version we're using in this notebook (later versions exist here: https://torchmetrics.readthedocs.io/en/stable/generated/CHANGELOG.html#changelog)
+    from torchmetrics import Accuracy
+
+# Setup metric and make sure it's on the target device
+torchmetrics_accuracy = Accuracy(task='multiclass', num_classes=4).to(device)
+
+# Calculate accuracy
+torchmetrics_accuracy(y_preds, y_blob_test)
+```
+
+<div class="bash-block">
+  <pre><code> tensor(0.9950, device='cuda:0')
+  </code></pre>
+</div>
+
+## Exercises
+
+All of the exercises are focused on practicing the code in the sections above.
+
+You should be able to complete them by referencing each section or by following the resource(s) linked.
+
+All exercises should be completed using [device-agonistic code](https://pytorch.org/docs/stable/notes/cuda.html#device-agnostic-code).
+
+
+1. Make a binary classification dataset with Scikit-Learn's [`make_moons()`](https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_moons.html) function.
+    * For consistency, the dataset should have 1000 samples and a `random_state=42`.
+    * Turn the data into PyTorch tensors. Split the data into training and test sets using `train_test_split` with 80% training and 20% testing.
+2. Build a model by subclassing `nn.Module` that incorporates non-linear activation functions and is capable of fitting the data you created in 1.
+    * Feel free to use any combination of PyTorch layers (linear and non-linear) you want.
+3. Setup a binary classification compatible loss function and optimizer to use when training the model.
+4. Create a training and testing loop to fit the model you created in 2 to the data you created in 1.
+    * To measure model accuracy, you can create your own accuracy function or use the accuracy function in [TorchMetrics](https://torchmetrics.readthedocs.io/en/latest/).
+    * Train the model for long enough for it to reach over 96% accuracy.
+    * The training loop should output progress every 10 epochs of the model's training and test set loss and accuracy.
+5. Make predictions with your trained model and plot them using the `plot_decision_boundary()` function created in this notebook.
+6. Replicate the Tanh (hyperbolic tangent) activation function in pure PyTorch.
+    * Feel free to reference the [ML cheatsheet website](https://ml-cheatsheet.readthedocs.io/en/latest/activation_functions.html#tanh) for the formula.
+7. Create a multi-class dataset using the [spirals data creation function from CS231n](https://cs231n.github.io/neural-networks-case-study/) (see below for the code).
+    * Construct a model capable of fitting the data (you may need a combination of linear and non-linear layers).
+    * Build a loss function and optimizer capable of handling multi-class data (optional extension: use the Adam optimizer instead of SGD, you may have to experiment with different values of the learning rate to get it working).
+    * Make a training and testing loop for the multi-class data and train a model on it to reach over 95% testing accuracy (you can use any accuracy measuring function here that you like).
+    * Plot the decision boundaries on the spirals dataset from your model predictions, the `plot_decision_boundary()` function should work for this dataset too.
+
+```python
+# Code for creating a spiral dataset from CS231n
+import numpy as np
+N = 100 # number of points per class
+D = 2 # dimensionality
+K = 3 # number of classes
+X = np.zeros((N*K,D)) # data matrix (each row = single example)
+y = np.zeros(N*K, dtype='uint8') # class labels
+for j in range(K):
+  ix = range(N*j,N*(j+1))
+  r = np.linspace(0.0,1,N) # radius
+  t = np.linspace(j*4,(j+1)*4,N) + np.random.randn(N)*0.2 # theta
+  X[ix] = np.c_[r*np.sin(t), r*np.cos(t)]
+  y[ix] = j
+# lets visualize the data
+plt.scatter(X[:, 0], X[:, 1], c=y, s=40, cmap=plt.cm.Spectral)
+plt.show()
+```
+
+## Extra-curriculum
+
+* Write down 3 problems where you think machine classification could be useful (these can be anything, get creative as you like, for example, classifying credit card transactions as fraud or not fraud based on the purchase amount and purchase location features). 
+* Research the concept of "momentum" in gradient-based optimizers (like SGD or Adam), what does it mean?
+* Spend 10-minutes reading the [Wikipedia page for different activation functions](https://en.wikipedia.org/wiki/Activation_function#Table_of_activation_functions), how many of these can you line up with [PyTorch's activation functions](https://pytorch.org/docs/stable/nn.html#non-linear-activations-weighted-sum-nonlinearity)?
+* Research when accuracy might be a poor metric to use (hint: read ["Beyond Accuracy" by Will Koehrsen](https://willkoehrsen.github.io/statistics/learning/beyond-accuracy-precision-and-recall/) for ideas).
+* **Watch:** For an idea of what's happening within our neural networks and what they're doing to learn, watch [MIT's Introduction to Deep Learning video](https://youtu.be/7sB052Pz0sQ).

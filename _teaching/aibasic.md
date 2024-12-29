@@ -159,6 +159,7 @@ semesters:
       <td>
         <ul>
           <li><a href="{{ 'assets/courses/basicai/03_pytorch_classification/' | relative_url }}">PyTorch Neural Network Classification</a></li>
+          <li><a href="{{ 'assets/courses/basicai/04_pytorch_computer_vision/' | relative_url }}">PyTorch Computer Vision</a></li>
         </ul>
       </td>
   </tbody>
