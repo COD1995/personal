@@ -469,7 +469,7 @@ the graph, respectively. Edge embedding converts each edge of \(G\) into a low d
       Guo. 
       
       
-        Last updated: December 29, 2024.
+        Last updated: December 31, 2024.
       
     </div>
   </footer>
@@ -654,92 +654,111 @@ the graph, respectively. Edge embedding converts each edge of \(G\) into a low d
     
 
 
-    <!-- Inline JS snippet to append the Back link after TOC injection -->
+    <!-- Inline JS snippet: always show the Back link if page.back_link is set,
+     either in #toc-sidebar or, if that doesn't exist, in the navbar. -->
     <script>
-    window.addEventListener("load", function() {
-      
-      const linkHTML = `
-        <div class="back-link">
-          <a href="/personal/teaching/deeplearnig">
-            <!-- Arrow icon (inline SVG) -->
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              width="16"
-              height="16"
-              fill="currentColor"
-            >
-              <path d="M0 0h24v24H0z" fill="none"/>
-              <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
-            </svg>
-            <span>Deep Learning</span>
-          </a>
-        </div>
-      `;
+      window.addEventListener("load", function() {
+        // If page.back_link is present, show a back button
+        
+        // If page.back_text is missing, default to "Back"
+        
 
-      const tocSidebar = document.getElementById("toc-sidebar");
-      if (tocSidebar) {
-        tocSidebar.insertAdjacentHTML('beforeend', linkHTML);
-      }
-      
-    });
-    </script>
+        // We'll build two versions of the snippet:
+        // 1) A <div> version for the TOC sidebar (no bullet marker)
+        // 2) A <li> version for the navbar fallback
+
+        const tocHTML = `
+          <div class="back-link" style="margin-top:1rem;">
+            <a href="/personal/teaching/deeplearnig" style="text-decoration: none; display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>Deep Learning</span>
+            </a>
+          </div>
+        `;
+
+        const navHTML = `
+          <li class="nav-item back-link" style=""display: inline-flex; align-items: center;"">
+            <a class="nav-link" href="/personal/teaching/deeplearnig" style="display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>Deep Learning</span>
+            </a>
+          </li>
+        `;
+
+        // 1) If #toc-sidebar exists, we insert the "tocHTML" (a <div>)
+        let tocSidebar = document.getElementById("toc-sidebar");
+        if (tocSidebar) {
+          tocSidebar.insertAdjacentHTML("beforeend", tocHTML);
+        } else {
+          // 2) Otherwise, we append the "navHTML" (<li>) to the navbar
+          //    so user sees the link in the top nav
+          let navbarUl = document.querySelector("#navbarNav ul.navbar-nav");
+          if (navbarUl) {
+            navbarUl.insertAdjacentHTML("beforeend", navHTML);
+          }
+        }
+        
+      });
+      </script>
 
     <!-- Inline JS to number the TOC items, handling userOffset for ANY > 2 -->
     <script>
-    window.addEventListener("load", function() {
-      // Convert page.start_h1_number to an integer, default=1 if missing
-      
-      const userOffset = parseInt("1", 10); 
-      // e.g. if user sets 2 => userOffset=2; if 3 => userOffset=3; if none => 1
+      window.addEventListener("load", function() {
+        // If page.start_h1_number is not set, or not an integer,
+        // treat it as "no offset" => start at 1, 2, 3
+        
 
-      // We'll define:
-      // - If userOffset=1 => top-level => "1", "2", "3"...
-      // - If userOffset>1 => top-level => (userOffset+1).index => e.g. for 3 => "4.1", "4.2"
-      //   for 2 => "3.1", "3.2", for 4 => "5.1", "5.2", etc.
+        const parsedOffset = parseInt("", 10);
+        const hasUserOffset = !isNaN(parsedOffset);
+        
+        const rootUl = document.querySelector("#toc-sidebar > ul");
+        if (!rootUl) return;
 
-      const rootUl = document.querySelector("#toc-sidebar > ul");
-      if (!rootUl) return;
+        function numberList(ul, prefix = "", startIndex = 1) {
+          const liElements = ul.querySelectorAll(":scope > li");
+          let idx = startIndex;
 
-      function numberList(ul, prefix="", startIndex=1) {
-        const liElements = ul.querySelectorAll(":scope > li");
-        let idx = startIndex;
+          liElements.forEach(li => {
+            let label;
 
-        liElements.forEach(li => {
-          let label;
-          if (!prefix) {
-            // top-level
-            if (userOffset === 1) {
-              // "1", "2", "3" etc.
-              label = String(idx);
+            if (!prefix) {
+              // Top-level items
+              if (!hasUserOffset) {
+                // If there's no valid user offset, use 1,2,3...
+                label = String(idx);
+              } else {
+                // If user provided offset => (parsedOffset + 1).1, (parsedOffset + 1).2, etc.
+                label = `${parsedOffset + 1}.${idx}`;
+              }
             } else {
-              // userOffset=2 => top-level => "3.x"
-              // userOffset=3 => top-level => "4.x"
-              // => label = (userOffset+1).idx
-              const topLevelPrefix = userOffset + 1; 
-              label = `${topLevelPrefix}.${idx}`; 
+              // Nested => prefix + "." + idx
+              label = `${prefix}.${idx}`;
             }
-          } else {
-            // nested => prefix + "." + idx
-            // e.g. "3.2.1"
-            label = `${prefix}.${idx}`;
-          }
 
-          const link = li.querySelector(":scope > a");
-          if (link) {
-            link.textContent = label + " " + link.textContent;
-          }
+            const link = li.querySelector(":scope > a");
+            if (link) {
+              link.textContent = label + " " + link.textContent;
+            }
 
-          const nested = li.querySelector(":scope > ul");
-          if (nested) {
-            numberList(nested, label, 1);
-          }
-          idx++;
-        });
-      }
+            const nested = li.querySelector(":scope > ul");
+            if (nested) {
+              numberList(nested, label, 1);
+            }
 
-      numberList(rootUl);
-    });
+            idx++;
+          });
+        }
+
+        numberList(rootUl);
+      });
     </script>
   </body>
 </html>
