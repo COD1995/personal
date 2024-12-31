@@ -1,0 +1,2801 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Head -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- Metadata, OpenGraph and Schema.org -->
+
+
+
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  
+  
+    
+      PyTorch Fundamentals | Jue Guo
+    
+  
+</title>
+<meta name="author" content="Jue Guo">
+<meta name="description" content="An introduction to PyTorch tensors, operations, and GPU usage.">
+
+  <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap & MDB -->
+<link rel="stylesheet" href="/personal/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+<!-- Bootstrap Table -->
+
+
+<!-- Fonts & Icons -->
+<link defer rel="stylesheet" href="/personal/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
+
+<!-- Code Syntax Highlighting -->
+<link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
+
+
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
+
+
+<!-- Styles -->
+
+<!-- pseudocode -->
+
+
+
+  <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A4%96&lt;/text&gt;&lt;/svg&gt;">
+
+<link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/basicai/01_pytorch_fundamentals/">
+
+<!-- Dark Mode -->
+<script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
+
+
+<!-- GeoJSON support via Leaflet -->
+
+
+<!-- diff2html -->
+
+
+
+
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+    <!-- Header -->
+    <header>
+  <!-- Nav Bar -->
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/personal//">
+          
+            
+              <span class="font-weight-bold">Jue</span>
+            
+            
+            Guo
+          
+        </a>
+      
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/personal/">about
+              
+            </a>
+          </li>
+
+          <!-- Other pages -->
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/personal/teaching/">courses
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/personal/cv/">cv
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+          
+            
+          
+            
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  
+</header>
+
+    <!-- Content -->
+    <div class="container mt-5" role="main">
+      
+        
+          <div class="row">
+            <!-- main content area -->
+            <div class="col-sm-9">
+              
+
+<!-- Always apply separation lines (scoped to article) -->
+
+  <style type="text/css">
+    /* Heading 1 */
+    .post > article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
+    }
+
+    /* Heading 2 */
+    .post > article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter 0;
+    }
+
+    /* Heading 1 */
+    .post > article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      
+      /* Show h1 number */
+      
+    }
+
+    
+    .post > article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+    
+
+    /* Heading 2 */
+    .post > article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    .post > article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    .post > article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    .post > article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      counter-increment: h5-counter;
+    }
+
+    .post > article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
+
+
+
+<div class="post">
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">PyTorch Fundamentals</h1>
+      <p class="post-description">An introduction to PyTorch tensors, operations, and GPU usage.</p>
+    </header>
+
+    <p>This class introduces you to PyTorch, a popular framework for building and training deep learning models. We’ll start from the ground up, covering what tensors are, how to create and manipulate them, how to speed things up with GPUs, how to get consistent results with random seeds, and how to switch between PyTorch and NumPy (another popular Python library for handling numerical data).</p>
+
+<p>You do not need any prior experience in PyTorch or Python. We’ll treat this as if you’re completely new. Our main goal: by the end of this 50-minute session, you should be able to confidently create and work with PyTorch tensors, which are the fundamental building blocks of advanced neural networks.</p>
+
+<h2 id="what-is-pytorch">What is PyTorch?</h2>
+
+<p><a href="https://pytorch.org/" rel="external nofollow noopener" target="_blank">PyTorch</a> is an open source machine learning and deep learning framework.</p>
+
+<h2 id="what-can-pytorch-be-used-for">What can PyTorch be used for?</h2>
+
+<p>PyTorch allows you to manipulate and process data and write machine learning algorithms using Python code.</p>
+
+<h2 id="who-uses-pytorch">Who uses PyTorch?</h2>
+
+<p>Many of the world’s largest technology companies such as <a href="https://ai.facebook.com/blog/pytorch-builds-the-future-of-ai-and-machine-learning-at-facebook/" rel="external nofollow noopener" target="_blank">Meta (Facebook)</a>, Tesla and Microsoft as well as artificial intelligence research companies such as <a href="https://openai.com/blog/openai-pytorch/" rel="external nofollow noopener" target="_blank">OpenAI use PyTorch</a> to power research and bring machine learning to their products.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_pytorch_industry_research1">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00-pytorch-being-used-across-research-and-industry.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 1: PyTorch being used across industry and research.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>For example, Andrej Karpathy (head of AI at Tesla) has given several talks (<a href="https://youtu.be/oBklltKXtDE" rel="external nofollow noopener" target="_blank">PyTorch DevCon 2019</a>, <a href="https://youtu.be/j0z4FweCy4M?t=2904" rel="external nofollow noopener" target="_blank">Tesla AI Day 2021</a>) about how Tesla uses PyTorch to power their self-driving computer vision models.</p>
+
+<p>PyTorch is also used in other industries such as agriculture to <a href="https://medium.com/pytorch/ai-for-ag-production-machine-learning-for-agriculture-e8cfdb9849a1" rel="external nofollow noopener" target="_blank">power computer vision on tractors</a>.</p>
+
+<h2 id="why-use-pytorch">Why use PyTorch?</h2>
+
+<p>Machine learning researchers love using PyTorch. And as of February 2022, PyTorch is the <a href="https://paperswithcode.com/trends" rel="external nofollow noopener" target="_blank">most used deep learning framework on Papers With Code</a>, a website for tracking machine learning research papers and the code repositories attached with them.</p>
+
+<p>PyTorch also helps take care of many things such as GPU acceleration (making your code run faster) behind the scenes.</p>
+
+<p>So you can focus on manipulating data and writing algorithms and PyTorch will make sure it runs fast.</p>
+
+<p>And if companies such as Tesla and Meta (Facebook) use it to build models they deploy to power hundreds of applications, drive thousands of cars and deliver content to billions of people, it’s clearly capable on the development front too.</p>
+
+<h2 id="what-were-going-to-cover-in-this-module">What we’re going to cover in this module</h2>
+
+<p>This course is broken down into different sections (notebooks).</p>
+
+<p>Each notebook covers important ideas and concepts within PyTorch.</p>
+
+<p>Subsequent notebooks build upon knowledge from the previous one (numbering starts at 00, 01, 02 and goes to whatever it ends up going to).</p>
+
+<p>This notebook deals with the basic building block of machine learning and deep learning, the tensor.</p>
+
+<p>Specifically, we’re going to cover:</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Contents</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Introduction to tensors</td>
+      <td>Tensors are the basic building block of all of machine learning and deep learning.</td>
+    </tr>
+    <tr>
+      <td>Creating tensors</td>
+      <td>Tensors can represent almost any kind of data (images, words, tables of numbers).</td>
+    </tr>
+    <tr>
+      <td>Getting information from tensors</td>
+      <td>If you can put information into a tensor, you'll want to get it out too.</td>
+    </tr>
+    <tr>
+      <td>Manipulating tensors</td>
+      <td>Machine learning algorithms (like neural networks) involve manipulating tensors in many different ways such as adding, multiplying, combining.</td>
+    </tr>
+    <tr>
+      <td>Dealing with tensor shapes</td>
+      <td>One of the most common issues in machine learning is dealing with shape mismatches (trying to mix wrong shaped tensors with other tensors).</td>
+    </tr>
+    <tr>
+      <td>Indexing on tensors</td>
+      <td>If you've indexed on a Python list or NumPy array, it's very similar with tensors, except they can have far more dimensions.</td>
+    </tr>
+    <tr>
+      <td>Mixing PyTorch tensors and NumPy</td>
+      <td>PyTorch plays with tensors (<a href="https://pytorch.org/docs/stable/tensors.html" rel="external nofollow noopener" target="_blank">torch.Tensor</a>), NumPy likes arrays (<a href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html" rel="external nofollow noopener" target="_blank">np.ndarray</a>) sometimes you'll want to mix and match these.</td>
+    </tr>
+    <tr>
+      <td>Reproducibility</td>
+      <td>Machine learning is very experimental and since it uses a lot of <em>randomness</em> to work, sometimes you'll want that <em>randomness</em> to not be so random.</td>
+    </tr>
+    <tr>
+      <td>Running tensors on GPU</td>
+      <td>GPUs (Graphics Processing Units) make your code faster, PyTorch makes it easy to run your code on GPUs.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="importing-pytorch">Importing PyTorch</h2>
+
+<div class="note-box">
+  <p>Before running any of the code in this notebook, you should have gone through the <a href="https://pytorch.org/get-started/locally/" rel="external nofollow noopener" target="_blank">PyTorch setup steps</a>.</p>
+  <p><strong>If you're running on Google Colab</strong>, everything should work as is, since Google Colab comes with PyTorch and other necessary libraries pre-installed.</p>
+</div>
+
+<p>Let’s start by importing PyTorch and checking the version we’re using.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>echo '1.13.1+cu116'</code></pre>
+</div>
+
+<p>Wonderful, it looks like we’ve got PyTorch 1.10.0+.</p>
+
+<p>This means if you’re going through these materials, you’ll see most compatability with PyTorch 1.10.0+, however if your version number is far higher than that, you might notice some inconsistencies.</p>
+
+<h2 id="introduction-to-tensors">Introduction to tensors</h2>
+
+<p>Now we’ve got PyTorch imported, it’s time to learn about tensors.</p>
+
+<p>Tensors are the fundamental building block of machine learning.</p>
+
+<p>Their job is to represent data in a numerical way.</p>
+
+<p>For example, you could represent an image as a tensor with shape <code class="language-plaintext highlighter-rouge">[3, 224, 224]</code> which would mean <code class="language-plaintext highlighter-rouge">[colour_channels, height, width]</code>, as in the image has <code class="language-plaintext highlighter-rouge">3</code> colour channels (red, green, blue), a height of <code class="language-plaintext highlighter-rouge">224</code> pixels and a width of <code class="language-plaintext highlighter-rouge">224</code> pixels.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_tensor_shape_example2">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00-tensor-shape-example-of-image.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 2: An example of going from an input image to a tensor representation. The image is broken down into three color channels as well as numerical values representing its height and width.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>In tensor-speak (the language used to describe tensors), the tensor would have three dimensions, one for <code class="language-plaintext highlighter-rouge">colour_channels</code>, <code class="language-plaintext highlighter-rouge">height</code> and <code class="language-plaintext highlighter-rouge">width</code>.</p>
+
+<p>But we’re getting ahead of ourselves.</p>
+
+<p>Let’s learn more about tensors by coding them.</p>
+
+<h3 id="creating-tensors">Creating tensors</h3>
+
+<p>PyTorch loves tensors. So much so there’s a whole documentation page dedicated to the <a href="https://pytorch.org/docs/stable/tensors.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor</code></a> class.</p>
+
+<p>Your first piece of homework is to <a href="https://pytorch.org/docs/stable/tensors.html" rel="external nofollow noopener" target="_blank">read through the documentation on <code class="language-plaintext highlighter-rouge">torch.Tensor</code></a> for 10-minutes. But you can get to that later.</p>
+
+<p>Let’s code.</p>
+
+<p>The first thing we’re going to create is a <strong>scalar</strong>.</p>
+
+<p>A scalar is a single number and in tensor-speak it’s a zero dimension tensor.</p>
+
+<div class="note-box">
+  <strong>Note:</strong> That's a trend for this course. We'll focus on writing specific code. But often I'll set exercises which involve reading and getting familiar with the PyTorch documentation. Because after all, once you're finished this course, you'll no doubt want to learn more. And the documentation is somewhere you'll be finding yourself quite often.
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Scalar
+</span><span class="n">scalar</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+<span class="n">scalar</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor(7)</code></pre>
+</div>
+
+<p>See how the above printed out <code class="language-plaintext highlighter-rouge">tensor(7)</code>?</p>
+
+<p>That means although <code class="language-plaintext highlighter-rouge">scalar</code> is a single number, it’s of type <code class="language-plaintext highlighter-rouge">torch.Tensor</code>.</p>
+
+<p>We can check the dimensions of a tensor using the <code class="language-plaintext highlighter-rouge">ndim</code> attribute.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scalar</span><span class="p">.</span><span class="n">ndim</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>0</code></pre>
+</div>
+
+<p>What if we wanted to retrieve the number from the tensor?</p>
+
+<p>As in, turn it from <code class="language-plaintext highlighter-rouge">torch.Tensor</code> to a Python integer?</p>
+
+<p>To do we can use the <code class="language-plaintext highlighter-rouge">item()</code> method.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get the Python number within a tensor (only works with one-element tensors)
+</span><span class="n">scalar</span><span class="p">.</span><span class="nf">item</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>7</code></pre>
+</div>
+
+<p>Okay, now let’s see a <strong>vector</strong>.</p>
+
+<p>A vector is a single dimension tensor but can contain many numbers.</p>
+
+<p>As in, you could have a vector <code class="language-plaintext highlighter-rouge">[3, 2]</code> to describe <code class="language-plaintext highlighter-rouge">[bedrooms, bathrooms]</code> in your house. Or you could have <code class="language-plaintext highlighter-rouge">[3, 2, 2]</code> to describe <code class="language-plaintext highlighter-rouge">[bedrooms, bathrooms, car_parks]</code> in your house.</p>
+
+<p>The important trend here is that a vector is flexible in what it can represent (the same with tensors).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Vector
+</span><span class="n">vector</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
+<span class="n">vector</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([7, 7])</code></pre>
+</div>
+
+<p>Wonderful, <code class="language-plaintext highlighter-rouge">vector</code> now contains two 7’s, my favourite number.</p>
+
+<p>How many dimensions do you think it’ll have?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check the number of dimensions of vector
+</span><span class="n">vector</span><span class="p">.</span><span class="n">ndim</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>1</code></pre>
+</div>
+
+<p>Hmm, that’s strange, <code class="language-plaintext highlighter-rouge">vector</code> contains two numbers but only has a single dimension.</p>
+
+<p>I’ll let you in on a trick.</p>
+
+<p>You can tell the number of dimensions a tensor in PyTorch has by the <em>number of square brackets</em> on the outside (<code class="language-plaintext highlighter-rouge">[</code>) and you only need to count one side.</p>
+
+<p>How many square brackets does <code class="language-plaintext highlighter-rouge">vector</code> have?</p>
+
+<p>Another important concept for tensors is their <code class="language-plaintext highlighter-rouge">shape</code> attribute. The shape tells you how the elements inside them are arranged.</p>
+
+<p>Let’s check out the shape of <code class="language-plaintext highlighter-rouge">vector</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check shape of vector
+</span><span class="n">vector</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>torch.Size([2])</code></pre>
+</div>
+
+<p>The above returns <code class="language-plaintext highlighter-rouge">torch.Size([2])</code> which means our vector has a shape of <code class="language-plaintext highlighter-rouge">[2]</code>. This is because of the two elements we placed inside the square brackets (<code class="language-plaintext highlighter-rouge">[7, 7]</code>).</p>
+
+<p>Let’s now see a <strong>matrix</strong>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Matrix
+</span><span class="n">MATRIX</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> 
+                       <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
+<span class="n">MATRIX</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[ 7,  8],
+            [ 9, 10]])</code></pre>
+</div>
+
+<p>Wow! More numbers! Matrices are as flexible as vectors, except they’ve got an extra dimension.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check number of dimensions
+</span><span class="n">MATRIX</span><span class="p">.</span><span class="n">ndim</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>2</code></pre>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">MATRIX</code> has two dimensions (did you count the number of square brackets on the outside of one side?).</p>
+
+<p>What <code class="language-plaintext highlighter-rouge">shape</code> do you think it will have?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MATRIX</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>torch.Size([2, 2])</code></pre>
+</div>
+
+<p>We get the output <code class="language-plaintext highlighter-rouge">torch.Size([2, 2])</code> because <code class="language-plaintext highlighter-rouge">MATRIX</code> is two elements deep and two elements wide.</p>
+
+<p>How about we create a <strong>tensor</strong>?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Tensor
+</span><span class="n">TENSOR</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
+                        <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]])</span>
+<span class="n">TENSOR</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[[1, 2, 3],
+             [3, 6, 9],
+             [2, 4, 5]]])</code></pre>
+</div>
+
+<p>Woah! What a nice looking tensor.</p>
+
+<p><strong>I want to stress that tensors can represent almost anything.</strong></p>
+
+<p>The one we just created could be the sales numbers for a steak and almond butter store (two of my favourite foods).</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_simple_tensor3">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00_simple_tensor.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 3: A simple tensor depicted using a Google Sheet: days of week, steak sales, and almond butter sales.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>How many dimensions do you think it has? (hint: use the square bracket counting trick)</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check number of dimensions for TENSOR
+</span><span class="n">TENSOR</span><span class="p">.</span><span class="n">ndim</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>3</code></pre>
+</div>
+
+<p>And what about its shape?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check shape of TENSOR
+</span><span class="n">TENSOR</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>torch.Size([1, 3, 3])</code></pre>
+</div>
+
+<p>Alright, it outputs <code class="language-plaintext highlighter-rouge">torch.Size([1, 3, 3])</code>.</p>
+
+<p>The dimensions go outer to inner.</p>
+
+<p>That means there’s 1 dimension of 3 by 3.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_tensor_dimensions4">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00-pytorch-different-tensor-dimensions.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 4: An example demonstrating different tensor dimensions.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<div class="note-box">
+  <p><strong>Note:</strong> You might've noticed me using lowercase letters for <code>scalar</code> and <code>vector</code> and uppercase letters for <code>MATRIX</code> and <code>TENSOR</code>. This was on purpose. In practice, you'll often see scalars and vectors denoted as lowercase letters such as <code>y</code> or <code>a</code>. And matrices and tensors denoted as uppercase letters such as <code>X</code> or <code>W</code>.</p>
+
+  <p>You also might notice the names "matrix" and "tensor" used interchangeably. This is common. Since in PyTorch you're often dealing with <code>torch.Tensor</code>s (hence the tensor name), the shape and dimensions of what's inside will dictate what it actually is.</p>
+</div>
+
+<p>Let’s summarise.</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>What is it?</th>
+      <th>Number of dimensions</th>
+      <th>Lower or upper (usually/example)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>scalar</strong></td>
+      <td>a single number</td>
+      <td>0</td>
+      <td>Lower (<code>a</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>vector</strong></td>
+      <td>a number with direction (e.g. wind speed with direction) but can also have many other numbers</td>
+      <td>1</td>
+      <td>Lower (<code>y</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>matrix</strong></td>
+      <td>a 2-dimensional array of numbers</td>
+      <td>2</td>
+      <td>Upper (<code>Q</code>)</td>
+    </tr>
+    <tr>
+      <td><strong>tensor</strong></td>
+      <td>an n-dimensional array of numbers</td>
+      <td>can be any number, a 0-dimension tensor is a scalar, a 1-dimension tensor is a vector</td>
+      <td>Upper (<code>X</code>)</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_scalar_vector_matrix_tensor5">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00-scalar-vector-matrix-tensor.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 5: A comparison of scalars, vectors, matrices, and tensors, showing their differences in dimensions.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<h3 id="random-tensors">Random tensors</h3>
+
+<p>We’ve established tensors represent some form of data.</p>
+
+<p>And machine learning models such as neural networks manipulate and seek patterns within tensors.</p>
+
+<p>But when building machine learning models with PyTorch, it’s rare you’ll create tensors by hand (like what we’ve been doing).</p>
+
+<p>Instead, a machine learning model often starts out with large random tensors of numbers and adjusts these random numbers as it works through data to better represent it.</p>
+
+<p>In essence:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Start with random numbers -&gt; look at data -&gt; update random numbers -&gt; look at data -&gt; update random numbers...</code></p>
+
+<p>As a data scientist, you can define how the machine learning model starts (initialization), looks at data (representation) and updates (optimization) its random numbers.</p>
+
+<p>We’ll get hands on with these steps later on.</p>
+
+<p>For now, let’s see how to create a tensor of random numbers.</p>
+
+<p>We can do so using <a href="https://pytorch.org/docs/stable/generated/torch.rand.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.rand()</code></a> and passing in the <code class="language-plaintext highlighter-rouge">size</code> parameter.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a random tensor of size (3, 4)
+</span><span class="n">random_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">random_tensor</span><span class="p">,</span> <span class="n">random_tensor</span><span class="p">.</span><span class="n">dtype</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[0.6541, 0.4807, 0.2162, 0.6168],
+             [0.4428, 0.6608, 0.6194, 0.8620],
+             [0.2795, 0.6055, 0.4958, 0.5483]]),
+            torch.float32)</code></pre>
+</div>
+
+<p>The flexibility of <code class="language-plaintext highlighter-rouge">torch.rand()</code> is that we can adjust the <code class="language-plaintext highlighter-rouge">size</code> to be whatever we want.</p>
+
+<p>For example, say you wanted a random tensor in the common image shape of <code class="language-plaintext highlighter-rouge">[224, 224, 3]</code> (<code class="language-plaintext highlighter-rouge">[height, width, color_channels</code>]).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a random tensor of size (224, 224, 3)
+</span><span class="n">random_image_size_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+<span class="n">random_image_size_tensor</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">random_image_size_tensor</span><span class="p">.</span><span class="n">ndim</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(torch.Size([224, 224, 3]), 3)</code></pre>
+</div>
+
+<h3 id="zeros-and-ones">Zeros and ones</h3>
+
+<p>Sometimes you’ll just want to fill tensors with zeros or ones.</p>
+
+<p>This happens a lot with masking (like masking some of the values in one tensor with zeros to let a model know not to learn them).</p>
+
+<p>Let’s create a tensor full of zeros with <a href="https://pytorch.org/docs/stable/generated/torch.zeros.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.zeros()</code></a></p>
+
+<p>Again, the <code class="language-plaintext highlighter-rouge">size</code> parameter comes into play.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor of all zeros
+</span><span class="n">zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">zeros</span><span class="p">,</span> <span class="n">zeros</span><span class="p">.</span><span class="n">dtype</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(tensor([[0., 0., 0., 0.],
+             [0., 0., 0., 0.],
+             [0., 0., 0., 0.]]),
+ torch.float32)</code></pre>
+</div>
+
+<p>We can do the same to create a tensor of all ones except using <a href="https://pytorch.org/docs/stable/generated/torch.ones.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.ones()</code> </a> instead.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor of all ones
+</span><span class="n">ones</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">ones</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ones</span><span class="p">,</span> <span class="n">ones</span><span class="p">.</span><span class="n">dtype</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[1., 1., 1., 1.],
+             [1., 1., 1., 1.],
+             [1., 1., 1., 1.]]),
+ torch.float32)</code></pre>
+</div>
+
+<h3 id="creating-a-range-and-tensors-like">Creating a range and tensors like</h3>
+
+<p>Sometimes you might want a range of numbers, such as 1 to 10 or 0 to 100.</p>
+
+<p>You can use <code class="language-plaintext highlighter-rouge">torch.arange(start, end, step)</code> to do so.</p>
+
+<p>Where:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">start</code> = start of range (e.g. 0)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">end</code> = end of range (e.g. 10)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">step</code> = how many steps in between each value (e.g. 1)</li>
+</ul>
+
+<div class="note-box">
+  <strong>Note:</strong> In Python, you can use <code>range()</code> to create a range. However, in PyTorch, <code>torch.range()</code> is deprecated and may show an error in the future.
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Use torch.arange(), torch.range() is deprecated 
+</span><span class="n">zero_to_ten_deprecated</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Note: this may return an error in the future
+</span>
+<span class="c1"># Create a range of values 0 to 10
+</span><span class="n">zero_to_ten</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">zero_to_ten</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code><span class="deprecated-msg">/tmp/ipykernel_3695928/193451495.py:2: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
+  zero_to_ten_deprecated = torch.range(0, 10) # Note: this may return an error in the future
+</span>
+
+tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
+</div>
+
+<p>Sometimes you might want one tensor of a certain type with the same shape as another tensor.</p>
+
+<p>For example, a tensor of all zeros with the same shape as a previous tensor.</p>
+
+<p>To do so you can use <a href="https://pytorch.org/docs/stable/generated/torch.zeros_like.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.zeros_like(input)</code></a> or <a href="https://pytorch.org/docs/1.9.1/generated/torch.ones_like.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.ones_like(input)</code></a> which return a tensor filled with zeros or ones in the same shape as the <code class="language-plaintext highlighter-rouge">input</code> respectively.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Can also create a tensor of zeros similar to another tensor
+</span><span class="n">ten_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">zeros_like</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">zero_to_ten</span><span class="p">)</span> <span class="c1"># will have same shape
+</span><span class="n">ten_zeros</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])</code></pre>
+</div>
+
+<h3 id="tensor-datatypes">Tensor datatypes</h3>
+
+<p>There are many different <a href="https://pytorch.org/docs/stable/tensors.html#data-types" rel="external nofollow noopener" target="_blank">tensor datatypes available in PyTorch</a>.</p>
+
+<p>Some are specific for CPU and some are better for GPU.</p>
+
+<p>Getting to know which one can take some time.</p>
+
+<p>Generally if you see <code class="language-plaintext highlighter-rouge">torch.cuda</code> anywhere, the tensor is being used for GPU (since Nvidia GPUs use a computing toolkit called CUDA).</p>
+
+<p>The most common type (and generally the default) is <code class="language-plaintext highlighter-rouge">torch.float32</code> or <code class="language-plaintext highlighter-rouge">torch.float</code>.</p>
+
+<p>This is referred to as “32-bit floating point”.</p>
+
+<p>But there’s also 16-bit floating point (<code class="language-plaintext highlighter-rouge">torch.float16</code> or <code class="language-plaintext highlighter-rouge">torch.half</code>) and 64-bit floating point (<code class="language-plaintext highlighter-rouge">torch.float64</code> or <code class="language-plaintext highlighter-rouge">torch.double</code>).</p>
+
+<p>And to confuse things even more there’s also 8-bit, 16-bit, 32-bit and 64-bit integers.</p>
+
+<p>Plus more!</p>
+
+<div class="note-box">
+  <strong>Note:</strong> An integer is a flat round number like <code>7</code> whereas a float has a decimal <code>7.0</code>.
+</div>
+
+<p>The reason for all of these is to do with <strong>precision in computing</strong>.</p>
+
+<p>Precision is the amount of detail used to describe a number.</p>
+
+<p>The higher the precision value (8, 16, 32), the more detail and hence data used to express a number.</p>
+
+<p>This matters in deep learning and numerical computing because you’re making so many operations, the more detail you have to calculate on, the more compute you have to use.</p>
+
+<p>So lower precision datatypes are generally faster to compute on but sacrifice some performance on evaluation metrics like accuracy (faster to compute but less accurate).</p>
+
+<div class="note-box">
+  <strong>Resources:</strong>
+  <ul>
+    <li>See the <a href="https://pytorch.org/docs/stable/tensors.html#data-types" rel="external nofollow noopener" target="_blank">PyTorch documentation for a list of all available tensor datatypes</a>.</li>
+    <li>Read the <a href="https://en.wikipedia.org/wiki/Precision_(computer_science)" rel="external nofollow noopener" target="_blank">Wikipedia page for an overview of what precision in computing</a> is.</li>
+  </ul>
+</div>
+
+<p>Let’s see how to create some tensors with specific datatypes. We can do so using the <code class="language-plaintext highlighter-rouge">dtype</code> parameter.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Default datatype for tensors is float32
+</span><span class="n">float_32_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">],</span>
+                               <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="c1"># defaults to None, which is torch.float32 or whatever datatype is passed
+</span>                               <span class="n">device</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="c1"># defaults to None, which uses the default tensor type
+</span>                               <span class="n">requires_grad</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="c1"># if True, operations performed on the tensor are recorded 
+</span>
+<span class="n">float_32_tensor</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">float_32_tensor</span><span class="p">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">float_32_tensor</span><span class="p">.</span><span class="n">device</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(torch.Size([3]), torch.float32, device(type='cpu'))</code></pre>
+</div>
+
+<p>Aside from shape issues (tensor shapes don’t match up), two of the other most common issues you’ll come across in PyTorch are datatype and device issues.</p>
+
+<p>For example, one of tensors is <code class="language-plaintext highlighter-rouge">torch.float32</code> and the other is <code class="language-plaintext highlighter-rouge">torch.float16</code> (PyTorch often likes tensors to be the same format).</p>
+
+<p>Or one of your tensors is on the CPU and the other is on the GPU (PyTorch likes calculations between tensors to be on the same device).</p>
+
+<p>We’ll see more of this device talk later on.</p>
+
+<p>For now let’s create a tensor with <code class="language-plaintext highlighter-rouge">dtype=torch.float16</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">float_16_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">],</span>
+                               <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> <span class="c1"># torch.half would also work
+</span>
+<span class="n">float_16_tensor</span><span class="p">.</span><span class="n">dtype</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>torch.float16</code></pre>
+</div>
+
+<h2 id="getting-information-from-tensors">Getting information from tensors</h2>
+
+<p>Once you’ve created tensors (or someone else or a PyTorch module has created them for you), you might want to get some information from them.</p>
+
+<p>We’ve seen these before but three of the most common attributes you’ll want to find out about tensors are:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">shape</code> - what shape is the tensor? (some operations require specific shape rules)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">dtype</code> - what datatype are the elements within the tensor stored in?</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">device</code> - what device is the tensor stored on? (usually GPU or CPU)</li>
+</ul>
+
+<p>Let’s create a random tensor and find out details about it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+</span><span class="n">some_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Find out details about it
+</span><span class="nf">print</span><span class="p">(</span><span class="n">some_tensor</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Shape of tensor: </span><span class="si">{</span><span class="n">some_tensor</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Datatype of tensor: </span><span class="si">{</span><span class="n">some_tensor</span><span class="p">.</span><span class="n">dtype</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Device tensor is stored on: </span><span class="si">{</span><span class="n">some_tensor</span><span class="p">.</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># will default to CPU
+</span></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[0.4688, 0.0055, 0.8551, 0.0646],
+        [0.6538, 0.5157, 0.4071, 0.2109],
+        [0.9960, 0.3061, 0.9369, 0.7008]])
+Shape of tensor: torch.Size([3, 4])
+Datatype of tensor: torch.float32
+Device tensor is stored on: cpu</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> When you run into issues in PyTorch, it's very often one to do with one of the three attributes above. So when the error messages show up, sing yourself a little song called "what, what, where":
+
+  <ul>
+    <li><em>what shape are my tensors? what datatype are they and where are they stored? what shape, what datatype, where where where</em></li>
+  </ul>
+</div>
+
+<h2 id="manipulating-tensors-tensor-operations">Manipulating tensors (tensor operations)</h2>
+
+<p>In deep learning, data (images, text, video, audio, protein structures, etc) gets represented as tensors.</p>
+
+<p>A model learns by investigating those tensors and performing a series of operations (could be 1,000,000s+) on tensors to create a representation of the patterns in the input data.</p>
+
+<p>These operations are often a wonderful dance between:</p>
+<ul>
+  <li>Addition</li>
+  <li>Substraction</li>
+  <li>Multiplication (element-wise)</li>
+  <li>Division</li>
+  <li>Matrix multiplication</li>
+</ul>
+
+<p>And that’s it. Sure there are a few more here and there but these are the basic building blocks of neural networks.</p>
+
+<p>Stacking these building blocks in the right way, you can create the most sophisticated of neural networks (just like lego!).</p>
+
+<h3 id="basic-operations">Basic operations</h3>
+
+<p>Let’s start with a few of the fundamental operations, addition (<code class="language-plaintext highlighter-rouge">+</code>), subtraction (<code class="language-plaintext highlighter-rouge">-</code>), mutliplication (<code class="language-plaintext highlighter-rouge">*</code>).</p>
+
+<p>They work just as you think they would.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor of values and add a number to it
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">tensor</span> <span class="o">+</span> <span class="mi">10</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([11, 12, 13])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Multiply it by 10
+</span><span class="n">tensor</span> <span class="o">*</span> <span class="mi">10</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([10, 20, 30])</code></pre>
+</div>
+
+<p>Notice how the tensor values above didn’t end up being <code class="language-plaintext highlighter-rouge">tensor([110, 120, 130])</code>, this is because the values inside the tensor don’t change unless they’re reassigned.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Tensors don't change unless reassigned
+</span><span class="n">tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
+
+<p>Let’s subtract a number and this time we’ll reassign the <code class="language-plaintext highlighter-rouge">tensor</code> variable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Subtract and reassign
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">-</span> <span class="mi">10</span>
+<span class="n">tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([-9, -8, -7])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add and reassign
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">+</span> <span class="mi">10</span>
+<span class="n">tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
+
+<p>PyTorch also has a bunch of built-in functions like <a href="https://pytorch.org/docs/stable/generated/torch.mul.html#torch.mul" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.mul()</code></a> (short for multiplication) and <a href="https://pytorch.org/docs/stable/generated/torch.add.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.add()</code></a> to perform basic operations.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Can also use torch functions
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">multiply</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([10, 20, 30])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Original tensor is still unchanged 
+</span><span class="n">tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
+
+<p>However, it’s more common to use the operator symbols like <code class="language-plaintext highlighter-rouge">*</code> instead of <code class="language-plaintext highlighter-rouge">torch.mul()</code></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Element-wise multiplication (each element multiplies its equivalent, index 0-&gt;0, 1-&gt;1, 2-&gt;2)
+</span><span class="nf">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="sh">"</span><span class="s">*</span><span class="sh">"</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Equals:</span><span class="sh">"</span><span class="p">,</span> <span class="n">tensor</span> <span class="o">*</span> <span class="n">tensor</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3]) * tensor([1, 2, 3])
+Equals: tensor([1, 4, 9])</code></pre>
+</div>
+
+<h3 id="matrix-multiplication-is-all-you-need">Matrix multiplication (is all you need)</h3>
+
+<p>One of the most common operations in machine learning and deep learning algorithms (like neural networks) is <a href="https://www.mathsisfun.com/algebra/matrix-multiplying.html" rel="external nofollow noopener" target="_blank">matrix multiplication</a>.</p>
+
+<p>PyTorch implements matrix multiplication functionality in the <a href="https://pytorch.org/docs/stable/generated/torch.matmul.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.matmul()</code></a> method.</p>
+
+<p>The main two rules for matrix multiplication to remember are:</p>
+
+<ol>
+  <li>The <strong>inner dimensions</strong> must match:
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">(3, 2) @ (3, 2)</code> won’t work</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">(2, 3) @ (3, 2)</code> will work</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">(3, 2) @ (2, 3)</code> will work</li>
+    </ul>
+  </li>
+  <li>The resulting matrix has the shape of the <strong>outer dimensions</strong>:
+    <ul>
+      <li>
+<code class="language-plaintext highlighter-rouge">(2, 3) @ (3, 2)</code> -&gt; <code class="language-plaintext highlighter-rouge">(2, 2)</code>
+</li>
+      <li>
+<code class="language-plaintext highlighter-rouge">(3, 2) @ (2, 3)</code> -&gt; <code class="language-plaintext highlighter-rouge">(3, 3)</code>
+</li>
+    </ul>
+  </li>
+</ol>
+
+<div class="note-box">
+  <ul>
+    <li>
+<strong>Note:</strong> "<code>@</code>" in Python is the symbol for matrix multiplication.</li>
+    <li>
+<strong>Resource:</strong> See the rules for matrix multiplication using <code>torch.matmul()</code> in the <a href="https://pytorch.org/docs/stable/generated/torch.matmul.html" rel="external nofollow noopener" target="_blank">PyTorch documentation</a>.</li>
+  </ul>
+</div>
+
+<p>Let’s create a tensor and perform element-wise multiplication and matrix multiplication on it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">tensor</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>torch.Size([3])</code></pre>
+</div>
+
+<p>The difference between element-wise multiplication and matrix multiplication is the addition of values.</p>
+
+<p>For our <code class="language-plaintext highlighter-rouge">tensor</code> variable with values <code class="language-plaintext highlighter-rouge">[1, 2, 3]</code>:</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Calculation</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Element-wise multiplication</strong></td>
+      <td>[1*1, 2*2, 3*3] = [1, 4, 9]</td>
+      <td><code>tensor * tensor</code></td>
+    </tr>
+    <tr>
+      <td><strong>Matrix multiplication</strong></td>
+      <td>[1*1 + 2*2 + 3*3] = [14]</td>
+      <td><code>tensor.matmul(tensor)</code></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Element-wise matrix multiplication
+</span><span class="n">tensor</span> <span class="o">*</span> <span class="n">tensor</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([1, 4, 9])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Matrix multiplication
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor(14)</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Can also use the "@" symbol for matrix multiplication, though not recommended
+</span><span class="n">tensor</span> <span class="o">@</span> <span class="n">tensor</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor(14)</code></pre>
+</div>
+
+<p>You can do matrix multiplication by hand but it’s not recommended.</p>
+
+<p>The in-built <code class="language-plaintext highlighter-rouge">torch.matmul()</code> method is faster.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
+<span class="c1"># Matrix multiplication by hand 
+# (avoid doing operations with for loops at all cost, they are computationally expensive)
+</span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">tensor</span><span class="p">)):</span>
+  <span class="n">value</span> <span class="o">+=</span> <span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+<span class="n">value</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>CPU times: user 773 µs, sys: 0 ns, total: 773 µs
+Wall time: 499 µs
+
+tensor(14)</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
+<span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>CPU times: user 146 µs, sys: 83 µs, total: 229 µs
+Wall time: 171 µs
+
+tensor(14)</code></pre>
+</div>
+
+<h2 id="one-of-the-most-common-errors-in-deep-learning-shape-errors">One of the most common errors in deep learning (shape errors)</h2>
+
+<p>Because much of deep learning is multiplying and performing operations on matrices and matrices have a strict rule about what shapes and sizes can be combined, one of the most common errors you’ll run into in deep learning is shape mismatches.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Shapes need to be in the right way  
+</span><span class="n">tensor_A</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">tensor_B</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span>
+                         <span class="p">[</span><span class="mi">8</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> 
+                         <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
+
+<span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">,</span> <span class="n">tensor_B</span><span class="p">)</span> <span class="c1"># (this will error)
+</span></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code><span class="traceback">---------------------------------------------------------------------------</span>
+
+<span class="traceback">RuntimeError                              Traceback (most recent call last)</span>
+
+tensor_A = torch.tensor([[1, 2],
+                         [3, 4],
+                         [5, 6]], dtype=torch.float32)
+
+tensor_B = torch.tensor([[7, 10],
+                         [8, 11], 
+                         [9, 12]], dtype=torch.float32)
+
+torch.matmul(tensor_A, tensor_B)
+
+<span class="error-msg">RuntimeError: mat1 and mat2 shapes cannot be multiplied (3x2 and 3x2)</span></code></pre>
+</div>
+
+<p>We can make matrix multiplication work between <code class="language-plaintext highlighter-rouge">tensor_A</code> and <code class="language-plaintext highlighter-rouge">tensor_B</code> by making their inner dimensions match.</p>
+
+<p>One of the ways to do this is with a <strong>transpose</strong> (switch the dimensions of a given tensor).</p>
+
+<p>You can perform transposes in PyTorch using either:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">torch.transpose(input, dim0, dim1)</code> - where <code class="language-plaintext highlighter-rouge">input</code> is the desired tensor to transpose and <code class="language-plaintext highlighter-rouge">dim0</code> and <code class="language-plaintext highlighter-rouge">dim1</code> are the dimensions to be swapped.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">tensor.T</code> - where <code class="language-plaintext highlighter-rouge">tensor</code> is the desired tensor to transpose.</li>
+</ul>
+
+<p>Let’s try the latter.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># View tensor_A and tensor_B
+</span><span class="nf">print</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">tensor_B</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[1., 2.],
+        [3., 4.],
+        [5., 6.]])
+tensor([[ 7., 10.],
+        [ 8., 11.],
+        [ 9., 12.]])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># View tensor_A and tensor_B.T
+</span><span class="nf">print</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[1., 2.],
+        [3., 4.],
+        [5., 6.]])
+tensor([[ 7.,  8.,  9.],
+        [10., 11., 12.]])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The operation works when tensor_B is transposed
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Original shapes: tensor_A = </span><span class="si">{</span><span class="n">tensor_A</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s">, tensor_B = </span><span class="si">{</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shapes: tensor_A = </span><span class="si">{</span><span class="n">tensor_A</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> (same as above), tensor_B.T = </span><span class="si">{</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Multiplying: </span><span class="si">{</span><span class="n">tensor_A</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> * </span><span class="si">{</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> &lt;- inner dimensions match</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Output:</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">,</span> <span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> 
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Output shape: </span><span class="si">{</span><span class="n">output</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Original shapes: tensor_A = torch.Size([3, 2]), tensor_B = torch.Size([3, 2])
+
+New shapes: tensor_A = torch.Size([3, 2]) (same as above), tensor_B.T = torch.Size([2, 3])
+
+Multiplying: torch.Size([3, 2]) * torch.Size([2, 3]) &lt;- inner dimensions match
+
+Output:
+
+tensor([[ 27.,  30.,  33.],
+        [ 61.,  68.,  75.],
+        [ 95., 106., 117.]])
+
+Output shape: torch.Size([3, 3])</code></pre>
+</div>
+
+<p>You can also use <a href="https://pytorch.org/docs/stable/generated/torch.mm.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.mm()</code></a> which is a short for <code class="language-plaintext highlighter-rouge">torch.matmul()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># torch.mm is a shortcut for matmul
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">mm</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">,</span> <span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[ 27.,  30.,  33.],
+        [ 61.,  68.,  75.],
+        [ 95., 106., 117.]])</code></pre>
+</div>
+
+<p>Without the transpose, the rules of matrix multiplication aren’t fulfilled and we get an error like above.</p>
+
+<p>How about a visual?</p>
+
+<p><img src="https://github.com/mrdbourke/pytorch-deep-learning/raw/main/images/00-matrix-multiply-crop.gif" alt="visual demo of matrix multiplication"></p>
+
+<p>You can create your own matrix multiplication visuals like this at http://matrixmultiplication.xyz/.</p>
+
+<div class="note-box">
+  <strong>Note:</strong> A matrix multiplication like this is also referred to as the <a href="https://www.mathsisfun.com/algebra/vectors-dot-product.html" rel="external nofollow noopener" target="_blank"><strong>dot product</strong></a> of two matrices.
+</div>
+
+<p>Neural networks are full of matrix multiplications and dot products.</p>
+
+<p>The <a href="https://pytorch.org/docs/1.9.1/generated/torch.nn.Linear.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.nn.Linear()</code></a> module (we’ll see this in action later on), also known as a feed-forward layer or fully connected layer, implements a matrix multiplication between an input <code class="language-plaintext highlighter-rouge">x</code> and a weights matrix <code class="language-plaintext highlighter-rouge">A</code>.</p>
+
+\[y = x\cdot{A^T} + b\]
+
+<p>Where:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">x</code> is the input to the layer (deep learning is a stack of layers like <code class="language-plaintext highlighter-rouge">torch.nn.Linear()</code> and others on top of each other).</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">A</code> is the weights matrix created by the layer, this starts out as random numbers that get adjusted as a neural network learns to better represent patterns in the data (notice the “<code class="language-plaintext highlighter-rouge">T</code>”, that’s because the weights matrix gets transposed).
+    <ul>
+      <li>
+<strong>Note:</strong> You might also often see <code class="language-plaintext highlighter-rouge">W</code> or another letter like <code class="language-plaintext highlighter-rouge">X</code> used to showcase the weights matrix.</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">b</code> is the bias term used to slightly offset the weights and inputs.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">y</code> is the output (a manipulation of the input in the hopes to discover patterns in it).</li>
+</ul>
+
+<p>This is a linear function (you may have seen something like $y = mx+b$ in high school or elsewhere), and can be used to draw a straight line!</p>
+
+<p>Let’s play around with a linear layer.</p>
+
+<p>Try changing the values of <code class="language-plaintext highlighter-rouge">in_features</code> and <code class="language-plaintext highlighter-rouge">out_features</code> below and see what happens.</p>
+
+<p>Do you notice anything to do with the shapes?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Since the linear layer starts with a random weights matrix, let's make it reproducible (more on this later)
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># This uses matrix multiplication
+</span><span class="n">linear</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># in_features = matches inner dimension of input 
+</span>                         <span class="n">out_features</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span> <span class="c1"># out_features = describes outer value 
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">tensor_A</span>
+<span class="n">output</span> <span class="o">=</span> <span class="nf">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Input shape: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Output:</span><span class="se">\n</span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n\n</span><span class="s">Output shape: </span><span class="si">{</span><span class="n">output</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Input shape: torch.Size([3, 2])
+
+Output:
+tensor([[2.2368, 1.2292, 0.4714, 0.3864, 0.1309, 0.9838],
+        [4.4919, 2.1970, 0.4469, 0.5285, 0.3401, 2.4777],
+        [6.7469, 3.1648, 0.4224, 0.6705, 0.5493, 3.9716]],
+       grad_fn=&lt;AddmmBackward0&gt;)
+
+Output shape: torch.Size([3, 6])</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong> What happens if you change <code>in_features</code> from 2 to 3 above? Does it error?
+  How could you change the shape of the input (<code>x</code>) to accommodate the error?
+  <em>Hint:</em> What did we have to do to <code>tensor_B</code> above?
+</div>
+
+<p>If you’ve never done it before, matrix multiplication can be a confusing topic at first.</p>
+
+<p>But after you’ve played around with it a few times and even cracked open a few neural networks, you’ll notice it’s everywhere.</p>
+
+<p>Remember, matrix multiplication is all you need.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_matrix_multiplication_is_all_you_need6">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/00_matrix_multiplication_is_all_you_need.jpeg" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 6: Matrix multiplication is all you need.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><em>When you start digging into neural network layers and building your own, you’ll find matrix multiplications everywhere. <strong>Source:</strong> <a href="https://marksaroufim.substack.com/p/working-class-deep-learner" rel="external nofollow noopener" target="_blank">Working Calss Deep Learner</a></em></p>
+
+<h3 id="finding-the-min-max-mean-sum-etc-aggregation">Finding the min, max, mean, sum, etc (aggregation)</h3>
+
+<p>Now we’ve seen a few ways to manipulate tensors, let’s run through a few ways to aggregate them (go from more values to less values).</p>
+
+<p>First we’ll create a tensor and then find the max, min, mean and sum of it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+</span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">x</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90])</code></pre>
+</div>
+
+<p>Now let’s perform some aggregation.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Minimum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">min</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Maximum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">max</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="c1"># print(f"Mean: {x.mean()}") # this will error
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Mean: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">).</span><span class="nf">mean</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># won't work without float datatype
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Sum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">sum</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Minimum: 0
+Maximum: 90
+Mean: 45.0
+Sum: 450</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> You may find some methods such as <code>torch.mean()</code> require tensors to be in <code>torch.float32</code> (the most common) or another specific datatype, otherwise the operation will fail.
+</div>
+
+<p>You can also do the same as above with <code class="language-plaintext highlighter-rouge">torch</code> methods.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor(90), tensor(0), tensor(45.), tensor(450))</code></pre>
+</div>
+
+<h3 id="positional-minmax">Positional min/max</h3>
+
+<p>You can also find the index of a tensor where the max or minimum occurs with <a href="https://pytorch.org/docs/stable/generated/torch.argmax.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.argmax()</code></a> and <a href="https://pytorch.org/docs/stable/generated/torch.argmin.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.argmin()</code></a> respectively.</p>
+
+<p>This is helpful incase you just want the position where the highest (or lowest) value is and not the actual value itself (we’ll see this in a later section when using the <a href="https://pytorch.org/docs/stable/generated/torch.nn.Softmax.html" rel="external nofollow noopener" target="_blank">softmax activation function</a>).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor: </span><span class="si">{</span><span class="n">tensor</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Returns index of max and min values
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Index where max value occurs: </span><span class="si">{</span><span class="n">tensor</span><span class="p">.</span><span class="nf">argmax</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Index where min value occurs: </span><span class="si">{</span><span class="n">tensor</span><span class="p">.</span><span class="nf">argmin</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Tensor: tensor([10, 20, 30, 40, 50, 60, 70, 80, 90])
+Index where max value occurs: 8
+Index where min value occurs: 0</code></pre>
+</div>
+
+<h3 id="change-tensor-datatype">Change tensor datatype</h3>
+
+<p>As mentioned, a common issue with deep learning operations is having your tensors in different datatypes.</p>
+
+<p>If one tensor is in <code class="language-plaintext highlighter-rouge">torch.float64</code> and another is in <code class="language-plaintext highlighter-rouge">torch.float32</code>, you might run into some errors.</p>
+
+<p>But there’s a fix.</p>
+
+<p>You can change the datatypes of tensors using <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.type.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor.type(dtype=None)</code></a> where the <code class="language-plaintext highlighter-rouge">dtype</code> parameter is the datatype you’d like to use.</p>
+
+<p>First we’ll create a tensor and check its datatype (the default is <code class="language-plaintext highlighter-rouge">torch.float32</code>).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor and check its datatype
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">)</span>
+<span class="n">tensor</span><span class="p">.</span><span class="n">dtype</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>torch.float32</code></pre>
+</div>
+
+<p>Now we’ll create another tensor the same as before but change its datatype to <code class="language-plaintext highlighter-rouge">torch.float16</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a float16 tensor
+</span><span class="n">tensor_float16</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span>
+<span class="n">tensor_float16</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([10., 20., 30., 40., 50., 60., 70., 80., 90.], dtype=torch.float16)</code></pre>
+</div>
+
+<p>And we can do something similar to make a <code class="language-plaintext highlighter-rouge">torch.int8</code> tensor.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create an int8 tensor
+</span><span class="n">tensor_int8</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">int8</span><span class="p">)</span>
+<span class="n">tensor_int8</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([10, 20, 30, 40, 50, 60, 70, 80, 90], dtype=torch.int8)</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> Different datatypes can be confusing to begin with. But think of it like this, the lower the number (e.g. 32, 16, 8), the less precise a computer stores the value. And with a lower amount of storage, this generally results in faster computation and a smaller overall model. Mobile-based neural networks often operate with 8-bit integers, smaller and faster to run but less accurate than their float32 counterparts.
+
+  For more on this, read up about <a href="https://en.wikipedia.org/wiki/Precision_(computer_science)" rel="external nofollow noopener" target="_blank">precision in computing</a>.
+</div>
+
+<div class="note-box">
+  <strong>Exercise:</strong> So far we've covered a fair few tensor methods, but there's a bunch more in the <a href="https://pytorch.org/docs/stable/tensors.html" rel="external nofollow noopener" target="_blank"><code>torch.Tensor</code> documentation</a>. Spend about 10 minutes scrolling through and looking into any that catch your eye. Then click on them and write them out in code yourself to see what happens.
+</div>
+
+<h3 id="reshaping-stacking-squeezing-and-unsqueezing">Reshaping, stacking, squeezing and unsqueezing</h3>
+
+<p>Often times you’ll want to reshape or change the dimensions of your tensors without actually changing the values inside them.</p>
+
+<p>To do so, some popular methods are:</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>One-line description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.reshape.html#torch.reshape" rel="external nofollow noopener" target="_blank"><code>torch.reshape(input, shape)</code></a></td>
+      <td>Reshapes <code>input</code> to <code>shape</code> (if compatible), can also use <code>torch.Tensor.reshape()</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.Tensor.view.html" rel="external nofollow noopener" target="_blank"><code>Tensor.view(shape)</code></a></td>
+      <td>Returns a view of the original tensor in a different <code>shape</code> but shares the same data as the original tensor.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.stack.html" rel="external nofollow noopener" target="_blank"><code>torch.stack(tensors, dim=0)</code></a></td>
+      <td>Concatenates a sequence of <code>tensors</code> along a new dimension (<code>dim</code>), all <code>tensors</code> must be the same size.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.squeeze.html" rel="external nofollow noopener" target="_blank"><code>torch.squeeze(input)</code></a></td>
+      <td>Squeezes <code>input</code> to remove all the dimensions with value <code>1</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/1.9.1/generated/torch.unsqueeze.html" rel="external nofollow noopener" target="_blank"><code>torch.unsqueeze(input, dim)</code></a></td>
+      <td>Returns <code>input</code> with a dimension value of <code>1</code> added at <code>dim</code>.</td>
+    </tr>
+    <tr>
+      <td><a href="https://pytorch.org/docs/stable/generated/torch.permute.html" rel="external nofollow noopener" target="_blank"><code>torch.permute(input, dims)</code></a></td>
+      <td>Returns a <em>view</em> of the original <code>input</code> with its dimensions permuted (rearranged) to <code>dims</code>.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Why do any of these?</p>
+
+<p>Because deep learning models (neural networks) are all about manipulating tensors in some way. And because of the rules of matrix multiplication, if you’ve got shape mismatches, you’ll run into errors. These methods help you make sure the right elements of your tensors are mixing with the right elements of other tensors.</p>
+
+<p>Let’s try them out.</p>
+
+<p>First, we’ll create a tensor.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([1., 2., 3., 4., 5., 6., 7.]), torch.Size([7]))</code></pre>
+</div>
+
+<p>Now let’s add an extra dimension with <code class="language-plaintext highlighter-rouge">torch.reshape()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add an extra dimension
+</span><span class="n">x_reshaped</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">x_reshaped</span><span class="p">,</span> <span class="n">x_reshaped</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))</code></pre>
+</div>
+
+<p>We can also change the view with <code class="language-plaintext highlighter-rouge">torch.view()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Change view (keeps same data as original but changes view)
+# See more: https://stackoverflow.com/a/54507446/7900723
+</span><span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))</code></pre>
+</div>
+
+<p>Remember though, changing the view of a tensor with <code class="language-plaintext highlighter-rouge">torch.view()</code> really only creates a new view of the <em>same</em> tensor.</p>
+
+<p>So <em>changing the view changes the original tensor too</em>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Changing z changes x
+</span><span class="n">z</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">z</span><span class="p">,</span> <span class="n">x</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[5., 2., 3., 4., 5., 6., 7.]]), tensor([5., 2., 3., 4., 5., 6., 7.]))</code></pre>
+</div>
+
+<p>If we wanted to stack our new tensor on top of itself five times, we could do so with <code class="language-plaintext highlighter-rouge">torch.stack()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Stack tensors on top of each other
+</span><span class="n">x_stacked</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># try changing dim to dim=1 and see what happens
+</span><span class="n">x_stacked</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[5., 2., 3., 4., 5., 6., 7.],
+        [5., 2., 3., 4., 5., 6., 7.],
+        [5., 2., 3., 4., 5., 6., 7.],
+        [5., 2., 3., 4., 5., 6., 7.]])</code></pre>
+</div>
+
+<p>How about removing all single dimensions from a tensor?</p>
+
+<p>To do so you can use <code class="language-plaintext highlighter-rouge">torch.squeeze()</code> (I remember this as <em>squeezing</em> the tensor to only have dimensions over 1).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous tensor: </span><span class="si">{</span><span class="n">x_reshaped</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous shape: </span><span class="si">{</span><span class="n">x_reshaped</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Remove extra dimension from x_reshaped
+</span><span class="n">x_squeezed</span> <span class="o">=</span> <span class="n">x_reshaped</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">New tensor: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shape: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
+Previous shape: torch.Size([1, 7])
+
+New tensor: tensor([5., 2., 3., 4., 5., 6., 7.])
+New shape: torch.Size([7])</code></pre>
+</div>
+
+<p>And to do the reverse of <code class="language-plaintext highlighter-rouge">torch.squeeze()</code> you can use <code class="language-plaintext highlighter-rouge">torch.unsqueeze()</code> to add a dimension value of 1 at a specific index.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous tensor: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous shape: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1">## Add an extra dimension with unsqueeze
+</span><span class="n">x_unsqueezed</span> <span class="o">=</span> <span class="n">x_squeezed</span><span class="p">.</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">New tensor: </span><span class="si">{</span><span class="n">x_unsqueezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shape: </span><span class="si">{</span><span class="n">x_unsqueezed</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
+Previous shape: torch.Size([1, 7])
+
+New tensor: tensor([5., 2., 3., 4., 5., 6., 7.])
+New shape: torch.Size([7])</code></pre>
+</div>
+
+<p>You can also rearrange the order of axes values with <code class="language-plaintext highlighter-rouge">torch.permute(input, dims)</code>, where the <code class="language-plaintext highlighter-rouge">input</code> gets turned into a <em>view</em> with new <code class="language-plaintext highlighter-rouge">dims</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create tensor with specific shape
+</span><span class="n">x_original</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
+
+<span class="c1"># Permute the original tensor to rearrange the axis order
+</span><span class="n">x_permuted</span> <span class="o">=</span> <span class="n">x_original</span><span class="p">.</span><span class="nf">permute</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="c1"># shifts axis 0-&gt;1, 1-&gt;2, 2-&gt;0
+</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous shape: </span><span class="si">{</span><span class="n">x_original</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shape: </span><span class="si">{</span><span class="n">x_permuted</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Previous shape: torch.Size([224, 224, 3])
+New shape: torch.Size([3, 224, 224])</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> Because permuting returns a <em>view</em> (shares the same data as the original), the values in the permuted tensor will be the same as the original tensor, and if you change the values in the view, it will change the values of the original.
+</div>
+
+<h2 id="indexing-selecting-data-from-tensors">Indexing (selecting data from tensors)</h2>
+
+<p>Sometimes you’ll want to select specific data from tensors (for example, only the first column or second row).</p>
+
+<p>To do so, you can use indexing.</p>
+
+<p>If you’ve ever done indexing on Python lists or NumPy arrays, indexing in PyTorch with tensors is very similar.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor 
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(tensor([[[1, 2, 3],
+          [4, 5, 6],
+          [7, 8, 9]]]),
+ torch.Size([1, 3, 3]))</code></pre>
+</div>
+
+<p>Indexing values goes outer dimension -&gt; inner dimension (check out the square brackets).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Let's index bracket by bracket
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">First square bracket:</span><span class="se">\n</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> 
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Second square bracket: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> 
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Third square bracket: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>First square bracket:
+tensor([[1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 9]])
+Second square bracket: tensor([1, 2, 3])
+Third square bracket: 1</code></pre>
+</div>
+
+<p>You can also use <code class="language-plaintext highlighter-rouge">:</code> to specify “all values in this dimension” and then use a comma (<code class="language-plaintext highlighter-rouge">,</code>) to add another dimension.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get all values of 0th dimension and the 0 index of 1st dimension
+</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[1, 2, 3]])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get all values of 0th &amp; 1st dimensions but only index 1 of 2nd dimension
+</span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[2, 5, 8]])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get all values of the 0 dimension but only the 1 index value of the 1st and 2nd dimension
+</span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([5])</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get index 0 of 0th and 1st dimension and all values of 2nd dimension 
+</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># same as x[0][0]
+</span></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3])</code></pre>
+</div>
+
+<p>Indexing can be quite confusing to begin with, especially with larger tensors (I still have to try indexing multiple times to get it right). But with a bit of practice and following the data explorer’s motto (<strong><em>visualize, visualize, visualize</em></strong>), you’ll start to get the hang of it.</p>
+
+<h2 id="pytorch-tensors--numpy">PyTorch tensors &amp; NumPy</h2>
+
+<p>Since NumPy is a popular Python numerical computing library, PyTorch has functionality to interact with it nicely.</p>
+
+<p>The two main methods you’ll want to use for NumPy to PyTorch (and back again) are:</p>
+<ul>
+  <li>
+<a href="https://pytorch.org/docs/stable/generated/torch.from_numpy.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.from_numpy(ndarray)</code></a> - NumPy array -&gt; PyTorch tensor.</li>
+  <li>
+<a href="https://pytorch.org/docs/stable/generated/torch.Tensor.numpy.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor.numpy()</code></a> - PyTorch tensor -&gt; NumPy array.</li>
+</ul>
+
+<p>Let’s try them out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># NumPy array to tensor
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">)</span>
+<span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">from_numpy</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
+<span class="n">array</span><span class="p">,</span> <span class="n">tensor</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>(array([1., 2., 3., 4., 5., 6., 7.]),
+ tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong> By default, NumPy arrays are created with the datatype <code>float64</code> and if you convert it to a PyTorch tensor, it'll keep the same datatype (as above).
+
+  However, many PyTorch calculations default to using <code>float32</code>.
+
+  So if you want to convert your NumPy array (<code>float64</code>) → PyTorch tensor (<code>float64</code>) → PyTorch tensor (<code>float32</code>), you can use:
+  <pre><code>tensor = torch.from_numpy(array).type(torch.float32)</code></pre>
+</div>
+
+<p>Because we reassigned <code class="language-plaintext highlighter-rouge">tensor</code> above, if you change the tensor, the array stays the same.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Change the array, keep the tensor
+</span><span class="n">array</span> <span class="o">=</span> <span class="n">array</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">array</span><span class="p">,</span> <span class="n">tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(array([2., 3., 4., 5., 6., 7., 8.]),
+ tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))</code></pre>
+</div>
+
+<p>And if you want to go from PyTorch tensor to NumPy array, you can call <code class="language-plaintext highlighter-rouge">tensor.numpy()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Tensor to NumPy array
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">ones</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># create a tensor of ones with dtype=float32
+</span><span class="n">numpy_tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">numpy</span><span class="p">()</span> <span class="c1"># will be dtype=float32 unless changed
+</span><span class="n">tensor</span><span class="p">,</span> <span class="n">numpy_tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([1., 1., 1., 1., 1., 1., 1.]),
+ array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))</code></pre>
+</div>
+
+<p>And the same rule applies as above, if you change the original <code class="language-plaintext highlighter-rouge">tensor</code>, the new <code class="language-plaintext highlighter-rouge">numpy_tensor</code> stays the same.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Change the tensor, keep the array the same
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="n">tensor</span><span class="p">,</span> <span class="n">numpy_tensor</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([2., 2., 2., 2., 2., 2., 2.]),
+ array([1., 1., 1., 1., 1., 1., 1.], dtype=float32))</code></pre>
+</div>
+
+<h2 id="reproducibility-trying-to-take-the-random-out-of-random">Reproducibility (trying to take the random out of random)</h2>
+
+<p>As you learn more about neural networks and machine learning, you’ll start to discover how much randomness plays a part.</p>
+
+<p>Well, pseudorandomness that is. Because after all, as they’re designed, a computer is fundamentally deterministic (each step is predictable) so the randomness they create are simulated randomness (though there is debate on this too, but since I’m not a computer scientist, I’ll let you find out more yourself).</p>
+
+<p>How does this relate to neural networks and deep learning then?</p>
+
+<p>We’ve discussed neural networks start with random numbers to describe patterns in data (these numbers are poor descriptions) and try to improve those random numbers using tensor operations (and a few other things we haven’t discussed yet) to better describe patterns in data.</p>
+
+<p>In short:</p>
+
+<p><code class="language-plaintext highlighter-rouge">start with random numbers -&gt; tensor operations -&gt; try to make better (again and again and again)</code></p>
+
+<p>Although randomness is nice and powerful, sometimes you’d like there to be a little less randomness.</p>
+
+<p>Why?</p>
+
+<p>So you can perform repeatable experiments.</p>
+
+<p>For example, you create an algorithm capable of achieving X performance.</p>
+
+<p>And then your friend tries it out to verify you’re not crazy.</p>
+
+<p>How could they do such a thing?</p>
+
+<p>That’s where <strong>reproducibility</strong> comes in.</p>
+
+<p>In other words, can you get the same (or very similar) results on your computer running the same code as I get on mine?</p>
+
+<p>Let’s see a brief example of reproducibility in PyTorch.</p>
+
+<p>We’ll start by creating two random tensors, since they’re random, you’d expect them to be different right?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+
+<span class="c1"># Create two random tensors
+</span><span class="n">random_tensor_A</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">random_tensor_B</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor A:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor_A</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor B:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor_B</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Does Tensor A equal Tensor B? (anywhere)</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">random_tensor_A</span> <span class="o">==</span> <span class="n">random_tensor_B</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Tensor A:
+tensor([[0.8016, 0.3649, 0.6286, 0.9663],
+        [0.7687, 0.4566, 0.5745, 0.9200],
+        [0.3230, 0.8613, 0.0919, 0.3102]])
+
+Tensor B:
+tensor([[0.9536, 0.6002, 0.0351, 0.6826],
+        [0.3743, 0.5220, 0.1336, 0.9666],
+        [0.9754, 0.8474, 0.8988, 0.1105]])
+
+Does Tensor A equal Tensor B? (anywhere)
+
+
+tensor([[False, False, False, False],
+        [False, False, False, False],
+        [False, False, False, False]])</code></pre>
+</div>
+
+<p>Just as you might’ve expected, the tensors come out with different values.</p>
+
+<p>But what if you wanted to create two random tensors with the <em>same</em> values.</p>
+
+<p>As in, the tensors would still contain random values but they would be of the same flavour.</p>
+
+<p>That’s where <a href="https://pytorch.org/docs/stable/generated/torch.manual_seed.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.manual_seed(seed)</code></a> comes in, where <code class="language-plaintext highlighter-rouge">seed</code> is an integer (like <code class="language-plaintext highlighter-rouge">42</code> but it could be anything) that flavours the randomness.</p>
+
+<p>Let’s try it out by creating some more <em>flavoured</em> random tensors.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">import</span> <span class="n">random</span>
+
+<span class="c1"># # Set the random seed
+</span><span class="n">RANDOM_SEED</span><span class="o">=</span><span class="mi">42</span> <span class="c1"># try changing this to different values and see what happens to the numbers below
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">RANDOM_SEED</span><span class="p">)</span> 
+<span class="n">random_tensor_C</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="c1"># Have to reset the seed every time a new rand() is called 
+# Without this, tensor_D would be different to tensor_C 
+</span><span class="n">torch</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="n">RANDOM_SEED</span><span class="p">)</span> <span class="c1"># try commenting this line out and seeing what happens
+</span><span class="n">random_tensor_D</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor C:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor_C</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor D:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor_D</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Does Tensor C equal Tensor D? (anywhere)</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">random_tensor_C</span> <span class="o">==</span> <span class="n">random_tensor_D</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Tensor C:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Tensor D:
+tensor([[0.8823, 0.9150, 0.3829, 0.9593],
+        [0.3904, 0.6009, 0.2566, 0.7936],
+        [0.9408, 0.1332, 0.9346, 0.5936]])
+
+Does Tensor C equal Tensor D? (anywhere)
+
+
+tensor([[True, True, True, True],
+        [True, True, True, True],
+        [True, True, True, True]])</code></pre>
+</div>
+
+<p>Nice!</p>
+
+<p>It looks like setting the seed worked.</p>
+
+<div class="note-box">
+  <strong>Resource:</strong> What we've just covered only scratches the surface of reproducibility in PyTorch. For more on reproducibility in general and random seeds, check out:
+
+  <ul>
+    <li>
+<a href="https://pytorch.org/docs/stable/notes/randomness.html" rel="external nofollow noopener" target="_blank">The PyTorch reproducibility documentation</a> (a good exercise would be to read through this for 10-minutes and even if you don't understand it now, being aware of it is important).</li>
+    <li>
+<a href="https://en.wikipedia.org/wiki/Random_seed" rel="external nofollow noopener" target="_blank">The Wikipedia random seed page</a> (this'll give a good overview of random seeds and pseudorandomness in general).</li>
+  </ul>
+</div>
+
+<h2 id="running-tensors-on-gpus-and-making-faster-computations">Running tensors on GPUs (and making faster computations)</h2>
+
+<p>Deep learning algorithms require a lot of numerical operations.</p>
+
+<p>And by default these operations are often done on a CPU (computer processing unit).</p>
+
+<p>However, there’s another common piece of hardware called a GPU (graphics processing unit), which is often much faster at performing the specific types of operations neural networks need (matrix multiplications) than CPUs.</p>
+
+<p>Your computer might have one.</p>
+
+<p>If so, you should look to use it whenever you can to train neural networks because chances are it’ll speed up the training time dramatically.</p>
+
+<p>There are a few ways to first get access to a GPU and secondly get PyTorch to use the GPU.</p>
+
+<div class="note-box">
+  <strong>Note:</strong> When I reference "GPU" throughout this course, I'm referencing a <a href="https://developer.nvidia.com/cuda-gpus" rel="external nofollow noopener" target="_blank">Nvidia GPU with CUDA</a> enabled (CUDA is a computing platform and API that helps allow GPUs be used for general purpose computing &amp; not just graphics) unless otherwise specified.
+</div>
+
+<h3 id="getting-a-gpu">Getting a GPU</h3>
+
+<p>You may already know what’s going on when I say GPU. But if not, there are a few ways to get access to one.</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th><strong>Method</strong></th>
+      <th><strong>Difficulty to setup</strong></th>
+      <th><strong>Pros</strong></th>
+      <th><strong>Cons</strong></th>
+      <th><strong>How to setup</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Google Colab</strong></td>
+      <td>Easy</td>
+      <td>Free to use, almost zero setup required, can share work with others as easy as a link</td>
+      <td>Doesn't save your data outputs, limited compute, subject to timeouts</td>
+      <td><a href="https://colab.research.google.com/notebooks/gpu.ipynb" rel="external nofollow noopener" target="_blank">Follow the Google Colab Guide</a></td>
+    </tr>
+    <tr>
+      <td><strong>Use your own</strong></td>
+      <td>Medium</td>
+      <td>Run everything locally on your own machine</td>
+      <td>GPUs aren't free, require upfront cost</td>
+      <td><a href="https://pytorch.org/get-started/locally/" rel="external nofollow noopener" target="_blank">Follow the PyTorch installation guidelines</a></td>
+    </tr>
+    <tr>
+      <td><strong>Cloud computing (AWS, GCP, Azure)</strong></td>
+      <td>Medium-Hard</td>
+      <td>Small upfront cost, access to almost infinite compute</td>
+      <td>Can get expensive if running continually, takes some time to setup right</td>
+      <td><a href="https://pytorch.org/get-started/cloud-partners/" rel="external nofollow noopener" target="_blank">Follow the PyTorch installation guidelines</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There are more options for using GPUs but the above three will suffice for now.</p>
+
+<p>Personally, I use a combination of Google Colab and my own personal computer for small scale experiments (and creating this course) and go to cloud resources when I need more compute power.</p>
+
+<div class="note-box">
+  <strong>Resource:</strong> If you're looking to purchase a GPU of your own but not sure what to get, <a href="https://timdettmers.com/2020/09/07/which-gpu-for-deep-learning/" rel="external nofollow noopener" target="_blank">Tim Dettmers has an excellent guide</a>.
+</div>
+
+<p>To check if you’ve got access to a Nvidia GPU, you can run <code class="language-plaintext highlighter-rouge">!nvidia-smi</code> where the <code class="language-plaintext highlighter-rouge">!</code> (also called bang) means “run this on the command line”.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Sat Jan 21 08:34:23 2023       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 515.48.07    Driver Version: 515.48.07    CUDA Version: 11.7     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  NVIDIA TITAN RTX    On   | 00000000:01:00.0 Off |                  N/A |
+| 40%   30C    P8     7W / 280W |    177MiB / 24576MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                                
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|    0   N/A  N/A      1061      G   /usr/lib/xorg/Xorg                 53MiB |
+|    0   N/A  N/A   2671131      G   /usr/lib/xorg/Xorg                 97MiB |
+|    0   N/A  N/A   2671256      G   /usr/bin/gnome-shell                9MiB |
++-----------------------------------------------------------------------------+
+</code></pre>
+</div>
+
+<p>If you don’t have a Nvidia GPU accessible, the above will output something like:</p>
+
+<div class="bash-block">
+  <pre><code>NVIDIA-SMI has failed because it couldn't communicate with the NVIDIA driver. Make sure that the latest NVIDIA driver is installed and running.</code></pre>
+</div>
+
+<p>In that case, go back up and follow the install steps.</p>
+
+<p>If you do have a GPU, the line above will output something like:</p>
+
+<div class="bash-block">
+  <pre><code>Wed Jan 19 22:09:08 2022       
++-----------------------------------------------------------------------------+
+| NVIDIA-SMI 495.46       Driver Version: 460.32.03    CUDA Version: 11.2     |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|                               |                      |               MIG M. |
+|===============================+======================+======================|
+|   0  Tesla P100-PCIE...  Off  | 00000000:00:04.0 Off |                    0 |
+| N/A   35C    P0    27W / 250W |      0MiB / 16280MiB |      0%      Default |
+|                               |                      |                  N/A |
++-------------------------------+----------------------+----------------------+
+                                                                               
++-----------------------------------------------------------------------------+
+| Processes:                                                                  |
+|  GPU   GI   CI        PID   Type   Process name                  GPU Memory |
+|        ID   ID                                                   Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+</code></pre>
+</div>
+
+<h3 id="getting-pytorch-to-run-on-the-gpu">Getting PyTorch to run on the GPU</h3>
+
+<p>Once you’ve got a GPU ready to access, the next step is getting PyTorch to use for storing data (tensors) and computing on data (performing operations on tensors).</p>
+
+<p>To do so, you can use the <a href="https://pytorch.org/docs/stable/cuda.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda</code></a> package.</p>
+
+<p>Rather than talk about it, let’s try it out.</p>
+
+<p>You can test if PyTorch has access to a GPU using <a href="https://pytorch.org/docs/stable/generated/torch.cuda.is_available.html#torch.cuda.is_available" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda.is_available()</code></a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check for GPU
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>True</code></pre>
+</div>
+
+<p>If the above outputs <code class="language-plaintext highlighter-rouge">True</code>, PyTorch can see and use the GPU, if it outputs <code class="language-plaintext highlighter-rouge">False</code>, it can’t see the GPU and in that case, you’ll have to go back through the installation steps.</p>
+
+<p>Now, let’s say you wanted to setup your code so it ran on CPU <em>or</em> the GPU if it was available.</p>
+
+<p>That way, if you or someone decides to run your code, it’ll work regardless of the computing device they’re using.</p>
+
+<p>Let’s create a <code class="language-plaintext highlighter-rouge">device</code> variable to store what kind of device is available.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set device type
+</span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
+<span class="n">device</span>
+</code></pre></div></div>
+<div class="bash-block">
+  <pre><code>'cuda'</code></pre>
+</div>
+
+<p>If the above output <code class="language-plaintext highlighter-rouge">"cuda"</code> it means we can set all of our PyTorch code to use the available CUDA device (a GPU) and if it output <code class="language-plaintext highlighter-rouge">"cpu"</code>, our PyTorch code will stick with the CPU.</p>
+
+<div class="note-box">
+  <strong>Note:</strong> In PyTorch, it's best practice to write <a href="https://pytorch.org/docs/master/notes/cuda.html#device-agnostic-code" rel="external nofollow noopener" target="_blank"><strong>device agnostic code</strong></a>. This means code that’ll run on CPU (always available) or GPU (if available).
+</div>
+
+<p>If you want to do faster computing you can use a GPU but if you want to do <em>much</em> faster computing, you can use multiple GPUs.</p>
+
+<p>You can count the number of GPUs PyTorch has access to using <a href="https://pytorch.org/docs/stable/generated/torch.cuda.device_count.html#torch.cuda.device_count" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda.device_count()</code></a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Count number of devices
+</span><span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">device_count</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>1</code></pre>
+</div>
+
+<p>Knowing the number of GPUs PyTorch has access to is helpful incase you wanted to run a specific process on one GPU and another process on another (PyTorch also has features to let you run a process across <em>all</em> GPUs).</p>
+
+<h3 id="getting-pytorch-to-run-on-apple-silicon">Getting PyTorch to run on Apple Silicon</h3>
+
+<p>In order to run PyTorch on Apple’s M1/M2/M3 GPUs you can use the <a href="https://pytorch.org/docs/stable/notes/mps.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.backends.mps</code></a> module.</p>
+
+<p>Be sure that the versions of the macOS and Pytorch are updated.</p>
+
+<p>You can test if PyTorch has access to a GPU using <code class="language-plaintext highlighter-rouge">torch.backends.mps.is_available()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check for Apple Silicon GPU
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">torch</span><span class="p">.</span><span class="n">backends</span><span class="p">.</span><span class="n">mps</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="c1"># Note this will print false if you're not running on a Mac
+</span></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>True</code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set device type
+</span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">mps</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">backends</span><span class="p">.</span><span class="n">mps</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
+<span class="n">device</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>'mps'</code></pre>
+</div>
+
+<p>As before, if the above output <code class="language-plaintext highlighter-rouge">"mps"</code> it means we can set all of our PyTorch code to use the available Apple Silicon GPU.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="c1"># Use NVIDIA GPU (if available)
+</span><span class="k">elif</span> <span class="n">torch</span><span class="p">.</span><span class="n">backends</span><span class="p">.</span><span class="n">mps</span><span class="p">.</span><span class="nf">is_available</span><span class="p">():</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">mps</span><span class="sh">"</span> <span class="c1"># Use Apple Silicon GPU (if available)
+</span><span class="k">else</span><span class="p">:</span>
+    <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span> <span class="c1"># Default to CPU if no GPU is available
+</span></code></pre></div></div>
+
+<h3 id="putting-tensors-and-models-on-the-gpu">Putting tensors (and models) on the GPU</h3>
+
+<p>You can put tensors (and models, we’ll see this later) on a specific device by calling <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.to.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">to(device)</code></a> on them. Where <code class="language-plaintext highlighter-rouge">device</code> is the target device you’d like the tensor (or model) to go to.</p>
+
+<p>Why do this?</p>
+
+<p>GPUs offer far faster numerical computing than CPUs do and if a GPU isn’t available, because of our <strong>device agnostic code</strong> (see above), it’ll run on the CPU.</p>
+
+<div class="note-box">
+  <strong>Note:</strong> Putting a tensor on GPU using <code>to(device)</code> (e.g. <code>some_tensor.to(device)</code>) returns a copy of that tensor. This means the same tensor will exist on both CPU and GPU. To overwrite tensors, reassign them:
+  
+  <pre><code>some_tensor = some_tensor.to(device)</code></pre>
+</div>
+
+<p>Let’s try creating a tensor and putting it on the GPU (if it’s available).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create tensor (default on CPU)
+</span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+
+<span class="c1"># Tensor not on GPU
+</span><span class="nf">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">.</span><span class="n">device</span><span class="p">)</span>
+
+<span class="c1"># Move tensor to GPU (if available)
+</span><span class="n">tensor_on_gpu</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">tensor_on_gpu</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3]) cpu
+
+
+tensor([1, 2, 3], device='mps:0')</code></pre>
+</div>
+
+<p>If you have a GPU available, the above code will output something like:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([1, 2, 3]) cpu
+tensor([1, 2, 3], device='cuda:0')
+</code></pre></div></div>
+
+<p>Notice the second tensor has <code class="language-plaintext highlighter-rouge">device='cuda:0'</code>, this means it’s stored on the 0th GPU available (GPUs are 0 indexed, if two GPUs were available, they’d be <code class="language-plaintext highlighter-rouge">'cuda:0'</code> and <code class="language-plaintext highlighter-rouge">'cuda:1'</code> respectively, up to <code class="language-plaintext highlighter-rouge">'cuda:n'</code>).</p>
+
+<h3 id="moving-tensors-back-to-the-cpu">Moving tensors back to the CPU</h3>
+
+<p>What if we wanted to move the tensor back to CPU?</p>
+
+<p>For example, you’ll want to do this if you want to interact with your tensors with NumPy (NumPy does not leverage the GPU).</p>
+
+<p>Let’s try using the <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.numpy.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor.numpy()</code></a> method on our <code class="language-plaintext highlighter-rouge">tensor_on_gpu</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># If tensor is on GPU, can't transform it to NumPy (this will error)
+</span><span class="n">tensor_on_gpu</span><span class="p">.</span><span class="nf">numpy</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code><span class="traceback">---------------------------------------------------------------------------</span>
+
+<span class="traceback">TypeError                                 Traceback (most recent call last)</span>
+       Cell 157 in &lt;cell line: 2&gt;
+      1 # If tensor is on GPU, can't transform it to NumPy (this will error)
+----&gt; 2 tensor_on_gpu.numpy()
+
+<span class="error-msg">TypeError: can't convert cuda:0 device type tensor to numpy. Use Tensor.cpu() to copy the tensor to host memory first.</span></code></pre>
+</div>
+
+<p>Instead, to get a tensor back to CPU and usable with NumPy we can use <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.cpu.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">Tensor.cpu()</code></a>.</p>
+
+<p>This copies the tensor to CPU memory so it’s usable with CPUs.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Instead, copy the tensor back to cpu
+</span><span class="n">tensor_back_on_cpu</span> <span class="o">=</span> <span class="n">tensor_on_gpu</span><span class="p">.</span><span class="nf">cpu</span><span class="p">().</span><span class="nf">numpy</span><span class="p">()</span>
+<span class="n">tensor_back_on_cpu</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>array([1, 2, 3])</code></pre>
+</div>
+
+<p>The above returns a copy of the GPU tensor in CPU memory so the original tensor is still on GPU.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tensor_on_gpu</span>
+</code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([1, 2, 3], device='cuda:0')</code></pre>
+</div>
+
+<h2 id="exercises">Exercises</h2>
+<ol>
+  <li>Documentation reading - A big part of deep learning (and learning to code in general) is getting familiar with the documentation of a certain framework you’re using. We’ll be using the PyTorch documentation a lot throughout the rest of this course. So I’d recommend spending 10-minutes reading the following (it’s okay if you don’t get some things for now, the focus is not yet full understanding, it’s awareness). See the documentation on <a href="https://pytorch.org/docs/stable/tensors.html#torch-tensor" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor</code></a> and for <a href="https://pytorch.org/docs/master/notes/cuda.html#cuda-semantics" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda</code></a>.</li>
+  <li>Create a random tensor with shape <code class="language-plaintext highlighter-rouge">(7, 7)</code>.</li>
+  <li>Perform a matrix multiplication on the tensor from 2 with another random tensor with shape <code class="language-plaintext highlighter-rouge">(1, 7)</code> (hint: you may have to transpose the second tensor).</li>
+  <li>Set the random seed to <code class="language-plaintext highlighter-rouge">0</code> and do exercises 2 &amp; 3 over again.</li>
+  <li>Speaking of random seeds, we saw how to set it with <code class="language-plaintext highlighter-rouge">torch.manual_seed()</code> but is there a GPU equivalent? (hint: you’ll need to look into the documentation for <code class="language-plaintext highlighter-rouge">torch.cuda</code> for this one). If there is, set the GPU random seed to <code class="language-plaintext highlighter-rouge">1234</code>.</li>
+  <li>Create two random tensors of shape <code class="language-plaintext highlighter-rouge">(2, 3)</code> and send them both to the GPU (you’ll need access to a GPU for this). Set <code class="language-plaintext highlighter-rouge">torch.manual_seed(1234)</code> when creating the tensors (this doesn’t have to be the GPU random seed).</li>
+  <li>Perform a matrix multiplication on the tensors you created in 6 (again, you may have to adjust the shapes of one of the tensors).</li>
+  <li>Find the maximum and minimum values of the output of 7.</li>
+  <li>Find the maximum and minimum index values of the output of 7.</li>
+  <li>Make a random tensor with shape <code class="language-plaintext highlighter-rouge">(1, 1, 1, 10)</code> and then create a new tensor with all the <code class="language-plaintext highlighter-rouge">1</code> dimensions removed to be left with a tensor of shape <code class="language-plaintext highlighter-rouge">(10)</code>. Set the seed to <code class="language-plaintext highlighter-rouge">7</code> when you create it and print out the first tensor and it’s shape as well as the second tensor and it’s shape.</li>
+</ol>
+
+<h2 id="extra-curriculum">Extra-curriculum</h2>
+
+<ul>
+  <li>Spend 1-hour going through the <a href="https://pytorch.org/tutorials/beginner/basics/intro.html" rel="external nofollow noopener" target="_blank">PyTorch basics tutorial</a> (I’d recommend the <a href="https://pytorch.org/tutorials/beginner/basics/quickstart_tutorial.html" rel="external nofollow noopener" target="_blank">Quickstart</a> and <a href="https://pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html" rel="external nofollow noopener" target="_blank">Tensors</a> sections).</li>
+  <li>To learn more on how a tensor can represent data, see this video: <a href="https://youtu.be/f5liqUk0ZTw" rel="external nofollow noopener" target="_blank">What’s a tensor?</a>
+</li>
+</ul>
+
+
+    
+
+    
+  </article>
+</div>
+
+            </div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top">
+                <!-- The TOC is injected by JS or jekyll-toc plugin -->
+              </nav>
+            </div>
+          </div>
+        
+      
+    </div>
+
+    <!-- Footer -->
+    
+  <footer class="fixed-bottom" role="contentinfo">
+    <div class="container mt-0">
+      © Copyright 2024
+      Jue
+      
+      Guo. 
+      
+      
+        Last updated: December 31, 2024.
+      
+    </div>
+  </footer>
+
+
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+<script src="/personal/assets/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="/personal/assets/js/mdb.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    
+  <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script defer src="/personal/assets/js/masonry.js" type="text/javascript"></script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
+
+
+<!-- Bootstrap Table -->
+
+
+<!-- Load Common JS -->
+<script src="/personal/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/personal/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/personal/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+
+<!-- Jupyter Open External Links New Tab -->
+<script defer src="/personal/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+
+
+
+    
+  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+
+
+  <script async src="https://badge.dimensions.ai/badge.js"></script>
+
+
+    
+  
+    <!-- MathJax -->
+    <script type="text/javascript">
+      window.MathJax = {
+        tex: {
+          tags: 'ams',
+        },
+      };
+    </script>
+    <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
+  
+
+    
+
+    
+
+
+
+    
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    /*
+     * This JavaScript code has been adapted from the article
+     * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar,
+     * published on the website https://css-tricks.com on the 7th of May, 2014.
+     * Couple of changes were made to the original code to make it compatible
+     * with the `al-foio` theme.
+     */
+    const progressBar = $('#progress');
+    /*
+     * We set up the bar after all elements are done loading.
+     * In some cases, if the images in the page are larger than the intended
+     * size they'll have on the page, they'll be resized via CSS to accomodate
+     * the desired size. This mistake, however, breaks the computations as the
+     * scroll size is computed as soon as the elements finish loading.
+     * To account for this, a minimal delay was introduced before computing the
+     * values.
+     */
+    window.onload = function () {
+      setTimeout(progressBarSetup, 50);
+    };
+    /*
+     * We set up the bar according to the browser.
+     * If the browser supports the progress element we use that.
+     * Otherwise, we resize the bar thru CSS styling
+     */
+    function progressBarSetup() {
+      if ('max' in document.createElement('progress')) {
+        initializeProgressElement();
+        $(document).on('scroll', function () {
+          progressBar.attr({ value: getCurrentScrollPosition() });
+        });
+        $(window).on('resize', initializeProgressElement);
+      } else {
+        resizeProgressBar();
+        $(document).on('scroll', resizeProgressBar);
+        $(window).on('resize', resizeProgressBar);
+      }
+    }
+    /*
+     * The vertical scroll position is the same as the number of pixels that
+     * are hidden from view above the scrollable area. Thus, a value > 0 is
+     * how much the user has scrolled from the top
+     */
+    function getCurrentScrollPosition() {
+      return $(window).scrollTop();
+    }
+
+    function initializeProgressElement() {
+      let navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('progress-container').css({ 'padding-top': navbarHeight });
+      progressBar.css({ top: navbarHeight });
+      progressBar.attr({
+        max: getDistanceToScroll(),
+        value: getCurrentScrollPosition(),
+      });
+    }
+    /*
+     * The offset between the html document height and the browser viewport
+     * height will be greater than zero if vertical scroll is possible.
+     * This is the distance the user can scroll
+     */
+    function getDistanceToScroll() {
+      return $(document).height() - $(window).height();
+    }
+
+    function resizeProgressBar() {
+      progressBar.css({ width: getWidthPercentage() + '%' });
+    }
+    // The scroll ratio equals the percentage to resize the bar
+    function getWidthPercentage() {
+      return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+    }
+  </script>
+
+
+    
+
+    
+
+    
+
+    
+  <script src="/personal/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script>
+  <script>
+    addBackToTop();
+  </script>
+
+
+    
+
+
+    <!-- Inline JS snippet: always show the Back link if page.back_link is set,
+     either in #toc-sidebar or, if that doesn't exist, in the navbar. -->
+    <script>
+      window.addEventListener("load", function() {
+        // If page.back_link is present, show a back button
+        
+        // If page.back_text is missing, default to "Back"
+        
+
+        // We'll build two versions of the snippet:
+        // 1) A <div> version for the TOC sidebar (no bullet marker)
+        // 2) A <li> version for the navbar fallback
+
+        const tocHTML = `
+          <div class="back-link" style="margin-top:1rem;">
+            <a href="/personal/teaching/aibasic" style="text-decoration: none; display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>AI Basics</span>
+            </a>
+          </div>
+        `;
+
+        const navHTML = `
+          <li class="nav-item back-link" style=""display: inline-flex; align-items: center;"">
+            <a class="nav-link" href="/personal/teaching/aibasic" style="display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>AI Basics</span>
+            </a>
+          </li>
+        `;
+
+        // 1) If #toc-sidebar exists, we insert the "tocHTML" (a <div>)
+        let tocSidebar = document.getElementById("toc-sidebar");
+        if (tocSidebar) {
+          tocSidebar.insertAdjacentHTML("beforeend", tocHTML);
+        } else {
+          // 2) Otherwise, we append the "navHTML" (<li>) to the navbar
+          //    so user sees the link in the top nav
+          let navbarUl = document.querySelector("#navbarNav ul.navbar-nav");
+          if (navbarUl) {
+            navbarUl.insertAdjacentHTML("beforeend", navHTML);
+          }
+        }
+        
+      });
+      </script>
+
+    <!-- Inline JS to number the TOC items, handling userOffset for ANY > 2 -->
+    <script>
+      window.addEventListener("load", function() {
+        // If page.start_h1_number is not set, or not an integer,
+        // treat it as "no offset" => start at 1, 2, 3
+        
+
+        const parsedOffset = parseInt("0", 10);
+        const hasUserOffset = !isNaN(parsedOffset);
+        
+        const rootUl = document.querySelector("#toc-sidebar > ul");
+        if (!rootUl) return;
+
+        function numberList(ul, prefix = "", startIndex = 1) {
+          const liElements = ul.querySelectorAll(":scope > li");
+          let idx = startIndex;
+
+          liElements.forEach(li => {
+            let label;
+
+            if (!prefix) {
+              // Top-level items
+              if (!hasUserOffset) {
+                // If there's no valid user offset, use 1,2,3...
+                label = String(idx);
+              } else {
+                // If user provided offset => (parsedOffset + 1).1, (parsedOffset + 1).2, etc.
+                label = `${parsedOffset + 1}.${idx}`;
+              }
+            } else {
+              // Nested => prefix + "." + idx
+              label = `${prefix}.${idx}`;
+            }
+
+            const link = li.querySelector(":scope > a");
+            if (link) {
+              link.textContent = label + " " + link.textContent;
+            }
+
+            const nested = li.querySelector(":scope > ul");
+            if (nested) {
+              numberList(nested, label, 1);
+            }
+
+            idx++;
+          });
+        }
+
+        numberList(rootUl);
+      });
+    </script>
+  </body>
+</html>
