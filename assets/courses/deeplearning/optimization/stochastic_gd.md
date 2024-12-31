@@ -4,7 +4,7 @@ title: Stochastic Gradient Descent
 description: 
 related_publications: false
 # toc:
-#     sidebar: left
+#     sidebar: right
 back_link: '/teaching/deeplearnig'
 back_text: 'Deep Learning'
 number_heading: false
