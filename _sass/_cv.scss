@@ -214,3 +214,25 @@ ul.timeline li::before {
      color: var(--global-text-color);
 }
 */
+
+.cv-card {
+  margin-top: 1rem !important;
+  /* or margin: 1rem 0 !important; to control top/bottom spacing */
+
+  padding: 1rem !important;
+  /* or 0.75rem if you want smaller padding; overrides any .card default */
+
+  min-height: auto !important;
+  /* ensure auto height, not a forced min-height */
+
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  /* subtle shadow if you like */
+
+  border: 1px solid #ddd;
+  /* keep or adjust your border style */
+  border-radius: 6px;
+  /* mild corner rounding */
+
+  /* If you want a consistent font-size or color inside: 
+     .card-title, .card-body, etc. can be adjusted here too. */
+}

@@ -1,6 +1,7 @@
 ---
 layout: default
 ---
+
 {% unless site.data.resume %}
   <div class="post">
     <header class="post-header">
@@ -8,12 +9,13 @@ layout: default
         {{ page.title }}
         {% if page.cv_pdf %}
           <a
-            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url}}"
+            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
             target="_blank"
             rel="noopener noreferrer"
             class="float-right"
-            ><i class="fa-solid fa-file-pdf"></i
-          ></a>
+          >
+            <i class="fa-solid fa-file-pdf"></i>
+          </a>
         {% endif %}
       </h1>
       {% if page.description %}
@@ -25,7 +27,8 @@ layout: default
       <div class="cv">
         {% for entry in site.data.cv %}
           <a class="anchor" id="{{ entry.title }}"></a>
-          <div class="card mt-3 p-3">
+          <!-- Use our custom .cv-card style instead of mt-3 p-3 -->
+          <div class="card cv-card">
             <h3 class="card-title font-weight-medium">{{ entry.title }}</h3>
             <div>
               {% if entry.type == 'list' %}
@@ -54,12 +57,13 @@ layout: default
         {{ page.title }}
         {% if page.cv_pdf %}
           <a
-            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url}}"
+            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
             target="_blank"
             rel="noopener noreferrer"
             class="float-right"
-            ><i class="fa-solid fa-file-pdf"></i
-          ></a>
+          >
+            <i class="fa-solid fa-file-pdf"></i>
+          </a>
         {% endif %}
       </h1>
       {% if page.description %}
@@ -75,9 +79,11 @@ layout: default
               {% continue %}
             {% endunless %}
           {% endif %}
-          {% if data[0] == 'meta' or data[1].size == 0 %} {% continue %} {% endif %}
+          {% if data[0] == 'meta' or data[1].size == 0 %}
+            {% continue %}
+          {% endif %}
           <a class="anchor" id="{{ data[0] }}"></a>
-          <div class="card mt-3 p-3">
+          <div class="card cv-card">
             <h3 class="card-title font-weight-medium">{{ data[0] | capitalize }}</h3>
             <div>
               {% case data[0] %}
@@ -106,7 +112,7 @@ layout: default
                 {% when 'references' %}
                   {% include resume/references.liquid %}
                 {% else %}
-
+                  {{ data[1] }}
               {% endcase %}
             </div>
           </div>
