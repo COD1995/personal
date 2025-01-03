@@ -343,7 +343,241 @@
       <p class="post-description"></p>
     </header>
 
-    
+    <p><a href="https://en.wikipedia.org/wiki/Computer_vision" rel="external nofollow noopener" target="_blank">Computer vision</a> is the art of teaching a computer to see.</p>
+
+<p>For example, it could involve building a model to classify whether a photo is of a cat or a dog (<a href="https://developers.google.com/machine-learning/glossary#binary-classification" rel="external nofollow noopener" target="_blank">binary classification</a>).</p>
+
+<p>Or whether a photo is of a cat, dog or chicken (<a href="https://developers.google.com/machine-learning/glossary#multi-class-classification" rel="external nofollow noopener" target="_blank">multi-class classification</a>).</p>
+
+<p>Or identifying where a car appears in a video frame (<a href="https://en.wikipedia.org/wiki/Object_detection" rel="external nofollow noopener" target="_blank">object detection</a>).</p>
+
+<p>Or figuring out where different objects in an image can be separated (<a href="https://arxiv.org/abs/1801.00868" rel="external nofollow noopener" target="_blank">panoptic segmentation</a>).</p>
+
+<div class="row mt-3">
+  
+  <div class="col-sm mt-3 mt-md-0">
+    <figure id="example_computer_vision_problems1">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-computer-vision-problems.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 1: Example computer vision problems for binary classification, multiclass classification, object detection and segmentation.
+    </figcaption>
+  
+</figure>
+
+  </div>
+</div>
+
+<h2 id="where-does-computer-vision-get-used">Where does computer vision get used?</h2>
+
+<p>If you use a smartphone, you’ve already used computer vision.</p>
+
+<p>Camera and photo apps use <a href="https://machinelearning.apple.com/research/panoptic-segmentation" rel="external nofollow noopener" target="_blank">computer vision to enhance</a> and sort images.</p>
+
+<p>Modern cars use <a href="https://youtu.be/j0z4FweCy4M?t=2989" rel="external nofollow noopener" target="_blank">computer vision</a> to avoid other cars and stay within lane lines.</p>
+
+<p>Manufacturers use computer vision to identify defects in various products.</p>
+
+<p>Security cameras use computer vision to detect potential intruders.</p>
+
+<p>In essence, anything that can be described in a visual sense can be a potential computer vision problem.</p>
+
+<h2 id="what-were-going-to-cover">What we’re going to cover</h2>
+
+<p>We’re going to apply the PyTorch Workflow we’ve been learning in the past couple of sections to computer vision.</p>
+
+<div class="row mt-3">
+  
+  <div class="col-sm mt-3 mt-md-0">
+    <figure id="pytorch_workflow_computer_vision2">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-pytorch-computer-vision-workflow.png" class="img-fluid rounded" style="
+        
+          
+            max-width: 500px;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 2: A PyTorch workflow with a computer vision focus.
+    </figcaption>
+  
+</figure>
+
+  </div>
+</div>
+
+<p>Specifically, we’re going to cover:</p>
+
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th><strong>Topic</strong></th>
+        <th><strong>Contents</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>0. Computer vision libraries in PyTorch</strong></td>
+        <td>PyTorch has a bunch of built-in helpful computer vision libraries, let's check them out.</td>
+      </tr>
+      <tr>
+        <td><strong>1. Load data</strong></td>
+        <td>To practice computer vision, we'll start with some images of different pieces of clothing from <a href="https://github.com/zalandoresearch/fashion-mnist" rel="external nofollow noopener" target="_blank">FashionMNIST</a>.</td>
+      </tr>
+      <tr>
+        <td><strong>2. Prepare data</strong></td>
+        <td>We've got some images, let's load them in with a <a href="https://pytorch.org/docs/stable/data.html" rel="external nofollow noopener" target="_blank">PyTorch `DataLoader`</a> so we can use them with our training loop.</td>
+      </tr>
+      <tr>
+        <td><strong>3. Model 0: Building a baseline model</strong></td>
+        <td>Here we'll create a multi-class classification model to learn patterns in the data, we'll also choose a <strong>loss function</strong>, <strong>optimizer</strong>, and build a <strong>training loop</strong>.</td>
+      </tr>
+      <tr>
+        <td><strong>4. Making predictions and evaluating model 0</strong></td>
+        <td>Let's make some predictions with our baseline model and evaluate them.</td>
+      </tr>
+      <tr>
+        <td><strong>5. Setup device agnostic code for future models</strong></td>
+        <td>It's best practice to write device-agnostic code, so let's set it up.</td>
+      </tr>
+      <tr>
+        <td><strong>6. Model 1: Adding non-linearity</strong></td>
+        <td>Experimenting is a large part of machine learning, let's try and improve upon our baseline model by adding non-linear layers.</td>
+      </tr>
+      <tr>
+        <td><strong>7. Model 2: Convolutional Neural Network (CNN)</strong></td>
+        <td>Time to get computer vision specific and introduce the powerful convolutional neural network architecture.</td>
+      </tr>
+      <tr>
+        <td><strong>8. Comparing our models</strong></td>
+        <td>We've built three different models, let's compare them.</td>
+      </tr>
+      <tr>
+        <td><strong>9. Evaluating our best model</strong></td>
+        <td>Let's make some predictions on random images and evaluate our best model.</td>
+      </tr>
+      <tr>
+        <td><strong>10. Making a confusion matrix</strong></td>
+        <td>A confusion matrix is a great way to evaluate a classification model, let's see how we can make one.</td>
+      </tr>
+      <tr>
+        <td><strong>11. Saving and loading the best performing model</strong></td>
+        <td>Since we might want to use our model for later, let's save it and make sure it loads back in correctly.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="computer-vision-libraries-in-pytorch">Computer vision libraries in PyTorch</h2>
+
+<p>Before we get started writing code, let’s talk about some PyTorch computer vision libraries you should be aware of.</p>
+
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th><strong>PyTorch module</strong></th>
+        <th><strong>What does it do?</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a href="https://pytorch.org/vision/stable/index.html" rel="external nofollow noopener" target="_blank"><code>torchvision</code></a></td>
+        <td>Contains datasets, model architectures, and image transformations often used for computer vision problems.</td>
+      </tr>
+      <tr>
+        <td><a href="https://pytorch.org/vision/stable/datasets.html" rel="external nofollow noopener" target="_blank"><code>torchvision.datasets</code></a></td>
+        <td>Here you'll find many example computer vision datasets for a range of problems from image classification, object detection, image captioning, video classification, and more. It also contains <a href="https://pytorch.org/vision/stable/datasets.html#base-classes-for-custom-datasets" rel="external nofollow noopener" target="_blank">a series of base classes for making custom datasets</a>.</td>
+      </tr>
+      <tr>
+        <td><a href="https://pytorch.org/vision/stable/models.html" rel="external nofollow noopener" target="_blank"><code>torchvision.models</code></a></td>
+        <td>This module contains well-performing and commonly used computer vision model architectures implemented in PyTorch. You can use these with your own problems.</td>
+      </tr>
+      <tr>
+        <td><a href="https://pytorch.org/vision/stable/transforms.html" rel="external nofollow noopener" target="_blank"><code>torchvision.transforms</code></a></td>
+        <td>Often images need to be transformed (turned into numbers/processed/augmented) before being used with a model. Common image transformations are found here.</td>
+      </tr>
+      <tr>
+        <td><a href="https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset" rel="external nofollow noopener" target="_blank"><code>torch.utils.data.Dataset</code></a></td>
+        <td>Base dataset class for PyTorch.</td>
+      </tr>
+      <tr>
+        <td><a href="https://pytorch.org/docs/stable/data.html#module-torch.utils.data" rel="external nofollow noopener" target="_blank"><code>torch.utils.data.DataLoader</code></a></td>
+        <td>Creates a Python iterable over a dataset (created with <code>torch.utils.data.Dataset</code>).</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The <code>torch.utils.data.Dataset</code> and <code>torch.utils.data.DataLoader</code> classes aren't only for computer vision in PyTorch, they are capable of dealing with many different types of data.
+  </p>
+</div>
+
+<p>Now we’ve covered some of the most important PyTorch computer vision libraries, let’s import the relevant dependencies.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Import PyTorch
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span>
+
+<span class="c1"># Import torchvision
+</span><span class="kn">import</span> <span class="n">torchvision</span>
+<span class="kn">from</span> <span class="n">torchvision</span> <span class="kn">import</span> <span class="n">datasets</span>
+<span class="kn">from</span> <span class="n">torchvision.transforms</span> <span class="kn">import</span> <span class="n">ToTensor</span>
+
+<span class="c1"># Import matplotlib for visualization
+</span><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Check versions
+# Note: your PyTorch version shouldn't be lower than 1.10.0 and torchvision version shouldn't be lower than 0.11
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">PyTorch version: </span><span class="si">{</span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span><span class="si">}</span><span class="se">\n</span><span class="s">torchvision version: </span><span class="si">{</span><span class="n">torchvision</span><span class="p">.</span><span class="n">__version__</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> PyTorch version: 2.0.1+cu118
+torchvision version: 0.15.2+cu118
+  </code></pre>
+</div>
 
 
     
@@ -374,7 +608,7 @@
       Guo. 
       
       
-        Last updated: January 01, 2025.
+        Last updated: January 03, 2025.
       
     </div>
   </footer>

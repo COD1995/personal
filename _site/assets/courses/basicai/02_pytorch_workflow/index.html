@@ -428,29 +428,52 @@
 
 <p>Let’s start by putting what we’re covering into a dictionary to reference later.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">what_were_covering</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="sh">"</span><span class="s">data (prepare and load)</span><span class="sh">"</span><span class="p">,</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="n">what_were_covering</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="sh">"</span><span class="s">data (prepare and load)</span><span class="sh">"</span><span class="p">,</span>
     <span class="mi">2</span><span class="p">:</span> <span class="sh">"</span><span class="s">build model</span><span class="sh">"</span><span class="p">,</span>
     <span class="mi">3</span><span class="p">:</span> <span class="sh">"</span><span class="s">fitting the model to data (training)</span><span class="sh">"</span><span class="p">,</span>
     <span class="mi">4</span><span class="p">:</span> <span class="sh">"</span><span class="s">making predictions and evaluating a model (inference)</span><span class="sh">"</span><span class="p">,</span>
     <span class="mi">5</span><span class="p">:</span> <span class="sh">"</span><span class="s">saving and loading a model</span><span class="sh">"</span><span class="p">,</span>
     <span class="mi">6</span><span class="p">:</span> <span class="sh">"</span><span class="s">putting it all together</span><span class="sh">"</span>
 <span class="p">}</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>And now let’s import what we’ll need for this module.</p>
 
 <p>We’re going to get <code class="language-plaintext highlighter-rouge">torch</code>, <code class="language-plaintext highlighter-rouge">torch.nn</code> (<code class="language-plaintext highlighter-rouge">nn</code> stands for neural network and this package contains the building blocks for creating neural networks in PyTorch) and <code class="language-plaintext highlighter-rouge">matplotlib</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">torch</span>
 <span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span> <span class="c1"># nn contains all of PyTorch's building blocks for neural networks
 </span><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="c1"># Check PyTorch version
 </span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>'1.12.1+cu113'
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre>'1.12.1+cu113'
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <h2 id="data-preparing-and-loading">Data (preparing and loading)</h2>
 
@@ -505,7 +528,21 @@
 
 <p>Don’t worry if the terms above don’t mean much now, we’ll see them in action and I’ll put extra resources below where you can learn more.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create *known* parameters
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create *known* parameters
 </span><span class="n">weight</span> <span class="o">=</span> <span class="mf">0.7</span>
 <span class="n">bias</span> <span class="o">=</span> <span class="mf">0.3</span>
 
@@ -517,7 +554,8 @@
 <span class="n">y</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">bias</span>
 
 <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[0.0000],
@@ -593,13 +631,22 @@
 <strong>Note:</strong> When dealing with real-world data, this step is typically done right at the start of a project (the test set should always be kept separate from all other data). We want our model to learn from training data and then evaluate it on test data to get an indication of how well it <strong>generalizes</strong> to unseen examples.
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create train/test split
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create train/test split
 </span><span class="n">train_split</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="c1"># 80% of data used for training set, 20% for testing 
 </span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_split</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_split</span><span class="p">]</span>
 <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_split</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_split</span><span class="p">:]</span>
 
 <span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(40, 40, 10, 10)</code></pre>
@@ -613,7 +660,31 @@
 
 <p>Let’s create a function to visualize it.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">plot_predictions</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td>
+<td class="rouge-code"><pre><span class="k">def</span> <span class="nf">plot_predictions</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> 
                      <span class="n">train_labels</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> 
                      <span class="n">test_data</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> 
                      <span class="n">test_labels</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> 
@@ -635,10 +706,15 @@
 
   <span class="c1"># Show the legend
 </span>  <span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">(</span><span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">size</span><span class="sh">"</span><span class="p">:</span> <span class="mi">14</span><span class="p">});</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">plot_predictions</span><span class="p">();</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">plot_predictions</span><span class="p">();</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div style="text-align: left;">
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_14_0.png" alt="A PyTorch workflow image" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
@@ -662,7 +738,24 @@
 
 <p>Let’s replicate a standard linear regression model using pure PyTorch.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a Linear Regression model class
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a Linear Regression model class
 </span><span class="k">class</span> <span class="nc">LinearRegressionModel</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span> <span class="c1"># &lt;- almost everything in PyTorch is a nn.Module (think of this as neural network lego blocks)
 </span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
         <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span> 
@@ -677,7 +770,8 @@
     <span class="c1"># Forward defines the computation in the model
 </span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">:</span> <span class="c1"># &lt;- "x" is the input data (e.g. training/testing features)
 </span>        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">weights</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">bias</span> <span class="c1"># &lt;- this is the linear regression formula (y = m*x + b)
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>Alright there’s a fair bit going on above but let’s break it down bit by bit.</p>
 
@@ -770,7 +864,17 @@
 <h3 id="checking-the-contents-of-a-pytorch-model">Checking the contents of a PyTorch model</h3>
 <p>Now we’ve got these out of the way, let’s create a model instance with the class we’ve made and check its parameters using <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.parameters" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.parameters()</code></a>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set manual seed since nn.Parameter are randomly initialized
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Set manual seed since nn.Parameter are randomly initialized
 </span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># Create an instance of the model (this is a subclass of nn.Module that contains nn.Parameter(s))
@@ -778,7 +882,8 @@
 
 <span class="c1"># Check the nn.Parameter(s) within the nn.Module subclass we created
 </span><span class="nf">list</span><span class="p">(</span><span class="n">model_0</span><span class="p">.</span><span class="nf">parameters</span><span class="p">())</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>[Parameter containing:
@@ -789,9 +894,14 @@
 
 <p>We can also get the state (what the model contains) of the model using <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.state_dict" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.state_dict()</code></a>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># List named parameters 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># List named parameters 
 </span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">()</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>OrderedDict([('weights', tensor([0.3367])), ('bias', tensor([0.1288]))])</code></pre>
@@ -817,14 +927,24 @@
 
 <p>Let’s make some predictions.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Make predictions with model
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Make predictions with model
 </span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span> 
     <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 
 <span class="c1"># Note: in older PyTorch code you might also see torch.no_grad()
 # with torch.no_grad():
 #   y_preds = model_0(X_test)
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>Hmm?</p>
 
@@ -841,11 +961,18 @@
 
 <p>We’ve made some predictions, let’s see what they look like.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check the predictions
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check the predictions
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Number of testing samples: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> 
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Number of predictions made: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">y_preds</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Predicted values:</span><span class="se">\n</span><span class="si">{</span><span class="n">y_preds</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Number of testing samples: 10
@@ -871,16 +998,36 @@
 
 <p>Our predictions are still numbers on a page, let’s visualize them with our <code class="language-plaintext highlighter-rouge">plot_predictions()</code> function we created above.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div style="text-align: left;">
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_30_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">y_test</span> <span class="o">-</span> <span class="n">y_preds</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">y_test</span> <span class="o">-</span> <span class="n">y_preds</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([[0.4618],
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="rouge-code"><pre>tensor([[0.4618],
         [0.4691],
         [0.4764],
         [0.4836],
@@ -890,7 +1037,8 @@
         [0.5127],
         [0.5200],
         [0.5272]])
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>Woah! Those predictions look pretty bad…</p>
 
@@ -993,13 +1141,22 @@
 
 <p>Woah, that’s a lot, let’s see it in code.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create the loss function
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create the loss function
 </span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">L1Loss</span><span class="p">()</span> <span class="c1"># MAE loss is same as L1Loss
 </span>
 <span class="c1"># Create the optimizer
 </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_0</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="c1"># parameters of target model to optimize
 </span>                            <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1"># learning rate (how much the optimizer should change parameters at each step, higher=more (less stable), lower=less (might take a long time))
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <h3 id="creating-an-optimization-loop-in-pytorch">Creating an optimization loop in PyTorch</h3>
 
@@ -1169,7 +1326,59 @@
 
 <p>Let’s put all of the above together and train our model for 100 <strong>epochs</strong> (forward passes through the data) and we’ll evaluate it every 10 epochs.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># Set the number of epochs (how many times the model will pass over the training data)
 </span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span>
@@ -1219,7 +1428,8 @@
             <span class="n">train_loss_values</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">loss</span><span class="p">.</span><span class="nf">detach</span><span class="p">().</span><span class="nf">numpy</span><span class="p">())</span>
             <span class="n">test_loss_values</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">test_loss</span><span class="p">.</span><span class="nf">detach</span><span class="p">().</span><span class="nf">numpy</span><span class="p">())</span>
             <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | MAE Train Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s"> | MAE Test Loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">}</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Epoch: 0 | MAE Train Loss: 0.31288138031959534 | MAE Test Loss: 0.48106518387794495 
@@ -1236,14 +1446,24 @@
 
 <p>Oh would you look at that! Looks like our loss is going down with every epoch, let’s plot it to find out.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Plot the loss curves
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Plot the loss curves
 </span><span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">epoch_count</span><span class="p">,</span> <span class="n">train_loss_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Train loss</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">epoch_count</span><span class="p">,</span> <span class="n">test_loss_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Test loss</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Training and test loss curves</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Loss</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Epochs</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">();</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div style="text-align: left;">
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_41_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
@@ -1257,12 +1477,20 @@
 
 <p>Let’s inspect our model’s <a href="https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.state_dict()</code></a> to see how close our model gets to the original values we set for weights and bias.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Find our model's learned parameters
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Find our model's learned parameters
 </span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The model learned the following values for weights and bias:</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">())</span>
 <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">And the original values for weights and bias are:</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">weights: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s">, bias: </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>The model learned the following values for weights and bias:
@@ -1300,7 +1528,21 @@
 
 <p>The first two items make sure all helpful calculations and settings PyTorch uses behind the scenes during training but aren’t necessary for inference are turned off (this results in faster computation). And the third ensures that you won’t run into cross-device errors.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1. Set the model in evaluation mode
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># 1. Set the model in evaluation mode
 </span><span class="n">model_0</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
 
 <span class="c1"># 2. Setup the inference mode context manager
@@ -1312,7 +1554,8 @@
 </span>  <span class="c1"># X_test = X_test.to(device)
 </span>  <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">y_preds</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[0.8141],
@@ -1329,8 +1572,12 @@
 
 <p>Nice! We’ve made some predictions with our trained model, now how do they look?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div style="text-align: left;">
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_48_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
@@ -1405,7 +1652,23 @@
   </p>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="c1"># 1. Create models directory 
 </span><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">models</span><span class="sh">"</span><span class="p">)</span>
@@ -1419,7 +1682,8 @@
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Saving model to: </span><span class="si">{</span><span class="n">MODEL_SAVE_PATH</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">torch</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">(),</span> <span class="c1"># only saving the state_dict() only saves the models learned parameters
 </span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span> 
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Saving model to: models/.. .pth</code></pre>
@@ -1452,12 +1716,20 @@
 
 <p>Let’s test it out by creating another instance of <code class="language-plaintext highlighter-rouge">LinearRegressionModel()</code>, which is a subclass of <code class="language-plaintext highlighter-rouge">torch.nn.Module</code> and will hence have the in-built method <code class="language-plaintext highlighter-rouge">load_state_dict()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Instantiate a new instance of our model (this will be instantiated with random weights)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Instantiate a new instance of our model (this will be instantiated with random weights)
 </span><span class="n">loaded_model_0</span> <span class="o">=</span> <span class="nc">LinearRegressionModel</span><span class="p">()</span>
 
 <span class="c1"># Load the state_dict of our saved model (this will update the new instance of our model with trained weights)
 </span><span class="n">loaded_model_0</span><span class="p">.</span><span class="nf">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">))</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>&lt;All keys matched successfully&gt;</code></pre>
@@ -1480,19 +1752,33 @@
   </ol>
 </details>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># 1. Put the loaded model into evaluation mode
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># 1. Put the loaded model into evaluation mode
 </span><span class="n">loaded_model_0</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
 
 <span class="c1"># 2. Use the inference mode context manager to make predictions
 </span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
     <span class="n">loaded_model_preds</span> <span class="o">=</span> <span class="nf">loaded_model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="c1"># perform a forward pass on the test data with the loaded model
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>Now we’ve made some predictions with the loaded model, let’s see if they’re the same as the previous predictions.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Compare previous model predictions with loaded model predictions (these should be the same)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Compare previous model predictions with loaded model predictions (these should be the same)
 </span><span class="n">y_preds</span> <span class="o">==</span> <span class="n">loaded_model_preds</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[True],
@@ -1544,14 +1830,24 @@
   </p>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Import PyTorch and matplotlib
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Import PyTorch and matplotlib
 </span><span class="kn">import</span> <span class="n">torch</span>
 <span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span> <span class="c1"># nn contains all of PyTorch's building blocks for neural networks
 </span><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
 
 <span class="c1"># Check PyTorch version
 </span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>'1.12.1+cu113'</code></pre>
@@ -1559,10 +1855,16 @@
 
 <p>Now let’s start making our code device agnostic by setting <code class="language-plaintext highlighter-rouge">device="cuda"</code> if it’s available, otherwise it’ll default to <code class="language-plaintext highlighter-rouge">device="cpu"</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Setup device agnostic code
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Setup device agnostic code
 </span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Using device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Using device: cuda</code></pre>
@@ -1570,8 +1872,12 @@
 
 <p>If you’ve got access to a GPU, the above should’ve printed out:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Using device: cuda
-</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre>Using device: cuda
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <p>Otherwise, you’ll be using a CPU for the following computations. This is fine for our small dataset but it will take longer for larger datasets.</p>
 
 <h3 id="data">Data</h3>
@@ -1584,7 +1890,22 @@
 
 <p>Finally, we’ll use the <code class="language-plaintext highlighter-rouge">X</code> values, as well as the <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> values to create <code class="language-plaintext highlighter-rouge">y</code> using the linear regression formula (<code class="language-plaintext highlighter-rouge">y = weight * X + bias</code>).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create weight and bias
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create weight and bias
 </span><span class="n">weight</span> <span class="o">=</span> <span class="mf">0.7</span>
 <span class="n">bias</span> <span class="o">=</span> <span class="mf">0.3</span>
 
@@ -1597,7 +1918,8 @@
 </span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="p">).</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># without unsqueeze, errors will happen later on (shapes within linear layers)
 </span><span class="n">y</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">bias</span> 
 <span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[0.0000],
@@ -1628,13 +1950,22 @@
 
 <p>We’ll use an 80/20 split with 80% training data and 20% testing data.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Split data
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Split data
 </span><span class="n">train_split</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
 <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_split</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_split</span><span class="p">]</span>
 <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_split</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_split</span><span class="p">:]</span>
 
 <span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(40, 40, 10, 10)</code></pre>
@@ -1642,10 +1973,16 @@
 
 <p>Excellent, let’s visualize them to make sure they look okay.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Note: If you've reset your runtime, this function won't work, 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Note: If you've reset your runtime, this function won't work, 
 # you'll have to rerun the cell above where it's instantiated.
 </span><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div style="text-align: left;">
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_71_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
@@ -1690,7 +2027,25 @@
 
 <p><em>Creating a linear regression model using <code class="language-plaintext highlighter-rouge">nn.Parameter</code> versus using <code class="language-plaintext highlighter-rouge">nn.Linear</code>. There are plenty more examples of where the <code class="language-plaintext highlighter-rouge">torch.nn</code> module has pre-built computations, including many popular and useful neural network layers.</em></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Subclass nn.Module to make our model
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Subclass nn.Module to make our model
 </span><span class="k">class</span> <span class="nc">LinearRegressionModelV2</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
         <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
@@ -1706,7 +2061,8 @@
 </span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="n">model_1</span> <span class="o">=</span> <span class="nc">LinearRegressionModelV2</span><span class="p">()</span>
 <span class="n">model_1</span><span class="p">,</span> <span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">()</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(LinearRegressionModelV2(
@@ -1724,9 +2080,14 @@
 
 <p>First let’s check the model’s current device.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check model device
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check model device
 </span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>device(type='cpu')</code></pre>
@@ -1736,10 +2097,16 @@
 
 <p>Let’s change it to be on the GPU (if it’s available).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set model to GPU if it's available, otherwise it'll default to CPU
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Set model to GPU if it's available, otherwise it'll default to CPU
 </span><span class="n">model_1</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="c1"># the device variable was set above to be "cuda" if available or "cpu" if not
 </span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>device(type='cuda', index=0)</code></pre>
@@ -1765,13 +2132,22 @@
 
 <p>The learning rate of <code class="language-plaintext highlighter-rouge">0.01</code> worked well before too so let’s use that again.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create loss function
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create loss function
 </span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">L1Loss</span><span class="p">()</span>
 
 <span class="c1"># Create optimizer
 </span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="c1"># optimize newly created model's parameters
 </span>                            <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>Beautiful, loss function and optimizer ready, now let’s train and evaluate our model using a training and testing loop.</p>
 
@@ -1813,7 +2189,51 @@
   </ol>
 </details>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 
 <span class="c1"># Set the number of epochs 
 </span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span> 
@@ -1855,7 +2275,8 @@
 
     <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
         <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Train loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s"> | Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Epoch: 0 | Train loss: 0.5551779866218567 | Test loss: 0.5739762187004089
@@ -1886,13 +2307,22 @@
 
 <p>Let’s check the parameters our model has learned and compare them to the original parameters we hard-coded.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Find our model's learned parameters
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Find our model's learned parameters
 </span><span class="kn">from</span> <span class="n">pprint</span> <span class="kn">import</span> <span class="n">pprint</span> <span class="c1"># pprint = pretty print, see: https://docs.python.org/3/library/pprint.html 
 </span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The model learned the following values for weights and bias:</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">pprint</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">())</span>
 <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">And the original values for weights and bias are:</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">weights: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s">, bias: </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>The model learned the following values for weights and bias:
@@ -1917,14 +2347,24 @@
 
 <p>Now we’ve got a trained model, let’s turn on it’s evaluation mode and make some predictions.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Turn model into evaluation mode
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Turn model into evaluation mode
 </span><span class="n">model_1</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
 
 <span class="c1"># Make predictions on the test data
 </span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
     <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_1</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">y_preds</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[0.8600],
@@ -1956,11 +2396,18 @@
   </p>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># plot_predictions(predictions=y_preds) # -&gt; won't work... data not on CPU
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># plot_predictions(predictions=y_preds) # -&gt; won't work... data not on CPU
 </span>
 <span class="c1"># Put data on the CPU and plot it
 </span><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">.</span><span class="nf">cpu</span><span class="p">())</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div style="text-align: left;">
   <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_90_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
@@ -1972,7 +2419,23 @@
 
 <p>We’re happy with our models predictions, so let’s save it to file so it can be used later.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
 
 <span class="c1"># 1. Create models directory 
 </span><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">models</span><span class="sh">"</span><span class="p">)</span>
@@ -1986,7 +2449,8 @@
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Saving model to: </span><span class="si">{</span><span class="n">MODEL_SAVE_PATH</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">torch</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">(),</span> <span class="c1"># only saving the state_dict() only saves the models learned parameters
 </span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span> 
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Saving model to: models/.. .pth</code></pre>
@@ -2002,7 +2466,20 @@
   <li>Send the new instance of the model to the target device (to ensure our code is device-agnostic)</li>
 </ul>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Instantiate a fresh instance of LinearRegressionModelV2
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Instantiate a fresh instance of LinearRegressionModelV2
 </span><span class="n">loaded_model_1</span> <span class="o">=</span> <span class="nc">LinearRegressionModelV2</span><span class="p">()</span>
 
 <span class="c1"># Load model state dict 
@@ -2013,7 +2490,8 @@
 
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Loaded model:</span><span class="se">\n</span><span class="si">{</span><span class="n">loaded_model_1</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Model on device:</span><span class="se">\n</span><span class="si">{</span><span class="nf">next</span><span class="p">(</span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Loaded model:
@@ -2026,12 +2504,20 @@
 
 <p>Now we can evaluate the loaded model to see if its predictions line up with the predictions made prior to saving.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Evaluate loaded model
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Evaluate loaded model
 </span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
 <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
     <span class="n">loaded_model_1_preds</span> <span class="o">=</span> <span class="nf">loaded_model_1</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
 <span class="n">y_preds</span> <span class="o">==</span> <span class="n">loaded_model_1_preds</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[True],
@@ -2147,7 +2633,7 @@
       Guo. 
       
       
-        Last updated: January 01, 2025.
+        Last updated: January 03, 2025.
       
     </div>
   </footer>

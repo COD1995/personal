@@ -467,9 +467,14 @@
 
 <p>Let’s start by importing PyTorch and checking the version we’re using.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">torch</span>
 <span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>echo '1.13.1+cu116'</code></pre>
@@ -538,10 +543,16 @@
   <strong>Note:</strong> That's a trend for this course. We'll focus on writing specific code. But often I'll set exercises which involve reading and getting familiar with the PyTorch documentation. Because after all, once you're finished this course, you'll no doubt want to learn more. And the documentation is somewhere you'll be finding yourself quite often.
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Scalar
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Scalar
 </span><span class="n">scalar</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
 <span class="n">scalar</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor(7)</code></pre>
 </div>
@@ -552,8 +563,12 @@
 
 <p>We can check the dimensions of a tensor using the <code class="language-plaintext highlighter-rouge">ndim</code> attribute.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">scalar</span><span class="p">.</span><span class="n">ndim</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">scalar</span><span class="p">.</span><span class="n">ndim</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>0</code></pre>
 </div>
@@ -564,9 +579,14 @@
 
 <p>To do we can use the <code class="language-plaintext highlighter-rouge">item()</code> method.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get the Python number within a tensor (only works with one-element tensors)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get the Python number within a tensor (only works with one-element tensors)
 </span><span class="n">scalar</span><span class="p">.</span><span class="nf">item</span><span class="p">()</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>7</code></pre>
@@ -580,10 +600,16 @@
 
 <p>The important trend here is that a vector is flexible in what it can represent (the same with tensors).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Vector
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Vector
 </span><span class="n">vector</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">7</span><span class="p">,</span> <span class="mi">7</span><span class="p">])</span>
 <span class="n">vector</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([7, 7])</code></pre>
 </div>
@@ -592,9 +618,14 @@
 
 <p>How many dimensions do you think it’ll have?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check the number of dimensions of vector
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check the number of dimensions of vector
 </span><span class="n">vector</span><span class="p">.</span><span class="n">ndim</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>1</code></pre>
@@ -612,9 +643,14 @@
 
 <p>Let’s check out the shape of <code class="language-plaintext highlighter-rouge">vector</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check shape of vector
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check shape of vector
 </span><span class="n">vector</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>torch.Size([2])</code></pre>
 </div>
@@ -623,11 +659,18 @@
 
 <p>Let’s now see a <strong>matrix</strong>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Matrix
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Matrix
 </span><span class="n">MATRIX</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[</span><span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">],</span> 
                        <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">10</span><span class="p">]])</span>
 <span class="n">MATRIX</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([[ 7,  8],
             [ 9, 10]])</code></pre>
@@ -635,9 +678,14 @@
 
 <p>Wow! More numbers! Matrices are as flexible as vectors, except they’ve got an extra dimension.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check number of dimensions
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check number of dimensions
 </span><span class="n">MATRIX</span><span class="p">.</span><span class="n">ndim</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>2</code></pre>
@@ -647,8 +695,12 @@
 
 <p>What <code class="language-plaintext highlighter-rouge">shape</code> do you think it will have?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MATRIX</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">MATRIX</span><span class="p">.</span><span class="n">shape</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>torch.Size([2, 2])</code></pre>
 </div>
@@ -657,12 +709,20 @@
 
 <p>How about we create a <strong>tensor</strong>?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Tensor
 </span><span class="n">TENSOR</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span>
                         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">9</span><span class="p">],</span>
                         <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]]])</span>
 <span class="n">TENSOR</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[[1, 2, 3],
@@ -705,18 +765,28 @@
 
 <p>How many dimensions do you think it has? (hint: use the square bracket counting trick)</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check number of dimensions for TENSOR
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check number of dimensions for TENSOR
 </span><span class="n">TENSOR</span><span class="p">.</span><span class="n">ndim</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>3</code></pre>
 </div>
 
 <p>And what about its shape?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check shape of TENSOR
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check shape of TENSOR
 </span><span class="n">TENSOR</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>torch.Size([1, 3, 3])</code></pre>
 </div>
@@ -848,10 +918,16 @@
 
 <p>We can do so using <a href="https://pytorch.org/docs/stable/generated/torch.rand.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.rand()</code></a> and passing in the <code class="language-plaintext highlighter-rouge">size</code> parameter.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a random tensor of size (3, 4)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a random tensor of size (3, 4)
 </span><span class="n">random_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">random_tensor</span><span class="p">,</span> <span class="n">random_tensor</span><span class="p">.</span><span class="n">dtype</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[0.6541, 0.4807, 0.2162, 0.6168],
@@ -864,10 +940,16 @@
 
 <p>For example, say you wanted a random tensor in the common image shape of <code class="language-plaintext highlighter-rouge">[224, 224, 3]</code> (<code class="language-plaintext highlighter-rouge">[height, width, color_channels</code>]).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a random tensor of size (224, 224, 3)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a random tensor of size (224, 224, 3)
 </span><span class="n">random_image_size_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 <span class="n">random_image_size_tensor</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">random_image_size_tensor</span><span class="p">.</span><span class="n">ndim</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>(torch.Size([224, 224, 3]), 3)</code></pre>
 </div>
@@ -882,10 +964,16 @@
 
 <p>Again, the <code class="language-plaintext highlighter-rouge">size</code> parameter comes into play.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor of all zeros
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor of all zeros
 </span><span class="n">zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">zeros</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">zeros</span><span class="p">,</span> <span class="n">zeros</span><span class="p">.</span><span class="n">dtype</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>(tensor([[0., 0., 0., 0.],
              [0., 0., 0., 0.],
@@ -895,10 +983,16 @@
 
 <p>We can do the same to create a tensor of all ones except using <a href="https://pytorch.org/docs/stable/generated/torch.ones.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.ones()</code> </a> instead.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor of all ones
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor of all ones
 </span><span class="n">ones</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">ones</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
 <span class="n">ones</span><span class="p">,</span> <span class="n">ones</span><span class="p">.</span><span class="n">dtype</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[1., 1., 1., 1.],
@@ -927,13 +1021,22 @@
   <strong>Note:</strong> In Python, you can use <code>range()</code> to create a range. However, in PyTorch, <code>torch.range()</code> is deprecated and may show an error in the future.
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Use torch.arange(), torch.range() is deprecated 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Use torch.arange(), torch.range() is deprecated 
 </span><span class="n">zero_to_ten_deprecated</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1"># Note: this may return an error in the future
 </span>
 <span class="c1"># Create a range of values 0 to 10
 </span><span class="n">zero_to_ten</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">zero_to_ten</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code><span class="deprecated-msg">/tmp/ipykernel_3695928/193451495.py:2: UserWarning: torch.range is deprecated and will be removed in a future release because its behavior is inconsistent with Python's range builtin. Instead, use torch.arange, which produces values in [start, end).
@@ -949,10 +1052,16 @@ tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
 
 <p>To do so you can use <a href="https://pytorch.org/docs/stable/generated/torch.zeros_like.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.zeros_like(input)</code></a> or <a href="https://pytorch.org/docs/1.9.1/generated/torch.ones_like.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.ones_like(input)</code></a> which return a tensor filled with zeros or ones in the same shape as the <code class="language-plaintext highlighter-rouge">input</code> respectively.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Can also create a tensor of zeros similar to another tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Can also create a tensor of zeros similar to another tensor
 </span><span class="n">ten_zeros</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">zeros_like</span><span class="p">(</span><span class="nb">input</span><span class="o">=</span><span class="n">zero_to_ten</span><span class="p">)</span> <span class="c1"># will have same shape
 </span><span class="n">ten_zeros</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([0, 0, 0, 0, 0, 0, 0, 0, 0, 0])</code></pre>
 </div>
@@ -1001,14 +1110,24 @@ tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
 
 <p>Let’s see how to create some tensors with specific datatypes. We can do so using the <code class="language-plaintext highlighter-rouge">dtype</code> parameter.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Default datatype for tensors is float32
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Default datatype for tensors is float32
 </span><span class="n">float_32_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">],</span>
                                <span class="n">dtype</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="c1"># defaults to None, which is torch.float32 or whatever datatype is passed
 </span>                               <span class="n">device</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="c1"># defaults to None, which uses the default tensor type
 </span>                               <span class="n">requires_grad</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span> <span class="c1"># if True, operations performed on the tensor are recorded 
 </span>
 <span class="n">float_32_tensor</span><span class="p">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">float_32_tensor</span><span class="p">.</span><span class="n">dtype</span><span class="p">,</span> <span class="n">float_32_tensor</span><span class="p">.</span><span class="n">device</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(torch.Size([3]), torch.float32, device(type='cpu'))</code></pre>
@@ -1024,11 +1143,18 @@ tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
 
 <p>For now let’s create a tensor with <code class="language-plaintext highlighter-rouge">dtype=torch.float16</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">float_16_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">],</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="n">float_16_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">6.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">],</span>
                                <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span> <span class="c1"># torch.half would also work
 </span>
 <span class="n">float_16_tensor</span><span class="p">.</span><span class="n">dtype</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>torch.float16</code></pre>
@@ -1050,7 +1176,17 @@ tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
 
 <p>Let’s create a random tensor and find out details about it.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor
 </span><span class="n">some_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
 
 <span class="c1"># Find out details about it
@@ -1058,7 +1194,8 @@ tensor([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])</code></pre>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Shape of tensor: </span><span class="si">{</span><span class="n">some_tensor</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Datatype of tensor: </span><span class="si">{</span><span class="n">some_tensor</span><span class="p">.</span><span class="n">dtype</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Device tensor is stored on: </span><span class="si">{</span><span class="n">some_tensor</span><span class="p">.</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># will default to CPU
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[0.4688, 0.0055, 0.8551, 0.0646],
@@ -1102,26 +1239,42 @@ Device tensor is stored on: cpu</code></pre>
 
 <p>They work just as you think they would.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor of values and add a number to it
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor of values and add a number to it
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="n">tensor</span> <span class="o">+</span> <span class="mi">10</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([11, 12, 13])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Multiply it by 10
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Multiply it by 10
 </span><span class="n">tensor</span> <span class="o">*</span> <span class="mi">10</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([10, 20, 30])</code></pre>
 </div>
 
 <p>Notice how the tensor values above didn’t end up being <code class="language-plaintext highlighter-rouge">tensor([110, 120, 130])</code>, this is because the values inside the tensor don’t change unless they’re reassigned.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Tensors don't change unless reassigned
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Tensors don't change unless reassigned
 </span><span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3])</code></pre>
@@ -1129,19 +1282,31 @@ Device tensor is stored on: cpu</code></pre>
 
 <p>Let’s subtract a number and this time we’ll reassign the <code class="language-plaintext highlighter-rouge">tensor</code> variable.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Subtract and reassign
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Subtract and reassign
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">-</span> <span class="mi">10</span>
 <span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([-9, -8, -7])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add and reassign
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Add and reassign
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">+</span> <span class="mi">10</span>
 <span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3])</code></pre>
@@ -1149,17 +1314,27 @@ Device tensor is stored on: cpu</code></pre>
 
 <p>PyTorch also has a bunch of built-in functions like <a href="https://pytorch.org/docs/stable/generated/torch.mul.html#torch.mul" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.mul()</code></a> (short for multiplication) and <a href="https://pytorch.org/docs/stable/generated/torch.add.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.add()</code></a> to perform basic operations.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Can also use torch functions
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Can also use torch functions
 </span><span class="n">torch</span><span class="p">.</span><span class="nf">multiply</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([10, 20, 30])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Original tensor is still unchanged 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Original tensor is still unchanged 
 </span><span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3])</code></pre>
@@ -1167,10 +1342,16 @@ Device tensor is stored on: cpu</code></pre>
 
 <p>However, it’s more common to use the operator symbols like <code class="language-plaintext highlighter-rouge">*</code> instead of <code class="language-plaintext highlighter-rouge">torch.mul()</code></p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Element-wise multiplication (each element multiplies its equivalent, index 0-&gt;0, 1-&gt;1, 2-&gt;2)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Element-wise multiplication (each element multiplies its equivalent, index 0-&gt;0, 1-&gt;1, 2-&gt;2)
 </span><span class="nf">print</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="sh">"</span><span class="s">*</span><span class="sh">"</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Equals:</span><span class="sh">"</span><span class="p">,</span> <span class="n">tensor</span> <span class="o">*</span> <span class="n">tensor</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3]) * tensor([1, 2, 3])
@@ -1219,10 +1400,16 @@ Equals: tensor([1, 4, 9])</code></pre>
 
 <p>Let’s create a tensor and perform element-wise multiplication and matrix multiplication on it.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">torch</span>
 <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="n">tensor</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>torch.Size([3])</code></pre>
@@ -1254,24 +1441,39 @@ Equals: tensor([1, 4, 9])</code></pre>
   </tbody>
 </table>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Element-wise matrix multiplication
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Element-wise matrix multiplication
 </span><span class="n">tensor</span> <span class="o">*</span> <span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([1, 4, 9])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Matrix multiplication
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Matrix multiplication
 </span><span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor(14)</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Can also use the "@" symbol for matrix multiplication, though not recommended
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Can also use the "@" symbol for matrix multiplication, though not recommended
 </span><span class="n">tensor</span> <span class="o">@</span> <span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor(14)</code></pre>
 </div>
@@ -1280,14 +1482,24 @@ Equals: tensor([1, 4, 9])</code></pre>
 
 <p>The in-built <code class="language-plaintext highlighter-rouge">torch.matmul()</code> method is faster.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="o">%%</span><span class="n">time</span>
 <span class="c1"># Matrix multiplication by hand 
 # (avoid doing operations with for loops at all cost, they are computationally expensive)
 </span><span class="n">value</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="nf">len</span><span class="p">(</span><span class="n">tensor</span><span class="p">)):</span>
   <span class="n">value</span> <span class="o">+=</span> <span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">tensor</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
 <span class="n">value</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>CPU times: user 773 µs, sys: 0 ns, total: 773 µs
@@ -1296,9 +1508,14 @@ Wall time: 499 µs
 tensor(14)</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">%%</span><span class="n">time</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="o">%%</span><span class="n">time</span>
 <span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor</span><span class="p">,</span> <span class="n">tensor</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>CPU times: user 146 µs, sys: 83 µs, total: 229 µs
@@ -1311,7 +1528,19 @@ tensor(14)</code></pre>
 
 <p>Because much of deep learning is multiplying and performing operations on matrices and matrices have a strict rule about what shapes and sizes can be combined, one of the most common errors you’ll run into in deep learning is shape mismatches.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Shapes need to be in the right way  
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Shapes need to be in the right way  
 </span><span class="n">tensor_A</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
                          <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
                          <span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
@@ -1321,7 +1550,8 @@ tensor(14)</code></pre>
                          <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">12</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)</span>
 
 <span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">,</span> <span class="n">tensor_B</span><span class="p">)</span> <span class="c1"># (this will error)
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code><span class="traceback">---------------------------------------------------------------------------</span>
@@ -1355,10 +1585,16 @@ torch.matmul(tensor_A, tensor_B)
 
 <p>Let’s try the latter.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># View tensor_A and tensor_B
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># View tensor_A and tensor_B
 </span><span class="nf">print</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">tensor_B</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[1., 2.],
@@ -1369,10 +1605,16 @@ tensor([[ 7., 10.],
         [ 9., 12.]])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># View tensor_A and tensor_B.T
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># View tensor_A and tensor_B.T
 </span><span class="nf">print</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([[1., 2.],
         [3., 4.],
@@ -1381,7 +1623,17 @@ tensor([[ 7.,  8.,  9.],
         [10., 11., 12.]])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># The operation works when tensor_B is transposed
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># The operation works when tensor_B is transposed
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Original shapes: tensor_A = </span><span class="si">{</span><span class="n">tensor_A</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s">, tensor_B = </span><span class="si">{</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shapes: tensor_A = </span><span class="si">{</span><span class="n">tensor_A</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> (same as above), tensor_B.T = </span><span class="si">{</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Multiplying: </span><span class="si">{</span><span class="n">tensor_A</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> * </span><span class="si">{</span><span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> &lt;- inner dimensions match</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
@@ -1389,7 +1641,8 @@ tensor([[ 7.,  8.,  9.],
 <span class="n">output</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">matmul</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">,</span> <span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">output</span><span class="p">)</span> 
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Output shape: </span><span class="si">{</span><span class="n">output</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Original shapes: tensor_A = torch.Size([3, 2]), tensor_B = torch.Size([3, 2])
@@ -1409,9 +1662,14 @@ Output shape: torch.Size([3, 3])</code></pre>
 
 <p>You can also use <a href="https://pytorch.org/docs/stable/generated/torch.mm.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.mm()</code></a> which is a short for <code class="language-plaintext highlighter-rouge">torch.matmul()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># torch.mm is a shortcut for matmul
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># torch.mm is a shortcut for matmul
 </span><span class="n">torch</span><span class="p">.</span><span class="nf">mm</span><span class="p">(</span><span class="n">tensor_A</span><span class="p">,</span> <span class="n">tensor_B</span><span class="p">.</span><span class="n">T</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[ 27.,  30.,  33.],
@@ -1462,7 +1720,18 @@ Output shape: torch.Size([3, 3])</code></pre>
 
 <p>Do you notice anything to do with the shapes?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Since the linear layer starts with a random weights matrix, let's make it reproducible (more on this later)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Since the linear layer starts with a random weights matrix, let's make it reproducible (more on this later)
 </span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
 <span class="c1"># This uses matrix multiplication
 </span><span class="n">linear</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="c1"># in_features = matches inner dimension of input 
@@ -1471,7 +1740,8 @@ Output shape: torch.Size([3, 3])</code></pre>
 <span class="n">output</span> <span class="o">=</span> <span class="nf">linear</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Input shape: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Output:</span><span class="se">\n</span><span class="si">{</span><span class="n">output</span><span class="si">}</span><span class="se">\n\n</span><span class="s">Output shape: </span><span class="si">{</span><span class="n">output</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Input shape: torch.Size([3, 2])
@@ -1532,10 +1802,16 @@ Output shape: torch.Size([3, 6])</code></pre>
 
 <p>First we’ll create a tensor and then find the max, min, mean and sum of it.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor
 </span><span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">x</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([ 0, 10, 20, 30, 40, 50, 60, 70, 80, 90])</code></pre>
@@ -1543,12 +1819,20 @@ Output shape: torch.Size([3, 6])</code></pre>
 
 <p>Now let’s perform some aggregation.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Minimum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">min</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Minimum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">min</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Maximum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">max</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="c1"># print(f"Mean: {x.mean()}") # this will error
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Mean: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">).</span><span class="nf">mean</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># won't work without float datatype
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Sum: </span><span class="si">{</span><span class="n">x</span><span class="p">.</span><span class="nf">sum</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Minimum: 0
@@ -1563,8 +1847,12 @@ Sum: 450</code></pre>
 
 <p>You can also do the same as above with <code class="language-plaintext highlighter-rouge">torch</code> methods.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">torch</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">max</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">min</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">mean</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float32</span><span class="p">)),</span> <span class="n">torch</span><span class="p">.</span><span class="nf">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor(90), tensor(0), tensor(45.), tensor(450))</code></pre>
@@ -1576,14 +1864,24 @@ Sum: 450</code></pre>
 
 <p>This is helpful incase you just want the position where the highest (or lowest) value is and not the actual value itself (we’ll see this in a later section when using the <a href="https://pytorch.org/docs/stable/generated/torch.nn.Softmax.html" rel="external nofollow noopener" target="_blank">softmax activation function</a>).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor: </span><span class="si">{</span><span class="n">tensor</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># Returns index of max and min values
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Index where max value occurs: </span><span class="si">{</span><span class="n">tensor</span><span class="p">.</span><span class="nf">argmax</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Index where min value occurs: </span><span class="si">{</span><span class="n">tensor</span><span class="p">.</span><span class="nf">argmin</span><span class="p">()</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Tensor: tensor([10, 20, 30, 40, 50, 60, 70, 80, 90])
@@ -1603,10 +1901,16 @@ Index where min value occurs: 0</code></pre>
 
 <p>First we’ll create a tensor and check its datatype (the default is <code class="language-plaintext highlighter-rouge">torch.float32</code>).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor and check its datatype
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor and check its datatype
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">100.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">)</span>
 <span class="n">tensor</span><span class="p">.</span><span class="n">dtype</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>torch.float32</code></pre>
@@ -1614,10 +1918,16 @@ Index where min value occurs: 0</code></pre>
 
 <p>Now we’ll create another tensor the same as before but change its datatype to <code class="language-plaintext highlighter-rouge">torch.float16</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a float16 tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a float16 tensor
 </span><span class="n">tensor_float16</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">float16</span><span class="p">)</span>
 <span class="n">tensor_float16</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([10., 20., 30., 40., 50., 60., 70., 80., 90.], dtype=torch.float16)</code></pre>
@@ -1625,10 +1935,16 @@ Index where min value occurs: 0</code></pre>
 
 <p>And we can do something similar to make a <code class="language-plaintext highlighter-rouge">torch.int8</code> tensor.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create an int8 tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create an int8 tensor
 </span><span class="n">tensor_int8</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="n">int8</span><span class="p">)</span>
 <span class="n">tensor_int8</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([10, 20, 30, 40, 50, 60, 70, 80, 90], dtype=torch.int8)</code></pre>
@@ -1693,11 +2009,18 @@ Index where min value occurs: 0</code></pre>
 
 <p>First, we’ll create a tensor.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor
 </span><span class="kn">import</span> <span class="n">torch</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="mf">8.</span><span class="p">)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([1., 2., 3., 4., 5., 6., 7.]), torch.Size([7]))</code></pre>
@@ -1705,10 +2028,16 @@ Index where min value occurs: 0</code></pre>
 
 <p>Now let’s add an extra dimension with <code class="language-plaintext highlighter-rouge">torch.reshape()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Add an extra dimension
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Add an extra dimension
 </span><span class="n">x_reshaped</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="n">x_reshaped</span><span class="p">,</span> <span class="n">x_reshaped</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))</code></pre>
@@ -1716,11 +2045,18 @@ Index where min value occurs: 0</code></pre>
 
 <p>We can also change the view with <code class="language-plaintext highlighter-rouge">torch.view()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Change view (keeps same data as original but changes view)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Change view (keeps same data as original but changes view)
 # See more: https://stackoverflow.com/a/54507446/7900723
 </span><span class="n">z</span> <span class="o">=</span> <span class="n">x</span><span class="p">.</span><span class="nf">view</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
 <span class="n">z</span><span class="p">,</span> <span class="n">z</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[1., 2., 3., 4., 5., 6., 7.]]), torch.Size([1, 7]))</code></pre>
@@ -1730,10 +2066,16 @@ Index where min value occurs: 0</code></pre>
 
 <p>So <em>changing the view changes the original tensor too</em>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Changing z changes x
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Changing z changes x
 </span><span class="n">z</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
 <span class="n">z</span><span class="p">,</span> <span class="n">x</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([[5., 2., 3., 4., 5., 6., 7.]]), tensor([5., 2., 3., 4., 5., 6., 7.]))</code></pre>
@@ -1741,10 +2083,16 @@ Index where min value occurs: 0</code></pre>
 
 <p>If we wanted to stack our new tensor on top of itself five times, we could do so with <code class="language-plaintext highlighter-rouge">torch.stack()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Stack tensors on top of each other
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Stack tensors on top of each other
 </span><span class="n">x_stacked</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">stack</span><span class="p">([</span><span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">],</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># try changing dim to dim=1 and see what happens
 </span><span class="n">x_stacked</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([[5., 2., 3., 4., 5., 6., 7.],
         [5., 2., 3., 4., 5., 6., 7.],
@@ -1756,14 +2104,24 @@ Index where min value occurs: 0</code></pre>
 
 <p>To do so you can use <code class="language-plaintext highlighter-rouge">torch.squeeze()</code> (I remember this as <em>squeezing</em> the tensor to only have dimensions over 1).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous tensor: </span><span class="si">{</span><span class="n">x_reshaped</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous tensor: </span><span class="si">{</span><span class="n">x_reshaped</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous shape: </span><span class="si">{</span><span class="n">x_reshaped</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1"># Remove extra dimension from x_reshaped
 </span><span class="n">x_squeezed</span> <span class="o">=</span> <span class="n">x_reshaped</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">()</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">New tensor: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shape: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
 Previous shape: torch.Size([1, 7])
@@ -1774,14 +2132,24 @@ New shape: torch.Size([7])</code></pre>
 
 <p>And to do the reverse of <code class="language-plaintext highlighter-rouge">torch.squeeze()</code> you can use <code class="language-plaintext highlighter-rouge">torch.unsqueeze()</code> to add a dimension value of 1 at a specific index.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous tensor: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous tensor: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous shape: </span><span class="si">{</span><span class="n">x_squeezed</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 
 <span class="c1">## Add an extra dimension with unsqueeze
 </span><span class="n">x_unsqueezed</span> <span class="o">=</span> <span class="n">x_squeezed</span><span class="p">.</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">New tensor: </span><span class="si">{</span><span class="n">x_unsqueezed</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shape: </span><span class="si">{</span><span class="n">x_unsqueezed</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Previous tensor: tensor([[5., 2., 3., 4., 5., 6., 7.]])
@@ -1793,7 +2161,17 @@ New shape: torch.Size([7])</code></pre>
 
 <p>You can also rearrange the order of axes values with <code class="language-plaintext highlighter-rouge">torch.permute(input, dims)</code>, where the <code class="language-plaintext highlighter-rouge">input</code> gets turned into a <em>view</em> with new <code class="language-plaintext highlighter-rouge">dims</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create tensor with specific shape
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create tensor with specific shape
 </span><span class="n">x_original</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">3</span><span class="p">))</span>
 
 <span class="c1"># Permute the original tensor to rearrange the axis order
@@ -1801,7 +2179,8 @@ New shape: torch.Size([7])</code></pre>
 </span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Previous shape: </span><span class="si">{</span><span class="n">x_original</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">New shape: </span><span class="si">{</span><span class="n">x_permuted</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Previous shape: torch.Size([224, 224, 3])
@@ -1820,11 +2199,18 @@ New shape: torch.Size([3, 224, 224])</code></pre>
 
 <p>If you’ve ever done indexing on Python lists or NumPy arrays, indexing in PyTorch with tensors is very similar.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a tensor 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a tensor 
 </span><span class="kn">import</span> <span class="n">torch</span>
 <span class="n">x</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">).</span><span class="nf">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="n">x</span><span class="p">,</span> <span class="n">x</span><span class="p">.</span><span class="n">shape</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>(tensor([[[1, 2, 3],
           [4, 5, 6],
@@ -1834,11 +2220,18 @@ New shape: torch.Size([3, 224, 224])</code></pre>
 
 <p>Indexing values goes outer dimension -&gt; inner dimension (check out the square brackets).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Let's index bracket by bracket
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Let's index bracket by bracket
 </span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">First square bracket:</span><span class="se">\n</span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> 
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Second square bracket: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> 
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Third square bracket: </span><span class="si">{</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>First square bracket:
@@ -1851,32 +2244,52 @@ Third square bracket: 1</code></pre>
 
 <p>You can also use <code class="language-plaintext highlighter-rouge">:</code> to specify “all values in this dimension” and then use a comma (<code class="language-plaintext highlighter-rouge">,</code>) to add another dimension.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get all values of 0th dimension and the 0 index of 1st dimension
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get all values of 0th dimension and the 0 index of 1st dimension
 </span><span class="n">x</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[1, 2, 3]])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get all values of 0th &amp; 1st dimensions but only index 1 of 2nd dimension
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get all values of 0th &amp; 1st dimensions but only index 1 of 2nd dimension
 </span><span class="n">x</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">1</span><span class="p">]</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([[2, 5, 8]])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get all values of the 0 dimension but only the 1 index value of the 1st and 2nd dimension
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get all values of the 0 dimension but only the 1 index value of the 1st and 2nd dimension
 </span><span class="n">x</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>tensor([5])</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get index 0 of 0th and 1st dimension and all values of 2nd dimension 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get index 0 of 0th and 1st dimension and all values of 2nd dimension 
 </span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:]</span> <span class="c1"># same as x[0][0]
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3])</code></pre>
@@ -1898,13 +2311,22 @@ Third square bracket: 1</code></pre>
 
 <p>Let’s try them out.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># NumPy array to tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># NumPy array to tensor
 </span><span class="kn">import</span> <span class="n">torch</span>
 <span class="kn">import</span> <span class="n">numpy</span> <span class="k">as</span> <span class="n">np</span>
 <span class="n">array</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">)</span>
 <span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">from_numpy</span><span class="p">(</span><span class="n">array</span><span class="p">)</span>
 <span class="n">array</span><span class="p">,</span> <span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>(array([1., 2., 3., 4., 5., 6., 7.]),
  tensor([1., 2., 3., 4., 5., 6., 7.], dtype=torch.float64))</code></pre>
@@ -1921,10 +2343,16 @@ Third square bracket: 1</code></pre>
 
 <p>Because we reassigned <code class="language-plaintext highlighter-rouge">tensor</code> above, if you change the tensor, the array stays the same.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Change the array, keep the tensor
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Change the array, keep the tensor
 </span><span class="n">array</span> <span class="o">=</span> <span class="n">array</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">array</span><span class="p">,</span> <span class="n">tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(array([2., 3., 4., 5., 6., 7., 8.]),
@@ -1933,11 +2361,18 @@ Third square bracket: 1</code></pre>
 
 <p>And if you want to go from PyTorch tensor to NumPy array, you can call <code class="language-plaintext highlighter-rouge">tensor.numpy()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Tensor to NumPy array
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Tensor to NumPy array
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">ones</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span> <span class="c1"># create a tensor of ones with dtype=float32
 </span><span class="n">numpy_tensor</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">numpy</span><span class="p">()</span> <span class="c1"># will be dtype=float32 unless changed
 </span><span class="n">tensor</span><span class="p">,</span> <span class="n">numpy_tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([1., 1., 1., 1., 1., 1., 1.]),
@@ -1946,10 +2381,16 @@ Third square bracket: 1</code></pre>
 
 <p>And the same rule applies as above, if you change the original <code class="language-plaintext highlighter-rouge">tensor</code>, the new <code class="language-plaintext highlighter-rouge">numpy_tensor</code> stays the same.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Change the tensor, keep the array the same
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Change the tensor, keep the array the same
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">tensor</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="n">tensor</span><span class="p">,</span> <span class="n">numpy_tensor</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>(tensor([2., 2., 2., 2., 2., 2., 2.]),
@@ -1990,7 +2431,19 @@ Third square bracket: 1</code></pre>
 
 <p>We’ll start by creating two random tensors, since they’re random, you’d expect them to be different right?</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">torch</span>
 
 <span class="c1"># Create two random tensors
 </span><span class="n">random_tensor_A</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">rand</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
@@ -2000,7 +2453,8 @@ Third square bracket: 1</code></pre>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor B:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor_B</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Does Tensor A equal Tensor B? (anywhere)</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">random_tensor_A</span> <span class="o">==</span> <span class="n">random_tensor_B</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Tensor A:
@@ -2031,7 +2485,26 @@ tensor([[False, False, False, False],
 
 <p>Let’s try it out by creating some more <em>flavoured</em> random tensors.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">torch</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">torch</span>
 <span class="kn">import</span> <span class="n">random</span>
 
 <span class="c1"># # Set the random seed
@@ -2048,7 +2521,8 @@ tensor([[False, False, False, False],
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Tensor D:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor_D</span><span class="si">}</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Does Tensor C equal Tensor D? (anywhere)</span><span class="sh">"</span><span class="p">)</span>
 <span class="n">random_tensor_C</span> <span class="o">==</span> <span class="n">random_tensor_D</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Tensor C:
@@ -2151,8 +2625,12 @@ tensor([[True, True, True, True],
 
 <p>To check if you’ve got access to a Nvidia GPU, you can run <code class="language-plaintext highlighter-rouge">!nvidia-smi</code> where the <code class="language-plaintext highlighter-rouge">!</code> (also called bang) means “run this on the command line”.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="err">!</span><span class="n">nvidia</span><span class="o">-</span><span class="n">smi</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>Sat Jan 21 08:34:23 2023       
@@ -2223,10 +2701,16 @@ tensor([[True, True, True, True],
 
 <p>You can test if PyTorch has access to a GPU using <a href="https://pytorch.org/docs/stable/generated/torch.cuda.is_available.html#torch.cuda.is_available" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda.is_available()</code></a>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check for GPU
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check for GPU
 </span><span class="kn">import</span> <span class="n">torch</span>
 <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>True</code></pre>
@@ -2240,10 +2724,16 @@ tensor([[True, True, True, True],
 
 <p>Let’s create a <code class="language-plaintext highlighter-rouge">device</code> variable to store what kind of device is available.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set device type
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Set device type
 </span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
 <span class="n">device</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 <div class="bash-block">
   <pre><code>'cuda'</code></pre>
 </div>
@@ -2258,9 +2748,14 @@ tensor([[True, True, True, True],
 
 <p>You can count the number of GPUs PyTorch has access to using <a href="https://pytorch.org/docs/stable/generated/torch.cuda.device_count.html#torch.cuda.device_count" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.cuda.device_count()</code></a>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Count number of devices
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Count number of devices
 </span><span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">device_count</span><span class="p">()</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>1</code></pre>
@@ -2276,19 +2771,31 @@ tensor([[True, True, True, True],
 
 <p>You can test if PyTorch has access to a GPU using <code class="language-plaintext highlighter-rouge">torch.backends.mps.is_available()</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Check for Apple Silicon GPU
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check for Apple Silicon GPU
 </span><span class="kn">import</span> <span class="n">torch</span>
 <span class="n">torch</span><span class="p">.</span><span class="n">backends</span><span class="p">.</span><span class="n">mps</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="c1"># Note this will print false if you're not running on a Mac
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>True</code></pre>
 </div>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Set device type
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Set device type
 </span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">mps</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">backends</span><span class="p">.</span><span class="n">mps</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
 <span class="n">device</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>'mps'</code></pre>
@@ -2296,13 +2803,22 @@ tensor([[True, True, True, True],
 
 <p>As before, if the above output <code class="language-plaintext highlighter-rouge">"mps"</code> it means we can set all of our PyTorch code to use the available Apple Silicon GPU.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">():</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">():</span>
     <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="c1"># Use NVIDIA GPU (if available)
 </span><span class="k">elif</span> <span class="n">torch</span><span class="p">.</span><span class="n">backends</span><span class="p">.</span><span class="n">mps</span><span class="p">.</span><span class="nf">is_available</span><span class="p">():</span>
     <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">mps</span><span class="sh">"</span> <span class="c1"># Use Apple Silicon GPU (if available)
 </span><span class="k">else</span><span class="p">:</span>
     <span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span> <span class="c1"># Default to CPU if no GPU is available
-</span></code></pre></div></div>
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <h3 id="putting-tensors-and-models-on-the-gpu">Putting tensors (and models) on the GPU</h3>
 
@@ -2320,7 +2836,18 @@ tensor([[True, True, True, True],
 
 <p>Let’s try creating a tensor and putting it on the GPU (if it’s available).</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create tensor (default on CPU)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create tensor (default on CPU)
 </span><span class="n">tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 
 <span class="c1"># Tensor not on GPU
@@ -2329,7 +2856,8 @@ tensor([[True, True, True, True],
 <span class="c1"># Move tensor to GPU (if available)
 </span><span class="n">tensor_on_gpu</span> <span class="o">=</span> <span class="n">tensor</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
 <span class="n">tensor_on_gpu</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3]) cpu
@@ -2340,9 +2868,14 @@ tensor([1, 2, 3], device='mps:0')</code></pre>
 
 <p>If you have a GPU available, the above code will output something like:</p>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>tensor([1, 2, 3]) cpu
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre>tensor([1, 2, 3]) cpu
 tensor([1, 2, 3], device='cuda:0')
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <p>Notice the second tensor has <code class="language-plaintext highlighter-rouge">device='cuda:0'</code>, this means it’s stored on the 0th GPU available (GPUs are 0 indexed, if two GPUs were available, they’d be <code class="language-plaintext highlighter-rouge">'cuda:0'</code> and <code class="language-plaintext highlighter-rouge">'cuda:1'</code> respectively, up to <code class="language-plaintext highlighter-rouge">'cuda:n'</code>).</p>
 
@@ -2354,9 +2887,14 @@ tensor([1, 2, 3], device='cuda:0')
 
 <p>Let’s try using the <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.numpy.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.Tensor.numpy()</code></a> method on our <code class="language-plaintext highlighter-rouge">tensor_on_gpu</code>.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># If tensor is on GPU, can't transform it to NumPy (this will error)
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># If tensor is on GPU, can't transform it to NumPy (this will error)
 </span><span class="n">tensor_on_gpu</span><span class="p">.</span><span class="nf">numpy</span><span class="p">()</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code><span class="traceback">---------------------------------------------------------------------------</span>
@@ -2373,10 +2911,16 @@ tensor([1, 2, 3], device='cuda:0')
 
 <p>This copies the tensor to CPU memory so it’s usable with CPUs.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Instead, copy the tensor back to cpu
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Instead, copy the tensor back to cpu
 </span><span class="n">tensor_back_on_cpu</span> <span class="o">=</span> <span class="n">tensor_on_gpu</span><span class="p">.</span><span class="nf">cpu</span><span class="p">().</span><span class="nf">numpy</span><span class="p">()</span>
 <span class="n">tensor_back_on_cpu</span>
-</code></pre></div></div>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>array([1, 2, 3])</code></pre>
@@ -2384,8 +2928,12 @@ tensor([1, 2, 3], device='cuda:0')
 
 <p>The above returns a copy of the GPU tensor in CPU memory so the original tensor is still on GPU.</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tensor_on_gpu</span>
-</code></pre></div></div>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">tensor_on_gpu</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
 
 <div class="bash-block">
   <pre><code>tensor([1, 2, 3], device='cuda:0')</code></pre>
@@ -2442,7 +2990,7 @@ tensor([1, 2, 3], device='cuda:0')
       Guo. 
       
       
-        Last updated: January 01, 2025.
+        Last updated: January 03, 2025.
       
     </div>
   </footer>

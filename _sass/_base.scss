@@ -1621,69 +1621,6 @@ details.collapsible-callout {
   }
 }
 
-/* General code block styling */
-.highlight {
-  pre {
-    background: linear-gradient(to bottom right, #fafafa, #fefefe);
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
-    padding: 1rem;
-    margin: 1.5rem 0;
-    font-family: Consolas, "Courier New", Courier, monospace;
-    font-size: 0.9rem;
-    line-height: 1.5;
-    color: #333;
-
-    /* Enable horizontal scroll for long lines */
-    overflow-x: scroll;
-    /* Enable vertical scroll if content is too long */
-    max-height: 400px;
-    overflow-y: auto;
-
-    code {
-      background: transparent;
-      border: none;
-      display: inline-block;
-      width: 100%;
-    }
-
-    &::-webkit-scrollbar {
-      height: 12px;
-      /* Height of horizontal scrollbar */
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background: #ccc;
-      border-radius: 6px;
-      border: 2px solid #f7f7f7;
-    }
-  }
-
-  /* Optional syntax highlighting overrides */
-  .hljs-keyword,
-  .hljs-built_in,
-  .hljs-tag {
-    color: #0076df;
-    font-weight: bold;
-  }
-
-  .hljs-string,
-  .hljs-attr {
-    color: #d14;
-  }
-
-  .hljs-comment {
-    color: #999;
-    font-style: italic;
-  }
-
-  .hljs-function .hljs-title,
-  .hljs-title.class_ {
-    color: #5c9b50;
-  }
-}
-
 /* General styling for bash blocks */
 .bash-block {
   position: relative;
