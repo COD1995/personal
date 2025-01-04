@@ -210,6 +210,7 @@ We can check the dimensions of a tensor using the `ndim` attribute.
 ```python
 scalar.ndim
 ```
+
 <div class="bash-block">
   <pre><code>0</code></pre>
 </div>
@@ -790,10 +791,12 @@ tensor + 10
   <pre><code>tensor([11, 12, 13])</code></pre>
 </div>
 
+
 ```python
 # Multiply it by 10
 tensor * 10
 ```
+
 <div class="bash-block">
   <pre><code>tensor([10, 20, 30])</code></pre>
 </div>
