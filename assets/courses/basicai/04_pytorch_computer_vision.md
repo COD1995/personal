@@ -1769,3 +1769,44 @@ conv_layer(test_image) # Note: If running PyTorch <1.11.0, this will error becau
        grad_fn=&lt;SqueezeBackward1&gt;)
   </code></pre>
 </div>
+
+If we try to pass a single image in, we get a shape mismatch error:
+
+<div class="note-box">
+  <strong>Error:</strong>
+  <p>
+    <code>RuntimeError: Expected 4-dimensional input for 4-dimensional weight [10, 3, 3, 3], but got 3-dimensional input of size [3, 64, 64] instead</code>
+  </p>
+  <strong>Note:</strong>
+  <p>
+    If you're running PyTorch 1.11.0+, this error won't occur.
+  </p>
+</div>
+
+This is because our `nn.Conv2d()` layer expects a 4-dimensional tensor as input with size `(N, C, H, W)` or `[batch_size, color_channels, height, width]`.
+
+Right now our single image `test_image` only has a shape of `[color_channels, height, width]` or `[3, 64, 64]`.
+
+We can fix this for a single image using `test_image.unsqueeze(dim=0)` to add an extra dimension for `N`.
+
+```python
+# Add extra dimension to test image
+test_image.unsqueeze(dim=0).shape
+```
+
+<div class="bash-block">
+  <pre><code>torch.Size([1, 3, 64, 64])</code></pre>
+</div>
+
+```python
+# Pass test image with extra dimension through conv_layer
+conv_layer(test_image.unsqueeze(dim=0)).shape
+```
+
+<div class="bash-block">
+  <pre><code>torch.Size([1, 10, 62, 62])</code></pre>
+</div>
+
+Hmm, notice what happens to our shape (the same shape as the first layer of TinyVGG on [CNN Explainer](https://poloclub.github.io/cnn-explainer/)), we get different channel sizes as well as different pixel sizes.
+
+What if we changed the values of `conv_layer`?
