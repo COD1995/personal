@@ -999,3 +999,773 @@ model_0_results = eval_model(model=model_0, data_loader=test_dataloader,
 )
 model_0_results
 ```
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV0',
+ 'model_loss': 0.47663894295692444,
+ 'model_acc': 83.42651757188499}
+  </code></pre>
+</div>
+
+Looking good!
+
+We can use this dictionary to compare the baseline model results to other models later on.
+
+## Setup device agnostic-code (for using a GPU if there is one)
+We've seen how long it takes to train ma PyTorch model on 60,000 samples on CPU.
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Model training time is dependent on hardware used. Generally, more processors mean faster training, and smaller models on smaller datasets will often train faster than large models and large datasets.
+  </p>
+</div>
+
+Now let's setup some [device-agnostic code](https://pytorch.org/docs/stable/notes/cuda.html#best-practices) for our models and data to run on GPU if it's available.
+
+If you're running this notebook on Google Colab, and you don't have a GPU turned on yet, it's now time to turn one on via `Runtime -> Change runtime type -> Hardware accelerator -> GPU`. If you do this, your runtime will likely reset and you'll have to run all of the cells above by going `Runtime -> Run before`.
+
+
+```python
+# Setup device agnostic code
+import torch
+device = "cuda" if torch.cuda.is_available() else "cpu"
+device
+```
+
+<div class="bash-block">
+  <pre><code> 'cuda'
+  </code></pre>
+</div>
+
+Beautiful!
+
+Let's build another model.
+
+## Model 1: Building a better model with non-linearity
+
+We learned about <a href="{{ '/assets/courses/basicai/03_pytorch_classification' | relative_url }}">the power of non-linearity</a> in previous session.
+
+
+Seeing the data we've been working with, do you think it needs non-linear functions?
+
+And remember, linear means straight and non-linear means non-straight.
+
+Let's find out.
+
+We'll do so by recreating a similar model to before, except this time we'll put non-linear functions (`nn.ReLU()`) in between each linear layer.
+
+
+```python
+# Create a model with non-linear and linear layers
+class FashionMNISTModelV1(nn.Module):
+    def __init__(self, input_shape: int, hidden_units: int, output_shape: int):
+        super().__init__()
+        self.layer_stack = nn.Sequential(
+            nn.Flatten(), # flatten inputs into single vector
+            nn.Linear(in_features=input_shape, out_features=hidden_units),
+            nn.ReLU(),
+            nn.Linear(in_features=hidden_units, out_features=output_shape),
+            nn.ReLU()
+        )
+
+    def forward(self, x: torch.Tensor):
+        return self.layer_stack(x)
+```
+
+That looks good.
+
+Now let's instantiate it with the same settings we used before.
+
+We'll need `input_shape=784` (equal to the number of features of our image data), `hidden_units=10` (starting small and the same as our baseline model) and `output_shape=len(class_names)` (one output unit per class).
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Notice how we kept most of the settings of our model the same except for one change: adding non-linear layers. This is a standard practice for running a series of machine learning experiments — change one thing and see what happens, then do it again, again, again.
+  </p>
+</div>
+
+```python
+torch.manual_seed(42)
+model_1 = FashionMNISTModelV1(input_shape=784, # number of input features
+    hidden_units=10,
+    output_shape=len(class_names) # number of output classes desired
+).to(device) # send model to GPU if it's available
+next(model_1.parameters()).device # check model device
+```
+
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)
+  </code></pre>
+</div>
+
+### Setup loss, optimizer and evaluation metrics
+
+As usual, we'll setup a loss function, an optimizer and an evaluation metric (we could do multiple evaluation metrics but we'll stick with accuracy for now).
+
+```python
+from helper_functions import accuracy_fn
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_1.parameters(),
+                            lr=0.1)
+```
+
+### Functionizing training and test loops
+
+So far we've been writing train and test loops over and over.
+
+Let's write them again but this time we'll put them in functions so they can be called again and again.
+
+And because we're using device-agnostic code now, we'll be sure to call `.to(device)` on our feature (`X`) and target (`y`) tensors.
+
+For the training loop we'll create a function called `train_step()` which takes in a model, a `DataLoader` a loss function and an optimizer.
+
+The testing loop will be similar but it'll be called `test_step()` and it'll take in a model, a `DataLoader`, a loss function and an evaluation function.
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Since these are functions, you can customize them in any way you like. What we're making here can be considered barebones training and testing functions for our specific classification use case.
+  </p>
+</div>
+
+```python
+def train_step(model: torch.nn.Module,
+               data_loader: torch.utils.data.DataLoader,
+               loss_fn: torch.nn.Module,
+               optimizer: torch.optim.Optimizer,
+               accuracy_fn,
+               device: torch.device = device):
+    train_loss, train_acc = 0, 0
+    model.to(device)
+    for batch, (X, y) in enumerate(data_loader):
+        # Send data to GPU
+        X, y = X.to(device), y.to(device)
+
+        # 1. Forward pass
+        y_pred = model(X)
+
+        # 2. Calculate loss
+        loss = loss_fn(y_pred, y)
+        train_loss += loss
+        train_acc += accuracy_fn(y_true=y,
+                                 y_pred=y_pred.argmax(dim=1)) # Go from logits -> pred labels
+
+        # 3. Optimizer zero grad
+        optimizer.zero_grad()
+
+        # 4. Loss backward
+        loss.backward()
+
+        # 5. Optimizer step
+        optimizer.step()
+
+    # Calculate loss and accuracy per epoch and print out what's happening
+    train_loss /= len(data_loader)
+    train_acc /= len(data_loader)
+    print(f"Train loss: {train_loss:.5f} | Train accuracy: {train_acc:.2f}%")
+
+def test_step(data_loader: torch.utils.data.DataLoader,
+              model: torch.nn.Module,
+              loss_fn: torch.nn.Module,
+              accuracy_fn,
+              device: torch.device = device):
+    test_loss, test_acc = 0, 0
+    model.to(device)
+    model.eval() # put model in eval mode
+    # Turn on inference context manager
+    with torch.inference_mode():
+        for X, y in data_loader:
+            # Send data to GPU
+            X, y = X.to(device), y.to(device)
+
+            # 1. Forward pass
+            test_pred = model(X)
+
+            # 2. Calculate loss and accuracy
+            test_loss += loss_fn(test_pred, y)
+            test_acc += accuracy_fn(y_true=y,
+                y_pred=test_pred.argmax(dim=1) # Go from logits -> pred labels
+            )
+
+        # Adjust metrics and print out
+        test_loss /= len(data_loader)
+        test_acc /= len(data_loader)
+        print(f"Test loss: {test_loss:.5f} | Test accuracy: {test_acc:.2f}%\n")
+```
+
+Woohoo!
+
+Now we've got some functions for training and testing our model, let's run them.
+
+We'll do so inside another loop for each epoch.
+
+That way, for each epoch, we're going through a training step and a testing step.
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    You can customize how often you do a testing step. Sometimes people do them every five epochs or 10 epochs or, in our case, every epoch.
+  </p>
+</div>
+
+Let's also time things to see how long our code takes to run on the GPU.
+
+
+```python
+torch.manual_seed(42)
+
+# Measure time
+from timeit import default_timer as timer
+train_time_start_on_gpu = timer()
+
+epochs = 3
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\n---------")
+    train_step(data_loader=train_dataloader,
+        model=model_1,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        accuracy_fn=accuracy_fn
+    )
+    test_step(data_loader=test_dataloader,
+        model=model_1,
+        loss_fn=loss_fn,
+        accuracy_fn=accuracy_fn
+    )
+
+train_time_end_on_gpu = timer()
+total_train_time_model_1 = print_train_time(start=train_time_start_on_gpu,
+                                            end=train_time_end_on_gpu,
+                                            device=device)
+```
+
+<div class="bash-block">
+  <pre><code> 0%|          | 0/3 [00:00<?, ?it/s]
+
+Epoch: 0
+---------
+Train loss: 1.09199 | Train accuracy: 61.34%
+Test loss: 0.95636 | Test accuracy: 65.00%
+
+Epoch: 1
+---------
+Train loss: 0.78101 | Train accuracy: 71.93%
+Test loss: 0.72227 | Test accuracy: 73.91%
+
+Epoch: 2
+---------
+Train loss: 0.67027 | Train accuracy: 75.94%
+Test loss: 0.68500 | Test accuracy: 75.02%
+
+Train time on cuda: 36.878 seconds
+  </code></pre>
+</div>
+
+Excellent!
+
+Our model trained but the training time took longer?
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The training time on CUDA vs CPU will depend largely on the quality of the CPU/GPU you're using. Read on for a more explained answer.
+  </p>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    "I used a GPU but my model didn't train faster, why might that be?"
+  </p>
+  <strong>Answer:</strong>
+  <p>
+    Well, one reason could be because your dataset and model are both so small (like the dataset and model we're working with) the benefits of using a GPU are outweighed by the time it actually takes to transfer the data there.
+  </p>
+  <p>
+    There's a small bottleneck between copying data from the CPU memory (default) to the GPU memory.
+  </p>
+  <p>
+    So for smaller models and datasets, the CPU might actually be the optimal place to compute on.
+  </p>
+  <p>
+    But for larger datasets and models, the speed of computing the GPU can offer usually far outweighs the cost of getting the data there.
+  </p>
+  <p>
+    However, this is largely dependent on the hardware you're using. With practice, you will get used to where the best place to train your models is.
+  </p>
+</div>
+
+Let's evaluate our trained `model_1` using our `eval_model()` function and see how it went.
+
+
+```python
+torch.manual_seed(42)
+
+# Note: This will error due to `eval_model()` not using device agnostic code
+model_1_results = eval_model(model=model_1,
+    data_loader=test_dataloader,
+    loss_fn=loss_fn,
+    accuracy_fn=accuracy_fn)
+model_1_results
+```
+
+<div class="bash-block">
+  <pre><code class="traceback">
+---------------------------------------------------------------------------
+
+RuntimeError                              Traceback (most recent call last)
+
+&lt;cell line: 4&gt;
+# Note: This will error due to `eval_model()` not using device agnostic code
+----&gt; model_1_results = eval_model(model=model_1, 
+                                     data_loader=test_dataloader,
+                                     loss_fn=loss_fn)
+
+&lt;ipython-input-20&gt; in eval_model(model, data_loader, loss_fn, accuracy_fn)
+# Make predictions with the model
+----&gt; y_pred = model(X)
+
+&lt;ipython-input-22&gt; in forward(self, x)
+----&gt; return self.layer_stack(x)
+
+&lt;usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py&gt; in forward(self, input)
+----&gt; return F.linear(input, self.weight, self.bias)
+
+<span class="error-msg">RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</span>
+  </code></pre>
+</div>
+
+Oh no!
+
+It looks like our `eval_model()` function errors out with:
+
+<div class="note-box">
+  <strong>Error:</strong>
+  <p>
+    <code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat1 in method wrapper_addmm)</code>
+  </p>
+</div>
+
+It's because we've setup our data and model to use device-agnostic code but not our evaluation function.
+
+How about we fix that by passing a target `device` parameter to our `eval_model()` function?
+
+Then we'll try calculating the results again.
+
+```python
+# Move values to device
+torch.manual_seed(42)
+def eval_model(model: torch.nn.Module,
+               data_loader: torch.utils.data.DataLoader,
+               loss_fn: torch.nn.Module,
+               accuracy_fn,
+               device: torch.device = device):
+    """Evaluates a given model on a given dataset.
+
+    Args:
+        model (torch.nn.Module): A PyTorch model capable of making predictions on data_loader.
+        data_loader (torch.utils.data.DataLoader): The target dataset to predict on.
+        loss_fn (torch.nn.Module): The loss function of model.
+        accuracy_fn: An accuracy function to compare the models predictions to the truth labels.
+        device (str, optional): Target device to compute on. Defaults to device.
+
+    Returns:
+        (dict): Results of model making predictions on data_loader.
+    """
+    loss, acc = 0, 0
+    model.eval()
+    with torch.inference_mode():
+        for X, y in data_loader:
+            # Send data to the target device
+            X, y = X.to(device), y.to(device)
+            y_pred = model(X)
+            loss += loss_fn(y_pred, y)
+            acc += accuracy_fn(y_true=y, y_pred=y_pred.argmax(dim=1))
+
+        # Scale loss and acc
+        loss /= len(data_loader)
+        acc /= len(data_loader)
+    return {"model_name": model.__class__.__name__, # only works when model was created with a class
+            "model_loss": loss.item(),
+            "model_acc": acc}
+
+# Calculate model 1 results with device-agnostic code
+model_1_results = eval_model(model=model_1, data_loader=test_dataloader,
+    loss_fn=loss_fn, accuracy_fn=accuracy_fn,
+    device=device
+)
+model_1_results
+```
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV1',
+ 'model_loss': 0.6850008964538574,
+ 'model_acc': 75.01996805111821}
+  </code></pre>
+</div>
+
+```python
+# Check baseline results
+model_0_results
+```
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV0',
+ 'model_loss': 0.47663894295692444,
+ 'model_acc': 83.42651757188499}
+  </code></pre>
+</div>
+
+Woah, in this case, it looks like adding non-linearities to our model made it perform worse than the baseline.
+
+That's a thing to note in machine learning, sometimes the thing you thought should work doesn't.
+
+And then the thing you thought might not work does.
+
+It's part science, part art.
+
+From the looks of things, it seems like our model is **overfitting** on the training data.
+
+Overfitting means our model is learning the training data well but those patterns aren't generalizing to the testing data.
+
+Two of the main ways to fix overfitting include:
+1. Using a smaller or different model (some models fit certain kinds of data better than others).
+2. Using a larger dataset (the more data, the more chance a model has to learn generalizable patterns).
+
+There are more, but I'm going to leave that as a challenge for you to explore.
+
+Try searching online, "ways to prevent overfitting in machine learning" and see what comes up.
+
+In the meantime, let's take a look at number 1: using a different model.
+
+## Model 2: Building a Convolutional Neural Network (CNN)
+
+Alright, time to step things up a notch.
+
+It's time to create a [Convolutional Neural Network](https://en.wikipedia.org/wiki/Convolutional_neural_network) (CNN or ConvNet).
+
+CNN's are known for their capabilities to find patterns in visual data.
+
+And since we're dealing with visual data, let's see if using a CNN model can improve upon our baseline.
+
+The CNN model we're going to be using is known as TinyVGG from the [CNN Explainer](https://poloclub.github.io/cnn-explainer/) website.
+
+It follows the typical structure of a convolutional neural network:
+
+`Input layer -> [Convolutional layer -> activation layer -> pooling layer] -> Output layer`
+
+Where the contents of `[Convolutional layer -> activation layer -> pooling layer]` can be upscaled and repeated multiple times, depending on requirements.
+
+### What model should I use?
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    Wait, you say CNN's are good for images, are there any other model types I should be aware of?
+  </p>
+</div>
+
+Good question.
+
+This table is a good general guide for which model to use (though there are exceptions).
+
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th><strong>Problem type</strong></th>
+        <th><strong>Model to use (generally)</strong></th>
+        <th><strong>Code example</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Structured data (Excel spreadsheets, row and column data)</td>
+        <td>Gradient boosted models, Random Forests, XGBoost</td>
+        <td>
+          <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.ensemble"><code>sklearn.ensemble</code></a>, 
+          <a href="https://xgboost.readthedocs.io/en/stable/">XGBoost library</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Unstructured data (images, audio, language)</td>
+        <td>Convolutional Neural Networks, Transformers</td>
+        <td>
+          <a href="https://pytorch.org/vision/stable/models.html"><code>torchvision.models</code></a>, 
+          <a href="https://huggingface.co/docs/transformers/index">HuggingFace Transformers</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The table above is only for reference. The model you end up using will be highly dependent on the problem you're working on and the constraints you have (amount of data, latency requirements).
+  </p>
+</div>
+
+Enough talking about models, let's now build a CNN that replicates the model on the [CNN Explainer website](https://poloclub.github.io/cnn-explainer/).
+
+<div class="row mt-3">
+  {% assign figure_counter = figure_counter | plus: 1 %}
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid
+      figure_number=figure_counter
+      loading="eager"
+      path="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-cnn-explainer-model.png"
+      class="img-fluid rounded"
+      caption="TinyVGG architecture, as setup by CNN explainer website."
+      id="tinyvgg_architecture"
+    %}
+  </div>
+</div>
+
+To do so, we'll leverage the [`nn.Conv2d()`](https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html) and [`nn.MaxPool2d()`](https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html) layers from `torch.nn`.
+
+```python
+# Create a convolutional neural network
+class FashionMNISTModelV2(nn.Module):
+    """
+    Model architecture copying TinyVGG from:
+    https://poloclub.github.io/cnn-explainer/
+    """
+    def __init__(self, input_shape: int, hidden_units: int, output_shape: int):
+        super().__init__()
+        self.block_1 = nn.Sequential(
+            nn.Conv2d(in_channels=input_shape,
+                      out_channels=hidden_units,
+                      kernel_size=3, # how big is the square that's going over the image?
+                      stride=1, # default
+                      padding=1),# options = "valid" (no padding) or "same" (output has same shape as input) or int for specific number
+            nn.ReLU(),
+            nn.Conv2d(in_channels=hidden_units,
+                      out_channels=hidden_units,
+                      kernel_size=3,
+                      stride=1,
+                      padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2,
+                         stride=2) # default stride value is same as kernel_size
+        )
+        self.block_2 = nn.Sequential(
+            nn.Conv2d(hidden_units, hidden_units, 3, padding=1),
+            nn.ReLU(),
+            nn.Conv2d(hidden_units, hidden_units, 3, padding=1),
+            nn.ReLU(),
+            nn.MaxPool2d(2)
+        )
+        self.classifier = nn.Sequential(
+            nn.Flatten(),
+            # Where did this in_features shape come from?
+            # It's because each layer of our network compresses and changes the shape of our input data.
+            nn.Linear(in_features=hidden_units*7*7,
+                      out_features=output_shape)
+        )
+
+    def forward(self, x: torch.Tensor):
+        x = self.block_1(x)
+        # print(x.shape)
+        x = self.block_2(x)
+        # print(x.shape)
+        x = self.classifier(x)
+        # print(x.shape)
+        return x
+
+torch.manual_seed(42)
+model_2 = FashionMNISTModelV2(input_shape=1,
+    hidden_units=10,
+    output_shape=len(class_names)).to(device)
+model_2
+```
+
+<div class="bash-block">
+  <pre><code>FashionMNISTModelV2(
+  (block_1): Sequential(
+    (0): Conv2d(1, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU()
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (block_2): Sequential(
+    (0): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU()
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=490, out_features=10, bias=True)
+  )
+)
+  </code></pre>
+</div>
+
+Nice!
+
+Our biggest model yet!
+
+What we've done is a common practice in machine learning.
+
+Find a model architecture somewhere and replicate it with code.
+
+### Stepping through `nn.Conv2d()`
+
+In this course we will not go through the theoretical details of convolutional neural networks. If you are interested please check 
+
+
+We could start using our model above and see what happens but let's first step through the two new layers we've added:
+* [`nn.Conv2d()`](https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html), also known as a convolutional layer.
+* [`nn.MaxPool2d()`](https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html), also known as a max pooling layer.
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    What does the "2d" in <code>nn.Conv2d()</code> stand for?
+  </p>
+  <strong>Answer:</strong>
+  <p>
+    The 2d is for 2-dimensional data. As in, our images have two dimensions: height and width. Yes, there's a color channel dimension, but each of the color channel dimensions has two dimensions too: height and width.
+  </p>
+  <p>
+    For other dimensional data (such as 1D for text or 3D for 3D objects), there's also <code>nn.Conv1d()</code> and <code>nn.Conv3d()</code>.
+  </p>
+</div>
+
+To test the layers out, let's create some toy data just like the data used on CNN Explainer.
+
+```python
+torch.manual_seed(42)
+
+# Create sample batch of random numbers with same size as image batch
+images = torch.randn(size=(32, 3, 64, 64)) # [batch_size, color_channels, height, width]
+test_image = images[0] # get a single image for testing
+print(f"Image batch shape: {images.shape} -> [batch_size, color_channels, height, width]")
+print(f"Single image shape: {test_image.shape} -> [color_channels, height, width]")
+print(f"Single image pixel values:\n{test_image}")
+```
+
+<div class="bash-block">
+  <pre><code>Image batch shape: torch.Size([32, 3, 64, 64]) -> [batch_size, color_channels, height, width]
+Single image shape: torch.Size([3, 64, 64]) -> [color_channels, height, width]
+Single image pixel values:
+tensor([[[ 1.9269,  1.4873,  0.9007,  ...,  1.8446, -1.1845,  1.3835],
+         [ 1.4451,  0.8564,  2.2181,  ...,  0.3399,  0.7200,  0.4114],
+         [ 1.9312,  1.0119, -1.4364,  ..., -0.5558,  0.7043,  0.7099],
+         ...,
+         [-0.5610, -0.4830,  0.4770,  ..., -0.2713, -0.9537, -0.6737],
+         [ 0.3076, -0.1277,  0.0366,  ..., -2.0060,  0.2824, -0.8111],
+         [-1.5486,  0.0485, -0.7712,  ..., -0.1403,  0.9416, -0.0118]],
+
+        [[-0.5197,  1.8524,  1.8365,  ...,  0.8935, -1.5114, -0.8515],
+         [ 2.0818,  1.0677, -1.4277,  ...,  1.6612, -2.6223, -0.4319],
+         [-0.1010, -0.4388, -1.9775,  ...,  0.2106,  0.2536, -0.7318],
+         ...,
+         [ 0.2779,  0.7342, -0.3736,  ..., -0.4601,  0.1815,  0.1850],
+         [ 0.7205, -0.2833,  0.0937,  ..., -0.1002, -2.3609,  2.2465],
+         [-1.3242, -0.1973,  0.2920,  ...,  0.5409,  0.6940,  1.8563]],
+
+        [[-0.7978,  1.0261,  1.1465,  ...,  1.2134,  0.9354, -0.0780],
+         [-1.4647, -1.9571,  0.1017,  ..., -1.9986, -0.7409,  0.7011],
+         [-1.3938,  0.8466, -1.7191,  ..., -1.1867,  0.1320,  0.3407],
+         ...,
+         [ 0.8206, -0.3745,  1.2499,  ..., -0.0676,  0.0385,  0.6335],
+         [-0.5589, -0.3393,  0.2347,  ...,  2.1181,  2.4569,  1.3083],
+         [-0.4092,  1.5199,  0.2401,  ..., -0.2558,  0.7870,  0.9924]]])
+  </code></pre>
+</div>
+
+Let's create an example `nn.Conv2d()` with various parameters:
+* `in_channels` (int) - Number of channels in the input image.
+* `out_channels` (int) - Number of channels produced by the convolution.
+* `kernel_size` (int or tuple) - Size of the convolving kernel/filter.
+* `stride` (int or tuple, optional) - How big of a step the convolving kernel takes at a time. Default: 1.
+* `padding` (int, tuple, str) - Padding added to all four sides of input. Default: 0.
+
+<div class="row mt-3">
+  {% assign figure_counter = figure_counter | plus: 1 %}
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid
+      figure_number=figure_counter
+      loading="eager"
+      path="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-conv2d-layer.gif"
+      class="img-fluid rounded"
+      caption="Example of what happens when you change the hyperparameters of a <code>nn.Conv2d()</code> layer."
+      id="conv2d_layer_example"
+    %}
+  </div>
+</div>
+
+
+```python
+torch.manual_seed(42)
+
+# Create a convolutional layer with same dimensions as TinyVGG
+# (try changing any of the parameters and see what happens)
+conv_layer = nn.Conv2d(in_channels=3,
+                       out_channels=10,
+                       kernel_size=3,
+                       stride=1,
+                       padding=0) # also try using "valid" or "same" here
+
+# Pass the data through the convolutional layer
+conv_layer(test_image) # Note: If running PyTorch <1.11.0, this will error because of shape issues (nn.Conv.2d() expects a 4d tensor as input)
+```
+
+<div class="bash-block">
+  <pre><code>tensor([[[ 1.5396,  0.0516,  0.6454,  ..., -0.3673,  0.8711,  0.4256],
+         [ 0.3662,  1.0114, -0.5997,  ...,  0.8983,  0.2809, -0.2741],
+         [ 1.2664, -1.4054,  0.3727,  ..., -0.3409,  1.2191, -0.0463],
+         ...,
+         [-0.1541,  0.5132, -0.3624,  ..., -0.2360, -0.4609, -0.0035],
+         [ 0.2981, -0.2432,  1.5012,  ..., -0.6289, -0.7283, -0.5767],
+         [-0.0386, -0.0781, -0.0388,  ...,  0.2842,  0.4228, -0.1802]],
+
+        [[-0.2840, -0.0319, -0.4455,  ..., -0.7956,  1.5599, -1.2449],
+         [ 0.2753, -0.1262, -0.6541,  ..., -0.2211,  0.1999, -0.8856],
+         [-0.5404, -1.5489,  0.0249,  ..., -0.5932, -1.0913, -0.3849],
+         ...,
+         [ 0.3870, -0.4064, -0.8236,  ...,  0.1734, -0.4330, -0.4951],
+         [-0.1984, -0.6386,  1.0263,  ..., -0.9401, -0.0585, -0.7833],
+         [-0.6306, -0.2052, -0.3694,  ..., -1.3248,  0.2456, -0.7134]],
+
+        [[ 0.4414,  0.5100,  0.4846,  ..., -0.8484,  0.2638,  1.1258],
+         [ 0.8117,  0.3191, -0.0157,  ...,  1.2686,  0.2319,  0.5003],
+         [ 0.3212,  0.0485, -0.2581,  ...,  0.2258,  0.2587, -0.8804],
+         ...,
+         [-0.1144, -0.1869,  0.0160,  ..., -0.8346,  0.0974,  0.8421],
+         [ 0.2941,  0.4417,  0.5866,  ..., -0.1224,  0.4814, -0.4799],
+         [ 0.6059, -0.0415, -0.2028,  ...,  0.1170,  0.2521, -0.4372]],
+
+        ...,
+
+        [[-0.2560, -0.0477,  0.6380,  ...,  0.6436,  0.7553, -0.7055],
+         [ 1.5595, -0.2209, -0.9486,  ..., -0.4876,  0.7754,  0.0750],
+         [-0.0797,  0.2471,  1.1300,  ...,  0.1505,  0.2354,  0.9576],
+         ...,
+         [ 1.1065,  0.6839,  1.2183,  ...,  0.3015, -0.1910, -0.1902],
+         [-0.3486, -0.7173, -0.3582,  ...,  0.4917,  0.7219,  0.1513],
+         [ 0.0119,  0.1017,  0.7839,  ..., -0.3752, -0.8127, -0.1257]],
+
+        [[ 0.3841,  1.1322,  0.1620,  ...,  0.7010,  0.0109,  0.6058],
+         [ 0.1664,  0.1873,  1.5924,  ...,  0.3733,  0.9096, -0.5399],
+         [ 0.4094, -0.0861, -0.7935,  ..., -0.1285, -0.9932, -0.3013],
+         ...,
+         [ 0.2688, -0.5630, -1.1902,  ...,  0.4493,  0.5404, -0.0103],
+         [ 0.0535,  0.4411,  0.5313,  ...,  0.0148, -1.0056,  0.3759],
+         [ 0.3031, -0.1590, -0.1316,  ..., -0.5384, -0.4271, -0.4876]],
+
+        [[-1.1865, -0.7280, -1.2331,  ..., -0.9013, -0.0542, -1.5949],
+         [-0.6345, -0.5920,  0.5326,  ..., -1.0395, -0.7963, -0.0647],
+         [-0.1132,  0.5166,  0.2569,  ...,  0.5595, -1.6881,  0.9485],
+         ...,
+         [-0.0254, -0.2669,  0.1927,  ..., -0.2917,  0.1088, -0.4807],
+         [-0.2609, -0.2328,  0.1404,  ..., -0.1325, -0.8436, -0.7524],
+         [-1.1399, -0.1751, -0.8705,  ...,  0.1589,  0.3377,  0.3493]]],
+       grad_fn=&lt;SqueezeBackward1&gt;)
+  </code></pre>
+</div>

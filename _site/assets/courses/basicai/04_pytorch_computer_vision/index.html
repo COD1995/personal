@@ -1694,6 +1694,1073 @@ Train time on cpu: 32.349 seconds
 </pre></td>
 </tr></tbody></table></code></pre></div></div>
 
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV0',
+ 'model_loss': 0.47663894295692444,
+ 'model_acc': 83.42651757188499}
+  </code></pre>
+</div>
+
+<p>Looking good!</p>
+
+<p>We can use this dictionary to compare the baseline model results to other models later on.</p>
+
+<h2 id="setup-device-agnostic-code-for-using-a-gpu-if-there-is-one">Setup device agnostic-code (for using a GPU if there is one)</h2>
+<p>We’ve seen how long it takes to train ma PyTorch model on 60,000 samples on CPU.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Model training time is dependent on hardware used. Generally, more processors mean faster training, and smaller models on smaller datasets will often train faster than large models and large datasets.
+  </p>
+</div>
+
+<p>Now let’s setup some <a href="https://pytorch.org/docs/stable/notes/cuda.html#best-practices" rel="external nofollow noopener" target="_blank">device-agnostic code</a> for our models and data to run on GPU if it’s available.</p>
+
+<p>If you’re running this notebook on Google Colab, and you don’t have a GPU turned on yet, it’s now time to turn one on via <code class="language-plaintext highlighter-rouge">Runtime -&gt; Change runtime type -&gt; Hardware accelerator -&gt; GPU</code>. If you do this, your runtime will likely reset and you’ll have to run all of the cells above by going <code class="language-plaintext highlighter-rouge">Runtime -&gt; Run before</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Setup device agnostic code
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
+<span class="n">device</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> 'cuda'
+  </code></pre>
+</div>
+
+<p>Beautiful!</p>
+
+<p>Let’s build another model.</p>
+
+<h2 id="model-1-building-a-better-model-with-non-linearity">Model 1: Building a better model with non-linearity</h2>
+
+<p>We learned about <a href="/personal/assets/courses/basicai/03_pytorch_classification">the power of non-linearity</a> in previous session.</p>
+
+<p>Seeing the data we’ve been working with, do you think it needs non-linear functions?</p>
+
+<p>And remember, linear means straight and non-linear means non-straight.</p>
+
+<p>Let’s find out.</p>
+
+<p>We’ll do so by recreating a similar model to before, except this time we’ll put non-linear functions (<code class="language-plaintext highlighter-rouge">nn.ReLU()</code>) in between each linear layer.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a model with non-linear and linear layers
+</span><span class="k">class</span> <span class="nc">FashionMNISTModelV1</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hidden_units</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">output_shape</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">layer_stack</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Flatten</span><span class="p">(),</span> <span class="c1"># flatten inputs into single vector
+</span>            <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">hidden_units</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">hidden_units</span><span class="p">,</span> <span class="n">out_features</span><span class="o">=</span><span class="n">output_shape</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">()</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">layer_stack</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>That looks good.</p>
+
+<p>Now let’s instantiate it with the same settings we used before.</p>
+
+<p>We’ll need <code class="language-plaintext highlighter-rouge">input_shape=784</code> (equal to the number of features of our image data), <code class="language-plaintext highlighter-rouge">hidden_units=10</code> (starting small and the same as our baseline model) and <code class="language-plaintext highlighter-rouge">output_shape=len(class_names)</code> (one output unit per class).</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Notice how we kept most of the settings of our model the same except for one change: adding non-linear layers. This is a standard practice for running a series of machine learning experiments — change one thing and see what happens, then do it again, again, again.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_1</span> <span class="o">=</span> <span class="nc">FashionMNISTModelV1</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="mi">784</span><span class="p">,</span> <span class="c1"># number of input features
+</span>    <span class="n">hidden_units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">output_shape</span><span class="o">=</span><span class="nf">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">)</span> <span class="c1"># number of output classes desired
+</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="c1"># send model to GPU if it's available
+</span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span> <span class="c1"># check model device
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)
+  </code></pre>
+</div>
+
+<h3 id="setup-loss-optimizer-and-evaluation-metrics-1">Setup loss, optimizer and evaluation metrics</h3>
+
+<p>As usual, we’ll setup a loss function, an optimizer and an evaluation metric (we could do multiple evaluation metrics but we’ll stick with accuracy for now).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">helper_functions</span> <span class="kn">import</span> <span class="n">accuracy_fn</span>
+<span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">CrossEntropyLoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span>
+                            <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="functionizing-training-and-test-loops">Functionizing training and test loops</h3>
+
+<p>So far we’ve been writing train and test loops over and over.</p>
+
+<p>Let’s write them again but this time we’ll put them in functions so they can be called again and again.</p>
+
+<p>And because we’re using device-agnostic code now, we’ll be sure to call <code class="language-plaintext highlighter-rouge">.to(device)</code> on our feature (<code class="language-plaintext highlighter-rouge">X</code>) and target (<code class="language-plaintext highlighter-rouge">y</code>) tensors.</p>
+
+<p>For the training loop we’ll create a function called <code class="language-plaintext highlighter-rouge">train_step()</code> which takes in a model, a <code class="language-plaintext highlighter-rouge">DataLoader</code> a loss function and an optimizer.</p>
+
+<p>The testing loop will be similar but it’ll be called <code class="language-plaintext highlighter-rouge">test_step()</code> and it’ll take in a model, a <code class="language-plaintext highlighter-rouge">DataLoader</code>, a loss function and an evaluation function.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Since these are functions, you can customize them in any way you like. What we're making here can be considered barebones training and testing functions for our specific classification use case.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+</pre></td>
+<td class="rouge-code"><pre><span class="k">def</span> <span class="nf">train_step</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span>
+               <span class="n">data_loader</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">,</span>
+               <span class="n">loss_fn</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span>
+               <span class="n">optimizer</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="n">Optimizer</span><span class="p">,</span>
+               <span class="n">accuracy_fn</span><span class="p">,</span>
+               <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">):</span>
+    <span class="n">train_loss</span><span class="p">,</span> <span class="n">train_acc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">batch</span><span class="p">,</span> <span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">data_loader</span><span class="p">):</span>
+        <span class="c1"># Send data to GPU
+</span>        <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># 1. Forward pass
+</span>        <span class="n">y_pred</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="c1"># 2. Calculate loss
+</span>        <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+        <span class="n">train_loss</span> <span class="o">+=</span> <span class="n">loss</span>
+        <span class="n">train_acc</span> <span class="o">+=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+                                 <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span> <span class="c1"># Go from logits -&gt; pred labels
+</span>
+        <span class="c1"># 3. Optimizer zero grad
+</span>        <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+        <span class="c1"># 4. Loss backward
+</span>        <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+        <span class="c1"># 5. Optimizer step
+</span>        <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1"># Calculate loss and accuracy per epoch and print out what's happening
+</span>    <span class="n">train_loss</span> <span class="o">/=</span> <span class="nf">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+    <span class="n">train_acc</span> <span class="o">/=</span> <span class="nf">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Train loss: </span><span class="si">{</span><span class="n">train_loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s"> | Train accuracy: </span><span class="si">{</span><span class="n">train_acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_step</span><span class="p">(</span><span class="n">data_loader</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">,</span>
+              <span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span>
+              <span class="n">loss_fn</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span>
+              <span class="n">accuracy_fn</span><span class="p">,</span>
+              <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">):</span>
+    <span class="n">test_loss</span><span class="p">,</span> <span class="n">test_acc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span> <span class="c1"># put model in eval mode
+</span>    <span class="c1"># Turn on inference context manager
+</span>    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">data_loader</span><span class="p">:</span>
+            <span class="c1"># Send data to GPU
+</span>            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+            <span class="c1"># 1. Forward pass
+</span>            <span class="n">test_pred</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+            <span class="c1"># 2. Calculate loss and accuracy
+</span>            <span class="n">test_loss</span> <span class="o">+=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">test_acc</span> <span class="o">+=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span>
+                <span class="n">y_pred</span><span class="o">=</span><span class="n">test_pred</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Go from logits -&gt; pred labels
+</span>            <span class="p">)</span>
+
+        <span class="c1"># Adjust metrics and print out
+</span>        <span class="n">test_loss</span> <span class="o">/=</span> <span class="nf">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+        <span class="n">test_acc</span> <span class="o">/=</span> <span class="nf">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">:</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="si">}</span><span class="s"> | Test accuracy: </span><span class="si">{</span><span class="n">test_acc</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">%</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Woohoo!</p>
+
+<p>Now we’ve got some functions for training and testing our model, let’s run them.</p>
+
+<p>We’ll do so inside another loop for each epoch.</p>
+
+<p>That way, for each epoch, we’re going through a training step and a testing step.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    You can customize how often you do a testing step. Sometimes people do them every five epochs or 10 epochs or, in our case, every epoch.
+  </p>
+</div>
+
+<p>Let’s also time things to see how long our code takes to run on the GPU.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Measure time
+</span><span class="kn">from</span> <span class="n">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
+<span class="n">train_time_start_on_gpu</span> <span class="o">=</span> <span class="nf">timer</span><span class="p">()</span>
+
+<span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">)):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="se">\n</span><span class="s">---------</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">train_step</span><span class="p">(</span><span class="n">data_loader</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_1</span><span class="p">,</span>
+        <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+        <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span>
+    <span class="p">)</span>
+    <span class="nf">test_step</span><span class="p">(</span><span class="n">data_loader</span><span class="o">=</span><span class="n">test_dataloader</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_1</span><span class="p">,</span>
+        <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+        <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span>
+    <span class="p">)</span>
+
+<span class="n">train_time_end_on_gpu</span> <span class="o">=</span> <span class="nf">timer</span><span class="p">()</span>
+<span class="n">total_train_time_model_1</span> <span class="o">=</span> <span class="nf">print_train_time</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">train_time_start_on_gpu</span><span class="p">,</span>
+                                            <span class="n">end</span><span class="o">=</span><span class="n">train_time_end_on_gpu</span><span class="p">,</span>
+                                            <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> 0%|          | 0/3 [00:00&lt;?, ?it/s]
+
+Epoch: 0
+---------
+Train loss: 1.09199 | Train accuracy: 61.34%
+Test loss: 0.95636 | Test accuracy: 65.00%
+
+Epoch: 1
+---------
+Train loss: 0.78101 | Train accuracy: 71.93%
+Test loss: 0.72227 | Test accuracy: 73.91%
+
+Epoch: 2
+---------
+Train loss: 0.67027 | Train accuracy: 75.94%
+Test loss: 0.68500 | Test accuracy: 75.02%
+
+Train time on cuda: 36.878 seconds
+  </code></pre>
+</div>
+
+<p>Excellent!</p>
+
+<p>Our model trained but the training time took longer?</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The training time on CUDA vs CPU will depend largely on the quality of the CPU/GPU you're using. Read on for a more explained answer.
+  </p>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    "I used a GPU but my model didn't train faster, why might that be?"
+  </p>
+  <strong>Answer:</strong>
+  <p>
+    Well, one reason could be because your dataset and model are both so small (like the dataset and model we're working with) the benefits of using a GPU are outweighed by the time it actually takes to transfer the data there.
+  </p>
+  <p>
+    There's a small bottleneck between copying data from the CPU memory (default) to the GPU memory.
+  </p>
+  <p>
+    So for smaller models and datasets, the CPU might actually be the optimal place to compute on.
+  </p>
+  <p>
+    But for larger datasets and models, the speed of computing the GPU can offer usually far outweighs the cost of getting the data there.
+  </p>
+  <p>
+    However, this is largely dependent on the hardware you're using. With practice, you will get used to where the best place to train your models is.
+  </p>
+</div>
+
+<p>Let’s evaluate our trained <code class="language-plaintext highlighter-rouge">model_1</code> using our <code class="language-plaintext highlighter-rouge">eval_model()</code> function and see how it went.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Note: This will error due to `eval_model()` not using device agnostic code
+</span><span class="n">model_1_results</span> <span class="o">=</span> <span class="nf">eval_model</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_1</span><span class="p">,</span>
+    <span class="n">data_loader</span><span class="o">=</span><span class="n">test_dataloader</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+    <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span><span class="p">)</span>
+<span class="n">model_1_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code class="traceback">
+---------------------------------------------------------------------------
+
+RuntimeError                              Traceback (most recent call last)
+
+&lt;cell line: 4&gt;
+# Note: This will error due to `eval_model()` not using device agnostic code
+----&gt; model_1_results = eval_model(model=model_1, 
+                                     data_loader=test_dataloader,
+                                     loss_fn=loss_fn)
+
+&lt;ipython-input-20&gt; in eval_model(model, data_loader, loss_fn, accuracy_fn)
+# Make predictions with the model
+----&gt; y_pred = model(X)
+
+&lt;ipython-input-22&gt; in forward(self, x)
+----&gt; return self.layer_stack(x)
+
+&lt;usr/local/lib/python3.10/dist-packages/torch/nn/modules/linear.py&gt; in forward(self, input)
+----&gt; return F.linear(input, self.weight, self.bias)
+
+<span class="error-msg">RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu!</span>
+  </code></pre>
+</div>
+
+<p>Oh no!</p>
+
+<p>It looks like our <code class="language-plaintext highlighter-rouge">eval_model()</code> function errors out with:</p>
+
+<div class="note-box">
+  <strong>Error:</strong>
+  <p>
+    <code>RuntimeError: Expected all tensors to be on the same device, but found at least two devices, cuda:0 and cpu! (when checking argument for argument mat1 in method wrapper_addmm)</code>
+  </p>
+</div>
+
+<p>It’s because we’ve setup our data and model to use device-agnostic code but not our evaluation function.</p>
+
+<p>How about we fix that by passing a target <code class="language-plaintext highlighter-rouge">device</code> parameter to our <code class="language-plaintext highlighter-rouge">eval_model()</code> function?</p>
+
+<p>Then we’ll try calculating the results again.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Move values to device
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">eval_model</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span>
+               <span class="n">data_loader</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">DataLoader</span><span class="p">,</span>
+               <span class="n">loss_fn</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span>
+               <span class="n">accuracy_fn</span><span class="p">,</span>
+               <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">Evaluates a given model on a given dataset.
+
+    Args:
+        model (torch.nn.Module): A PyTorch model capable of making predictions on data_loader.
+        data_loader (torch.utils.data.DataLoader): The target dataset to predict on.
+        loss_fn (torch.nn.Module): The loss function of model.
+        accuracy_fn: An accuracy function to compare the models predictions to the truth labels.
+        device (str, optional): Target device to compute on. Defaults to device.
+
+    Returns:
+        (dict): Results of model making predictions on data_loader.
+    </span><span class="sh">"""</span>
+    <span class="n">loss</span><span class="p">,</span> <span class="n">acc</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">data_loader</span><span class="p">:</span>
+            <span class="c1"># Send data to the target device
+</span>            <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+            <span class="n">y_pred</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+            <span class="n">loss</span> <span class="o">+=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+            <span class="n">acc</span> <span class="o">+=</span> <span class="nf">accuracy_fn</span><span class="p">(</span><span class="n">y_true</span><span class="o">=</span><span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">=</span><span class="n">y_pred</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="c1"># Scale loss and acc
+</span>        <span class="n">loss</span> <span class="o">/=</span> <span class="nf">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+        <span class="n">acc</span> <span class="o">/=</span> <span class="nf">len</span><span class="p">(</span><span class="n">data_loader</span><span class="p">)</span>
+    <span class="k">return</span> <span class="p">{</span><span class="sh">"</span><span class="s">model_name</span><span class="sh">"</span><span class="p">:</span> <span class="n">model</span><span class="p">.</span><span class="n">__class__</span><span class="p">.</span><span class="n">__name__</span><span class="p">,</span> <span class="c1"># only works when model was created with a class
+</span>            <span class="sh">"</span><span class="s">model_loss</span><span class="sh">"</span><span class="p">:</span> <span class="n">loss</span><span class="p">.</span><span class="nf">item</span><span class="p">(),</span>
+            <span class="sh">"</span><span class="s">model_acc</span><span class="sh">"</span><span class="p">:</span> <span class="n">acc</span><span class="p">}</span>
+
+<span class="c1"># Calculate model 1 results with device-agnostic code
+</span><span class="n">model_1_results</span> <span class="o">=</span> <span class="nf">eval_model</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_1</span><span class="p">,</span> <span class="n">data_loader</span><span class="o">=</span><span class="n">test_dataloader</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span> <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span><span class="p">,</span>
+    <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+<span class="p">)</span>
+<span class="n">model_1_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV1',
+ 'model_loss': 0.6850008964538574,
+ 'model_acc': 75.01996805111821}
+  </code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check baseline results
+</span><span class="n">model_0_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV0',
+ 'model_loss': 0.47663894295692444,
+ 'model_acc': 83.42651757188499}
+  </code></pre>
+</div>
+
+<p>Woah, in this case, it looks like adding non-linearities to our model made it perform worse than the baseline.</p>
+
+<p>That’s a thing to note in machine learning, sometimes the thing you thought should work doesn’t.</p>
+
+<p>And then the thing you thought might not work does.</p>
+
+<p>It’s part science, part art.</p>
+
+<p>From the looks of things, it seems like our model is <strong>overfitting</strong> on the training data.</p>
+
+<p>Overfitting means our model is learning the training data well but those patterns aren’t generalizing to the testing data.</p>
+
+<p>Two of the main ways to fix overfitting include:</p>
+<ol>
+  <li>Using a smaller or different model (some models fit certain kinds of data better than others).</li>
+  <li>Using a larger dataset (the more data, the more chance a model has to learn generalizable patterns).</li>
+</ol>
+
+<p>There are more, but I’m going to leave that as a challenge for you to explore.</p>
+
+<p>Try searching online, “ways to prevent overfitting in machine learning” and see what comes up.</p>
+
+<p>In the meantime, let’s take a look at number 1: using a different model.</p>
+
+<h2 id="model-2-building-a-convolutional-neural-network-cnn">Model 2: Building a Convolutional Neural Network (CNN)</h2>
+
+<p>Alright, time to step things up a notch.</p>
+
+<p>It’s time to create a <a href="https://en.wikipedia.org/wiki/Convolutional_neural_network" rel="external nofollow noopener" target="_blank">Convolutional Neural Network</a> (CNN or ConvNet).</p>
+
+<p>CNN’s are known for their capabilities to find patterns in visual data.</p>
+
+<p>And since we’re dealing with visual data, let’s see if using a CNN model can improve upon our baseline.</p>
+
+<p>The CNN model we’re going to be using is known as TinyVGG from the <a href="https://poloclub.github.io/cnn-explainer/" rel="external nofollow noopener" target="_blank">CNN Explainer</a> website.</p>
+
+<p>It follows the typical structure of a convolutional neural network:</p>
+
+<p><code class="language-plaintext highlighter-rouge">Input layer -&gt; [Convolutional layer -&gt; activation layer -&gt; pooling layer] -&gt; Output layer</code></p>
+
+<p>Where the contents of <code class="language-plaintext highlighter-rouge">[Convolutional layer -&gt; activation layer -&gt; pooling layer]</code> can be upscaled and repeated multiple times, depending on requirements.</p>
+
+<h3 id="what-model-should-i-use">What model should I use?</h3>
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    Wait, you say CNN's are good for images, are there any other model types I should be aware of?
+  </p>
+</div>
+
+<p>Good question.</p>
+
+<p>This table is a good general guide for which model to use (though there are exceptions).</p>
+
+<div class="table-wrapper">
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th><strong>Problem type</strong></th>
+        <th><strong>Model to use (generally)</strong></th>
+        <th><strong>Code example</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Structured data (Excel spreadsheets, row and column data)</td>
+        <td>Gradient boosted models, Random Forests, XGBoost</td>
+        <td>
+          <a href="https://scikit-learn.org/stable/modules/classes.html#module-sklearn.ensemble" rel="external nofollow noopener" target="_blank"><code>sklearn.ensemble</code></a>, 
+          <a href="https://xgboost.readthedocs.io/en/stable/" rel="external nofollow noopener" target="_blank">XGBoost library</a>
+        </td>
+      </tr>
+      <tr>
+        <td>Unstructured data (images, audio, language)</td>
+        <td>Convolutional Neural Networks, Transformers</td>
+        <td>
+          <a href="https://pytorch.org/vision/stable/models.html" rel="external nofollow noopener" target="_blank"><code>torchvision.models</code></a>, 
+          <a href="https://huggingface.co/docs/transformers/index" rel="external nofollow noopener" target="_blank">HuggingFace Transformers</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The table above is only for reference. The model you end up using will be highly dependent on the problem you're working on and the constraints you have (amount of data, latency requirements).
+  </p>
+</div>
+
+<p>Enough talking about models, let’s now build a CNN that replicates the model on the <a href="https://poloclub.github.io/cnn-explainer/" rel="external nofollow noopener" target="_blank">CNN Explainer website</a>.</p>
+
+<div class="row mt-3">
+  
+  <div class="col-sm mt-3 mt-md-0">
+    <figure id="tinyvgg_architecture6">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-cnn-explainer-model.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 6: TinyVGG architecture, as setup by CNN explainer website.
+    </figcaption>
+  
+</figure>
+
+  </div>
+</div>
+
+<p>To do so, we’ll leverage the <a href="https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.Conv2d()</code></a> and <a href="https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code></a> layers from <code class="language-plaintext highlighter-rouge">torch.nn</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a convolutional neural network
+</span><span class="k">class</span> <span class="nc">FashionMNISTModelV2</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="sh">"""</span><span class="s">
+    Model architecture copying TinyVGG from:
+    https://poloclub.github.io/cnn-explainer/
+    </span><span class="sh">"""</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">input_shape</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">hidden_units</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">output_shape</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">block_1</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">input_shape</span><span class="p">,</span>
+                      <span class="n">out_channels</span><span class="o">=</span><span class="n">hidden_units</span><span class="p">,</span>
+                      <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="c1"># how big is the square that's going over the image?
+</span>                      <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># default
+</span>                      <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span><span class="c1"># options = "valid" (no padding) or "same" (output has same shape as input) or int for specific number
+</span>            <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="n">hidden_units</span><span class="p">,</span>
+                      <span class="n">out_channels</span><span class="o">=</span><span class="n">hidden_units</span><span class="p">,</span>
+                      <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                      <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                      <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># default stride value is same as kernel_size
+</span>        <span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">block_2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span> <span class="n">hidden_units</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">hidden_units</span><span class="p">,</span> <span class="n">hidden_units</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">padding</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">ReLU</span><span class="p">(),</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">MaxPool2d</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">classifier</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Sequential</span><span class="p">(</span>
+            <span class="n">nn</span><span class="p">.</span><span class="nc">Flatten</span><span class="p">(),</span>
+            <span class="c1"># Where did this in_features shape come from?
+</span>            <span class="c1"># It's because each layer of our network compresses and changes the shape of our input data.
+</span>            <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="n">hidden_units</span><span class="o">*</span><span class="mi">7</span><span class="o">*</span><span class="mi">7</span><span class="p">,</span>
+                      <span class="n">out_features</span><span class="o">=</span><span class="n">output_shape</span><span class="p">)</span>
+        <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">block_1</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># print(x.shape)
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">block_2</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># print(x.shape)
+</span>        <span class="n">x</span> <span class="o">=</span> <span class="n">self</span><span class="p">.</span><span class="nf">classifier</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+        <span class="c1"># print(x.shape)
+</span>        <span class="k">return</span> <span class="n">x</span>
+
+<span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_2</span> <span class="o">=</span> <span class="nc">FashionMNISTModelV2</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">hidden_units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">output_shape</span><span class="o">=</span><span class="nf">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">)).</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">model_2</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>FashionMNISTModelV2(
+  (block_1): Sequential(
+    (0): Conv2d(1, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU()
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (block_2): Sequential(
+    (0): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (1): ReLU()
+    (2): Conv2d(10, 10, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    (3): ReLU()
+    (4): MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+  )
+  (classifier): Sequential(
+    (0): Flatten(start_dim=1, end_dim=-1)
+    (1): Linear(in_features=490, out_features=10, bias=True)
+  )
+)
+  </code></pre>
+</div>
+
+<p>Nice!</p>
+
+<p>Our biggest model yet!</p>
+
+<p>What we’ve done is a common practice in machine learning.</p>
+
+<p>Find a model architecture somewhere and replicate it with code.</p>
+
+<h3 id="stepping-through-nnconv2d">Stepping through <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code>
+</h3>
+
+<p>In this course we will not go through the theoretical details of convolutional neural networks. If you are interested please check</p>
+
+<p>We could start using our model above and see what happens but let’s first step through the two new layers we’ve added:</p>
+<ul>
+  <li>
+<a href="https://pytorch.org/docs/stable/generated/torch.nn.Conv2d.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.Conv2d()</code></a>, also known as a convolutional layer.</li>
+  <li>
+<a href="https://pytorch.org/docs/stable/generated/torch.nn.MaxPool2d.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code></a>, also known as a max pooling layer.</li>
+</ul>
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    What does the "2d" in <code>nn.Conv2d()</code> stand for?
+  </p>
+  <strong>Answer:</strong>
+  <p>
+    The 2d is for 2-dimensional data. As in, our images have two dimensions: height and width. Yes, there's a color channel dimension, but each of the color channel dimensions has two dimensions too: height and width.
+  </p>
+  <p>
+    For other dimensional data (such as 1D for text or 3D for 3D objects), there's also <code>nn.Conv1d()</code> and <code>nn.Conv3d()</code>.
+  </p>
+</div>
+
+<p>To test the layers out, let’s create some toy data just like the data used on CNN Explainer.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Create sample batch of random numbers with same size as image batch
+</span><span class="n">images</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span> <span class="c1"># [batch_size, color_channels, height, width]
+</span><span class="n">test_image</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="c1"># get a single image for testing
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Image batch shape: </span><span class="si">{</span><span class="n">images</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> -&gt; [batch_size, color_channels, height, width]</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Single image shape: </span><span class="si">{</span><span class="n">test_image</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> -&gt; [color_channels, height, width]</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Single image pixel values:</span><span class="se">\n</span><span class="si">{</span><span class="n">test_image</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Image batch shape: torch.Size([32, 3, 64, 64]) -&gt; [batch_size, color_channels, height, width]
+Single image shape: torch.Size([3, 64, 64]) -&gt; [color_channels, height, width]
+Single image pixel values:
+tensor([[[ 1.9269,  1.4873,  0.9007,  ...,  1.8446, -1.1845,  1.3835],
+         [ 1.4451,  0.8564,  2.2181,  ...,  0.3399,  0.7200,  0.4114],
+         [ 1.9312,  1.0119, -1.4364,  ..., -0.5558,  0.7043,  0.7099],
+         ...,
+         [-0.5610, -0.4830,  0.4770,  ..., -0.2713, -0.9537, -0.6737],
+         [ 0.3076, -0.1277,  0.0366,  ..., -2.0060,  0.2824, -0.8111],
+         [-1.5486,  0.0485, -0.7712,  ..., -0.1403,  0.9416, -0.0118]],
+
+        [[-0.5197,  1.8524,  1.8365,  ...,  0.8935, -1.5114, -0.8515],
+         [ 2.0818,  1.0677, -1.4277,  ...,  1.6612, -2.6223, -0.4319],
+         [-0.1010, -0.4388, -1.9775,  ...,  0.2106,  0.2536, -0.7318],
+         ...,
+         [ 0.2779,  0.7342, -0.3736,  ..., -0.4601,  0.1815,  0.1850],
+         [ 0.7205, -0.2833,  0.0937,  ..., -0.1002, -2.3609,  2.2465],
+         [-1.3242, -0.1973,  0.2920,  ...,  0.5409,  0.6940,  1.8563]],
+
+        [[-0.7978,  1.0261,  1.1465,  ...,  1.2134,  0.9354, -0.0780],
+         [-1.4647, -1.9571,  0.1017,  ..., -1.9986, -0.7409,  0.7011],
+         [-1.3938,  0.8466, -1.7191,  ..., -1.1867,  0.1320,  0.3407],
+         ...,
+         [ 0.8206, -0.3745,  1.2499,  ..., -0.0676,  0.0385,  0.6335],
+         [-0.5589, -0.3393,  0.2347,  ...,  2.1181,  2.4569,  1.3083],
+         [-0.4092,  1.5199,  0.2401,  ..., -0.2558,  0.7870,  0.9924]]])
+  </code></pre>
+</div>
+
+<p>Let’s create an example <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code> with various parameters:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">in_channels</code> (int) - Number of channels in the input image.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">out_channels</code> (int) - Number of channels produced by the convolution.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">kernel_size</code> (int or tuple) - Size of the convolving kernel/filter.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">stride</code> (int or tuple, optional) - How big of a step the convolving kernel takes at a time. Default: 1.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">padding</code> (int, tuple, str) - Padding added to all four sides of input. Default: 0.</li>
+</ul>
+
+<div class="row mt-3">
+  
+  <div class="col-sm mt-3 mt-md-0">
+    <figure id="conv2d_layer_example7">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-conv2d-layer.gif" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 7: Example of what happens when you change the hyperparameters of a <code>nn.Conv2d()</code> layer.
+    </figcaption>
+  
+</figure>
+
+  </div>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Create a convolutional layer with same dimensions as TinyVGG
+# (try changing any of the parameters and see what happens)
+</span><span class="n">conv_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                       <span class="n">out_channels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                       <span class="n">kernel_size</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
+                       <span class="n">stride</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                       <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># also try using "valid" or "same" here
+</span>
+<span class="c1"># Pass the data through the convolutional layer
+</span><span class="nf">conv_layer</span><span class="p">(</span><span class="n">test_image</span><span class="p">)</span> <span class="c1"># Note: If running PyTorch &lt;1.11.0, this will error because of shape issues (nn.Conv.2d() expects a 4d tensor as input)
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[[ 1.5396,  0.0516,  0.6454,  ..., -0.3673,  0.8711,  0.4256],
+         [ 0.3662,  1.0114, -0.5997,  ...,  0.8983,  0.2809, -0.2741],
+         [ 1.2664, -1.4054,  0.3727,  ..., -0.3409,  1.2191, -0.0463],
+         ...,
+         [-0.1541,  0.5132, -0.3624,  ..., -0.2360, -0.4609, -0.0035],
+         [ 0.2981, -0.2432,  1.5012,  ..., -0.6289, -0.7283, -0.5767],
+         [-0.0386, -0.0781, -0.0388,  ...,  0.2842,  0.4228, -0.1802]],
+
+        [[-0.2840, -0.0319, -0.4455,  ..., -0.7956,  1.5599, -1.2449],
+         [ 0.2753, -0.1262, -0.6541,  ..., -0.2211,  0.1999, -0.8856],
+         [-0.5404, -1.5489,  0.0249,  ..., -0.5932, -1.0913, -0.3849],
+         ...,
+         [ 0.3870, -0.4064, -0.8236,  ...,  0.1734, -0.4330, -0.4951],
+         [-0.1984, -0.6386,  1.0263,  ..., -0.9401, -0.0585, -0.7833],
+         [-0.6306, -0.2052, -0.3694,  ..., -1.3248,  0.2456, -0.7134]],
+
+        [[ 0.4414,  0.5100,  0.4846,  ..., -0.8484,  0.2638,  1.1258],
+         [ 0.8117,  0.3191, -0.0157,  ...,  1.2686,  0.2319,  0.5003],
+         [ 0.3212,  0.0485, -0.2581,  ...,  0.2258,  0.2587, -0.8804],
+         ...,
+         [-0.1144, -0.1869,  0.0160,  ..., -0.8346,  0.0974,  0.8421],
+         [ 0.2941,  0.4417,  0.5866,  ..., -0.1224,  0.4814, -0.4799],
+         [ 0.6059, -0.0415, -0.2028,  ...,  0.1170,  0.2521, -0.4372]],
+
+        ...,
+
+        [[-0.2560, -0.0477,  0.6380,  ...,  0.6436,  0.7553, -0.7055],
+         [ 1.5595, -0.2209, -0.9486,  ..., -0.4876,  0.7754,  0.0750],
+         [-0.0797,  0.2471,  1.1300,  ...,  0.1505,  0.2354,  0.9576],
+         ...,
+         [ 1.1065,  0.6839,  1.2183,  ...,  0.3015, -0.1910, -0.1902],
+         [-0.3486, -0.7173, -0.3582,  ...,  0.4917,  0.7219,  0.1513],
+         [ 0.0119,  0.1017,  0.7839,  ..., -0.3752, -0.8127, -0.1257]],
+
+        [[ 0.3841,  1.1322,  0.1620,  ...,  0.7010,  0.0109,  0.6058],
+         [ 0.1664,  0.1873,  1.5924,  ...,  0.3733,  0.9096, -0.5399],
+         [ 0.4094, -0.0861, -0.7935,  ..., -0.1285, -0.9932, -0.3013],
+         ...,
+         [ 0.2688, -0.5630, -1.1902,  ...,  0.4493,  0.5404, -0.0103],
+         [ 0.0535,  0.4411,  0.5313,  ...,  0.0148, -1.0056,  0.3759],
+         [ 0.3031, -0.1590, -0.1316,  ..., -0.5384, -0.4271, -0.4876]],
+
+        [[-1.1865, -0.7280, -1.2331,  ..., -0.9013, -0.0542, -1.5949],
+         [-0.6345, -0.5920,  0.5326,  ..., -1.0395, -0.7963, -0.0647],
+         [-0.1132,  0.5166,  0.2569,  ...,  0.5595, -1.6881,  0.9485],
+         ...,
+         [-0.0254, -0.2669,  0.1927,  ..., -0.2917,  0.1088, -0.4807],
+         [-0.2609, -0.2328,  0.1404,  ..., -0.1325, -0.8436, -0.7524],
+         [-1.1399, -0.1751, -0.8705,  ...,  0.1589,  0.3377,  0.3493]]],
+       grad_fn=&lt;SqueezeBackward1&gt;)
+  </code></pre>
+</div>
+
 
     
 
@@ -1723,7 +2790,7 @@ Train time on cpu: 32.349 seconds
       Guo. 
       
       
-        Last updated: January 04, 2025.
+        Last updated: January 06, 2025.
       
     </div>
   </footer>

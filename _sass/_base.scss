@@ -1729,6 +1729,7 @@ details.collapsible-callout {
 
     /* Scrollbar styling */
     &::-webkit-scrollbar {
+      width: 12px;
       height: 12px;
     }
 
