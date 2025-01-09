@@ -2164,43 +2164,48 @@ details.collapsible-callout {
   margin-top: 1rem;
 }
 
-/* Style the existing table with class="dataframe" */
+/* Base dataframe table styling */
 table.dataframe {
-  /* Remove default HTML table border styles and replace with custom ones */
   border-collapse: collapse;
   width: 100%;
-  /* Adjust as needed */
-  max-width: 650px;
-  /* Optionally limit table width */
+  max-width: 100%;
   margin: 1rem 0;
-  font-family: sans-serif;
-  font-size: 0.9rem;
-  color: #333;
+  font-family: var(--font-family-sans-serif);
+  line-height: 1;
+  color: var(--global-text-color);
+  box-sizing: border-box;
 }
 
 /* Table header styling */
 table.dataframe thead th {
-  background-color: #f3f3f3;
+  font-size: 0.8rem;
+  background-color: var(--global-card-bg-color);
   letter-spacing: 0.05em;
   text-align: left;
-  border-bottom: 2px solid #ddd;
-  padding: 0.75rem;
+  border-bottom: 2px solid var(--global-divider-color);
+  padding: 0.5rem;
+  color: var(--global-text-color-light);
 }
 
 /* Table body cells */
 table.dataframe tbody td {
-  padding: 0.75rem;
-  border-bottom: 1px solid #ddd;
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid var(--global-divider-color);
 }
 
 /* Alternating row shading */
 table.dataframe tbody tr:nth-child(even) {
-  background-color: #f9f9f9;
+  background-color: var(--global-code-bg-color);
 }
 
-/* Hover effect on rows */
+/* Hover effect: ensure text color remains visible */
 table.dataframe tbody tr:hover {
-  background-color: #eaeaea;
+  /* Example: slightly darker background plus black text */
+  background-color: #ddd;
+  /* or var(--global-hover-color) if you prefer */
+  color: #000 !important;
+  /* force text to be black */
 }
 
 /* Left-align index column header if present */
@@ -2208,17 +2213,15 @@ table.dataframe thead th:first-child {
   text-align: left;
 }
 
-/* Th for the index column in the body, if you're using a DataFrame index */
+/* Index column styling in the table body */
 table.dataframe tbody th {
-  padding: 0.75rem;
-  font-weight: normal;
-  background-color: #f9f9f9;
-  border-bottom: 1px solid #ddd;
+  font-size: 0.75rem;
+  padding: 0.5rem;
+  font-weight: 300;
+  background-color: var(--global-code-bg-color);
+  border-bottom: 1px solid var(--global-divider-color);
   text-align: right;
-  /* or left, depending on preference */
 }
-
-/* Make sure you import or include this in your main SCSS pipeline */
 
 /* The "Back" link inside #toc-sidebar */
 #toc-sidebar {

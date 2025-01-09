@@ -1810,3 +1810,932 @@ conv_layer(test_image.unsqueeze(dim=0)).shape
 Hmm, notice what happens to our shape (the same shape as the first layer of TinyVGG on [CNN Explainer](https://poloclub.github.io/cnn-explainer/)), we get different channel sizes as well as different pixel sizes.
 
 What if we changed the values of `conv_layer`?
+
+
+```python
+torch.manual_seed(42)
+# Create a new conv_layer with different values (try setting these to whatever you like)
+conv_layer_2 = nn.Conv2d(in_channels=3, # same number of color channels as our input image
+                         out_channels=10,
+                         kernel_size=(5, 5), # kernel is usually a square so a tuple also works
+                         stride=2,
+                         padding=0)
+
+# Pass single image through new conv_layer_2 (this calls nn.Conv2d()'s forward() method on the input)
+conv_layer_2(test_image.unsqueeze(dim=0)).shape
+```
+
+<div class="bash-block">
+  <pre><code>torch.Size([1, 10, 30, 30])</code></pre>
+</div>
+
+
+Woah, we get another shape change.
+
+Now our image is of shape `[1, 10, 30, 30]` (it will be different if you use different values) or `[batch_size=1, color_channels=10, height=30, width=30]`.
+
+What's going on here?
+
+Behind the scenes, our `nn.Conv2d()` is compressing the information stored in the image.
+
+It does this by performing operations on the input (our test image) against its internal parameters.
+
+The goal of this is similar to all of the other neural networks we've been building.
+
+Data goes in and the layers try to update their internal parameters (patterns) to lower the loss function thanks to some help of the optimizer.
+
+The only difference is *how* the different layers calculate their parameter updates or in PyTorch terms, the operation present in the layer `forward()` method.
+
+If we check out our `conv_layer_2.state_dict()` we'll find a similar weight and bias setup as we've seen before.
+
+```python
+# Check out the conv_layer_2 internal parameters
+print(conv_layer_2.state_dict())
+```
+
+<div class="bash-block">
+  <pre><code>OrderedDict([('weight', tensor([[[[ 0.0883,  0.0958, -0.0271,  0.1061, -0.0253],
+          [ 0.0233, -0.0562,  0.0678,  0.1018, -0.0847],
+          [ 0.1004,  0.0216,  0.0853,  0.0156,  0.0557],
+          [-0.0163,  0.0890,  0.0171, -0.0539,  0.0294],
+          [-0.0532, -0.0135, -0.0469,  0.0766, -0.0911]],
+
+         [[-0.0532, -0.0326, -0.0694,  0.0109, -0.1140],
+          [ 0.1043, -0.0981,  0.0891,  0.0192, -0.0375],
+          [ 0.0714,  0.0180,  0.0933,  0.0126, -0.0364],
+          [ 0.0310, -0.0313,  0.0486,  0.1031,  0.0667],
+          [-0.0505,  0.0667,  0.0207,  0.0586, -0.0704]],
+
+         [[-0.1143, -0.0446, -0.0886,  0.0947,  0.0333],
+          [ 0.0478,  0.0365, -0.0020,  0.0904, -0.0820],
+          [ 0.0073, -0.0788,  0.0356, -0.0398,  0.0354],
+          [-0.0241,  0.0958, -0.0684, -0.0689, -0.0689],
+          [ 0.1039,  0.0385,  0.1111, -0.0953, -0.1145]]],
+
+        ...
+
+        [[[ 0.0888, -0.0257, -0.0247, -0.1050, -0.0182],
+          [ 0.0817,  0.0161, -0.0673,  0.0355, -0.0370],
+          [ 0.1054, -0.1002, -0.0365, -0.1115, -0.0455],
+          [ 0.0364,  0.1112,  0.0194,  0.1132,  0.0226],
+          [ 0.0667,  0.0926,  0.0965, -0.0646,  0.1062]],
+
+         [[ 0.0699, -0.0540, -0.0551, -0.0969,  0.0290],
+          [-0.0936,  0.0488,  0.0365, -0.1003,  0.0315],
+          [-0.0094,  0.0527,  0.0663, -0.1148,  0.1059],
+          [ 0.0968,  0.0459, -0.1055, -0.0412, -0.0335],
+          [-0.0297,  0.0651,  0.0420,  0.0915, -0.0432]],
+
+         [[ 0.0389,  0.0411, -0.0961, -0.1120, -0.0599],
+          [ 0.0790, -0.1087, -0.1005,  0.0647,  0.0623],
+          [ 0.0950, -0.0872, -0.0845,  0.0592,  0.1004],
+          [ 0.0691,  0.0181,  0.0381,  0.1096, -0.0745],
+          [-0.0524,  0.0808, -0.0790, -0.0637,  0.0843]]]])), ('bias', tensor([ 0.0364,  0.0373, -0.0489, -0.0016,  0.1057, -0.0693,  0.0009,  0.0549,
+    -0.0797,  0.1121]))])
+  </code></pre>
+</div>
+
+Look at that! A bunch of random numbers for a weight and bias tensor.
+
+The shapes of these are manipulated by the inputs we passed to `nn.Conv2d()` when we set it up.
+
+Let's check them out.
+
+```python
+# Get shapes of weight and bias tensors within conv_layer_2
+print(f"conv_layer_2 weight shape: \n{conv_layer_2.weight.shape} -> [out_channels=10, in_channels=3, kernel_size=5, kernel_size=5]")
+print(f"\nconv_layer_2 bias shape: \n{conv_layer_2.bias.shape} -> [out_channels=10]")
+```
+
+<div class="bash-block">
+  <pre><code>conv_layer_2 weight shape: 
+torch.Size([10, 3, 5, 5]) -> [out_channels=10, in_channels=3, kernel_size=5, kernel_size=5]
+
+conv_layer_2 bias shape: 
+torch.Size([10]) -> [out_channels=10]
+  </code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    What should we set the parameters of our <code>nn.Conv2d()</code> layers?
+  </p>
+  <strong>Answer:</strong>
+  <p>
+    That's a good one. But similar to many other things in machine learning, the values of these aren't set in stone (and recall, because these values are ones we can set ourselves, they're referred to as <strong>hyperparameters</strong>).
+  </p>
+  <p>
+    The best way to find out is to try out different values and see how they affect your model's performance.
+  </p>
+  <p>
+    Or even better, find a working example on a problem similar to yours (like we've done with TinyVGG) and copy it.
+  </p>
+</div>
+
+We're working with a different of layer here to what we've seen before.
+
+But the premise remains the same: start with random numbers and update them to better represent the data.
+
+### Stepping through `nn.MaxPool2d()`
+
+Now let's check out what happens when we move data through `nn.MaxPool2d()`.
+
+
+```python
+# Print out original image shape without and with unsqueezed dimension
+print(f"Test image original shape: {test_image.shape}")
+print(f"Test image with unsqueezed dimension: {test_image.unsqueeze(dim=0).shape}")
+
+# Create a sample nn.MaxPoo2d() layer
+max_pool_layer = nn.MaxPool2d(kernel_size=2)
+
+# Pass data through just the conv_layer
+test_image_through_conv = conv_layer(test_image.unsqueeze(dim=0))
+print(f"Shape after going through conv_layer(): {test_image_through_conv.shape}")
+
+# Pass data through the max pool layer
+test_image_through_conv_and_max_pool = max_pool_layer(test_image_through_conv)
+print(f"Shape after going through conv_layer() and max_pool_layer(): {test_image_through_conv_and_max_pool.shape}")
+```
+
+<div class="bash-block">
+  <pre><code>Test image original shape: torch.Size([3, 64, 64])
+Test image with unsqueezed dimension: torch.Size([1, 3, 64, 64])
+Shape after going through conv_layer(): torch.Size([1, 10, 62, 62])
+Shape after going through conv_layer() and max_pool_layer(): torch.Size([1, 10, 31, 31])
+  </code></pre>
+</div>
+
+Notice the change in the shapes of what's happening in and out of a `nn.MaxPool2d()` layer.
+
+The `kernel_size` of the `nn.MaxPool2d()` layer will affect the size of the output shape.
+
+In our case, the shape halves from a `62x62` image to `31x31` image.
+
+Let's see this work with a smaller tensor.
+
+
+```python
+torch.manual_seed(42)
+# Create a random tensor with a similar number of dimensions to our images
+random_tensor = torch.randn(size=(1, 1, 2, 2))
+print(f"Random tensor:\n{random_tensor}")
+print(f"Random tensor shape: {random_tensor.shape}")
+
+# Create a max pool layer
+max_pool_layer = nn.MaxPool2d(kernel_size=2) # see what happens when you change the kernel_size value
+
+# Pass the random tensor through the max pool layer
+max_pool_tensor = max_pool_layer(random_tensor)
+print(f"\nMax pool tensor:\n{max_pool_tensor} <- this is the maximum value from random_tensor")
+print(f"Max pool tensor shape: {max_pool_tensor.shape}")
+```
+
+<div class="bash-block">
+  <pre><code>Random tensor:
+tensor([[[[0.3367, 0.1288],
+          [0.2345, 0.2303]]]])
+Random tensor shape: torch.Size([1, 1, 2, 2])
+
+Max pool tensor:
+tensor([[[[0.3367]]]]) <- this is the maximum value from random_tensor
+Max pool tensor shape: torch.Size([1, 1, 1, 1])
+  </code></pre>
+</div>
+
+Notice the final two dimensions between `random_tensor` and `max_pool_tensor`, they go from `[2, 2]` to `[1, 1]`.
+
+In essence, they get halved.
+
+And the change would be different for different values of `kernel_size` for `nn.MaxPool2d()`.
+
+Also notice the value leftover in `max_pool_tensor` is the **maximum** value from `random_tensor`.
+
+What's happening here?
+
+This is another important piece of the puzzle of neural networks.
+
+Essentially, **every layer in a neural network is trying to compress data from higher dimensional space to lower dimensional space**.
+
+In other words, take a lot of numbers (raw data) and learn patterns in those numbers, patterns that are predictive whilst also being *smaller* in size than the original values.
+
+From an artificial intelligence perspective, you could consider the whole goal of a neural network to *compress* information.
+
+<div class="row mt-3">
+  {% assign figure_counter = figure_counter | plus: 1 %}
+  <div class="col-sm mt-3 mt-md-0">
+    {% include figure.liquid
+      figure_number=figure_counter
+      loading="eager"
+      path="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-conv-net-as-compression.png"
+      class="img-fluid rounded"
+      caption="Each layer of a neural network compresses the original input data into a smaller representation that is (hopefully) capable of making predictions on future input data."
+      id="conv_net_compression"
+    %}
+  </div>
+</div>
+
+This means, that from the point of view of a neural network, intelligence is compression.
+
+This is the idea of the use of a `nn.MaxPool2d()` layer: take the maximum value from a portion of a tensor and disregard the rest.
+
+In essence, lowering the dimensionality of a tensor whilst still retaining a (hopefully) significant portion of the information.
+
+It is the same story for a `nn.Conv2d()` layer.
+
+Except instead of just taking the maximum, the `nn.Conv2d()` performs a convolutional operation on the data (see this in action on the [CNN Explainer webpage](https://poloclub.github.io/cnn-explainer/)).
+
+<div class="note-box">
+  <strong>Exercise:</strong>
+  <p>
+    What do you think the <a href="https://pytorch.org/docs/stable/generated/torch.nn.AvgPool2d.html"><code>nn.AvgPool2d()</code></a> layer does? Try making a random tensor like we did above and passing it through. Check the input and output shapes as well as the input and output values.
+  </p>
+</div>
+
+<div class="note-box">
+  <strong>Extra-curriculum:</strong>
+  <p>
+    Lookup "most common convolutional neural networks", what architectures do you find? Are any of them contained within the <a href="https://pytorch.org/vision/stable/models.html"><code>torchvision.models</code></a> library? What do you think you could do with these?
+  </p>
+</div>
+
+### Setup a loss function and optimizer for `model_2`
+
+We've stepped through the layers in our first CNN enough.
+
+But remember, if something still isn't clear, try starting small.
+
+Pick a single layer of a model, pass some data through it and see what happens.
+
+Now it's time to move forward and get to training!
+
+Let's setup a loss function and an optimizer.
+
+We'll use the functions as before, `nn.CrossEntropyLoss()` as the loss function (since we're working with multi-class classification data).
+
+And `torch.optim.SGD()` as the optimizer to optimize `model_2.parameters()` with a learning rate of `0.1`.
+
+
+```python
+# Setup loss and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = torch.optim.SGD(params=model_2.parameters(),
+                             lr=0.1)
+```
+
+### Training and testing `model_2` using our training and test functions
+
+Loss and optimizer ready!
+
+Time to train and test.
+
+We'll use our `train_step()` and `test_step()` functions we created before.
+
+We'll also measure the time to compare it to our other models.
+
+
+```python
+torch.manual_seed(42)
+
+# Measure time
+from timeit import default_timer as timer
+train_time_start_model_2 = timer()
+
+# Train and test model
+epochs = 3
+for epoch in tqdm(range(epochs)):
+    print(f"Epoch: {epoch}\n---------")
+    train_step(data_loader=train_dataloader,
+        model=model_2,
+        loss_fn=loss_fn,
+        optimizer=optimizer,
+        accuracy_fn=accuracy_fn,
+        device=device
+    )
+    test_step(data_loader=test_dataloader,
+        model=model_2,
+        loss_fn=loss_fn,
+        accuracy_fn=accuracy_fn,
+        device=device
+    )
+
+train_time_end_model_2 = timer()
+total_train_time_model_2 = print_train_time(start=train_time_start_model_2,
+                                           end=train_time_end_model_2,
+                                           device=device)
+```
+
+<div class="bash-block">
+  <pre><code>  0%|          | 0/3 [00:00<?, ?it/s]
+
+Epoch: 0
+---------
+Train loss: 0.59302 | Train accuracy: 78.41%
+Test loss: 0.39771 | Test accuracy: 86.01%
+
+Epoch: 1
+---------
+Train loss: 0.36149 | Train accuracy: 87.00%
+Test loss: 0.35713 | Test accuracy: 87.00%
+
+Epoch: 2
+---------
+Train loss: 0.32354 | Train accuracy: 88.28%
+Test loss: 0.32857 | Test accuracy: 88.38%
+
+Train time on cuda: 44.250 seconds
+  </code></pre>
+</div>
+
+Woah! Looks like the convolutional and max pooling layers helped improve performance a little.
+
+Let's evaluate `model_2`'s results with our `eval_model()` function.
+
+
+```python
+# Get model_2 results
+model_2_results = eval_model(
+    model=model_2,
+    data_loader=test_dataloader,
+    loss_fn=loss_fn,
+    accuracy_fn=accuracy_fn
+)
+model_2_results
+```
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV2',
+ 'model_loss': 0.3285697102546692,
+ 'model_acc': 88.37859424920129}
+  </code></pre>
+</div>
+
+## Compare model results and training time
+
+We've trained three different models.
+
+1. `model_0` - our baseline model with two `nn.Linear()` layers.
+2. `model_1` - the same setup as our baseline model except with `nn.ReLU()` layers in between the `nn.Linear()` layers.
+3. `model_2` - our first CNN model that mimics the TinyVGG architecture on the CNN Explainer website.
+
+This is a regular practice in machine learning.
+
+Building multiple models and performing multiple training experiments to see which performs best.
+
+Let's combine our model results dictionaries into a DataFrame and find out.
+
+
+```python
+import pandas as pd
+compare_results = pd.DataFrame([model_0_results, model_1_results, model_2_results])
+compare_results
+```
+
+<div class="table-wrapper">
+  <table class="dataframe">
+    <thead>
+      <tr>
+        <th></th>
+        <th>model_name</th>
+        <th>model_loss</th>
+        <th>model_acc</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>FashionMNISTModelV0</td>
+        <td>0.476639</td>
+        <td>83.426518</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>FashionMNISTModelV1</td>
+        <td>0.685001</td>
+        <td>75.019968</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>FashionMNISTModelV2</td>
+        <td>0.328570</td>
+        <td>88.378594</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+Nice!
+
+We can add the training time values too.
+
+
+```python
+# Add training times to results comparison
+compare_results["training_time"] = [total_train_time_model_0,
+                                    total_train_time_model_1,
+                                    total_train_time_model_2]
+compare_results
+```
+<div class="table-wrapper">
+  <table class="dataframe">
+    <thead>
+      <tr>
+        <th></th>
+        <th>model_name</th>
+        <th>model_loss</th>
+        <th>model_acc</th>
+        <th>training_time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>FashionMNISTModelV0</td>
+        <td>0.476639</td>
+        <td>83.426518</td>
+        <td>32.348722</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>FashionMNISTModelV1</td>
+        <td>0.685001</td>
+        <td>75.019968</td>
+        <td>36.877976</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>FashionMNISTModelV2</td>
+        <td>0.328570</td>
+        <td>88.378594</td>
+        <td>44.249765</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+It looks like our CNN (`FashionMNISTModelV2`) model performed the best (lowest loss, highest accuracy) but had the longest training time.
+
+And our baseline model (`FashionMNISTModelV0`) performed better than `model_1` (`FashionMNISTModelV1`).
+
+### Performance-speed tradeoff
+
+Something to be aware of in machine learning is the **performance-speed** tradeoff.
+
+Generally, you get better performance out of a larger, more complex model (like we did with `model_2`).
+
+However, this performance increase often comes at a sacrifice of training speed and inference speed.
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The training times you get will be very dependent on the hardware you use.
+  </p>
+  <p>
+    Generally, the more CPU cores you have, the faster your models will train on CPU. And similar for GPUs.
+  </p>
+  <p>
+    Newer hardware (in terms of age) will also often train models faster due to incorporating technological advances.
+  </p>
+</div>
+
+How about we get visual?
+
+
+```python
+# Visualize our model results
+compare_results.set_index("model_name")["model_acc"].plot(kind="barh")
+plt.xlabel("accuracy (%)")
+plt.ylabel("model");
+```
+
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/03_pytorch_computer_vision_files/03_pytorch_computer_vision_100_0.png" | relative_url }}" 
+    alt="03 PyTorch Computer Vision Chart"
+    class="img-fluid" 
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+## Make and evaluate random predictions with best model
+
+Alright, we've compared our models to each other, let's further evaluate our best performing model, `model_2`.
+
+To do so, let's create a function `make_predictions()` where we can pass the model and some data for it to predict on.
+
+
+```python
+def make_predictions(model: torch.nn.Module, data: list, device: torch.device = device):
+    pred_probs = []
+    model.eval()
+    with torch.inference_mode():
+        for sample in data:
+            # Prepare sample
+            sample = torch.unsqueeze(sample, dim=0).to(device) # Add an extra dimension and send sample to device
+
+            # Forward pass (model outputs raw logit)
+            pred_logit = model(sample)
+
+            # Get prediction probability (logit -> prediction probability)
+            pred_prob = torch.softmax(pred_logit.squeeze(), dim=0) # note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 1, so can perform on dim=0)
+
+            # Get pred_prob off GPU for further calculations
+            pred_probs.append(pred_prob.cpu())
+
+    # Stack the pred_probs to turn list into a tensor
+    return torch.stack(pred_probs)
+```
+
+
+```python
+import random
+random.seed(42)
+test_samples = []
+test_labels = []
+for sample, label in random.sample(list(test_data), k=9):
+    test_samples.append(sample)
+    test_labels.append(label)
+
+# View the first test sample shape and label
+print(f"Test sample image shape: {test_samples[0].shape}\nTest sample label: {test_labels[0]} ({class_names[test_labels[0]]})")
+```
+
+<div class="bash-block">
+  <pre><code>Test sample image shape: torch.Size([1, 28, 28])
+Test sample label: 5 (Sandal)
+  </code></pre>
+</div>
+
+
+
+```python
+# Make predictions on test samples with model 2
+pred_probs= make_predictions(model=model_2,
+                             data=test_samples)
+
+# View first two prediction probabilities list
+pred_probs[:2]
+```
+<div class="bash-block">
+  <pre><code>tensor([[2.4012e-07, 6.5406e-08, 4.8069e-08, 2.1070e-07, 1.4175e-07, 9.9992e-01,
+         2.1711e-07, 1.6177e-05, 3.7849e-05, 2.7548e-05],
+        [1.5646e-02, 8.9752e-01, 3.6928e-04, 6.7402e-02, 1.2920e-02, 4.9539e-05,
+         5.6485e-03, 1.9456e-04, 2.0808e-04, 3.7861e-05]])
+  </code></pre>
+</div>
+
+Excellent!
+
+And now we can go from prediction probabilities to prediction labels by taking the `torch.argmax()` of the output of the `torch.softmax()` activation function.
+
+
+```python
+# Turn the prediction probabilities into prediction labels by taking the argmax()
+pred_classes = pred_probs.argmax(dim=1)
+pred_classes
+```
+
+<div class="bash-block">
+  <pre><code>tensor([5, 1, 7, 4, 3, 0, 4, 7, 1])
+  </code></pre>
+</div>
+
+```python
+# Are our predictions in the same form as our test labels?
+test_labels, pred_classes
+```
+
+<div class="bash-block">
+  <pre><code>([5, 1, 7, 4, 3, 0, 4, 7, 1], tensor([5, 1, 7, 4, 3, 0, 4, 7, 1]))
+  </code></pre>
+</div>
+
+Now our predicted classes are in the same format as our test labels, we can compare.
+
+Since we're dealing with image data, let's stay true to the data explorer's motto.
+
+"Visualize, visualize, visualize!"
+
+
+```python
+# Plot predictions
+plt.figure(figsize=(9, 9))
+nrows = 3
+ncols = 3
+for i, sample in enumerate(test_samples):
+  # Create a subplot
+  plt.subplot(nrows, ncols, i+1)
+
+  # Plot the target image
+  plt.imshow(sample.squeeze(), cmap="gray")
+
+  # Find the prediction label (in text form, e.g. "Sandal")
+  pred_label = class_names[pred_classes[i]]
+
+  # Get the truth label (in text form, e.g. "T-shirt")
+  truth_label = class_names[test_labels[i]]
+
+  # Create the title text of the plot
+  title_text = f"Pred: {pred_label} | Truth: {truth_label}"
+
+  # Check for equality and change title colour accordingly
+  if pred_label == truth_label:
+      plt.title(title_text, fontsize=10, c="g") # green text if correct
+  else:
+      plt.title(title_text, fontsize=10, c="r") # red text if wrong
+  plt.axis(False);
+```
+
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/03_pytorch_computer_vision_files/03_pytorch_computer_vision_111_0.png" | relative_url }}" 
+    alt="03 PyTorch Computer Vision Visualization"
+    class="img-fluid" 
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Well, well, well, doesn't that look good!
+
+Not bad for a couple dozen lines of PyTorch code!
+
+## Making a confusion matrix for further prediction evaluation
+
+There are many different evaluation metrics we can use for classification problems.
+
+One of the most visual is a [confusion matrix](https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/).
+
+A confusion matrix shows you where your classification model got confused between predictions and true labels.
+
+To make a confusion matrix, we'll go through three steps:
+1. Make predictions with our trained model, `model_2` (a confusion matrix compares predictions to true labels).
+2. Make a confusion matrix using [`torchmetrics.ConfusionMatrix`](https://torchmetrics.readthedocs.io/en/latest/references/modules.html?highlight=confusion#confusionmatrix).
+3. Plot the confusion matrix using [`mlxtend.plotting.plot_confusion_matrix()`](http://rasbt.github.io/mlxtend/user_guide/plotting/plot_confusion_matrix/).
+
+Let's start by making predictions with our trained model.
+
+```python
+# Import tqdm for progress bar
+from tqdm.auto import tqdm
+
+# 1. Make predictions with trained model
+y_preds = []
+model_2.eval()
+with torch.inference_mode():
+  for X, y in tqdm(test_dataloader, desc="Making predictions"):
+    # Send data and targets to target device
+    X, y = X.to(device), y.to(device)
+    # Do the forward pass
+    y_logit = model_2(X)
+    # Turn predictions from logits -> prediction probabilities -> predictions labels
+    y_pred = torch.softmax(y_logit, dim=1).argmax(dim=1) # note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 32, so can perform on dim=1)
+    # Put predictions on CPU for evaluation
+    y_preds.append(y_pred.cpu())
+# Concatenate list of predictions into a tensor
+y_pred_tensor = torch.cat(y_preds)
+```
+
+<div class="bash-block">
+  <pre><code>Making predictions:   0%|          | 0/313 [00:00<?, ?it/s]
+  </code></pre>
+</div>
+
+Wonderful!
+
+Now we've got predictions, let's go through steps 2 & 3:
+2. Make a confusion matrix using [`torchmetrics.ConfusionMatrix`](https://torchmetrics.readthedocs.io/en/latest/references/modules.html?highlight=confusion#confusionmatrix).
+3. Plot the confusion matrix using [`mlxtend.plotting.plot_confusion_matrix()`](http://rasbt.github.io/mlxtend/user_guide/plotting/plot_confusion_matrix/).
+
+First we'll need to make sure we've got `torchmetrics` and `mlxtend` installed (these two libraries will help us make and visualize a confusion matrix).
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    If you're using Google Colab, the default version of <code>mlxtend</code> installed is 0.14.0 (as of March 2022). However, for the parameters of the <code>plot_confusion_matrix()</code> function we'd like to use, we need 0.19.0 or higher.
+  </p>
+</div>
+
+```python
+# See if torchmetrics exists, if not, install it
+try:
+    import torchmetrics, mlxtend
+    print(f"mlxtend version: {mlxtend.__version__}")
+    assert int(mlxtend.__version__.split(".")[1]) >= 19, "mlxtend verison should be 0.19.0 or higher"
+except:
+    !pip install -q torchmetrics -U mlxtend # <- Note: If you're using Google Colab, this may require restarting the runtime
+    import torchmetrics, mlxtend
+    print(f"mlxtend version: {mlxtend.__version__}")
+```
+To plot the confusion matrix, we need to make sure we've got and [`mlxtend`](http://rasbt.github.io/mlxtend/) version of 0.19.0 or higher.
+
+
+```python
+# Import mlxtend upgraded version
+import mlxtend
+print(mlxtend.__version__)
+assert int(mlxtend.__version__.split(".")[1]) >= 19 # should be version 0.19.0 or higher
+```
+
+<div class="bash-block">
+  <pre><code>0.22.0
+</code></pre>
+</div>
+
+`torchmetrics` and `mlxtend` installed, let's make a confusion matrix!
+
+First we'll create a `torchmetrics.ConfusionMatrix` instance telling it how many classes we're dealing with by setting `num_classes=len(class_names)`.
+
+Then we'll create a confusion matrix (in tensor format) by passing our instance our model's predictions (`preds=y_pred_tensor`) and targets (`target=test_data.targets`).
+
+Finally we can plot our confusion matrix using the `plot_confusion_matrix()` function from `mlxtend.plotting`.
+
+```python
+from torchmetrics import ConfusionMatrix
+from mlxtend.plotting import plot_confusion_matrix
+
+# 2. Setup confusion matrix instance and compare predictions to targets
+confmat = ConfusionMatrix(num_classes=len(class_names), task='multiclass')
+confmat_tensor = confmat(preds=y_pred_tensor,
+                         target=test_data.targets)
+
+# 3. Plot the confusion matrix
+fig, ax = plot_confusion_matrix(
+    conf_mat=confmat_tensor.numpy(), # matplotlib likes working with NumPy
+    class_names=class_names, # turn the row and column labels into class names
+    figsize=(10, 7)
+);
+```
+<div style="text-align: left;">
+  <img 
+    src="{{ "/assets/img/03_pytorch_computer_vision_files/03_pytorch_computer_vision_120_0.png" | relative_url }}" 
+    alt="03 PyTorch Computer Vision Confusion Matrix"
+    class="img-fluid" 
+    style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;"
+  />
+</div>
+
+Woah! Doesn't that look good?
+
+We can see our model does fairly well since most of the dark squares are down the diagonal from top left to bottom right (and ideal model will have only values in these squares and 0 everywhere else).
+
+The model gets most "confused" on classes that are similar, for example predicting "Pullover" for images that are actually labelled "Shirt".
+
+And the same for predicting "Shirt" for classes that are actually labelled "T-shirt/top".
+
+This kind of information is often more helpful than a single accuracy metric because it tells use *where* a model is getting things wrong.
+
+It also hints at *why* the model may be getting certain things wrong.
+
+It's understandable the model sometimes predicts "Shirt" for images labelled "T-shirt/top".
+
+We can use this kind of information to further inspect our models and data to see how it could be improved.
+
+<div class="note-box">
+  <strong>Exercise:</strong>
+  <p>
+    Use the trained <code>model_2</code> to make predictions on the test FashionMNIST dataset. Then plot some predictions where the model was wrong alongside what the label of the image should've been.
+  </p>
+  <p>
+    After visualizing these predictions, do you think it's more of a modelling error or a data error? As in, could the model do better or are the labels of the data too close to each other (e.g., a "Shirt" label is too close to "T-shirt/top")?
+  </p>
+</div>
+
+## Save and load best performing model
+
+Let's finish this section off by saving and loading in our best performing model.
+
+Recall from previous session we can save and load a PyTorch model using a combination of:
+* `torch.save` - a function to save a whole PyTorch model or a model's `state_dict()`.
+* `torch.load` - a function to load in a saved PyTorch object.
+* `torch.nn.Module.load_state_dict()` - a function to load a saved `state_dict()` into an existing model instance.
+
+You can see more of these three in the [PyTorch saving and loading models documentation](https://pytorch.org/tutorials/beginner/saving_loading_models.html).
+
+For now, let's save our `model_2`'s `state_dict()` then load it back in and evaluate it to make sure the save and load went correctly.
+
+
+```python
+from pathlib import Path
+
+# Create models directory (if it doesn't already exist), see: https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir
+MODEL_PATH = Path("models")
+MODEL_PATH.mkdir(parents=True, # create parent directories if needed
+                 exist_ok=True # if models directory already exists, don't error
+)
+
+# Create model save path
+MODEL_NAME = "03_pytorch_computer_vision_model_2.pth"
+MODEL_SAVE_PATH = MODEL_PATH / MODEL_NAME
+
+# Save the model state dict
+print(f"Saving model to: {MODEL_SAVE_PATH}")
+torch.save(obj=model_2.state_dict(), # only saving the state_dict() only saves the learned parameters
+           f=MODEL_SAVE_PATH)
+```
+
+Now we've got a saved model `state_dict()` we can load it back in using a combination of `load_state_dict()` and `torch.load()`.
+
+Since we're using `load_state_dict()`, we'll need to create a new instance of `FashionMNISTModelV2()` with the same input parameters as our saved model `state_dict()`.
+
+```python
+# Create a new instance of FashionMNISTModelV2 (the same class as our saved state_dict())
+# Note: loading model will error if the shapes here aren't the same as the saved version
+loaded_model_2 = FashionMNISTModelV2(input_shape=1,
+                                    hidden_units=10, # try changing this to 128 and seeing what happens
+                                    output_shape=10)
+
+# Load in the saved state_dict()
+loaded_model_2.load_state_dict(torch.load(f=MODEL_SAVE_PATH))
+
+# Send model to GPU
+loaded_model_2 = loaded_model_2.to(device)
+```
+
+And now we've got a loaded model we can evaluate it with `eval_model()` to make sure its parameters work similarly to `model_2` prior to saving.
+
+
+```python
+# Evaluate loaded model
+torch.manual_seed(42)
+
+loaded_model_2_results = eval_model(
+    model=loaded_model_2,
+    data_loader=test_dataloader,
+    loss_fn=loss_fn,
+    accuracy_fn=accuracy_fn
+)
+
+loaded_model_2_results
+```
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV2',
+ 'model_loss': 0.3285697102546692,
+ 'model_acc': 88.37859424920129}
+  </code></pre>
+</div>
+
+Do these results look the same as `model_2_results`?
+
+```python
+model_2_results
+```
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV2',
+ 'model_loss': 0.3285697102546692,
+ 'model_acc': 88.37859424920129}
+  </code></pre>
+</div>
+
+We can find out if two tensors are close to each other using `torch.isclose()` and passing in a tolerance level of closeness via the parameters `atol` (absolute tolerance) and `rtol` (relative tolerance).
+
+If our model's results are close, the output of `torch.isclose()` should be true.
+
+```python
+# Check to see if results are close to each other (if they are very far away, there may be an error)
+torch.isclose(torch.tensor(model_2_results["model_loss"]),
+              torch.tensor(loaded_model_2_results["model_loss"]),
+              atol=1e-08, # absolute tolerance
+              rtol=0.0001) # relative tolerance
+```
+
+<div class="bash-block">
+  <pre><code>tensor(True)
+  </code></pre>
+</div>
+
+## Exercises
+
+All of the exercises are focused on practicing the code in the sections above.
+
+You should be able to complete them by referencing each section or by following the resource(s) linked.
+
+All exercises should be completed using [device-agnostic code](https://pytorch.org/docs/stable/notes/cuda.html#device-agnostic-code).
+
+**Resources:**
+
+1. What are 3 areas in industry where computer vision is currently being used?
+2. Search "what is overfitting in machine learning" and write down a sentence about what you find.
+3. Search "ways to prevent overfitting in machine learning", write down 3 of the things you find and a sentence about each. **Note:** there are lots of these, so don't worry too much about all of them, just pick 3 and start with those.
+4. Spend 20-minutes reading and clicking through the [CNN Explainer website](https://poloclub.github.io/cnn-explainer/).
+    * Upload your own example image using the "upload" button and see what happens in each layer of a CNN as your image passes through it.
+5. Load the [`torchvision.datasets.MNIST()`](https://pytorch.org/vision/stable/generated/torchvision.datasets.MNIST.html#torchvision.datasets.MNIST) train and test datasets.
+6. Visualize at least 5 different samples of the MNIST training dataset.
+7. Turn the MNIST train and test datasets into dataloaders using `torch.utils.data.DataLoader`, set the `batch_size=32`.
+8. Recreate `model_2` used in this notebook (the same model from the [CNN Explainer website](https://poloclub.github.io/cnn-explainer/), also known as TinyVGG) capable of fitting on the MNIST dataset.
+9. Train the model you built in exercise 8. on CPU and GPU and see how long it takes on each.
+10. Make predictions using your trained model and visualize at least 5 of them comparing the prediction to the target label.
+11. Plot a confusion matrix comparing your model's predictions to the truth labels.
+12. Create a random tensor of shape `[1, 3, 64, 64]` and pass it through a `nn.Conv2d()` layer with various hyperparameter settings (these can be any settings you choose), what do you notice if the `kernel_size` parameter goes up and down?
+13. Use a model similar to the trained `model_2` from this notebook to make predictions on the test [`torchvision.datasets.FashionMNIST`](https://pytorch.org/vision/main/generated/torchvision.datasets.FashionMNIST.html) dataset.
+    * Then plot some predictions where the model was wrong alongside what the label of the image should've been.
+    * After visualizing these predictions do you think it's more of a modelling error or a data error?
+    * As in, could the model do better or are the labels of the data too close to each other (e.g. a "Shirt" label is too close to "T-shirt/top")?
+
+## Extra-curriculum
+* **Watch:** [MIT's Introduction to Deep Computer Vision](https://www.youtube.com/watch?v=iaSUYvmCekI&list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI&index=3) lecture. This will give you a great intuition behind convolutional neural networks.
+* Spend 10-minutes clicking through the different options of the [PyTorch vision library](https://pytorch.org/vision/stable/index.html), what different modules are available?
+* Lookup "most common convolutional neural networks", what architectures do you find? Are any of them contained within the [`torchvision.models`](https://pytorch.org/vision/stable/models.html) library? What do you think you could do with these?
+* For a large number of pretrained PyTorch computer vision models as well as many different extensions to PyTorch's computer vision functionalities check out the [PyTorch Image Models library `timm`](https://github.com/rwightman/pytorch-image-models/) (Torch Image Models) by Ross Wightman.

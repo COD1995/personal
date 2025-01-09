@@ -2810,6 +2810,1242 @@ tensor([[[ 1.9269,  1.4873,  0.9007,  ...,  1.8446, -1.1845,  1.3835],
 
 <p>What if we changed the values of <code class="language-plaintext highlighter-rouge">conv_layer</code>?</p>
 
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># Create a new conv_layer with different values (try setting these to whatever you like)
+</span><span class="n">conv_layer_2</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Conv2d</span><span class="p">(</span><span class="n">in_channels</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="c1"># same number of color channels as our input image
+</span>                         <span class="n">out_channels</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+                         <span class="n">kernel_size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="c1"># kernel is usually a square so a tuple also works
+</span>                         <span class="n">stride</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                         <span class="n">padding</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="c1"># Pass single image through new conv_layer_2 (this calls nn.Conv2d()'s forward() method on the input)
+</span><span class="nf">conv_layer_2</span><span class="p">(</span><span class="n">test_image</span><span class="p">.</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)).</span><span class="n">shape</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>torch.Size([1, 10, 30, 30])</code></pre>
+</div>
+
+<p>Woah, we get another shape change.</p>
+
+<p>Now our image is of shape <code class="language-plaintext highlighter-rouge">[1, 10, 30, 30]</code> (it will be different if you use different values) or <code class="language-plaintext highlighter-rouge">[batch_size=1, color_channels=10, height=30, width=30]</code>.</p>
+
+<p>What’s going on here?</p>
+
+<p>Behind the scenes, our <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code> is compressing the information stored in the image.</p>
+
+<p>It does this by performing operations on the input (our test image) against its internal parameters.</p>
+
+<p>The goal of this is similar to all of the other neural networks we’ve been building.</p>
+
+<p>Data goes in and the layers try to update their internal parameters (patterns) to lower the loss function thanks to some help of the optimizer.</p>
+
+<p>The only difference is <em>how</em> the different layers calculate their parameter updates or in PyTorch terms, the operation present in the layer <code class="language-plaintext highlighter-rouge">forward()</code> method.</p>
+
+<p>If we check out our <code class="language-plaintext highlighter-rouge">conv_layer_2.state_dict()</code> we’ll find a similar weight and bias setup as we’ve seen before.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check out the conv_layer_2 internal parameters
+</span><span class="nf">print</span><span class="p">(</span><span class="n">conv_layer_2</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">())</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>OrderedDict([('weight', tensor([[[[ 0.0883,  0.0958, -0.0271,  0.1061, -0.0253],
+          [ 0.0233, -0.0562,  0.0678,  0.1018, -0.0847],
+          [ 0.1004,  0.0216,  0.0853,  0.0156,  0.0557],
+          [-0.0163,  0.0890,  0.0171, -0.0539,  0.0294],
+          [-0.0532, -0.0135, -0.0469,  0.0766, -0.0911]],
+
+         [[-0.0532, -0.0326, -0.0694,  0.0109, -0.1140],
+          [ 0.1043, -0.0981,  0.0891,  0.0192, -0.0375],
+          [ 0.0714,  0.0180,  0.0933,  0.0126, -0.0364],
+          [ 0.0310, -0.0313,  0.0486,  0.1031,  0.0667],
+          [-0.0505,  0.0667,  0.0207,  0.0586, -0.0704]],
+
+         [[-0.1143, -0.0446, -0.0886,  0.0947,  0.0333],
+          [ 0.0478,  0.0365, -0.0020,  0.0904, -0.0820],
+          [ 0.0073, -0.0788,  0.0356, -0.0398,  0.0354],
+          [-0.0241,  0.0958, -0.0684, -0.0689, -0.0689],
+          [ 0.1039,  0.0385,  0.1111, -0.0953, -0.1145]]],
+
+        ...
+
+        [[[ 0.0888, -0.0257, -0.0247, -0.1050, -0.0182],
+          [ 0.0817,  0.0161, -0.0673,  0.0355, -0.0370],
+          [ 0.1054, -0.1002, -0.0365, -0.1115, -0.0455],
+          [ 0.0364,  0.1112,  0.0194,  0.1132,  0.0226],
+          [ 0.0667,  0.0926,  0.0965, -0.0646,  0.1062]],
+
+         [[ 0.0699, -0.0540, -0.0551, -0.0969,  0.0290],
+          [-0.0936,  0.0488,  0.0365, -0.1003,  0.0315],
+          [-0.0094,  0.0527,  0.0663, -0.1148,  0.1059],
+          [ 0.0968,  0.0459, -0.1055, -0.0412, -0.0335],
+          [-0.0297,  0.0651,  0.0420,  0.0915, -0.0432]],
+
+         [[ 0.0389,  0.0411, -0.0961, -0.1120, -0.0599],
+          [ 0.0790, -0.1087, -0.1005,  0.0647,  0.0623],
+          [ 0.0950, -0.0872, -0.0845,  0.0592,  0.1004],
+          [ 0.0691,  0.0181,  0.0381,  0.1096, -0.0745],
+          [-0.0524,  0.0808, -0.0790, -0.0637,  0.0843]]]])), ('bias', tensor([ 0.0364,  0.0373, -0.0489, -0.0016,  0.1057, -0.0693,  0.0009,  0.0549,
+    -0.0797,  0.1121]))])
+  </code></pre>
+</div>
+
+<p>Look at that! A bunch of random numbers for a weight and bias tensor.</p>
+
+<p>The shapes of these are manipulated by the inputs we passed to <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code> when we set it up.</p>
+
+<p>Let’s check them out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get shapes of weight and bias tensors within conv_layer_2
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">conv_layer_2 weight shape: </span><span class="se">\n</span><span class="si">{</span><span class="n">conv_layer_2</span><span class="p">.</span><span class="n">weight</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> -&gt; [out_channels=10, in_channels=3, kernel_size=5, kernel_size=5]</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">conv_layer_2 bias shape: </span><span class="se">\n</span><span class="si">{</span><span class="n">conv_layer_2</span><span class="p">.</span><span class="n">bias</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="s"> -&gt; [out_channels=10]</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>conv_layer_2 weight shape: 
+torch.Size([10, 3, 5, 5]) -&gt; [out_channels=10, in_channels=3, kernel_size=5, kernel_size=5]
+
+conv_layer_2 bias shape: 
+torch.Size([10]) -&gt; [out_channels=10]
+  </code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Question:</strong>
+  <p>
+    What should we set the parameters of our <code>nn.Conv2d()</code> layers?
+  </p>
+  <strong>Answer:</strong>
+  <p>
+    That's a good one. But similar to many other things in machine learning, the values of these aren't set in stone (and recall, because these values are ones we can set ourselves, they're referred to as <strong>hyperparameters</strong>).
+  </p>
+  <p>
+    The best way to find out is to try out different values and see how they affect your model's performance.
+  </p>
+  <p>
+    Or even better, find a working example on a problem similar to yours (like we've done with TinyVGG) and copy it.
+  </p>
+</div>
+
+<p>We’re working with a different of layer here to what we’ve seen before.</p>
+
+<p>But the premise remains the same: start with random numbers and update them to better represent the data.</p>
+
+<h3 id="stepping-through-nnmaxpool2d">Stepping through <code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code>
+</h3>
+
+<p>Now let’s check out what happens when we move data through <code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Print out original image shape without and with unsqueezed dimension
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Test image original shape: </span><span class="si">{</span><span class="n">test_image</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Test image with unsqueezed dimension: </span><span class="si">{</span><span class="n">test_image</span><span class="p">.</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">).</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Create a sample nn.MaxPoo2d() layer
+</span><span class="n">max_pool_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Pass data through just the conv_layer
+</span><span class="n">test_image_through_conv</span> <span class="o">=</span> <span class="nf">conv_layer</span><span class="p">(</span><span class="n">test_image</span><span class="p">.</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Shape after going through conv_layer(): </span><span class="si">{</span><span class="n">test_image_through_conv</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Pass data through the max pool layer
+</span><span class="n">test_image_through_conv_and_max_pool</span> <span class="o">=</span> <span class="nf">max_pool_layer</span><span class="p">(</span><span class="n">test_image_through_conv</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Shape after going through conv_layer() and max_pool_layer(): </span><span class="si">{</span><span class="n">test_image_through_conv_and_max_pool</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Test image original shape: torch.Size([3, 64, 64])
+Test image with unsqueezed dimension: torch.Size([1, 3, 64, 64])
+Shape after going through conv_layer(): torch.Size([1, 10, 62, 62])
+Shape after going through conv_layer() and max_pool_layer(): torch.Size([1, 10, 31, 31])
+  </code></pre>
+</div>
+
+<p>Notice the change in the shapes of what’s happening in and out of a <code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code> layer.</p>
+
+<p>The <code class="language-plaintext highlighter-rouge">kernel_size</code> of the <code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code> layer will affect the size of the output shape.</p>
+
+<p>In our case, the shape halves from a <code class="language-plaintext highlighter-rouge">62x62</code> image to <code class="language-plaintext highlighter-rouge">31x31</code> image.</p>
+
+<p>Let’s see this work with a smaller tensor.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="c1"># Create a random tensor with a similar number of dimensions to our images
+</span><span class="n">random_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Random tensor:</span><span class="se">\n</span><span class="si">{</span><span class="n">random_tensor</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Random tensor shape: </span><span class="si">{</span><span class="n">random_tensor</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+
+<span class="c1"># Create a max pool layer
+</span><span class="n">max_pool_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">MaxPool2d</span><span class="p">(</span><span class="n">kernel_size</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span> <span class="c1"># see what happens when you change the kernel_size value
+</span>
+<span class="c1"># Pass the random tensor through the max pool layer
+</span><span class="n">max_pool_tensor</span> <span class="o">=</span> <span class="nf">max_pool_layer</span><span class="p">(</span><span class="n">random_tensor</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="se">\n</span><span class="s">Max pool tensor:</span><span class="se">\n</span><span class="si">{</span><span class="n">max_pool_tensor</span><span class="si">}</span><span class="s"> &lt;- this is the maximum value from random_tensor</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Max pool tensor shape: </span><span class="si">{</span><span class="n">max_pool_tensor</span><span class="p">.</span><span class="n">shape</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Random tensor:
+tensor([[[[0.3367, 0.1288],
+          [0.2345, 0.2303]]]])
+Random tensor shape: torch.Size([1, 1, 2, 2])
+
+Max pool tensor:
+tensor([[[[0.3367]]]]) &lt;- this is the maximum value from random_tensor
+Max pool tensor shape: torch.Size([1, 1, 1, 1])
+  </code></pre>
+</div>
+
+<p>Notice the final two dimensions between <code class="language-plaintext highlighter-rouge">random_tensor</code> and <code class="language-plaintext highlighter-rouge">max_pool_tensor</code>, they go from <code class="language-plaintext highlighter-rouge">[2, 2]</code> to <code class="language-plaintext highlighter-rouge">[1, 1]</code>.</p>
+
+<p>In essence, they get halved.</p>
+
+<p>And the change would be different for different values of <code class="language-plaintext highlighter-rouge">kernel_size</code> for <code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code>.</p>
+
+<p>Also notice the value leftover in <code class="language-plaintext highlighter-rouge">max_pool_tensor</code> is the <strong>maximum</strong> value from <code class="language-plaintext highlighter-rouge">random_tensor</code>.</p>
+
+<p>What’s happening here?</p>
+
+<p>This is another important piece of the puzzle of neural networks.</p>
+
+<p>Essentially, <strong>every layer in a neural network is trying to compress data from higher dimensional space to lower dimensional space</strong>.</p>
+
+<p>In other words, take a lot of numbers (raw data) and learn patterns in those numbers, patterns that are predictive whilst also being <em>smaller</em> in size than the original values.</p>
+
+<p>From an artificial intelligence perspective, you could consider the whole goal of a neural network to <em>compress</em> information.</p>
+
+<div class="row mt-3">
+  
+  <div class="col-sm mt-3 mt-md-0">
+    <figure id="conv_net_compression8">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/03-conv-net-as-compression.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 8: Each layer of a neural network compresses the original input data into a smaller representation that is (hopefully) capable of making predictions on future input data.
+    </figcaption>
+  
+</figure>
+
+  </div>
+</div>
+
+<p>This means, that from the point of view of a neural network, intelligence is compression.</p>
+
+<p>This is the idea of the use of a <code class="language-plaintext highlighter-rouge">nn.MaxPool2d()</code> layer: take the maximum value from a portion of a tensor and disregard the rest.</p>
+
+<p>In essence, lowering the dimensionality of a tensor whilst still retaining a (hopefully) significant portion of the information.</p>
+
+<p>It is the same story for a <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code> layer.</p>
+
+<p>Except instead of just taking the maximum, the <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code> performs a convolutional operation on the data (see this in action on the <a href="https://poloclub.github.io/cnn-explainer/" rel="external nofollow noopener" target="_blank">CNN Explainer webpage</a>).</p>
+
+<div class="note-box">
+  <strong>Exercise:</strong>
+  <p>
+    What do you think the <a href="https://pytorch.org/docs/stable/generated/torch.nn.AvgPool2d.html" rel="external nofollow noopener" target="_blank"><code>nn.AvgPool2d()</code></a> layer does? Try making a random tensor like we did above and passing it through. Check the input and output shapes as well as the input and output values.
+  </p>
+</div>
+
+<div class="note-box">
+  <strong>Extra-curriculum:</strong>
+  <p>
+    Lookup "most common convolutional neural networks", what architectures do you find? Are any of them contained within the <a href="https://pytorch.org/vision/stable/models.html" rel="external nofollow noopener" target="_blank"><code>torchvision.models</code></a> library? What do you think you could do with these?
+  </p>
+</div>
+
+<h3 id="setup-a-loss-function-and-optimizer-for-model_2">Setup a loss function and optimizer for <code class="language-plaintext highlighter-rouge">model_2</code>
+</h3>
+
+<p>We’ve stepped through the layers in our first CNN enough.</p>
+
+<p>But remember, if something still isn’t clear, try starting small.</p>
+
+<p>Pick a single layer of a model, pass some data through it and see what happens.</p>
+
+<p>Now it’s time to move forward and get to training!</p>
+
+<p>Let’s setup a loss function and an optimizer.</p>
+
+<p>We’ll use the functions as before, <code class="language-plaintext highlighter-rouge">nn.CrossEntropyLoss()</code> as the loss function (since we’re working with multi-class classification data).</p>
+
+<p>And <code class="language-plaintext highlighter-rouge">torch.optim.SGD()</code> as the optimizer to optimize <code class="language-plaintext highlighter-rouge">model_2.parameters()</code> with a learning rate of <code class="language-plaintext highlighter-rouge">0.1</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Setup loss and optimizer
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">CrossEntropyLoss</span><span class="p">()</span>
+<span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_2</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span>
+                             <span class="n">lr</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="training-and-testing-model_2-using-our-training-and-test-functions">Training and testing <code class="language-plaintext highlighter-rouge">model_2</code> using our training and test functions</h3>
+
+<p>Loss and optimizer ready!</p>
+
+<p>Time to train and test.</p>
+
+<p>We’ll use our <code class="language-plaintext highlighter-rouge">train_step()</code> and <code class="language-plaintext highlighter-rouge">test_step()</code> functions we created before.</p>
+
+<p>We’ll also measure the time to compare it to our other models.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Measure time
+</span><span class="kn">from</span> <span class="n">timeit</span> <span class="kn">import</span> <span class="n">default_timer</span> <span class="k">as</span> <span class="n">timer</span>
+<span class="n">train_time_start_model_2</span> <span class="o">=</span> <span class="nf">timer</span><span class="p">()</span>
+
+<span class="c1"># Train and test model
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">)):</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="se">\n</span><span class="s">---------</span><span class="sh">"</span><span class="p">)</span>
+    <span class="nf">train_step</span><span class="p">(</span><span class="n">data_loader</span><span class="o">=</span><span class="n">train_dataloader</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_2</span><span class="p">,</span>
+        <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+        <span class="n">optimizer</span><span class="o">=</span><span class="n">optimizer</span><span class="p">,</span>
+        <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+    <span class="p">)</span>
+    <span class="nf">test_step</span><span class="p">(</span><span class="n">data_loader</span><span class="o">=</span><span class="n">test_dataloader</span><span class="p">,</span>
+        <span class="n">model</span><span class="o">=</span><span class="n">model_2</span><span class="p">,</span>
+        <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+        <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span><span class="p">,</span>
+        <span class="n">device</span><span class="o">=</span><span class="n">device</span>
+    <span class="p">)</span>
+
+<span class="n">train_time_end_model_2</span> <span class="o">=</span> <span class="nf">timer</span><span class="p">()</span>
+<span class="n">total_train_time_model_2</span> <span class="o">=</span> <span class="nf">print_train_time</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="n">train_time_start_model_2</span><span class="p">,</span>
+                                           <span class="n">end</span><span class="o">=</span><span class="n">train_time_end_model_2</span><span class="p">,</span>
+                                           <span class="n">device</span><span class="o">=</span><span class="n">device</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>  0%|          | 0/3 [00:00&lt;?, ?it/s]
+
+Epoch: 0
+---------
+Train loss: 0.59302 | Train accuracy: 78.41%
+Test loss: 0.39771 | Test accuracy: 86.01%
+
+Epoch: 1
+---------
+Train loss: 0.36149 | Train accuracy: 87.00%
+Test loss: 0.35713 | Test accuracy: 87.00%
+
+Epoch: 2
+---------
+Train loss: 0.32354 | Train accuracy: 88.28%
+Test loss: 0.32857 | Test accuracy: 88.38%
+
+Train time on cuda: 44.250 seconds
+  </code></pre>
+</div>
+
+<p>Woah! Looks like the convolutional and max pooling layers helped improve performance a little.</p>
+
+<p>Let’s evaluate <code class="language-plaintext highlighter-rouge">model_2</code>’s results with our <code class="language-plaintext highlighter-rouge">eval_model()</code> function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Get model_2 results
+</span><span class="n">model_2_results</span> <span class="o">=</span> <span class="nf">eval_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">model_2</span><span class="p">,</span>
+    <span class="n">data_loader</span><span class="o">=</span><span class="n">test_dataloader</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+    <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span>
+<span class="p">)</span>
+<span class="n">model_2_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV2',
+ 'model_loss': 0.3285697102546692,
+ 'model_acc': 88.37859424920129}
+  </code></pre>
+</div>
+
+<h2 id="compare-model-results-and-training-time">Compare model results and training time</h2>
+
+<p>We’ve trained three different models.</p>
+
+<ol>
+  <li>
+<code class="language-plaintext highlighter-rouge">model_0</code> - our baseline model with two <code class="language-plaintext highlighter-rouge">nn.Linear()</code> layers.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">model_1</code> - the same setup as our baseline model except with <code class="language-plaintext highlighter-rouge">nn.ReLU()</code> layers in between the <code class="language-plaintext highlighter-rouge">nn.Linear()</code> layers.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">model_2</code> - our first CNN model that mimics the TinyVGG architecture on the CNN Explainer website.</li>
+</ol>
+
+<p>This is a regular practice in machine learning.</p>
+
+<p>Building multiple models and performing multiple training experiments to see which performs best.</p>
+
+<p>Let’s combine our model results dictionaries into a DataFrame and find out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+<span class="n">compare_results</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="nc">DataFrame</span><span class="p">([</span><span class="n">model_0_results</span><span class="p">,</span> <span class="n">model_1_results</span><span class="p">,</span> <span class="n">model_2_results</span><span class="p">])</span>
+<span class="n">compare_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="table-wrapper">
+  <table class="dataframe">
+    <thead>
+      <tr>
+        <th></th>
+        <th>model_name</th>
+        <th>model_loss</th>
+        <th>model_acc</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>FashionMNISTModelV0</td>
+        <td>0.476639</td>
+        <td>83.426518</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>FashionMNISTModelV1</td>
+        <td>0.685001</td>
+        <td>75.019968</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>FashionMNISTModelV2</td>
+        <td>0.328570</td>
+        <td>88.378594</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>Nice!</p>
+
+<p>We can add the training time values too.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Add training times to results comparison
+</span><span class="n">compare_results</span><span class="p">[</span><span class="sh">"</span><span class="s">training_time</span><span class="sh">"</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">total_train_time_model_0</span><span class="p">,</span>
+                                    <span class="n">total_train_time_model_1</span><span class="p">,</span>
+                                    <span class="n">total_train_time_model_2</span><span class="p">]</span>
+<span class="n">compare_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<div class="table-wrapper">
+  <table class="dataframe">
+    <thead>
+      <tr>
+        <th></th>
+        <th>model_name</th>
+        <th>model_loss</th>
+        <th>model_acc</th>
+        <th>training_time</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th>0</th>
+        <td>FashionMNISTModelV0</td>
+        <td>0.476639</td>
+        <td>83.426518</td>
+        <td>32.348722</td>
+      </tr>
+      <tr>
+        <th>1</th>
+        <td>FashionMNISTModelV1</td>
+        <td>0.685001</td>
+        <td>75.019968</td>
+        <td>36.877976</td>
+      </tr>
+      <tr>
+        <th>2</th>
+        <td>FashionMNISTModelV2</td>
+        <td>0.328570</td>
+        <td>88.378594</td>
+        <td>44.249765</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>It looks like our CNN (<code class="language-plaintext highlighter-rouge">FashionMNISTModelV2</code>) model performed the best (lowest loss, highest accuracy) but had the longest training time.</p>
+
+<p>And our baseline model (<code class="language-plaintext highlighter-rouge">FashionMNISTModelV0</code>) performed better than <code class="language-plaintext highlighter-rouge">model_1</code> (<code class="language-plaintext highlighter-rouge">FashionMNISTModelV1</code>).</p>
+
+<h3 id="performance-speed-tradeoff">Performance-speed tradeoff</h3>
+
+<p>Something to be aware of in machine learning is the <strong>performance-speed</strong> tradeoff.</p>
+
+<p>Generally, you get better performance out of a larger, more complex model (like we did with <code class="language-plaintext highlighter-rouge">model_2</code>).</p>
+
+<p>However, this performance increase often comes at a sacrifice of training speed and inference speed.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The training times you get will be very dependent on the hardware you use.
+  </p>
+  <p>
+    Generally, the more CPU cores you have, the faster your models will train on CPU. And similar for GPUs.
+  </p>
+  <p>
+    Newer hardware (in terms of age) will also often train models faster due to incorporating technological advances.
+  </p>
+</div>
+
+<p>How about we get visual?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Visualize our model results
+</span><span class="n">compare_results</span><span class="p">.</span><span class="nf">set_index</span><span class="p">(</span><span class="sh">"</span><span class="s">model_name</span><span class="sh">"</span><span class="p">)[</span><span class="sh">"</span><span class="s">model_acc</span><span class="sh">"</span><span class="p">].</span><span class="nf">plot</span><span class="p">(</span><span class="n">kind</span><span class="o">=</span><span class="sh">"</span><span class="s">barh</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">accuracy (%)</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">model</span><span class="sh">"</span><span class="p">);</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/03_pytorch_computer_vision_files/03_pytorch_computer_vision_100_0.png" alt="03 PyTorch Computer Vision Chart" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<h2 id="make-and-evaluate-random-predictions-with-best-model">Make and evaluate random predictions with best model</h2>
+
+<p>Alright, we’ve compared our models to each other, let’s further evaluate our best performing model, <code class="language-plaintext highlighter-rouge">model_2</code>.</p>
+
+<p>To do so, let’s create a function <code class="language-plaintext highlighter-rouge">make_predictions()</code> where we can pass the model and some data for it to predict on.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+</pre></td>
+<td class="rouge-code"><pre><span class="k">def</span> <span class="nf">make_predictions</span><span class="p">(</span><span class="n">model</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">,</span> <span class="n">device</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span><span class="p">):</span>
+    <span class="n">pred_probs</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">model</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+        <span class="k">for</span> <span class="n">sample</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+            <span class="c1"># Prepare sample
+</span>            <span class="n">sample</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">sample</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="c1"># Add an extra dimension and send sample to device
+</span>
+            <span class="c1"># Forward pass (model outputs raw logit)
+</span>            <span class="n">pred_logit</span> <span class="o">=</span> <span class="nf">model</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+
+            <span class="c1"># Get prediction probability (logit -&gt; prediction probability)
+</span>            <span class="n">pred_prob</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">softmax</span><span class="p">(</span><span class="n">pred_logit</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">(),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span> <span class="c1"># note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 1, so can perform on dim=0)
+</span>
+            <span class="c1"># Get pred_prob off GPU for further calculations
+</span>            <span class="n">pred_probs</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">pred_prob</span><span class="p">.</span><span class="nf">cpu</span><span class="p">())</span>
+
+    <span class="c1"># Stack the pred_probs to turn list into a tensor
+</span>    <span class="k">return</span> <span class="n">torch</span><span class="p">.</span><span class="nf">stack</span><span class="p">(</span><span class="n">pred_probs</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">random</span>
+<span class="n">random</span><span class="p">.</span><span class="nf">seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">test_samples</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_labels</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">sample</span><span class="p">,</span> <span class="n">label</span> <span class="ow">in</span> <span class="n">random</span><span class="p">.</span><span class="nf">sample</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="n">test_data</span><span class="p">),</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">):</span>
+    <span class="n">test_samples</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">sample</span><span class="p">)</span>
+    <span class="n">test_labels</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+
+<span class="c1"># View the first test sample shape and label
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Test sample image shape: </span><span class="si">{</span><span class="n">test_samples</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">shape</span><span class="si">}</span><span class="se">\n</span><span class="s">Test sample label: </span><span class="si">{</span><span class="n">test_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s"> (</span><span class="si">{</span><span class="n">class_names</span><span class="p">[</span><span class="n">test_labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="si">}</span><span class="s">)</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Test sample image shape: torch.Size([1, 28, 28])
+Test sample label: 5 (Sandal)
+  </code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Make predictions on test samples with model 2
+</span><span class="n">pred_probs</span><span class="o">=</span> <span class="nf">make_predictions</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="n">model_2</span><span class="p">,</span>
+                             <span class="n">data</span><span class="o">=</span><span class="n">test_samples</span><span class="p">)</span>
+
+<span class="c1"># View first two prediction probabilities list
+</span><span class="n">pred_probs</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<div class="bash-block">
+  <pre><code>tensor([[2.4012e-07, 6.5406e-08, 4.8069e-08, 2.1070e-07, 1.4175e-07, 9.9992e-01,
+         2.1711e-07, 1.6177e-05, 3.7849e-05, 2.7548e-05],
+        [1.5646e-02, 8.9752e-01, 3.6928e-04, 6.7402e-02, 1.2920e-02, 4.9539e-05,
+         5.6485e-03, 1.9456e-04, 2.0808e-04, 3.7861e-05]])
+  </code></pre>
+</div>
+
+<p>Excellent!</p>
+
+<p>And now we can go from prediction probabilities to prediction labels by taking the <code class="language-plaintext highlighter-rouge">torch.argmax()</code> of the output of the <code class="language-plaintext highlighter-rouge">torch.softmax()</code> activation function.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Turn the prediction probabilities into prediction labels by taking the argmax()
+</span><span class="n">pred_classes</span> <span class="o">=</span> <span class="n">pred_probs</span><span class="p">.</span><span class="nf">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">pred_classes</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([5, 1, 7, 4, 3, 0, 4, 7, 1])
+  </code></pre>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Are our predictions in the same form as our test labels?
+</span><span class="n">test_labels</span><span class="p">,</span> <span class="n">pred_classes</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>([5, 1, 7, 4, 3, 0, 4, 7, 1], tensor([5, 1, 7, 4, 3, 0, 4, 7, 1]))
+  </code></pre>
+</div>
+
+<p>Now our predicted classes are in the same format as our test labels, we can compare.</p>
+
+<p>Since we’re dealing with image data, let’s stay true to the data explorer’s motto.</p>
+
+<p>“Visualize, visualize, visualize!”</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Plot predictions
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">9</span><span class="p">,</span> <span class="mi">9</span><span class="p">))</span>
+<span class="n">nrows</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="n">ncols</span> <span class="o">=</span> <span class="mi">3</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">sample</span> <span class="ow">in</span> <span class="nf">enumerate</span><span class="p">(</span><span class="n">test_samples</span><span class="p">):</span>
+  <span class="c1"># Create a subplot
+</span>  <span class="n">plt</span><span class="p">.</span><span class="nf">subplot</span><span class="p">(</span><span class="n">nrows</span><span class="p">,</span> <span class="n">ncols</span><span class="p">,</span> <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+
+  <span class="c1"># Plot the target image
+</span>  <span class="n">plt</span><span class="p">.</span><span class="nf">imshow</span><span class="p">(</span><span class="n">sample</span><span class="p">.</span><span class="nf">squeeze</span><span class="p">(),</span> <span class="n">cmap</span><span class="o">=</span><span class="sh">"</span><span class="s">gray</span><span class="sh">"</span><span class="p">)</span>
+
+  <span class="c1"># Find the prediction label (in text form, e.g. "Sandal")
+</span>  <span class="n">pred_label</span> <span class="o">=</span> <span class="n">class_names</span><span class="p">[</span><span class="n">pred_classes</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+  <span class="c1"># Get the truth label (in text form, e.g. "T-shirt")
+</span>  <span class="n">truth_label</span> <span class="o">=</span> <span class="n">class_names</span><span class="p">[</span><span class="n">test_labels</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+
+  <span class="c1"># Create the title text of the plot
+</span>  <span class="n">title_text</span> <span class="o">=</span> <span class="sa">f</span><span class="sh">"</span><span class="s">Pred: </span><span class="si">{</span><span class="n">pred_label</span><span class="si">}</span><span class="s"> | Truth: </span><span class="si">{</span><span class="n">truth_label</span><span class="si">}</span><span class="sh">"</span>
+
+  <span class="c1"># Check for equality and change title colour accordingly
+</span>  <span class="k">if</span> <span class="n">pred_label</span> <span class="o">==</span> <span class="n">truth_label</span><span class="p">:</span>
+      <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="sh">"</span><span class="s">g</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># green text if correct
+</span>  <span class="k">else</span><span class="p">:</span>
+      <span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="n">title_text</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">)</span> <span class="c1"># red text if wrong
+</span>  <span class="n">plt</span><span class="p">.</span><span class="nf">axis</span><span class="p">(</span><span class="bp">False</span><span class="p">);</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/03_pytorch_computer_vision_files/03_pytorch_computer_vision_111_0.png" alt="03 PyTorch Computer Vision Visualization" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Well, well, well, doesn’t that look good!</p>
+
+<p>Not bad for a couple dozen lines of PyTorch code!</p>
+
+<h2 id="making-a-confusion-matrix-for-further-prediction-evaluation">Making a confusion matrix for further prediction evaluation</h2>
+
+<p>There are many different evaluation metrics we can use for classification problems.</p>
+
+<p>One of the most visual is a <a href="https://www.dataschool.io/simple-guide-to-confusion-matrix-terminology/" rel="external nofollow noopener" target="_blank">confusion matrix</a>.</p>
+
+<p>A confusion matrix shows you where your classification model got confused between predictions and true labels.</p>
+
+<p>To make a confusion matrix, we’ll go through three steps:</p>
+<ol>
+  <li>Make predictions with our trained model, <code class="language-plaintext highlighter-rouge">model_2</code> (a confusion matrix compares predictions to true labels).</li>
+  <li>Make a confusion matrix using <a href="https://torchmetrics.readthedocs.io/en/latest/references/modules.html?highlight=confusion#confusionmatrix" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torchmetrics.ConfusionMatrix</code></a>.</li>
+  <li>Plot the confusion matrix using <a href="http://rasbt.github.io/mlxtend/user_guide/plotting/plot_confusion_matrix/" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">mlxtend.plotting.plot_confusion_matrix()</code></a>.</li>
+</ol>
+
+<p>Let’s start by making predictions with our trained model.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Import tqdm for progress bar
+</span><span class="kn">from</span> <span class="n">tqdm.auto</span> <span class="kn">import</span> <span class="n">tqdm</span>
+
+<span class="c1"># 1. Make predictions with trained model
+</span><span class="n">y_preds</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">model_2</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+  <span class="k">for</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="ow">in</span> <span class="nf">tqdm</span><span class="p">(</span><span class="n">test_dataloader</span><span class="p">,</span> <span class="n">desc</span><span class="o">=</span><span class="sh">"</span><span class="s">Making predictions</span><span class="sh">"</span><span class="p">):</span>
+    <span class="c1"># Send data and targets to target device
+</span>    <span class="n">X</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">),</span> <span class="n">y</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+    <span class="c1"># Do the forward pass
+</span>    <span class="n">y_logit</span> <span class="o">=</span> <span class="nf">model_2</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+    <span class="c1"># Turn predictions from logits -&gt; prediction probabilities -&gt; predictions labels
+</span>    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">softmax</span><span class="p">(</span><span class="n">y_logit</span><span class="p">,</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">).</span><span class="nf">argmax</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># note: perform softmax on the "logits" dimension, not "batch" dimension (in this case we have a batch size of 32, so can perform on dim=1)
+</span>    <span class="c1"># Put predictions on CPU for evaluation
+</span>    <span class="n">y_preds</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">y_pred</span><span class="p">.</span><span class="nf">cpu</span><span class="p">())</span>
+<span class="c1"># Concatenate list of predictions into a tensor
+</span><span class="n">y_pred_tensor</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">cat</span><span class="p">(</span><span class="n">y_preds</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Making predictions:   0%|          | 0/313 [00:00&lt;?, ?it/s]
+  </code></pre>
+</div>
+
+<p>Wonderful!</p>
+
+<p>Now we’ve got predictions, let’s go through steps 2 &amp; 3:</p>
+<ol>
+  <li>Make a confusion matrix using <a href="https://torchmetrics.readthedocs.io/en/latest/references/modules.html?highlight=confusion#confusionmatrix" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torchmetrics.ConfusionMatrix</code></a>.</li>
+  <li>Plot the confusion matrix using <a href="http://rasbt.github.io/mlxtend/user_guide/plotting/plot_confusion_matrix/" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">mlxtend.plotting.plot_confusion_matrix()</code></a>.</li>
+</ol>
+
+<p>First we’ll need to make sure we’ve got <code class="language-plaintext highlighter-rouge">torchmetrics</code> and <code class="language-plaintext highlighter-rouge">mlxtend</code> installed (these two libraries will help us make and visualize a confusion matrix).</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    If you're using Google Colab, the default version of <code>mlxtend</code> installed is 0.14.0 (as of March 2022). However, for the parameters of the <code>plot_confusion_matrix()</code> function we'd like to use, we need 0.19.0 or higher.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># See if torchmetrics exists, if not, install it
+</span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="n">torchmetrics</span><span class="p">,</span> <span class="n">mlxtend</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">mlxtend version: </span><span class="si">{</span><span class="n">mlxtend</span><span class="p">.</span><span class="n">__version__</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="nf">int</span><span class="p">(</span><span class="n">mlxtend</span><span class="p">.</span><span class="n">__version__</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">.</span><span class="sh">"</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">19</span><span class="p">,</span> <span class="sh">"</span><span class="s">mlxtend verison should be 0.19.0 or higher</span><span class="sh">"</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">q</span> <span class="n">torchmetrics</span> <span class="o">-</span><span class="n">U</span> <span class="n">mlxtend</span> <span class="c1"># &lt;- Note: If you're using Google Colab, this may require restarting the runtime
+</span>    <span class="kn">import</span> <span class="n">torchmetrics</span><span class="p">,</span> <span class="n">mlxtend</span>
+    <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">mlxtend version: </span><span class="si">{</span><span class="n">mlxtend</span><span class="p">.</span><span class="n">__version__</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<p>To plot the confusion matrix, we need to make sure we’ve got and <a href="http://rasbt.github.io/mlxtend/" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">mlxtend</code></a> version of 0.19.0 or higher.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Import mlxtend upgraded version
+</span><span class="kn">import</span> <span class="n">mlxtend</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">mlxtend</span><span class="p">.</span><span class="n">__version__</span><span class="p">)</span>
+<span class="k">assert</span> <span class="nf">int</span><span class="p">(</span><span class="n">mlxtend</span><span class="p">.</span><span class="n">__version__</span><span class="p">.</span><span class="nf">split</span><span class="p">(</span><span class="sh">"</span><span class="s">.</span><span class="sh">"</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">&gt;=</span> <span class="mi">19</span> <span class="c1"># should be version 0.19.0 or higher
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>0.22.0
+</code></pre>
+</div>
+
+<p><code class="language-plaintext highlighter-rouge">torchmetrics</code> and <code class="language-plaintext highlighter-rouge">mlxtend</code> installed, let’s make a confusion matrix!</p>
+
+<p>First we’ll create a <code class="language-plaintext highlighter-rouge">torchmetrics.ConfusionMatrix</code> instance telling it how many classes we’re dealing with by setting <code class="language-plaintext highlighter-rouge">num_classes=len(class_names)</code>.</p>
+
+<p>Then we’ll create a confusion matrix (in tensor format) by passing our instance our model’s predictions (<code class="language-plaintext highlighter-rouge">preds=y_pred_tensor</code>) and targets (<code class="language-plaintext highlighter-rouge">target=test_data.targets</code>).</p>
+
+<p>Finally we can plot our confusion matrix using the <code class="language-plaintext highlighter-rouge">plot_confusion_matrix()</code> function from <code class="language-plaintext highlighter-rouge">mlxtend.plotting</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">torchmetrics</span> <span class="kn">import</span> <span class="n">ConfusionMatrix</span>
+<span class="kn">from</span> <span class="n">mlxtend.plotting</span> <span class="kn">import</span> <span class="n">plot_confusion_matrix</span>
+
+<span class="c1"># 2. Setup confusion matrix instance and compare predictions to targets
+</span><span class="n">confmat</span> <span class="o">=</span> <span class="nc">ConfusionMatrix</span><span class="p">(</span><span class="n">num_classes</span><span class="o">=</span><span class="nf">len</span><span class="p">(</span><span class="n">class_names</span><span class="p">),</span> <span class="n">task</span><span class="o">=</span><span class="sh">'</span><span class="s">multiclass</span><span class="sh">'</span><span class="p">)</span>
+<span class="n">confmat_tensor</span> <span class="o">=</span> <span class="nf">confmat</span><span class="p">(</span><span class="n">preds</span><span class="o">=</span><span class="n">y_pred_tensor</span><span class="p">,</span>
+                         <span class="n">target</span><span class="o">=</span><span class="n">test_data</span><span class="p">.</span><span class="n">targets</span><span class="p">)</span>
+
+<span class="c1"># 3. Plot the confusion matrix
+</span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="nf">plot_confusion_matrix</span><span class="p">(</span>
+    <span class="n">conf_mat</span><span class="o">=</span><span class="n">confmat_tensor</span><span class="p">.</span><span class="nf">numpy</span><span class="p">(),</span> <span class="c1"># matplotlib likes working with NumPy
+</span>    <span class="n">class_names</span><span class="o">=</span><span class="n">class_names</span><span class="p">,</span> <span class="c1"># turn the row and column labels into class names
+</span>    <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/03_pytorch_computer_vision_files/03_pytorch_computer_vision_120_0.png" alt="03 PyTorch Computer Vision Confusion Matrix" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Woah! Doesn’t that look good?</p>
+
+<p>We can see our model does fairly well since most of the dark squares are down the diagonal from top left to bottom right (and ideal model will have only values in these squares and 0 everywhere else).</p>
+
+<p>The model gets most “confused” on classes that are similar, for example predicting “Pullover” for images that are actually labelled “Shirt”.</p>
+
+<p>And the same for predicting “Shirt” for classes that are actually labelled “T-shirt/top”.</p>
+
+<p>This kind of information is often more helpful than a single accuracy metric because it tells use <em>where</em> a model is getting things wrong.</p>
+
+<p>It also hints at <em>why</em> the model may be getting certain things wrong.</p>
+
+<p>It’s understandable the model sometimes predicts “Shirt” for images labelled “T-shirt/top”.</p>
+
+<p>We can use this kind of information to further inspect our models and data to see how it could be improved.</p>
+
+<div class="note-box">
+  <strong>Exercise:</strong>
+  <p>
+    Use the trained <code>model_2</code> to make predictions on the test FashionMNIST dataset. Then plot some predictions where the model was wrong alongside what the label of the image should've been.
+  </p>
+  <p>
+    After visualizing these predictions, do you think it's more of a modelling error or a data error? As in, could the model do better or are the labels of the data too close to each other (e.g., a "Shirt" label is too close to "T-shirt/top")?
+  </p>
+</div>
+
+<h2 id="save-and-load-best-performing-model">Save and load best performing model</h2>
+
+<p>Let’s finish this section off by saving and loading in our best performing model.</p>
+
+<p>Recall from previous session we can save and load a PyTorch model using a combination of:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">torch.save</code> - a function to save a whole PyTorch model or a model’s <code class="language-plaintext highlighter-rouge">state_dict()</code>.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">torch.load</code> - a function to load in a saved PyTorch object.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">torch.nn.Module.load_state_dict()</code> - a function to load a saved <code class="language-plaintext highlighter-rouge">state_dict()</code> into an existing model instance.</li>
+</ul>
+
+<p>You can see more of these three in the <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html" rel="external nofollow noopener" target="_blank">PyTorch saving and loading models documentation</a>.</p>
+
+<p>For now, let’s save our <code class="language-plaintext highlighter-rouge">model_2</code>’s <code class="language-plaintext highlighter-rouge">state_dict()</code> then load it back in and evaluate it to make sure the save and load went correctly.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># Create models directory (if it doesn't already exist), see: https://docs.python.org/3/library/pathlib.html#pathlib.Path.mkdir
+</span><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">models</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">MODEL_PATH</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="c1"># create parent directories if needed
+</span>                 <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span> <span class="c1"># if models directory already exists, don't error
+</span><span class="p">)</span>
+
+<span class="c1"># Create model save path
+</span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="sh">"</span><span class="s">03_pytorch_computer_vision_model_2.pth</span><span class="sh">"</span>
+<span class="n">MODEL_SAVE_PATH</span> <span class="o">=</span> <span class="n">MODEL_PATH</span> <span class="o">/</span> <span class="n">MODEL_NAME</span>
+
+<span class="c1"># Save the model state dict
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Saving model to: </span><span class="si">{</span><span class="n">MODEL_SAVE_PATH</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">torch</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">model_2</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">(),</span> <span class="c1"># only saving the state_dict() only saves the learned parameters
+</span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Now we’ve got a saved model <code class="language-plaintext highlighter-rouge">state_dict()</code> we can load it back in using a combination of <code class="language-plaintext highlighter-rouge">load_state_dict()</code> and <code class="language-plaintext highlighter-rouge">torch.load()</code>.</p>
+
+<p>Since we’re using <code class="language-plaintext highlighter-rouge">load_state_dict()</code>, we’ll need to create a new instance of <code class="language-plaintext highlighter-rouge">FashionMNISTModelV2()</code> with the same input parameters as our saved model <code class="language-plaintext highlighter-rouge">state_dict()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a new instance of FashionMNISTModelV2 (the same class as our saved state_dict())
+# Note: loading model will error if the shapes here aren't the same as the saved version
+</span><span class="n">loaded_model_2</span> <span class="o">=</span> <span class="nc">FashionMNISTModelV2</span><span class="p">(</span><span class="n">input_shape</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+                                    <span class="n">hidden_units</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="c1"># try changing this to 128 and seeing what happens
+</span>                                    <span class="n">output_shape</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Load in the saved state_dict()
+</span><span class="n">loaded_model_2</span><span class="p">.</span><span class="nf">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">))</span>
+
+<span class="c1"># Send model to GPU
+</span><span class="n">loaded_model_2</span> <span class="o">=</span> <span class="n">loaded_model_2</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>And now we’ve got a loaded model we can evaluate it with <code class="language-plaintext highlighter-rouge">eval_model()</code> to make sure its parameters work similarly to <code class="language-plaintext highlighter-rouge">model_2</code> prior to saving.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Evaluate loaded model
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="n">loaded_model_2_results</span> <span class="o">=</span> <span class="nf">eval_model</span><span class="p">(</span>
+    <span class="n">model</span><span class="o">=</span><span class="n">loaded_model_2</span><span class="p">,</span>
+    <span class="n">data_loader</span><span class="o">=</span><span class="n">test_dataloader</span><span class="p">,</span>
+    <span class="n">loss_fn</span><span class="o">=</span><span class="n">loss_fn</span><span class="p">,</span>
+    <span class="n">accuracy_fn</span><span class="o">=</span><span class="n">accuracy_fn</span>
+<span class="p">)</span>
+
+<span class="n">loaded_model_2_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV2',
+ 'model_loss': 0.3285697102546692,
+ 'model_acc': 88.37859424920129}
+  </code></pre>
+</div>
+
+<p>Do these results look the same as <code class="language-plaintext highlighter-rouge">model_2_results</code>?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">model_2_results</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code> {'model_name': 'FashionMNISTModelV2',
+ 'model_loss': 0.3285697102546692,
+ 'model_acc': 88.37859424920129}
+  </code></pre>
+</div>
+
+<p>We can find out if two tensors are close to each other using <code class="language-plaintext highlighter-rouge">torch.isclose()</code> and passing in a tolerance level of closeness via the parameters <code class="language-plaintext highlighter-rouge">atol</code> (absolute tolerance) and <code class="language-plaintext highlighter-rouge">rtol</code> (relative tolerance).</p>
+
+<p>If our model’s results are close, the output of <code class="language-plaintext highlighter-rouge">torch.isclose()</code> should be true.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check to see if results are close to each other (if they are very far away, there may be an error)
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">isclose</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">(</span><span class="n">model_2_results</span><span class="p">[</span><span class="sh">"</span><span class="s">model_loss</span><span class="sh">"</span><span class="p">]),</span>
+              <span class="n">torch</span><span class="p">.</span><span class="nf">tensor</span><span class="p">(</span><span class="n">loaded_model_2_results</span><span class="p">[</span><span class="sh">"</span><span class="s">model_loss</span><span class="sh">"</span><span class="p">]),</span>
+              <span class="n">atol</span><span class="o">=</span><span class="mf">1e-08</span><span class="p">,</span> <span class="c1"># absolute tolerance
+</span>              <span class="n">rtol</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">)</span> <span class="c1"># relative tolerance
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor(True)
+  </code></pre>
+</div>
+
+<h2 id="exercises">Exercises</h2>
+
+<p>All of the exercises are focused on practicing the code in the sections above.</p>
+
+<p>You should be able to complete them by referencing each section or by following the resource(s) linked.</p>
+
+<p>All exercises should be completed using <a href="https://pytorch.org/docs/stable/notes/cuda.html#device-agnostic-code" rel="external nofollow noopener" target="_blank">device-agnostic code</a>.</p>
+
+<p><strong>Resources:</strong></p>
+
+<ol>
+  <li>What are 3 areas in industry where computer vision is currently being used?</li>
+  <li>Search “what is overfitting in machine learning” and write down a sentence about what you find.</li>
+  <li>Search “ways to prevent overfitting in machine learning”, write down 3 of the things you find and a sentence about each. <strong>Note:</strong> there are lots of these, so don’t worry too much about all of them, just pick 3 and start with those.</li>
+  <li>Spend 20-minutes reading and clicking through the <a href="https://poloclub.github.io/cnn-explainer/" rel="external nofollow noopener" target="_blank">CNN Explainer website</a>.
+    <ul>
+      <li>Upload your own example image using the “upload” button and see what happens in each layer of a CNN as your image passes through it.</li>
+    </ul>
+  </li>
+  <li>Load the <a href="https://pytorch.org/vision/stable/generated/torchvision.datasets.MNIST.html#torchvision.datasets.MNIST" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torchvision.datasets.MNIST()</code></a> train and test datasets.</li>
+  <li>Visualize at least 5 different samples of the MNIST training dataset.</li>
+  <li>Turn the MNIST train and test datasets into dataloaders using <code class="language-plaintext highlighter-rouge">torch.utils.data.DataLoader</code>, set the <code class="language-plaintext highlighter-rouge">batch_size=32</code>.</li>
+  <li>Recreate <code class="language-plaintext highlighter-rouge">model_2</code> used in this notebook (the same model from the <a href="https://poloclub.github.io/cnn-explainer/" rel="external nofollow noopener" target="_blank">CNN Explainer website</a>, also known as TinyVGG) capable of fitting on the MNIST dataset.</li>
+  <li>Train the model you built in exercise 8. on CPU and GPU and see how long it takes on each.</li>
+  <li>Make predictions using your trained model and visualize at least 5 of them comparing the prediction to the target label.</li>
+  <li>Plot a confusion matrix comparing your model’s predictions to the truth labels.</li>
+  <li>Create a random tensor of shape <code class="language-plaintext highlighter-rouge">[1, 3, 64, 64]</code> and pass it through a <code class="language-plaintext highlighter-rouge">nn.Conv2d()</code> layer with various hyperparameter settings (these can be any settings you choose), what do you notice if the <code class="language-plaintext highlighter-rouge">kernel_size</code> parameter goes up and down?</li>
+  <li>Use a model similar to the trained <code class="language-plaintext highlighter-rouge">model_2</code> from this notebook to make predictions on the test <a href="https://pytorch.org/vision/main/generated/torchvision.datasets.FashionMNIST.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torchvision.datasets.FashionMNIST</code></a> dataset.
+    <ul>
+      <li>Then plot some predictions where the model was wrong alongside what the label of the image should’ve been.</li>
+      <li>After visualizing these predictions do you think it’s more of a modelling error or a data error?</li>
+      <li>As in, could the model do better or are the labels of the data too close to each other (e.g. a “Shirt” label is too close to “T-shirt/top”)?</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="extra-curriculum">Extra-curriculum</h2>
+<ul>
+  <li>
+<strong>Watch:</strong> <a href="https://www.youtube.com/watch?v=iaSUYvmCekI&amp;list=PLtBw6njQRU-rwp5__7C0oIVt26ZgjG9NI&amp;index=3" rel="external nofollow noopener" target="_blank">MIT’s Introduction to Deep Computer Vision</a> lecture. This will give you a great intuition behind convolutional neural networks.</li>
+  <li>Spend 10-minutes clicking through the different options of the <a href="https://pytorch.org/vision/stable/index.html" rel="external nofollow noopener" target="_blank">PyTorch vision library</a>, what different modules are available?</li>
+  <li>Lookup “most common convolutional neural networks”, what architectures do you find? Are any of them contained within the <a href="https://pytorch.org/vision/stable/models.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torchvision.models</code></a> library? What do you think you could do with these?</li>
+  <li>For a large number of pretrained PyTorch computer vision models as well as many different extensions to PyTorch’s computer vision functionalities check out the <a href="https://github.com/rwightman/pytorch-image-models/" rel="external nofollow noopener" target="_blank">PyTorch Image Models library <code class="language-plaintext highlighter-rouge">timm</code></a> (Torch Image Models) by Ross Wightman.</li>
+</ul>
+
 
     
 
@@ -2839,7 +4075,7 @@ tensor([[[ 1.9269,  1.4873,  0.9007,  ...,  1.8446, -1.1845,  1.3835],
       Guo. 
       
       
-        Last updated: January 06, 2025.
+        Last updated: January 09, 2025.
       
     </div>
   </footer>
