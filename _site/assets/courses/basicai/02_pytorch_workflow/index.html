@@ -1,0 +1,2920 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Head -->
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <!-- Metadata, OpenGraph and Schema.org -->
+
+
+
+
+<!-- Standard metadata -->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>
+  
+  
+    
+      PyTorch Workflow Fundamentals | Jue Guo
+    
+  
+</title>
+<meta name="author" content="Jue Guo">
+<meta name="description" content="A simple, whitespace theme for academics. Based on [*folio](https://github.com/bogoli/-folio) design.
+">
+
+  <meta name="keywords" content="jekyll, jekyll-theme, academic-website, portfolio-website">
+
+
+
+
+
+
+
+
+
+
+<!-- Bootstrap & MDB -->
+<link rel="stylesheet" href="/personal/assets/css/bootstrap.min.css?a4b3f509e79c54a512b890d73235ef04">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/css/mdb.min.css" integrity="sha256-jpjYvU3G3N6nrrBwXJoVEYI/0zw8htfFnhT9ljN3JJw=" crossorigin="anonymous">
+
+<!-- Bootstrap Table -->
+
+
+<!-- Fonts & Icons -->
+<link defer rel="stylesheet" href="/personal/assets/css/academicons.min.css?f0b7046b84e425c55f3463ac249818f5">
+<link defer rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:100,300,400,500,700|Material+Icons&amp;display=swap">
+
+<!-- Code Syntax Highlighting -->
+<link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
+
+
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
+
+
+<!-- Styles -->
+
+<!-- pseudocode -->
+
+
+
+  <link rel="shortcut icon" href="data:image/svg+xml,&lt;svg%20xmlns=%22http://www.w3.org/2000/svg%22%20viewBox=%220%200%20100%20100%22&gt;&lt;text%20y=%22.9em%22%20font-size=%2290%22&gt;%F0%9F%A4%96&lt;/text&gt;&lt;/svg&gt;">
+
+<link rel="stylesheet" href="/personal/assets/css/main.css?d41d8cd98f00b204e9800998ecf8427e">
+<link rel="canonical" href="http://0.0.0.0:8080/personal/assets/courses/basicai/02_pytorch_workflow/">
+
+<!-- Dark Mode -->
+<script src="/personal/assets/js/theme.js?5ce9accf63efc46cd59e47ccb47fd172"></script>
+
+
+<!-- GeoJSON support via Leaflet -->
+
+
+<!-- diff2html -->
+
+
+
+
+
+  </head>
+
+  <!-- Body -->
+  <body class="fixed-top-nav ">
+    <!-- Header -->
+    <header>
+  <!-- Nav Bar -->
+  <nav id="navbar" class="navbar navbar-light navbar-expand-sm fixed-top" role="navigation">
+    <div class="container">
+      
+        <a class="navbar-brand title font-weight-lighter" href="/personal//">
+          
+            
+              <span class="font-weight-bold">Jue</span>
+            
+            
+            Guo
+          
+        </a>
+      
+      <!-- Navbar Toggle -->
+      <button class="navbar-toggler collapsed ml-auto" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar top-bar"></span>
+        <span class="icon-bar middle-bar"></span>
+        <span class="icon-bar bottom-bar"></span>
+      </button>
+
+      <div class="collapse navbar-collapse text-right" id="navbarNav">
+        <ul class="navbar-nav ml-auto flex-nowrap">
+          
+
+          <!-- About -->
+          <li class="nav-item ">
+            <a class="nav-link" href="/personal/">about
+              
+            </a>
+          </li>
+
+          <!-- Other pages -->
+          
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/personal/teaching/">courses
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+          
+            
+              
+                
+                <li class="nav-item ">
+                  
+                  <a class="nav-link" href="/personal/cv/">cv
+                    
+                  </a>
+                </li>
+              
+            
+          
+            
+          
+            
+          
+            
+          
+          
+          
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+    <!-- Scrolling Progress Bar -->
+    <progress id="progress" value="0">
+      <div class="progress-container">
+        <span class="progress-bar"></span>
+      </div>
+    </progress>
+  
+</header>
+
+    <!-- Content -->
+    <div class="container mt-5" role="main">
+      
+        
+          <div class="row">
+            <!-- main content area -->
+            <div class="col-sm-9">
+              
+
+<!-- Always apply separation lines (scoped to article) -->
+
+  <style type="text/css">
+    /* Heading 1 */
+    .post > article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
+    }
+
+    /* Heading 2 */
+    .post > article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
+
+
+
+  <!-- Numbered Headings CSS -->
+  <style type="text/css">
+    /* Base reset for counters */
+    body {
+      counter-reset: h1-counter 1;
+    }
+
+    /* Heading 1 */
+    .post > article h1 {
+      counter-increment: h1-counter;
+      counter-reset: h2-counter;
+      
+      /* Show h1 number */
+      
+    }
+
+    
+    .post > article h1::before {
+      content: counter(h1-counter) ". ";
+    }
+    
+
+    /* Heading 2 */
+    .post > article h2 {
+      counter-increment: h2-counter;
+      counter-reset: h3-counter;
+    }
+
+    .post > article h2::before {
+      content: counter(h1-counter) "." counter(h2-counter) " ";
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      counter-increment: h3-counter;
+      counter-reset: h4-counter;
+    }
+
+    .post > article h3::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) " ";
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      counter-increment: h4-counter;
+      counter-reset: h5-counter;
+    }
+
+    .post > article h4::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) " ";
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      counter-increment: h5-counter;
+    }
+
+    .post > article h5::before {
+      content: counter(h1-counter) "." counter(h2-counter) "." counter(h3-counter) "." counter(h4-counter) "." counter(h5-counter) " ";
+    }
+  </style>
+
+
+
+<div class="post">
+  <article>
+    <header class="post-header">
+      <h1 class="post-title">PyTorch Workflow Fundamentals</h1>
+      <p class="post-description"></p>
+    </header>
+
+    <p>The essence of machine learning and deep learning is to take some data from the past, build an algorithm (like a neural network) to discover patterns in it and use the discovered patterns to predict the future.</p>
+
+<p>There are many ways to do this and many new ways are being discovered all the time.</p>
+
+<p>But let’s start small.</p>
+
+<p>How about we start with a straight line?</p>
+
+<p>And we see if we can build a PyTorch model that learns the pattern of the straight line and matches it.</p>
+
+<h2 id="what-were-going-to-cover">What we’re going to cover</h2>
+
+<p>In this module we’re going to cover a standard PyTorch workflow (it can be chopped and changed as necessary but it covers the main outline of steps).</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_pytorch_workflow1">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01_a_pytorch_workflow.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 1: A PyTorch workflow flowchart.
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>For now, we’ll use this workflow to predict a simple straight line but the workflow steps can be repeated and changed depending on the problem you’re working on.</p>
+
+<p>Specifically, we’re going to cover:</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th><strong>Topic</strong></th>
+<th><strong>Contents</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>1. Getting data ready</strong></td>
+<td>Data can be almost anything but to get started we're going to create a simple straight line</td>
+</tr>
+<tr>
+<td><strong>2. Building a model</strong></td>
+<td>Here we'll create a model to learn patterns in the data, we'll also choose a <strong>loss function</strong>, <strong>optimizer</strong> and build a <strong>training loop</strong>.</td>
+</tr>
+<tr>
+<td><strong>3. Fitting the model to data (training)</strong></td>
+<td>We've got data and a model, now let's let the model (try to) find patterns in the (<strong>training</strong>) data.</td>
+</tr>
+<tr>
+<td><strong>4. Making predictions and evaluating a model (inference)</strong></td>
+<td>Our model's found patterns in the data, let's compare its findings to the actual (<strong>testing</strong>) data.</td>
+</tr>
+<tr>
+<td><strong>5. Saving and loading a model</strong></td>
+<td>You may want to use your model elsewhere, or come back to it later, here we'll cover that.</td>
+</tr>
+<tr>
+<td><strong>6. Putting it all together</strong></td>
+<td>Let's take all of the above and combine it.</td>
+</tr>
+</tbody>
+</table>
+
+<h2 id="where-can-you-get-help">Where can you get help?</h2>
+<p>There’s the <a href="https://discuss.pytorch.org/" rel="external nofollow noopener" target="_blank">PyTorch developer forums</a>, a very helpful place for all things PyTorch.</p>
+
+<p>Let’s start by putting what we’re covering into a dictionary to reference later.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="n">what_were_covering</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="sh">"</span><span class="s">data (prepare and load)</span><span class="sh">"</span><span class="p">,</span>
+    <span class="mi">2</span><span class="p">:</span> <span class="sh">"</span><span class="s">build model</span><span class="sh">"</span><span class="p">,</span>
+    <span class="mi">3</span><span class="p">:</span> <span class="sh">"</span><span class="s">fitting the model to data (training)</span><span class="sh">"</span><span class="p">,</span>
+    <span class="mi">4</span><span class="p">:</span> <span class="sh">"</span><span class="s">making predictions and evaluating a model (inference)</span><span class="sh">"</span><span class="p">,</span>
+    <span class="mi">5</span><span class="p">:</span> <span class="sh">"</span><span class="s">saving and loading a model</span><span class="sh">"</span><span class="p">,</span>
+    <span class="mi">6</span><span class="p">:</span> <span class="sh">"</span><span class="s">putting it all together</span><span class="sh">"</span>
+<span class="p">}</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>And now let’s import what we’ll need for this module.</p>
+
+<p>We’re going to get <code class="language-plaintext highlighter-rouge">torch</code>, <code class="language-plaintext highlighter-rouge">torch.nn</code> (<code class="language-plaintext highlighter-rouge">nn</code> stands for neural network and this package contains the building blocks for creating neural networks in PyTorch) and <code class="language-plaintext highlighter-rouge">matplotlib</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span> <span class="c1"># nn contains all of PyTorch's building blocks for neural networks
+</span><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Check PyTorch version
+</span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre>'1.12.1+cu113'
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h2 id="data-preparing-and-loading">Data (preparing and loading)</h2>
+
+<p>I want to stress that “data” in machine learning can be almost anything you can imagine. A table of numbers (like a big Excel spreadsheet), images of any kind, videos (YouTube has lots of data!), audio files like songs or podcasts, protein structures, text and more.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_machine_learning_is_a_game_of_two_parts:_1._turn_your_data_into_a_representative_set_of_numbers_and_2._build_or_pick_a_model_to_learn_the_representation_as_best_as_possible2">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01-machine-learning-a-game-of-two-parts.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 2: machine learning is a game of two parts: 1. turn your data into a representative set of numbers and 2. build or pick a model to learn the representation as best as possible
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>Machine learning is a game of two parts:</p>
+<ol>
+  <li>Turn your data, whatever it is, into numbers (a representation).</li>
+  <li>Pick or build a model to learn the representation as best as possible.</li>
+</ol>
+
+<p>Sometimes one and two can be done at the same time.</p>
+
+<p>But what if you don’t have data?</p>
+
+<p>Well, that’s where we’re at now.</p>
+
+<p>No data.</p>
+
+<p>But we can create some.</p>
+
+<p>Let’s create our data as a straight line.</p>
+
+<p>We’ll use <a href="https://en.wikipedia.org/wiki/Linear_regression" rel="external nofollow noopener" target="_blank">linear regression</a> to create the data with known <strong>parameters</strong> (things that can be learned by a model) and then we’ll use PyTorch to see if we can build model to estimate these parameters using <a href="https://en.wikipedia.org/wiki/Gradient_descent" rel="external nofollow noopener" target="_blank"><strong>gradient descent</strong></a>.</p>
+
+<p>Don’t worry if the terms above don’t mean much now, we’ll see them in action and I’ll put extra resources below where you can learn more.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create *known* parameters
+</span><span class="n">weight</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="c1"># Create data
+</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mf">0.02</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="p">).</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">bias</span>
+
+<span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[0.0000],
+             [0.0200],
+             [0.0400],
+             [0.0600],
+             [0.0800],
+             [0.1000],
+             [0.1200],
+             [0.1400],
+             [0.1600],
+             [0.1800]]),
+     tensor([[0.3000],
+             [0.3140],
+             [0.3280],
+             [0.3420],
+             [0.3560],
+             [0.3700],
+             [0.3840],
+             [0.3980],
+             [0.4120],
+             [0.4260]]))</code></pre>
+</div>
+
+<p>Beautiful! Now we’re going to move towards building a model that can learn the relationship between <code class="language-plaintext highlighter-rouge">X</code> (<strong>features</strong>) and <code class="language-plaintext highlighter-rouge">y</code> (<strong>labels</strong>).</p>
+
+<h3 id="split-data-into-training-and-test-sets">Split data into training and test sets</h3>
+
+<p>We’ve got some data.</p>
+
+<p>But before we build a model we need to split it up.</p>
+
+<p>One of most important steps in a machine learning project is creating a training and test set (and when required, a validation set).</p>
+
+<p>Each split of the dataset serves a specific purpose:</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>Split</th>
+<th>Purpose</th>
+<th>Amount of total data</th>
+<th>How often is it used?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Training set</strong></td>
+<td>The model learns from this data (like the course materials you study during the semester).</td>
+<td>~60-80%</td>
+<td>Always</td>
+</tr>
+<tr>
+<td><strong>Validation set</strong></td>
+<td>The model gets tuned on this data (like the practice exam you take before the final exam).</td>
+<td>~10-20%</td>
+<td>Often but not always</td>
+</tr>
+<tr>
+<td><strong>Testing set</strong></td>
+<td>The model gets evaluated on this data to test what it has learned (like the final exam you take at the end of the semester).</td>
+<td>~10-20%</td>
+<td>Always</td>
+</tr>
+</tbody>
+</table>
+
+<p>For now, we’ll just use a training and test set, this means we’ll have a dataset for our model to learn on as well as be evaluated on.</p>
+
+<p>We can create them by splitting our <code class="language-plaintext highlighter-rouge">X</code> and <code class="language-plaintext highlighter-rouge">y</code> tensors.</p>
+
+<div class="note-box">
+<strong>Note:</strong> When dealing with real-world data, this step is typically done right at the start of a project (the test set should always be kept separate from all other data). We want our model to learn from training data and then evaluate it on test data to get an indication of how well it <strong>generalizes</strong> to unseen examples.
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create train/test split
+</span><span class="n">train_split</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span> <span class="c1"># 80% of data used for training set, 20% for testing 
+</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_split</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_split</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_split</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_split</span><span class="p">:]</span>
+
+<span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(40, 40, 10, 10)</code></pre>
+</div>
+
+<p>Wonderful, we’ve got 40 samples for training (<code class="language-plaintext highlighter-rouge">X_train</code> &amp; <code class="language-plaintext highlighter-rouge">y_train</code>) and 10 samples for testing (<code class="language-plaintext highlighter-rouge">X_test</code> &amp; <code class="language-plaintext highlighter-rouge">y_test</code>).</p>
+
+<p>The model we create is going to try and learn the relationship between <code class="language-plaintext highlighter-rouge">X_train</code> &amp; <code class="language-plaintext highlighter-rouge">y_train</code> and then we will evaluate what it learns on <code class="language-plaintext highlighter-rouge">X_test</code> and <code class="language-plaintext highlighter-rouge">y_test</code>.</p>
+
+<p>But right now our data is just numbers on a page.</p>
+
+<p>Let’s create a function to visualize it.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+</pre></td>
+<td class="rouge-code"><pre><span class="k">def</span> <span class="nf">plot_predictions</span><span class="p">(</span><span class="n">train_data</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> 
+                     <span class="n">train_labels</span><span class="o">=</span><span class="n">y_train</span><span class="p">,</span> 
+                     <span class="n">test_data</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> 
+                     <span class="n">test_labels</span><span class="o">=</span><span class="n">y_test</span><span class="p">,</span> 
+                     <span class="n">predictions</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+  <span class="sh">"""</span><span class="s">
+  Plots training data, test data and compares predictions.
+  </span><span class="sh">"""</span>
+  <span class="n">plt</span><span class="p">.</span><span class="nf">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+
+  <span class="c1"># Plot training data in blue
+</span>  <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">train_data</span><span class="p">,</span> <span class="n">train_labels</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="sh">"</span><span class="s">b</span><span class="sh">"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Training data</span><span class="sh">"</span><span class="p">)</span>
+  
+  <span class="c1"># Plot test data in green
+</span>  <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">test_labels</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="sh">"</span><span class="s">g</span><span class="sh">"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Testing data</span><span class="sh">"</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">predictions</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+    <span class="c1"># Plot the predictions in red (predictions were made on the test data)
+</span>    <span class="n">plt</span><span class="p">.</span><span class="nf">scatter</span><span class="p">(</span><span class="n">test_data</span><span class="p">,</span> <span class="n">predictions</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="sh">"</span><span class="s">r</span><span class="sh">"</span><span class="p">,</span> <span class="n">s</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Predictions</span><span class="sh">"</span><span class="p">)</span>
+
+  <span class="c1"># Show the legend
+</span>  <span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">(</span><span class="n">prop</span><span class="o">=</span><span class="p">{</span><span class="sh">"</span><span class="s">size</span><span class="sh">"</span><span class="p">:</span> <span class="mi">14</span><span class="p">});</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">plot_predictions</span><span class="p">();</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_14_0.png" alt="A PyTorch workflow image" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Epic!</p>
+
+<p>Now instead of just being numbers on a page, our data is a straight line.</p>
+
+<div class="note-box">
+<strong>Note:</strong> Now's a good time to introduce you to the data explorer's motto... "visualize, visualize, visualize!"  Think of this whenever you're working with data and turning it into numbers, if you can visualize something, it can do wonders for understanding.  Machines love numbers and we humans like numbers too but we also like to look at things.
+</div>
+
+<h2 id="build-model">Build model</h2>
+
+<p>Now we’ve got some data, let’s build a model to use the blue dots to predict the green dots.</p>
+
+<p>We’re going to jump right in.</p>
+
+<p>We’ll write the code first and then explain everything.</p>
+
+<p>Let’s replicate a standard linear regression model using pure PyTorch.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create a Linear Regression model class
+</span><span class="k">class</span> <span class="nc">LinearRegressionModel</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span> <span class="c1"># &lt;- almost everything in PyTorch is a nn.Module (think of this as neural network lego blocks)
+</span>    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span> 
+        <span class="n">self</span><span class="p">.</span><span class="n">weights</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># &lt;- start with random weights (this will get adjusted as the model learns)
+</span>                                                <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">),</span> <span class="c1"># &lt;- PyTorch loves float32 by default
+</span>                                   <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># &lt;- can we update this value with gradient descent?)
+</span>
+        <span class="n">self</span><span class="p">.</span><span class="n">bias</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Parameter</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="c1"># &lt;- start with random bias (this will get adjusted as the model learns)
+</span>                                            <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">),</span> <span class="c1"># &lt;- PyTorch loves float32 by default
+</span>                                <span class="n">requires_grad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="c1"># &lt;- can we update this value with gradient descent?))
+</span>
+    <span class="c1"># Forward defines the computation in the model
+</span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">:</span> <span class="c1"># &lt;- "x" is the input data (e.g. training/testing features)
+</span>        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="n">weights</span> <span class="o">*</span> <span class="n">x</span> <span class="o">+</span> <span class="n">self</span><span class="p">.</span><span class="n">bias</span> <span class="c1"># &lt;- this is the linear regression formula (y = m*x + b)
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Alright there’s a fair bit going on above but let’s break it down bit by bit.</p>
+
+<div class="note-box">
+  <strong>Resource:</strong> We'll be using Python classes to create bits and pieces for building neural networks. If you're unfamiliar with Python class notation, I'd recommend reading <a href="https://realpython.com/python3-object-oriented-programming/" rel="external nofollow noopener" target="_blank">Real Python's Object Orientating programming in Python 3 guide</a> a few times.
+</div>
+
+<h3 id="pytorch-model-building-essentials">PyTorch model building essentials</h3>
+
+<p>PyTorch has four (give or take) essential modules you can use to create almost any kind of neural network you can imagine.</p>
+
+<p>They are <a href="https://pytorch.org/docs/stable/nn.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.nn</code></a>, <a href="https://pytorch.org/docs/stable/optim.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.optim</code></a>, <a href="https://pytorch.org/docs/stable/data.html#torch.utils.data.Dataset" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.utils.data.Dataset</code></a> and <a href="https://pytorch.org/docs/stable/data.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.utils.data.DataLoader</code></a>. For now, we’ll focus on the first two and get to the other two later (though you may be able to guess what they do).</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>PyTorch module</th>
+<th>What does it do?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/nn.html" rel="external nofollow noopener" target="_blank"><code>torch.nn</code></a></td>
+<td>Contains all of the building blocks for computational graphs (essentially a series of computations executed in a particular way).</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.nn.parameter.Parameter.html#parameter" rel="external nofollow noopener" target="_blank"><code>torch.nn.Parameter</code></a></td>
+<td>Stores tensors that can be used with <code>nn.Module</code>. If <code>requires_grad=True</code> gradients (used for updating model parameters via <a href="https://ml-cheatsheet.readthedocs.io/en/latest/gradient_descent.html" rel="external nofollow noopener" target="_blank"><strong>gradient descent</strong></a>)  are calculated automatically, this is often referred to as "autograd".</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module" rel="external nofollow noopener" target="_blank"><code>torch.nn.Module</code></a></td>
+<td>The base class for all neural network modules, all the building blocks for neural networks are subclasses. If you're building a neural network in PyTorch, your models should subclass <code>nn.Module</code>. Requires a <code>forward()</code> method be implemented.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/optim.html" rel="external nofollow noopener" target="_blank"><code>torch.optim</code></a></td>
+<td>Contains various optimization algorithms (these tell the model parameters stored in <code>nn.Parameter</code> how to best change to improve gradient descent and in turn reduce the loss).</td>
+</tr>
+<tr>
+<td><code>def forward()</code></td>
+<td>All <code>nn.Module</code> subclasses require a <code>forward()</code> method, this defines the computation that will take place on the data passed to the particular <code>nn.Module</code> (e.g. the linear regression formula above).</td>
+</tr>
+</tbody>
+</table>
+
+<p>If the above sounds complex, think of like this, almost everything in a PyTorch neural network comes from <code class="language-plaintext highlighter-rouge">torch.nn</code>,</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">nn.Module</code> contains the larger building blocks (layers)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">nn.Parameter</code> contains the smaller parameters like weights and biases (put these together to make <code class="language-plaintext highlighter-rouge">nn.Module</code>(s))</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">forward()</code> tells the larger blocks how to make calculations on inputs (tensors full of data) within  <code class="language-plaintext highlighter-rouge">nn.Module</code>(s)</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">torch.optim</code> contains optimization methods on how to improve the parameters within <code class="language-plaintext highlighter-rouge">nn.Parameter</code> to better represent input data</li>
+</ul>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_a_pytorch_linear_model_with_annotations3">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01-pytorch-linear-model-annotated.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 3: a pytorch linear model with annotations
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><em>Basic building blocks of creating a PyTorch model by subclassing <code class="language-plaintext highlighter-rouge">nn.Module</code>. For objects that subclass <code class="language-plaintext highlighter-rouge">nn.Module</code>, the <code class="language-plaintext highlighter-rouge">forward()</code> method must be defined.</em></p>
+
+<div class="note-box">
+  <strong>Resource:</strong> See more of these essential modules and their use cases in the <a href="https://pytorch.org/tutorials/beginner/ptcheat.html" rel="external nofollow noopener" target="_blank">PyTorch Cheat Sheet</a>.
+</div>
+
+<h3 id="checking-the-contents-of-a-pytorch-model">Checking the contents of a PyTorch model</h3>
+<p>Now we’ve got these out of the way, let’s create a model instance with the class we’ve made and check its parameters using <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.parameters" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.parameters()</code></a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Set manual seed since nn.Parameter are randomly initialized
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Create an instance of the model (this is a subclass of nn.Module that contains nn.Parameter(s))
+</span><span class="n">model_0</span> <span class="o">=</span> <span class="nc">LinearRegressionModel</span><span class="p">()</span>
+
+<span class="c1"># Check the nn.Parameter(s) within the nn.Module subclass we created
+</span><span class="nf">list</span><span class="p">(</span><span class="n">model_0</span><span class="p">.</span><span class="nf">parameters</span><span class="p">())</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>[Parameter containing:
+     tensor([0.3367], requires_grad=True),
+     Parameter containing:
+     tensor([0.1288], requires_grad=True)]</code></pre>
+</div>
+
+<p>We can also get the state (what the model contains) of the model using <a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html#torch.nn.Module.state_dict" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.state_dict()</code></a>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># List named parameters 
+</span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">()</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>OrderedDict([('weights', tensor([0.3367])), ('bias', tensor([0.1288]))])</code></pre>
+</div>
+
+<p>Notice how the values for <code class="language-plaintext highlighter-rouge">weights</code> and <code class="language-plaintext highlighter-rouge">bias</code> from <code class="language-plaintext highlighter-rouge">model_0.state_dict()</code> come out as random float tensors?</p>
+
+<p>This is because we initialized them above using <code class="language-plaintext highlighter-rouge">torch.randn()</code>.</p>
+
+<p>Essentially we want to start from random parameters and get the model to update them towards parameters that fit our data best (the hardcoded <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> values we set when creating our straight line data).</p>
+
+<div class="note-box">
+  <strong>Exercise:</strong> Try changing the <code>torch.manual_seed()</code> value two cells above and observe how the weights and bias values are affected.
+</div>
+
+<p>Because our model starts with random values, right now it’ll have poor predictive power.</p>
+
+<h3 id="making-predictions-using-torchinference_mode">Making predictions using <code class="language-plaintext highlighter-rouge">torch.inference_mode()</code>
+</h3>
+<p>To check this we can pass it the test data <code class="language-plaintext highlighter-rouge">X_test</code> to see how closely it predicts <code class="language-plaintext highlighter-rouge">y_test</code>.</p>
+
+<p>When we pass data to our model, it’ll go through the model’s <code class="language-plaintext highlighter-rouge">forward()</code> method and produce a result using the computation we’ve defined.</p>
+
+<p>Let’s make some predictions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Make predictions with model
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span> 
+    <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="c1"># Note: in older PyTorch code you might also see torch.no_grad()
+# with torch.no_grad():
+#   y_preds = model_0(X_test)
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Hmm?</p>
+
+<p>You probably noticed we used <a href="https://pytorch.org/docs/stable/generated/torch.inference_mode.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">torch.inference_mode()</code></a> as a <a href="https://realpython.com/python-with-statement/" rel="external nofollow noopener" target="_blank">context manager</a> (that’s what the <code class="language-plaintext highlighter-rouge">with torch.inference_mode():</code> is) to make the predictions.</p>
+
+<p>As the name suggests, <code class="language-plaintext highlighter-rouge">torch.inference_mode()</code> is used when using a model for inference (making predictions).</p>
+
+<p><code class="language-plaintext highlighter-rouge">torch.inference_mode()</code> turns off a bunch of things (like gradient tracking, which is necessary for training but not for inference) to make <strong>forward-passes</strong> (data going through the <code class="language-plaintext highlighter-rouge">forward()</code> method) faster.</p>
+
+<div class="note-box">
+<strong>Note:</strong> In older PyTorch code, you may also see `torch.no_grad()` being used for inference. While `torch.inference_mode()` and `torch.no_grad()` do similar things,
+</div>
+<p><code class="language-plaintext highlighter-rouge">torch.inference_mode()</code> is newer, potentially faster and preferred. See this <a href="https://twitter.com/PyTorch/status/1437838231505096708?s=20" rel="external nofollow noopener" target="_blank">Tweet from PyTorch</a> for more.</p>
+
+<p>We’ve made some predictions, let’s see what they look like.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check the predictions
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Number of testing samples: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span> 
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Number of predictions made: </span><span class="si">{</span><span class="nf">len</span><span class="p">(</span><span class="n">y_preds</span><span class="p">)</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Predicted values:</span><span class="se">\n</span><span class="si">{</span><span class="n">y_preds</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Number of testing samples: 10
+    Number of predictions made: 10
+    Predicted values:
+    tensor([[0.3982],
+            [0.4049],
+            [0.4116],
+            [0.4184],
+            [0.4251],
+            [0.4318],
+            [0.4386],
+            [0.4453],
+            [0.4520],
+            [0.4588]])</code></pre>
+</div>
+
+<p>Notice how there’s one prediction value per testing sample.</p>
+
+<p>This is because of the kind of data we’re using. For our straight line, one <code class="language-plaintext highlighter-rouge">X</code> value maps to one <code class="language-plaintext highlighter-rouge">y</code> value.</p>
+
+<p>However, machine learning models are very flexible. You could have 100 <code class="language-plaintext highlighter-rouge">X</code> values mapping to one, two, three or 10 <code class="language-plaintext highlighter-rouge">y</code> values. It all depends on what you’re working on.</p>
+
+<p>Our predictions are still numbers on a page, let’s visualize them with our <code class="language-plaintext highlighter-rouge">plot_predictions()</code> function we created above.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<div style="text-align: left;">
+  <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_30_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="n">y_test</span> <span class="o">-</span> <span class="n">y_preds</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>
+tensor([[0.4618],
+        [0.4691],
+        [0.4764],
+        [0.4836],
+        [0.4909],
+        [0.4982],
+        [0.5054],
+        [0.5127],
+        [0.5200],
+        [0.5272]])
+  </code></pre>
+</div>
+
+<p>Woah! Those predictions look pretty bad…</p>
+
+<p>This makes sense though, when you remember our model is just using random parameter values to make predictions.</p>
+
+<p>It hasn’t even looked at the blue dots to try to predict the green dots.</p>
+
+<p>Time to change that.</p>
+
+<h2 id="train-model">Train model</h2>
+
+<p>Right now our model is making predictions using random parameters to make calculations, it’s basically guessing (randomly).</p>
+
+<p>To fix that, we can update its internal parameters (I also refer to <em>parameters</em> as patterns), the <code class="language-plaintext highlighter-rouge">weights</code> and <code class="language-plaintext highlighter-rouge">bias</code> values we set randomly using <code class="language-plaintext highlighter-rouge">nn.Parameter()</code> and <code class="language-plaintext highlighter-rouge">torch.randn()</code> to be something that better represents the data.</p>
+
+<p>We could hard code this (since we know the default values <code class="language-plaintext highlighter-rouge">weight=0.7</code> and <code class="language-plaintext highlighter-rouge">bias=0.3</code>) but where’s the fun in that?</p>
+
+<p>Much of the time you won’t know what the ideal parameters are for a model.</p>
+
+<p>Instead, it’s much more fun to write code to see if the model can try and figure them out itself.</p>
+
+<h3 id="creating-a-loss-function-and-optimizer-in-pytorch">Creating a loss function and optimizer in PyTorch</h3>
+
+<p>For our model to update its parameters on its own, we’ll need to add a few more things to our recipe.</p>
+
+<p>And that’s a <strong>loss function</strong> as well as an <strong>optimizer</strong>.</p>
+
+<p>The rolls of these are:</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>Function</th>
+<th>What does it do?</th>
+<th>Where does it live in PyTorch?</th>
+<th>Common values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Loss function</strong></td>
+<td>Measures how wrong your model's predictions (e.g. <code>y_preds</code>) are compared to the truth labels (e.g. <code>y_test</code>). Lower the better.</td>
+<td>PyTorch has plenty of built-in loss functions in <a href="https://pytorch.org/docs/stable/nn.html#loss-functions" rel="external nofollow noopener" target="_blank"><code>torch.nn</code></a>.</td>
+<td>Mean absolute error (MAE) for regression problems (<a href="https://pytorch.org/docs/stable/generated/torch.nn.L1Loss.html" rel="external nofollow noopener" target="_blank"><code>torch.nn.L1Loss()</code></a>). Binary cross entropy for binary classification problems (<a href="https://pytorch.org/docs/stable/generated/torch.nn.BCELoss.html" rel="external nofollow noopener" target="_blank"><code>torch.nn.BCELoss()</code></a>).</td>
+</tr>
+<tr>
+<td><strong>Optimizer</strong></td>
+<td>Tells your model how to update its internal parameters to best lower the loss.</td>
+<td>You can find various optimization function implementations in <a href="https://pytorch.org/docs/stable/optim.html" rel="external nofollow noopener" target="_blank"><code>torch.optim</code></a>.</td>
+<td>Stochastic gradient descent (<a href="https://pytorch.org/docs/stable/generated/torch.optim.SGD.html#torch.optim.SGD" rel="external nofollow noopener" target="_blank"><code>torch.optim.SGD()</code></a>). Adam optimizer (<a href="https://pytorch.org/docs/stable/generated/torch.optim.Adam.html#torch.optim.Adam" rel="external nofollow noopener" target="_blank"><code>torch.optim.Adam()</code></a>).</td>
+</tr>
+</tbody>
+</table>
+
+<p>Let’s create a loss function and an optimizer we can use to help improve our model.</p>
+
+<p>Depending on what kind of problem you’re working on will depend on what loss function and what optimizer you use.</p>
+
+<p>However, there are some common values, that are known to work well such as the SGD (stochastic gradient descent) or Adam optimizer. And the MAE (mean absolute error) loss function for regression problems (predicting a number) or binary cross entropy loss function for classification problems (predicting one thing or another).</p>
+
+<p>For our problem, since we’re predicting a number, let’s use MAE (which is under <code class="language-plaintext highlighter-rouge">torch.nn.L1Loss()</code>) in PyTorch as our loss function.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_what_mae_loss_looks_like_for_our_plot_data4">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01-mae-loss-annotated.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 4: what MAE loss looks like for our plot data
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><em>Mean absolute error (MAE, in PyTorch: <code class="language-plaintext highlighter-rouge">torch.nn.L1Loss</code>) measures the absolute difference between two points (predictions and labels) and then takes the mean across all examples.</em></p>
+
+<p>And we’ll use SGD, <code class="language-plaintext highlighter-rouge">torch.optim.SGD(params, lr)</code> where:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">params</code> is the target model parameters you’d like to optimize (e.g. the <code class="language-plaintext highlighter-rouge">weights</code> and <code class="language-plaintext highlighter-rouge">bias</code> values we randomly set before).</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">lr</code> is the <strong>learning rate</strong> you’d like the optimizer to update the parameters at, higher means the optimizer will try larger updates (these can sometimes be too large and the optimizer will fail to work), lower means the optimizer will try smaller updates (these can sometimes be too small and the optimizer will take too long to find the ideal values). The learning rate is considered a <strong>hyperparameter</strong> (because it’s set by a machine learning engineer). Common starting values for the learning rate are <code class="language-plaintext highlighter-rouge">0.01</code>, <code class="language-plaintext highlighter-rouge">0.001</code>, <code class="language-plaintext highlighter-rouge">0.0001</code>, however, these can also be adjusted over time (this is called <a href="https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate" rel="external nofollow noopener" target="_blank">learning rate scheduling</a>).</li>
+</ul>
+
+<p>Woah, that’s a lot, let’s see it in code.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create the loss function
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">L1Loss</span><span class="p">()</span> <span class="c1"># MAE loss is same as L1Loss
+</span>
+<span class="c1"># Create the optimizer
+</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_0</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="c1"># parameters of target model to optimize
+</span>                            <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span> <span class="c1"># learning rate (how much the optimizer should change parameters at each step, higher=more (less stable), lower=less (might take a long time))
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<h3 id="creating-an-optimization-loop-in-pytorch">Creating an optimization loop in PyTorch</h3>
+
+<p>Woohoo! Now we’ve got a loss function and an optimizer, it’s now time to create a <strong>training loop</strong> (and <strong>testing loop</strong>).</p>
+
+<p>The training loop involves the model going through the training data and learning the relationships between the <code class="language-plaintext highlighter-rouge">features</code> and <code class="language-plaintext highlighter-rouge">labels</code>.</p>
+
+<p>The testing loop involves going through the testing data and evaluating how good the patterns are that the model learned on the training data (the model never sees the testing data during training).</p>
+
+<p>Each of these is called a “loop” because we want our model to look (loop through) at each sample in each dataset.</p>
+
+<p>There will be a fair bit of code but nothing we can’t handle.</p>
+
+<h3 id="pytorch-training-loop">PyTorch training loop</h3>
+<p>For the training loop, we’ll build the following steps:</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>Number</th>
+<th>Step name</th>
+<th>What does it do?</th>
+<th>Code example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Forward pass</td>
+<td>The model goes through all of the training data once, performing its <code>forward()</code> function calculations.</td>
+<td><code>model(x_train)</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Calculate the loss</td>
+<td>The model's outputs (predictions) are compared to the ground truth and evaluated to see how wrong they are.</td>
+<td><code>loss = loss_fn(y_pred, y_train)</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Zero gradients</td>
+<td>The optimizers gradients are set to zero (they are accumulated by default) so they can be recalculated for the specific training step.</td>
+<td><code>optimizer.zero_grad()</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Perform backpropagation on the loss</td>
+<td>Computes the gradient of the loss with respect for every model parameter to be updated  (each parameter with <code>requires_grad=True</code>). This is known as <strong>backpropagation</strong>, hence "backwards".</td>
+<td><code>loss.backward()</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>Update the optimizer (<strong>gradient descent</strong>)</td>
+<td>Update the parameters with <code>requires_grad=True</code> with respect to the loss gradients in order to improve them.</td>
+<td><code>optimizer.step()</code></td>
+</tr>
+</tbody>
+</table>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_pytorch_training_loop_annotated5">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01-pytorch-training-loop-annotated.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 5: pytorch training loop annotated
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The above is just one example of how the steps could be ordered or described. With experience, you'll find making PyTorch training loops can be quite flexible. 
+  </p>
+  <p>
+    On the ordering of things, the above is a good default order but you may see slightly different orders. Some rules of thumb:
+  </p>
+  <ul>
+    <li>Calculate the loss (<code>loss = ...</code>) <em>before</em> performing backpropagation on it (<code>loss.backward()</code>).</li>
+    <li>Zero gradients (<code>optimizer.zero_grad()</code>) <em>before</em> computing the gradients of the loss with respect to every model parameter (<code>loss.backward()</code>).</li>
+    <li>Step the optimizer (<code>optimizer.step()</code>) <em>after</em> performing backpropagation on the loss (<code>loss.backward()</code>).</li>
+  </ul>
+</div>
+
+<p>For resources to help understand what’s happening behind the scenes with backpropagation and gradient descent, see the extra-curriculum section.</p>
+
+<h3 id="pytorch-testing-loop">PyTorch testing loop</h3>
+
+<p>As for the testing loop (evaluating our model), the typical steps include:</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>Number</th>
+<th>Step name</th>
+<th>What does it do?</th>
+<th>Code example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Forward pass</td>
+<td>The model goes through all of the testing data once, performing its <code>forward()</code> function calculations.</td>
+<td><code>model(x_test)</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Calculate the loss</td>
+<td>The model's outputs (predictions) are compared to the ground truth and evaluated to see how wrong they are.</td>
+<td><code>loss = loss_fn(y_pred, y_test)</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Calulate evaluation metrics (optional)</td>
+<td>Alongside the loss value you may want to calculate other evaluation metrics such as accuracy on the test set.</td>
+<td>Custom functions</td>
+</tr>
+</tbody>
+</table>
+
+<p>Notice the testing loop doesn’t contain performing backpropagation (<code class="language-plaintext highlighter-rouge">loss.backward()</code>) or stepping the optimizer (<code class="language-plaintext highlighter-rouge">optimizer.step()</code>), this is because no parameters in the model are being changed during testing, they’ve already been calculated. For testing, we’re only interested in the output of the forward pass through the model.</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_pytorch_annotated_testing_loop6">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01-pytorch-testing-loop-annotated.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 6: pytorch annotated testing loop
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p>Let’s put all of the above together and train our model for 100 <strong>epochs</strong> (forward passes through the data) and we’ll evaluate it every 10 epochs.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Set the number of epochs (how many times the model will pass over the training data)
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># Create empty loss lists to track values
+</span><span class="n">train_loss_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">test_loss_values</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">epoch_count</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1">### Training
+</span>
+    <span class="c1"># Put model in training mode (this is the default state of a model)
+</span>    <span class="n">model_0</span><span class="p">.</span><span class="nf">train</span><span class="p">()</span>
+
+    <span class="c1"># 1. Forward pass on train data using the forward() method inside 
+</span>    <span class="n">y_pred</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="c1"># print(y_pred)
+</span>
+    <span class="c1"># 2. Calculate the loss (how different are our models predictions to the ground truth)
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># 3. Zero grad of the optimizer
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># 4. Loss backwards
+</span>    <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+    <span class="c1"># 5. Progress the optimizer
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1">### Testing
+</span>
+    <span class="c1"># Put the model in evaluation mode
+</span>    <span class="n">model_0</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+
+    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+      <span class="c1"># 1. Forward pass on test data
+</span>      <span class="n">test_pred</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+      <span class="c1"># 2. Caculate loss on test data
+</span>      <span class="n">test_loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">.</span><span class="nf">type</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nb">float</span><span class="p">))</span> <span class="c1"># predictions come in torch.float datatype, so comparisons need to be done with tensors of the same type
+</span>
+      <span class="c1"># Print out what's happening
+</span>      <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">10</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">epoch_count</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">epoch</span><span class="p">)</span>
+            <span class="n">train_loss_values</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">loss</span><span class="p">.</span><span class="nf">detach</span><span class="p">().</span><span class="nf">numpy</span><span class="p">())</span>
+            <span class="n">test_loss_values</span><span class="p">.</span><span class="nf">append</span><span class="p">(</span><span class="n">test_loss</span><span class="p">.</span><span class="nf">detach</span><span class="p">().</span><span class="nf">numpy</span><span class="p">())</span>
+            <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | MAE Train Loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s"> | MAE Test Loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">}</span><span class="s"> </span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Epoch: 0 | MAE Train Loss: 0.31288138031959534 | MAE Test Loss: 0.48106518387794495 
+    Epoch: 10 | MAE Train Loss: 0.1976713240146637 | MAE Test Loss: 0.3463551998138428 
+    Epoch: 20 | MAE Train Loss: 0.08908725529909134 | MAE Test Loss: 0.21729660034179688 
+    Epoch: 30 | MAE Train Loss: 0.053148526698350906 | MAE Test Loss: 0.14464017748832703 
+    Epoch: 40 | MAE Train Loss: 0.04543796554207802 | MAE Test Loss: 0.11360953003168106 
+    Epoch: 50 | MAE Train Loss: 0.04167863354086876 | MAE Test Loss: 0.09919948130846024 
+    Epoch: 60 | MAE Train Loss: 0.03818932920694351 | MAE Test Loss: 0.08886633068323135 
+    Epoch: 70 | MAE Train Loss: 0.03476089984178543 | MAE Test Loss: 0.0805937647819519 
+    Epoch: 80 | MAE Train Loss: 0.03132382780313492 | MAE Test Loss: 0.07232122868299484 
+    Epoch: 90 | MAE Train Loss: 0.02788739837706089 | MAE Test Loss: 0.06473556160926819</code></pre>
+</div>
+
+<p>Oh would you look at that! Looks like our loss is going down with every epoch, let’s plot it to find out.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Plot the loss curves
+</span><span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">epoch_count</span><span class="p">,</span> <span class="n">train_loss_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Train loss</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">plot</span><span class="p">(</span><span class="n">epoch_count</span><span class="p">,</span> <span class="n">test_loss_values</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="sh">"</span><span class="s">Test loss</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">title</span><span class="p">(</span><span class="sh">"</span><span class="s">Training and test loss curves</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">ylabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Loss</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">xlabel</span><span class="p">(</span><span class="sh">"</span><span class="s">Epochs</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="nf">legend</span><span class="p">();</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_41_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Nice! The <strong>loss curves</strong> show the loss going down over time. Remember, loss is the measure of how <em>wrong</em> your model is, so the lower the better.</p>
+
+<p>But why did the loss go down?</p>
+
+<p>Well, thanks to our loss function and optimizer, the model’s internal parameters (<code class="language-plaintext highlighter-rouge">weights</code> and <code class="language-plaintext highlighter-rouge">bias</code>) were updated to better reflect the underlying patterns in the data.</p>
+
+<p>Let’s inspect our model’s <a href="https://pytorch.org/tutorials/recipes/recipes/what_is_state_dict.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">.state_dict()</code></a> to see how close our model gets to the original values we set for weights and bias.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Find our model's learned parameters
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The model learned the following values for weights and bias:</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">())</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">And the original values for weights and bias are:</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">weights: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s">, bias: </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>The model learned the following values for weights and bias:
+    OrderedDict([('weights', tensor([0.5784])), ('bias', tensor([0.3513]))])
+    
+    And the original values for weights and bias are:
+    weights: 0.7, bias: 0.3</code></pre>
+</div>
+
+<p>Wow! How cool is that?</p>
+
+<p>Our model got very close to calculating the exact original values for <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> (and it would probably get even closer if we trained it for longer).</p>
+
+<div class="note-box">
+  <strong>Exercise:</strong> Try changing the <code>epochs</code> value above to 200. What happens to the loss curves and the weights and bias parameter values of the model?
+</div>
+
+<p>It’d likely never guess them <em>perfectly</em> (especially when using more complicated datasets) but that’s okay, often you can do very cool things with a close approximation.</p>
+
+<p>This is the whole idea of machine learning and deep learning, <strong>there are some ideal values that describe our data</strong> and rather than figuring them out by hand, <strong>we can train a model to figure them out programmatically</strong>.</p>
+
+<h2 id="making-predictions-with-a-trained-pytorch-model-inference">Making predictions with a trained PyTorch model (inference)</h2>
+
+<p>Once you’ve trained a model, you’ll likely want to make predictions with it.</p>
+
+<p>We’ve already seen a glimpse of this in the training and testing code above, the steps to do it outside of the training/testing loop are similar.</p>
+
+<p>There are three things to remember when making predictions (also called performing inference) with a PyTorch model:</p>
+
+<ol>
+  <li>Set the model in evaluation mode (<code class="language-plaintext highlighter-rouge">model.eval()</code>).</li>
+  <li>Make the predictions using the inference mode context manager (<code class="language-plaintext highlighter-rouge">with torch.inference_mode(): ...</code>).</li>
+  <li>All predictions should be made with objects on the same device (e.g. data and model on GPU only or data and model on CPU only).</li>
+</ol>
+
+<p>The first two items make sure all helpful calculations and settings PyTorch uses behind the scenes during training but aren’t necessary for inference are turned off (this results in faster computation). And the third ensures that you won’t run into cross-device errors.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># 1. Set the model in evaluation mode
+</span><span class="n">model_0</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+
+<span class="c1"># 2. Setup the inference mode context manager
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+  <span class="c1"># 3. Make sure the calculations are done with the model and data on the same device
+</span>  <span class="c1"># in our case, we haven't setup device-agnostic code yet so our data and model are
+</span>  <span class="c1"># on the CPU by default.
+</span>  <span class="c1"># model_0.to(device)
+</span>  <span class="c1"># X_test = X_test.to(device)
+</span>  <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_preds</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[0.8141],
+            [0.8256],
+            [0.8372],
+            [0.8488],
+            [0.8603],
+            [0.8719],
+            [0.8835],
+            [0.8950],
+            [0.9066],
+            [0.9182]])</code></pre>
+</div>
+
+<p>Nice! We’ve made some predictions with our trained model, now how do they look?</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_48_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Woohoo! Those red dots are looking far closer than they were before!</p>
+
+<p>Let’s get onto saving and reloading a model in PyTorch.</p>
+
+<h2 id="saving-and-loading-a-pytorch-model">Saving and loading a PyTorch model</h2>
+
+<p>If you’ve trained a PyTorch model, chances are you’ll want to save it and export it somewhere.</p>
+
+<p>As in, you might train it on Google Colab or your local machine with a GPU but you’d like to now export it to some sort of application where others can use it.</p>
+
+<p>Or maybe you’d like to save your progress on a model and come back and load it back later.</p>
+
+<p>For saving and loading models in PyTorch, there are three main methods you should be aware of (all of below have been taken from the <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference" rel="external nofollow noopener" target="_blank">PyTorch saving and loading models guide</a>):</p>
+
+<table class="styled-table">
+<thead>
+<tr>
+<th>PyTorch method</th>
+<th>What does it do?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/torch.html?highlight=save#torch.save" rel="external nofollow noopener" target="_blank"><code>torch.save</code></a></td>
+<td>Saves a serialized object to disk using Python's <a href="https://docs.python.org/3/library/pickle.html" rel="external nofollow noopener" target="_blank"><code>pickle</code></a> utility. Models, tensors and various other Python objects like dictionaries can be saved using <code>torch.save</code>.</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/torch.html?highlight=torch%20load#torch.load" rel="external nofollow noopener" target="_blank"><code>torch.load</code></a></td>
+<td>Uses <code>pickle</code>'s unpickling features to deserialize and load pickled Python object files (like models, tensors or dictionaries) into memory. You can also set which device to load the object to (CPU, GPU etc).</td>
+</tr>
+<tr>
+<td><a href="https://pytorch.org/docs/stable/generated/torch.nn.Module.html?highlight=load_state_dict#torch.nn.Module.load_state_dict" rel="external nofollow noopener" target="_blank"><code>torch.nn.Module.load_state_dict</code></a></td>
+<td>Loads a model's parameter dictionary (<code>model.state_dict()</code>) using a saved <code>state_dict()</code> object.</td>
+</tr>
+</tbody>
+</table>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    As stated in <a href="https://docs.python.org/3/library/pickle.html" rel="external nofollow noopener" target="_blank">Python's <code>pickle</code> documentation</a>, 
+    the <code>pickle</code> module <strong>is not secure</strong>. That means you should only ever unpickle (load) data you trust.
+  </p>
+  <p>
+    This also applies to loading PyTorch models. Only ever use saved PyTorch models from sources you trust.
+  </p>
+</div>
+
+<h3 id="saving-a-pytorch-models-state_dict">Saving a PyTorch model’s <code class="language-plaintext highlighter-rouge">state_dict()</code>
+</h3>
+
+<p>The <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-loading-model-for-inference" rel="external nofollow noopener" target="_blank">recommended way</a> for saving and loading a model for inference (making predictions) is by saving and loading a model’s <code class="language-plaintext highlighter-rouge">state_dict()</code>.</p>
+
+<p>Let’s see how we can do that in a few steps:</p>
+
+<ol>
+  <li>We’ll create a directory for saving models to called <code class="language-plaintext highlighter-rouge">models</code> using Python’s <code class="language-plaintext highlighter-rouge">pathlib</code> module.</li>
+  <li>We’ll create a file path to save the model to.</li>
+  <li>We’ll call <code class="language-plaintext highlighter-rouge">torch.save(obj, f)</code> where <code class="language-plaintext highlighter-rouge">obj</code> is the target model’s <code class="language-plaintext highlighter-rouge">state_dict()</code> and <code class="language-plaintext highlighter-rouge">f</code> is the filename of where to save the model.</li>
+</ol>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    It's common convention for PyTorch saved models or objects to end with <code>.pt</code> or <code>.pth</code>, 
+    such as <code>saved_model_01.pth</code>.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># 1. Create models directory 
+</span><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">models</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">MODEL_PATH</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># 2. Create model save path 
+</span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="sh">"</span><span class="s">01_pytorch_workflow_model_0.pth</span><span class="sh">"</span>
+<span class="n">MODEL_SAVE_PATH</span> <span class="o">=</span> <span class="n">MODEL_PATH</span> <span class="o">/</span> <span class="n">MODEL_NAME</span>
+
+<span class="c1"># 3. Save the model state dict 
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Saving model to: </span><span class="si">{</span><span class="n">MODEL_SAVE_PATH</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">torch</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">model_0</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">(),</span> <span class="c1"># only saving the state_dict() only saves the models learned parameters
+</span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span> 
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Saving model to: models/.. .pth</code></pre>
+</div>
+
+<h3 id="loading-a-saved-pytorch-models-state_dict">Loading a saved PyTorch model’s <code class="language-plaintext highlighter-rouge">state_dict()</code>
+</h3>
+
+<p>Since we’ve now got a saved model <code class="language-plaintext highlighter-rouge">state_dict()</code> at <code class="language-plaintext highlighter-rouge">models/01_pytorch_workflow_model_0.pth</code> we can now load it in using <code class="language-plaintext highlighter-rouge">torch.nn.Module.load_state_dict(torch.load(f))</code> where <code class="language-plaintext highlighter-rouge">f</code> is the filepath of our saved model <code class="language-plaintext highlighter-rouge">state_dict()</code>.</p>
+
+<p>Why call <code class="language-plaintext highlighter-rouge">torch.load()</code> inside <code class="language-plaintext highlighter-rouge">torch.nn.Module.load_state_dict()</code>?</p>
+
+<p>Because we only saved the model’s <code class="language-plaintext highlighter-rouge">state_dict()</code> which is a dictionary of learned parameters and not the <em>entire</em> model, we first have to load the <code class="language-plaintext highlighter-rouge">state_dict()</code> with <code class="language-plaintext highlighter-rouge">torch.load()</code> and then pass that <code class="language-plaintext highlighter-rouge">state_dict()</code> to a new instance of our model (which is a subclass of <code class="language-plaintext highlighter-rouge">nn.Module</code>).</p>
+
+<p>Why not save the entire model?</p>
+
+<p><a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html#save-load-entire-model" rel="external nofollow noopener" target="_blank">Saving the entire model</a> rather than just the <code class="language-plaintext highlighter-rouge">state_dict()</code> is more intuitive, however, to quote the PyTorch documentation (italics mine):</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    The disadvantage of this approach <em>(saving the whole model)</em> is that the serialized data is bound to the specific classes and the exact directory structure used when the model is saved.
+  </p>
+  <p>
+    Because of this, your code can break in various ways when used in other projects or after refactors.
+  </p>
+</div>
+
+<p>So instead, we’re using the flexible method of saving and loading just the <code class="language-plaintext highlighter-rouge">state_dict()</code>, which again is basically a dictionary of model parameters.</p>
+
+<p>Let’s test it out by creating another instance of <code class="language-plaintext highlighter-rouge">LinearRegressionModel()</code>, which is a subclass of <code class="language-plaintext highlighter-rouge">torch.nn.Module</code> and will hence have the in-built method <code class="language-plaintext highlighter-rouge">load_state_dict()</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Instantiate a new instance of our model (this will be instantiated with random weights)
+</span><span class="n">loaded_model_0</span> <span class="o">=</span> <span class="nc">LinearRegressionModel</span><span class="p">()</span>
+
+<span class="c1"># Load the state_dict of our saved model (this will update the new instance of our model with trained weights)
+</span><span class="n">loaded_model_0</span><span class="p">.</span><span class="nf">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">))</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>&lt;All keys matched successfully&gt;</code></pre>
+</div>
+
+<p>Excellent! It looks like things matched up.</p>
+
+<p>Now to test our loaded model, let’s perform inference with it (make predictions) on the test data.</p>
+
+<p>Remember the rules for performing inference with PyTorch models?</p>
+
+<p>If not, here’s a refresher:</p>
+
+<details class="collapsible-callout">
+  <summary>PyTorch inference rules</summary>
+  <ol>
+    <li>Set the model in evaluation mode (<code>model.eval()</code>).</li>
+    <li>Make predictions using the inference mode context manager (<code>with torch.inference_mode(): ...</code>).</li>
+    <li>All predictions should be made with objects on the same device (e.g., both data and model on GPU, or both on CPU).</li>
+  </ol>
+</details>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># 1. Put the loaded model into evaluation mode
+</span><span class="n">loaded_model_0</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+
+<span class="c1"># 2. Use the inference mode context manager to make predictions
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+    <span class="n">loaded_model_preds</span> <span class="o">=</span> <span class="nf">loaded_model_0</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span> <span class="c1"># perform a forward pass on the test data with the loaded model
+</span></pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Now we’ve made some predictions with the loaded model, let’s see if they’re the same as the previous predictions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Compare previous model predictions with loaded model predictions (these should be the same)
+</span><span class="n">y_preds</span> <span class="o">==</span> <span class="n">loaded_model_preds</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True]])</code></pre>
+</div>
+
+<p>Nice!</p>
+
+<p>It looks like the loaded model predictions are the same as the previous model predictions (predictions made prior to saving). This indicates our model is saving and loading as expected.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    There are more methods to save and load PyTorch models, but I'll leave these for extra-curriculum and further reading.
+    See the <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html#saving-and-loading-models" rel="external nofollow noopener" target="_blank">PyTorch guide for saving and loading models</a> for more.
+  </p>
+</div>
+
+<h2 id="putting-it-all-together">Putting it all together</h2>
+
+<p>We’ve covered a fair bit of ground so far.</p>
+
+<p>But once you’ve had some practice, you’ll be performing the above steps like dancing down the street.</p>
+
+<p>Speaking of practice, let’s put everything we’ve done so far together.</p>
+
+<p>Except this time we’ll make our code device agnostic (so if there’s a GPU available, it’ll use it and if not, it will default to the CPU).</p>
+
+<p>There’ll be far less commentary in this section than above since what we’re going to go through has already been covered.</p>
+
+<p>We’ll start by importing the standard libraries we need.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    If you're using Google Colab, to set up a GPU:
+    Go to <em>Runtime → Change runtime type → Hardware acceleration → GPU</em>.
+  </p>
+  <p>
+    Doing this will reset the Colab runtime, causing you to lose any saved variables.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Import PyTorch and matplotlib
+</span><span class="kn">import</span> <span class="n">torch</span>
+<span class="kn">from</span> <span class="n">torch</span> <span class="kn">import</span> <span class="n">nn</span> <span class="c1"># nn contains all of PyTorch's building blocks for neural networks
+</span><span class="kn">import</span> <span class="n">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Check PyTorch version
+</span><span class="n">torch</span><span class="p">.</span><span class="n">__version__</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>'1.12.1+cu113'</code></pre>
+</div>
+
+<p>Now let’s start making our code device agnostic by setting <code class="language-plaintext highlighter-rouge">device="cuda"</code> if it’s available, otherwise it’ll default to <code class="language-plaintext highlighter-rouge">device="cpu"</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Setup device agnostic code
+</span><span class="n">device</span> <span class="o">=</span> <span class="sh">"</span><span class="s">cuda</span><span class="sh">"</span> <span class="k">if</span> <span class="n">torch</span><span class="p">.</span><span class="n">cuda</span><span class="p">.</span><span class="nf">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="sh">"</span><span class="s">cpu</span><span class="sh">"</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Using device: </span><span class="si">{</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Using device: cuda</code></pre>
+</div>
+
+<p>If you’ve got access to a GPU, the above should’ve printed out:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+</pre></td>
+<td class="rouge-code"><pre>Using device: cuda
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+<p>Otherwise, you’ll be using a CPU for the following computations. This is fine for our small dataset but it will take longer for larger datasets.</p>
+
+<h3 id="data">Data</h3>
+
+<p>Let’s create some data just like before.</p>
+
+<p>First, we’ll hard-code some <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> values.</p>
+
+<p>Then we’ll make a range of numbers between 0 and 1, these will be our <code class="language-plaintext highlighter-rouge">X</code> values.</p>
+
+<p>Finally, we’ll use the <code class="language-plaintext highlighter-rouge">X</code> values, as well as the <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> values to create <code class="language-plaintext highlighter-rouge">y</code> using the linear regression formula (<code class="language-plaintext highlighter-rouge">y = weight * X + bias</code>).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create weight and bias
+</span><span class="n">weight</span> <span class="o">=</span> <span class="mf">0.7</span>
+<span class="n">bias</span> <span class="o">=</span> <span class="mf">0.3</span>
+
+<span class="c1"># Create range values
+</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">end</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">step</span> <span class="o">=</span> <span class="mf">0.02</span>
+
+<span class="c1"># Create X and y (features and labels)
+</span><span class="n">X</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="nf">arange</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">end</span><span class="p">,</span> <span class="n">step</span><span class="p">).</span><span class="nf">unsqueeze</span><span class="p">(</span><span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># without unsqueeze, errors will happen later on (shapes within linear layers)
+</span><span class="n">y</span> <span class="o">=</span> <span class="n">weight</span> <span class="o">*</span> <span class="n">X</span> <span class="o">+</span> <span class="n">bias</span> 
+<span class="n">X</span><span class="p">[:</span><span class="mi">10</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(tensor([[0.0000],
+             [0.0200],
+             [0.0400],
+             [0.0600],
+             [0.0800],
+             [0.1000],
+             [0.1200],
+             [0.1400],
+             [0.1600],
+             [0.1800]]),
+     tensor([[0.3000],
+             [0.3140],
+             [0.3280],
+             [0.3420],
+             [0.3560],
+             [0.3700],
+             [0.3840],
+             [0.3980],
+             [0.4120],
+             [0.4260]]))</code></pre>
+</div>
+
+<p>Wonderful!</p>
+
+<p>Now we’ve got some data, let’s split it into training and test sets.</p>
+
+<p>We’ll use an 80/20 split with 80% training data and 20% testing data.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Split data
+</span><span class="n">train_split</span> <span class="o">=</span> <span class="nf">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="nf">len</span><span class="p">(</span><span class="n">X</span><span class="p">))</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">[:</span><span class="n">train_split</span><span class="p">],</span> <span class="n">y</span><span class="p">[:</span><span class="n">train_split</span><span class="p">]</span>
+<span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">train_split</span><span class="p">:],</span> <span class="n">y</span><span class="p">[</span><span class="n">train_split</span><span class="p">:]</span>
+
+<span class="nf">len</span><span class="p">(</span><span class="n">X_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_train</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">X_test</span><span class="p">),</span> <span class="nf">len</span><span class="p">(</span><span class="n">y_test</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(40, 40, 10, 10)</code></pre>
+</div>
+
+<p>Excellent, let’s visualize them to make sure they look okay.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Note: If you've reset your runtime, this function won't work, 
+# you'll have to rerun the cell above where it's instantiated.
+</span><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_71_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<h3 id="building-a-pytorch-linear-model">Building a PyTorch linear model</h3>
+
+<p>We’ve got some data, now it’s time to make a model.</p>
+
+<p>We’ll create the same style of model as before except this time, instead of defining the weight and bias parameters of our model manually using <code class="language-plaintext highlighter-rouge">nn.Parameter()</code>, we’ll use <a href="https://pytorch.org/docs/stable/generated/torch.nn.Linear.html" rel="external nofollow noopener" target="_blank"><code class="language-plaintext highlighter-rouge">nn.Linear(in_features, out_features)</code></a> to do it for us.</p>
+
+<p>Where <code class="language-plaintext highlighter-rouge">in_features</code> is the number of dimensions your input data has and <code class="language-plaintext highlighter-rouge">out_features</code> is the number of dimensions you’d like it to be output to.</p>
+
+<p>In our case, both of these are <code class="language-plaintext highlighter-rouge">1</code> since our data has <code class="language-plaintext highlighter-rouge">1</code> input feature (<code class="language-plaintext highlighter-rouge">X</code>) per label (<code class="language-plaintext highlighter-rouge">y</code>).</p>
+
+<div class="row mt-3">
+    
+    <div class="col-sm mt-3 mt-md-0">
+        <figure id="fig_comparison_of_nn.parameter_linear_regression_model_and_nn.linear_linear_regression_model7">
+  <picture>
+    <img src="https://raw.githubusercontent.com/mrdbourke/pytorch-deep-learning/main/images/01-pytorch-linear-regression-model-with-nn-Parameter-and-nn-Linear-compared.png" class="img-fluid rounded" style="
+        
+          
+          max-width: 100%;
+          
+          height: auto;
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+        
+      " loading="eager" onerror="this.onerror=null; $('.responsive-img-srcset').remove();">
+  </picture>
+  
+    <figcaption class="caption">
+      Figure 7: comparison of nn.Parameter Linear Regression model and nn.Linear Linear Regression model
+    </figcaption>
+  
+</figure>
+
+    </div>
+</div>
+
+<p><em>Creating a linear regression model using <code class="language-plaintext highlighter-rouge">nn.Parameter</code> versus using <code class="language-plaintext highlighter-rouge">nn.Linear</code>. There are plenty more examples of where the <code class="language-plaintext highlighter-rouge">torch.nn</code> module has pre-built computations, including many popular and useful neural network layers.</em></p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Subclass nn.Module to make our model
+</span><span class="k">class</span> <span class="nc">LinearRegressionModelV2</span><span class="p">(</span><span class="n">nn</span><span class="p">.</span><span class="n">Module</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="n">self</span><span class="p">):</span>
+        <span class="nf">super</span><span class="p">().</span><span class="nf">__init__</span><span class="p">()</span>
+        <span class="c1"># Use nn.Linear() for creating the model parameters
+</span>        <span class="n">self</span><span class="p">.</span><span class="n">linear_layer</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">Linear</span><span class="p">(</span><span class="n">in_features</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> 
+                                      <span class="n">out_features</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    
+    <span class="c1"># Define the forward computation (input data x flows through nn.Linear())
+</span>    <span class="k">def</span> <span class="nf">forward</span><span class="p">(</span><span class="n">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">torch</span><span class="p">.</span><span class="n">Tensor</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">self</span><span class="p">.</span><span class="nf">linear_layer</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># Set the manual seed when creating the model (this isn't always needed but is used for demonstrative purposes, try commenting it out and seeing what happens)
+</span><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">model_1</span> <span class="o">=</span> <span class="nc">LinearRegressionModelV2</span><span class="p">()</span>
+<span class="n">model_1</span><span class="p">,</span> <span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">()</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>(LinearRegressionModelV2(
+       (linear_layer): Linear(in_features=1, out_features=1, bias=True)
+     ),
+     OrderedDict([('linear_layer.weight', tensor([[0.7645]])),
+                  ('linear_layer.bias', tensor([0.8300]))]))</code></pre>
+</div>
+
+<p>Notice the outputs of <code class="language-plaintext highlighter-rouge">model_1.state_dict()</code>, the <code class="language-plaintext highlighter-rouge">nn.Linear()</code> layer created a random <code class="language-plaintext highlighter-rouge">weight</code> and <code class="language-plaintext highlighter-rouge">bias</code> parameter for us.</p>
+
+<p>Now let’s put our model on the GPU (if it’s available).</p>
+
+<p>We can change the device our PyTorch objects are on using <code class="language-plaintext highlighter-rouge">.to(device)</code>.</p>
+
+<p>First let’s check the model’s current device.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Check model device
+</span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>device(type='cpu')</code></pre>
+</div>
+
+<p>Wonderful, looks like the model’s on the CPU by default.</p>
+
+<p>Let’s change it to be on the GPU (if it’s available).</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Set model to GPU if it's available, otherwise it'll default to CPU
+</span><span class="n">model_1</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span> <span class="c1"># the device variable was set above to be "cuda" if available or "cpu" if not
+</span><span class="nf">next</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)</code></pre>
+</div>
+
+<p>Nice! Because of our device agnostic code, the above cell will work regardless of whether a GPU is available or not.</p>
+
+<p>If you do have access to a CUDA-enabled GPU, you should see an output of something like:</p>
+
+<div class="bash-block">
+  <pre><code>device(type='cuda', index=0)</code></pre>
+</div>
+
+<h3 id="training">Training</h3>
+
+<p>Time to build a training and testing loop.</p>
+
+<p>First we’ll need a loss function and an optimizer.</p>
+
+<p>Let’s use the same functions we used earlier, <code class="language-plaintext highlighter-rouge">nn.L1Loss()</code> and <code class="language-plaintext highlighter-rouge">torch.optim.SGD()</code>.</p>
+
+<p>We’ll have to pass the new model’s parameters (<code class="language-plaintext highlighter-rouge">model.parameters()</code>) to the optimizer for it to adjust them during training.</p>
+
+<p>The learning rate of <code class="language-plaintext highlighter-rouge">0.01</code> worked well before too so let’s use that again.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Create loss function
+</span><span class="n">loss_fn</span> <span class="o">=</span> <span class="n">nn</span><span class="p">.</span><span class="nc">L1Loss</span><span class="p">()</span>
+
+<span class="c1"># Create optimizer
+</span><span class="n">optimizer</span> <span class="o">=</span> <span class="n">torch</span><span class="p">.</span><span class="n">optim</span><span class="p">.</span><span class="nc">SGD</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="n">model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">(),</span> <span class="c1"># optimize newly created model's parameters
+</span>                            <span class="n">lr</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<p>Beautiful, loss function and optimizer ready, now let’s train and evaluate our model using a training and testing loop.</p>
+
+<p>The only different thing we’ll be doing in this step compared to the previous training loop is putting the data on the target <code class="language-plaintext highlighter-rouge">device</code>.</p>
+
+<p>We’ve already put our model on the target <code class="language-plaintext highlighter-rouge">device</code> using <code class="language-plaintext highlighter-rouge">model_1.to(device)</code>.</p>
+
+<p>And we can do the same with the data.</p>
+
+<p>That way if the model is on the GPU, the data is on the GPU (and vice versa).</p>
+
+<p>Let’s step things up a notch this time and set <code class="language-plaintext highlighter-rouge">epochs=1000</code>.</p>
+
+<p>If you need a reminder of the PyTorch training loop steps, see below.</p>
+
+<details class="collapsible-callout">
+  <summary>PyTorch training loop steps</summary>
+  <ol>
+    <li>
+      <strong>Forward pass</strong> – The model processes all of the training data once, performing its 
+      <code>forward()</code> function calculations (<code>model(x_train)</code>).
+    </li>
+    <li>
+      <strong>Calculate the loss</strong> – Compare the model’s predictions to the ground truth to determine how wrong they are 
+      (<code>loss = loss_fn(y_pred, y_train)</code>).
+    </li>
+    <li>
+      <strong>Zero gradients</strong> – Reset the optimizer’s gradients to zero so they can be recalculated for the specific 
+      training step (<code>optimizer.zero_grad()</code>).
+    </li>
+    <li>
+      <strong>Perform backpropagation on the loss</strong> – Compute the gradient of the loss with respect to each trainable 
+      parameter. This is known as <strong>backpropagation</strong>, hence "backwards" (<code>loss.backward()</code>).
+    </li>
+    <li>
+      <strong>Step the optimizer (gradient descent)</strong> – Update the parameters with respect to the loss gradients to 
+      improve them (<code>optimizer.step()</code>).
+    </li>
+  </ol>
+</details>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+</pre></td>
+<td class="rouge-code"><pre><span class="n">torch</span><span class="p">.</span><span class="nf">manual_seed</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+
+<span class="c1"># Set the number of epochs 
+</span><span class="n">epochs</span> <span class="o">=</span> <span class="mi">1000</span> 
+
+<span class="c1"># Put data on the available device
+# Without this, error will happen (not all model/data on device)
+</span><span class="n">X_train</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">X_test</span> <span class="o">=</span> <span class="n">X_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">y_train</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">y_test</span> <span class="o">=</span> <span class="n">y_test</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">epoch</span> <span class="ow">in</span> <span class="nf">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+    <span class="c1">### Training
+</span>    <span class="n">model_1</span><span class="p">.</span><span class="nf">train</span><span class="p">()</span> <span class="c1"># train mode is on by default after construction
+</span>
+    <span class="c1"># 1. Forward pass
+</span>    <span class="n">y_pred</span> <span class="o">=</span> <span class="nf">model_1</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+
+    <span class="c1"># 2. Calculate loss
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">y_pred</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+
+    <span class="c1"># 3. Zero grad optimizer
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">zero_grad</span><span class="p">()</span>
+
+    <span class="c1"># 4. Loss backward
+</span>    <span class="n">loss</span><span class="p">.</span><span class="nf">backward</span><span class="p">()</span>
+
+    <span class="c1"># 5. Step the optimizer
+</span>    <span class="n">optimizer</span><span class="p">.</span><span class="nf">step</span><span class="p">()</span>
+
+    <span class="c1">### Testing
+</span>    <span class="n">model_1</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span> <span class="c1"># put the model in evaluation mode for testing (inference)
+</span>    <span class="c1"># 1. Forward pass
+</span>    <span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+        <span class="n">test_pred</span> <span class="o">=</span> <span class="nf">model_1</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    
+        <span class="c1"># 2. Calculate the loss
+</span>        <span class="n">test_loss</span> <span class="o">=</span> <span class="nf">loss_fn</span><span class="p">(</span><span class="n">test_pred</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">epoch</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Epoch: </span><span class="si">{</span><span class="n">epoch</span><span class="si">}</span><span class="s"> | Train loss: </span><span class="si">{</span><span class="n">loss</span><span class="si">}</span><span class="s"> | Test loss: </span><span class="si">{</span><span class="n">test_loss</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Epoch: 0 | Train loss: 0.5551779866218567 | Test loss: 0.5739762187004089
+    Epoch: 100 | Train loss: 0.006215683650225401 | Test loss: 0.014086711220443249
+    Epoch: 200 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 300 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 400 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 500 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 600 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 700 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 800 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882
+    Epoch: 900 | Train loss: 0.0012645035749301314 | Test loss: 0.013801801018416882</code></pre>
+</div>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Due to the random nature of machine learning, you will likely get slightly different results (different loss and prediction values) 
+    depending on whether your model was trained on CPU or GPU.
+  </p>
+  <p>
+    This is true even if you use the same random seed on either device. If the difference is large, you may want to look for errors. 
+    However, if the difference is small (ideally it is), you can ignore it.
+  </p>
+</div>
+
+<p>Nice! That loss looks pretty low.</p>
+
+<p>Let’s check the parameters our model has learned and compare them to the original parameters we hard-coded.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Find our model's learned parameters
+</span><span class="kn">from</span> <span class="n">pprint</span> <span class="kn">import</span> <span class="n">pprint</span> <span class="c1"># pprint = pretty print, see: https://docs.python.org/3/library/pprint.html 
+</span><span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">The model learned the following values for weights and bias:</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">pprint</span><span class="p">(</span><span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">())</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="se">\n</span><span class="s">And the original values for weights and bias are:</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">weights: </span><span class="si">{</span><span class="n">weight</span><span class="si">}</span><span class="s">, bias: </span><span class="si">{</span><span class="n">bias</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>The model learned the following values for weights and bias:
+    OrderedDict([('linear_layer.weight', tensor([[0.6968]], device='cuda:0')),
+                 ('linear_layer.bias', tensor([0.3025], device='cuda:0'))])
+    
+    And the original values for weights and bias are:
+    weights: 0.7, bias: 0.3</code></pre>
+</div>
+
+<p>Ho ho! Now that’s pretty darn close to a perfect model.</p>
+
+<p>Remember though, in practice, it’s rare that you’ll know the perfect parameters ahead of time.</p>
+
+<p>And if you knew the parameters your model had to learn ahead of time, what would be the fun of machine learning?</p>
+
+<p>Plus, in many real-world machine learning problems, the number of parameters can well exceed tens of millions.</p>
+
+<p>I don’t know about you but I’d rather write code for a computer to figure those out rather than doing it by hand.</p>
+
+<h3 id="making-predictions">Making predictions</h3>
+
+<p>Now we’ve got a trained model, let’s turn on it’s evaluation mode and make some predictions.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Turn model into evaluation mode
+</span><span class="n">model_1</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+
+<span class="c1"># Make predictions on the test data
+</span><span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+    <span class="n">y_preds</span> <span class="o">=</span> <span class="nf">model_1</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_preds</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[0.8600],
+            [0.8739],
+            [0.8878],
+            [0.9018],
+            [0.9157],
+            [0.9296],
+            [0.9436],
+            [0.9575],
+            [0.9714],
+            [0.9854]], device='cuda:0')</code></pre>
+</div>
+
+<p>If you’re making predictions with data on the GPU, you might notice the output of the above has <code class="language-plaintext highlighter-rouge">device='cuda:0'</code> towards the end. That means the data is on CUDA device 0 (the first GPU your system has access to due to zero-indexing), if you end up using multiple GPUs in the future, this number may be higher.</p>
+
+<p>Now let’s plot our model’s predictions.</p>
+
+<div class="note-box">
+  <strong>Note:</strong>
+  <p>
+    Many data science libraries such as pandas, matplotlib, and NumPy aren't capable of using data stored on the GPU. 
+    So you might run into issues when trying to use a function from one of these libraries with tensor data not stored on the CPU.
+  </p>
+  <p>
+    To fix this, you can call 
+    <a href="https://pytorch.org/docs/stable/generated/torch.Tensor.cpu.html" rel="external nofollow noopener" target="_blank"><code>.cpu()</code></a> 
+    on your target tensor to return a copy of it on the CPU.
+  </p>
+</div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># plot_predictions(predictions=y_preds) # -&gt; won't work... data not on CPU
+</span>
+<span class="c1"># Put data on the CPU and plot it
+</span><span class="nf">plot_predictions</span><span class="p">(</span><span class="n">predictions</span><span class="o">=</span><span class="n">y_preds</span><span class="p">.</span><span class="nf">cpu</span><span class="p">())</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div style="text-align: left;">
+  <img src="/personal/assets/img/01_pytorch_workflow_files/01_pytorch_workflow_90_0.png" alt="png" class="img-fluid" style="max-width: 80%; height: auto; display: block; margin-bottom: 1rem;">
+</div>
+
+<p>Woah! Look at those red dots, they line up almost perfectly with the green dots. I guess the extra epochs helped.</p>
+
+<h3 id="saving-and-loading-a-model">Saving and loading a model</h3>
+
+<p>We’re happy with our models predictions, so let’s save it to file so it can be used later.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+</pre></td>
+<td class="rouge-code"><pre><span class="kn">from</span> <span class="n">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+
+<span class="c1"># 1. Create models directory 
+</span><span class="n">MODEL_PATH</span> <span class="o">=</span> <span class="nc">Path</span><span class="p">(</span><span class="sh">"</span><span class="s">models</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">MODEL_PATH</span><span class="p">.</span><span class="nf">mkdir</span><span class="p">(</span><span class="n">parents</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># 2. Create model save path 
+</span><span class="n">MODEL_NAME</span> <span class="o">=</span> <span class="sh">"</span><span class="s">01_pytorch_workflow_model_1.pth</span><span class="sh">"</span>
+<span class="n">MODEL_SAVE_PATH</span> <span class="o">=</span> <span class="n">MODEL_PATH</span> <span class="o">/</span> <span class="n">MODEL_NAME</span>
+
+<span class="c1"># 3. Save the model state dict 
+</span><span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Saving model to: </span><span class="si">{</span><span class="n">MODEL_SAVE_PATH</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">torch</span><span class="p">.</span><span class="nf">save</span><span class="p">(</span><span class="n">obj</span><span class="o">=</span><span class="n">model_1</span><span class="p">.</span><span class="nf">state_dict</span><span class="p">(),</span> <span class="c1"># only saving the state_dict() only saves the models learned parameters
+</span>           <span class="n">f</span><span class="o">=</span><span class="n">MODEL_SAVE_PATH</span><span class="p">)</span> 
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Saving model to: models/.. .pth</code></pre>
+</div>
+
+<p>And just to make sure everything worked well, let’s load it back in.</p>
+
+<p>We’ll:</p>
+<ul>
+  <li>Create a new instance of the <code class="language-plaintext highlighter-rouge">LinearRegressionModelV2()</code> class</li>
+  <li>Load in the model state dict using <code class="language-plaintext highlighter-rouge">torch.nn.Module.load_state_dict()</code>
+</li>
+  <li>Send the new instance of the model to the target device (to ensure our code is device-agnostic)</li>
+</ul>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Instantiate a fresh instance of LinearRegressionModelV2
+</span><span class="n">loaded_model_1</span> <span class="o">=</span> <span class="nc">LinearRegressionModelV2</span><span class="p">()</span>
+
+<span class="c1"># Load model state dict 
+</span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">load_state_dict</span><span class="p">(</span><span class="n">torch</span><span class="p">.</span><span class="nf">load</span><span class="p">(</span><span class="n">MODEL_SAVE_PATH</span><span class="p">))</span>
+
+<span class="c1"># Put model to target device (if your data is on GPU, model will have to be on GPU to make predictions)
+</span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">to</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Loaded model:</span><span class="se">\n</span><span class="si">{</span><span class="n">loaded_model_1</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">Model on device:</span><span class="se">\n</span><span class="si">{</span><span class="nf">next</span><span class="p">(</span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">parameters</span><span class="p">()).</span><span class="n">device</span><span class="si">}</span><span class="sh">"</span><span class="p">)</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>Loaded model:
+    LinearRegressionModelV2(
+      (linear_layer): Linear(in_features=1, out_features=1, bias=True)
+    )
+    Model on device:
+    cuda:0</code></pre>
+</div>
+
+<p>Now we can evaluate the loaded model to see if its predictions line up with the predictions made prior to saving.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><table class="rouge-table"><tbody><tr>
+<td class="rouge-gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+</pre></td>
+<td class="rouge-code"><pre><span class="c1"># Evaluate loaded model
+</span><span class="n">loaded_model_1</span><span class="p">.</span><span class="nf">eval</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">torch</span><span class="p">.</span><span class="nf">inference_mode</span><span class="p">():</span>
+    <span class="n">loaded_model_1_preds</span> <span class="o">=</span> <span class="nf">loaded_model_1</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+<span class="n">y_preds</span> <span class="o">==</span> <span class="n">loaded_model_1_preds</span>
+</pre></td>
+</tr></tbody></table></code></pre></div></div>
+
+<div class="bash-block">
+  <pre><code>tensor([[True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True],
+            [True]], device='cuda:0')</code></pre>
+</div>
+
+<p>Everything adds up! Nice!</p>
+
+<p>Well, we’ve come a long way. You’ve now built and trained your first two neural network models in PyTorch!</p>
+
+<p>Time to practice your skills.</p>
+
+<h2 id="exercises">Exercises</h2>
+
+<p>All exercises have been inspired from code throughout the notebook.</p>
+
+<p>There is one exercise per major section.</p>
+
+<p>You should be able to complete them by referencing their specific section.</p>
+
+<div class="note-box">
+<strong>Note:</strong> For all exercises, your code should be device agnostic (meaning it could run on CPU or GPU if it's available).
+</div>
+
+<ol>
+  <li>Create a straight line dataset using the linear regression formula (<code class="language-plaintext highlighter-rouge">weight * X + bias</code>).
+    <ul>
+      <li>Set <code class="language-plaintext highlighter-rouge">weight=0.3</code> and <code class="language-plaintext highlighter-rouge">bias=0.9</code> there should be at least 100 datapoints total.</li>
+      <li>Split the data into 80% training, 20% testing.</li>
+      <li>Plot the training and testing data so it becomes visual.</li>
+    </ul>
+  </li>
+  <li>Build a PyTorch model by subclassing <code class="language-plaintext highlighter-rouge">nn.Module</code>.
+    <ul>
+      <li>Inside should be a randomly initialized <code class="language-plaintext highlighter-rouge">nn.Parameter()</code> with <code class="language-plaintext highlighter-rouge">requires_grad=True</code>, one for <code class="language-plaintext highlighter-rouge">weights</code> and one for <code class="language-plaintext highlighter-rouge">bias</code>.</li>
+      <li>Implement the <code class="language-plaintext highlighter-rouge">forward()</code> method to compute the linear regression function you used to create the dataset in 1.</li>
+      <li>Once you’ve constructed the model, make an instance of it and check its <code class="language-plaintext highlighter-rouge">state_dict()</code>.</li>
+      <li>
+<strong>Note:</strong> If you’d like to use <code class="language-plaintext highlighter-rouge">nn.Linear()</code> instead of <code class="language-plaintext highlighter-rouge">nn.Parameter()</code> you can.</li>
+    </ul>
+  </li>
+  <li>Create a loss function and optimizer using <code class="language-plaintext highlighter-rouge">nn.L1Loss()</code> and <code class="language-plaintext highlighter-rouge">torch.optim.SGD(params, lr)</code> respectively.
+    <ul>
+      <li>Set the learning rate of the optimizer to be 0.01 and the parameters to optimize should be the model parameters from the model you created in 2.</li>
+      <li>Write a training loop to perform the appropriate training steps for 300 epochs.</li>
+      <li>The training loop should test the model on the test dataset every 20 epochs.</li>
+    </ul>
+  </li>
+  <li>Make predictions with the trained model on the test data.
+    <ul>
+      <li>Visualize these predictions against the original training and testing data (<strong>note:</strong> you may need to make sure the predictions are <em>not</em> on the GPU if you want to use non-CUDA-enabled libraries such as matplotlib to plot).</li>
+    </ul>
+  </li>
+  <li>Save your trained model’s <code class="language-plaintext highlighter-rouge">state_dict()</code> to file.
+    <ul>
+      <li>Create a new instance of your model class you made in 2. and load in the <code class="language-plaintext highlighter-rouge">state_dict()</code> you just saved to it.</li>
+      <li>Perform predictions on your test data with the loaded model and confirm they match the original model predictions from 4.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2 id="extra-curriculum">Extra-curriculum</h2>
+<ul>
+  <li>Read <a href="https://pytorch.org/tutorials/beginner/nn_tutorial.html" rel="external nofollow noopener" target="_blank">What is <code class="language-plaintext highlighter-rouge">torch.nn</code>, really?</a> by Jeremy Howard for a deeper understanding of how one of the most important modules in PyTorch works.</li>
+  <li>Spend 10-minutes scrolling through and checking out the <a href="https://pytorch.org/tutorials/beginner/ptcheat.html" rel="external nofollow noopener" target="_blank">PyTorch documentation cheatsheet</a> for all of the different PyTorch modules you might come across.</li>
+  <li>Spend 10-minutes reading the <a href="https://pytorch.org/tutorials/beginner/saving_loading_models.html" rel="external nofollow noopener" target="_blank">loading and saving documentation on the PyTorch website</a> to become more familiar with the different saving and loading options in PyTorch.</li>
+  <li>Spend 1-2 hours reading/watching the following for an overview of the internals of gradient descent and backpropagation, the two main algorithms that have been working in the background to help our model learn.</li>
+  <li><a href="https://en.wikipedia.org/wiki/Gradient_descent" rel="external nofollow noopener" target="_blank">Wikipedia page for gradient descent</a></li>
+  <li>
+<a href="https://towardsdatascience.com/gradient-descent-algorithm-a-deep-dive-cf04e8115f21" rel="external nofollow noopener" target="_blank">Gradient Descent Algorithm — a deep dive</a> by Robert Kwiatkowski</li>
+  <li>
+<a href="https://youtu.be/IHZwWFHWa-w" rel="external nofollow noopener" target="_blank">Gradient descent, how neural networks learn video</a> by 3Blue1Brown</li>
+  <li>
+<a href="https://youtu.be/Ilg3gGewQ5U" rel="external nofollow noopener" target="_blank">What is backpropagation really doing?</a> video by 3Blue1Brown</li>
+  <li><a href="https://en.wikipedia.org/wiki/Backpropagation" rel="external nofollow noopener" target="_blank">Backpropagation Wikipedia Page</a></li>
+</ul>
+
+
+
+    
+
+    
+  </article>
+</div>
+
+            </div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top">
+                <!-- The TOC is injected by JS or jekyll-toc plugin -->
+              </nav>
+            </div>
+          </div>
+        
+      
+    </div>
+
+    <!-- Footer -->
+    
+  <footer class="fixed-bottom" role="contentinfo">
+    <div class="container mt-0">
+      © Copyright 2025
+      Jue
+      
+      Guo. 
+      
+      
+        Last updated: May 09, 2025.
+      
+    </div>
+  </footer>
+
+
+
+    <!-- JavaScripts -->
+    <!-- jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
+    <!-- Bootsrap & MDB scripts -->
+<script src="/personal/assets/js/bootstrap.bundle.min.js"></script>
+<!-- <script src="/personal/assets/js/mdb.min.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/mdbootstrap@4.20.0/js/mdb.min.js" integrity="sha256-NdbiivsvWt7VYCt6hYNT3h/th9vSTL4EDWeGs5SN3DA=" crossorigin="anonymous"></script>
+
+    
+  <!-- Masonry & imagesLoaded -->
+  <script defer src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha256-Nn1q/fx0H7SNLZMQ5Hw5JLaTRZp0yILA/FRexe19VdI=" crossorigin="anonymous"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/imagesloaded@5.0.0/imagesloaded.pkgd.min.js" integrity="sha256-htrLFfZJ6v5udOG+3kNLINIKh2gvoKqwEhHYfTTMICc=" crossorigin="anonymous"></script>
+  <script defer src="/personal/assets/js/masonry.js" type="text/javascript"></script>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+  <!-- Medium Zoom JS -->
+  <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
+  <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
+
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
+
+
+<!-- Bootstrap Table -->
+
+
+<!-- Load Common JS -->
+<script src="/personal/assets/js/no_defer.js?2781658a0a2b13ed609542042a859126"></script>
+<script defer src="/personal/assets/js/common.js?e0514a05c5c95ac1a93a8dfd5249b92e"></script>
+<script defer src="/personal/assets/js/copy_code.js?12775fdf7f95e901d7119054556e495f" type="text/javascript"></script>
+
+<!-- Jupyter Open External Links New Tab -->
+<script defer src="/personal/assets/js/jupyter_new_tab.js?d9f17b6adc2311cbabd747f4538bb15f"></script>
+
+
+
+    
+  <script async src="https://d1bxh8uas1mnw7.cloudfront.net/assets/embed.js"></script>
+
+
+  <script async src="https://badge.dimensions.ai/badge.js"></script>
+
+
+    
+  
+    <!-- MathJax -->
+    <script type="text/javascript">
+      window.MathJax = {
+        tex: {
+          tags: 'ams',
+        },
+      };
+    </script>
+    <script defer type="text/javascript" id="MathJax-script" src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js" integrity="sha256-MASABpB4tYktI2Oitl4t+78w/lyA+D7b/s9GEP0JOGI=" crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6" crossorigin="anonymous"></script>
+  
+
+    
+
+    
+
+
+
+    
+  <!-- Scrolling Progress Bar -->
+  <script type="text/javascript">
+    /*
+     * This JavaScript code has been adapted from the article
+     * https://css-tricks.com/reading-position-indicator/ authored by Pankaj Parashar,
+     * published on the website https://css-tricks.com on the 7th of May, 2014.
+     * Couple of changes were made to the original code to make it compatible
+     * with the `al-foio` theme.
+     */
+    const progressBar = $('#progress');
+    /*
+     * We set up the bar after all elements are done loading.
+     * In some cases, if the images in the page are larger than the intended
+     * size they'll have on the page, they'll be resized via CSS to accomodate
+     * the desired size. This mistake, however, breaks the computations as the
+     * scroll size is computed as soon as the elements finish loading.
+     * To account for this, a minimal delay was introduced before computing the
+     * values.
+     */
+    window.onload = function () {
+      setTimeout(progressBarSetup, 50);
+    };
+    /*
+     * We set up the bar according to the browser.
+     * If the browser supports the progress element we use that.
+     * Otherwise, we resize the bar thru CSS styling
+     */
+    function progressBarSetup() {
+      if ('max' in document.createElement('progress')) {
+        initializeProgressElement();
+        $(document).on('scroll', function () {
+          progressBar.attr({ value: getCurrentScrollPosition() });
+        });
+        $(window).on('resize', initializeProgressElement);
+      } else {
+        resizeProgressBar();
+        $(document).on('scroll', resizeProgressBar);
+        $(window).on('resize', resizeProgressBar);
+      }
+    }
+    /*
+     * The vertical scroll position is the same as the number of pixels that
+     * are hidden from view above the scrollable area. Thus, a value > 0 is
+     * how much the user has scrolled from the top
+     */
+    function getCurrentScrollPosition() {
+      return $(window).scrollTop();
+    }
+
+    function initializeProgressElement() {
+      let navbarHeight = $('#navbar').outerHeight(true);
+      $('body').css({ 'padding-top': navbarHeight });
+      $('progress-container').css({ 'padding-top': navbarHeight });
+      progressBar.css({ top: navbarHeight });
+      progressBar.attr({
+        max: getDistanceToScroll(),
+        value: getCurrentScrollPosition(),
+      });
+    }
+    /*
+     * The offset between the html document height and the browser viewport
+     * height will be greater than zero if vertical scroll is possible.
+     * This is the distance the user can scroll
+     */
+    function getDistanceToScroll() {
+      return $(document).height() - $(window).height();
+    }
+
+    function resizeProgressBar() {
+      progressBar.css({ width: getWidthPercentage() + '%' });
+    }
+    // The scroll ratio equals the percentage to resize the bar
+    function getWidthPercentage() {
+      return (getCurrentScrollPosition() / getDistanceToScroll()) * 100;
+    }
+  </script>
+
+
+    
+
+    
+
+    
+
+    
+  <script src="/personal/assets/js/vanilla-back-to-top.min.js?f40d453793ff4f64e238e420181a1d17"></script>
+  <script>
+    addBackToTop();
+  </script>
+
+
+    
+
+
+    <!-- Inline JS snippet: always show the Back link if page.back_link is set,
+     either in #toc-sidebar or, if that doesn't exist, in the navbar. -->
+    <script>
+      window.addEventListener("load", function() {
+        // If page.back_link is present, show a back button
+        
+        // If page.back_text is missing, default to "Back"
+        
+
+        // We'll build two versions of the snippet:
+        // 1) A <div> version for the TOC sidebar (no bullet marker)
+        // 2) A <li> version for the navbar fallback
+
+        const tocHTML = `
+          <div class="back-link" style="margin-top:1rem;">
+            <a href="/personal/teaching/aibasic" style="text-decoration: none; display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>AI Basics</span>
+            </a>
+          </div>
+        `;
+
+        const navHTML = `
+          <li class="nav-item back-link" style=""display: inline-flex; align-items: center;"">
+            <a class="nav-link" href="/personal/teaching/aibasic" style="display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>AI Basics</span>
+            </a>
+          </li>
+        `;
+
+        // 1) If #toc-sidebar exists, we insert the "tocHTML" (a <div>)
+        let tocSidebar = document.getElementById("toc-sidebar");
+        if (tocSidebar) {
+          tocSidebar.insertAdjacentHTML("beforeend", tocHTML);
+        } else {
+          // 2) Otherwise, we append the "navHTML" (<li>) to the navbar
+          //    so user sees the link in the top nav
+          let navbarUl = document.querySelector("#navbarNav ul.navbar-nav");
+          if (navbarUl) {
+            navbarUl.insertAdjacentHTML("beforeend", navHTML);
+          }
+        }
+        
+      });
+      </script>
+
+    <!-- Inline JS to number the TOC items, handling userOffset for ANY > 2 -->
+    <script>
+      window.addEventListener("load", function() {
+        // If page.start_h1_number is not set, or not an integer,
+        // treat it as "no offset" => start at 1, 2, 3
+        
+
+        const parsedOffset = parseInt("1", 10);
+        const hasUserOffset = !isNaN(parsedOffset);
+        
+        const rootUl = document.querySelector("#toc-sidebar > ul");
+        if (!rootUl) return;
+
+        function numberList(ul, prefix = "", startIndex = 1) {
+          const liElements = ul.querySelectorAll(":scope > li");
+          let idx = startIndex;
+
+          liElements.forEach(li => {
+            let label;
+
+            if (!prefix) {
+              // Top-level items
+              if (!hasUserOffset) {
+                // If there's no valid user offset, use 1,2,3...
+                label = String(idx);
+              } else {
+                // If user provided offset => (parsedOffset + 1).1, (parsedOffset + 1).2, etc.
+                label = `${parsedOffset + 1}.${idx}`;
+              }
+            } else {
+              // Nested => prefix + "." + idx
+              label = `${prefix}.${idx}`;
+            }
+
+            const link = li.querySelector(":scope > a");
+            if (link) {
+              link.textContent = label + " " + link.textContent;
+            }
+
+            const nested = li.querySelector(":scope > ul");
+            if (nested) {
+              numberList(nested, label, 1);
+            }
+
+            idx++;
+          });
+        }
+
+        numberList(rootUl);
+      });
+    </script>
+  </body>
+</html>

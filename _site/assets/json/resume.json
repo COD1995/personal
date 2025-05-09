@@ -1,0 +1,173 @@
+{
+  "basics": {
+    "name": "Bob (Jue) Guo",
+    "label": "Ph.D. Candidate in Computer Science",
+    "image": "photo.jpg",
+    "email": "guoj1995@gmail.com",
+    "phone": "",
+    "url": "https://csragtoriches.com/",
+    "summary": "Jue Guo is a Ph.D. candidate in Computer Science specializing in machine learning, with extensive experience teaching graduate-level courses such as Machine Learning, Deep Learning, and Algorithm Analysis and Design. His research expertise spans image classification and natural language processing. Skilled in Python, JavaScript, and frameworks including PyTorch and TensorFlow, Jue effectively translates complex algorithms into practical solutions. Jue currently holds a valid Employment Authorization Document (EAD) and does not require employer sponsorship. His permanent residency application is in progress.",
+    "location": {
+      "address": "",
+      "postalCode": "",
+      "city": "Buffalo",
+      "region": "New York",
+      "countryCode": "US"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "COD1995",
+        "url": "https://github.com/COD1995"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "jue-g-3642a1187",
+        "url": "https://www.linkedin.com/in/jue-g-3642a1187/"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "University at Buffalo – SUNY",
+      "position": "Adjunct Faculty",
+      "url": "https://www.buffalo.edu",
+      "startDate": "2023-07-01",
+      "endDate": "",
+      "highlights": [
+        "Instructed 5 graduate-level CS courses, including AI, ML, and Deep Learning, to over 300 students, focusing on real-world applications and algorithmic problem-solving.",
+        "Designed and implemented course curriculum integrating theoretical ML concepts with hands-on labs using PyTorch and TensorFlow.",
+        "Mentored over 20 graduate students through thesis projects in machine learning and AI, providing technical feedback on model development and paper writing."
+      ]
+    },
+    {
+      "name": "University at Buffalo – SUNY",
+      "position": "Graduate Teaching Assistant",
+      "url": "https://www.buffalo.edu",
+      "startDate": "2022-08-01",
+      "endDate": "2023-05-01",
+      "highlights": [
+        "Conducted weekly recitation sessions and 1-on-1 mentoring for 200+ students in Machine Learning and Deep Learning courses, using real-world case studies and frameworks like PyTorch to reinforce concepts.",
+        "Held weekly office hours to support student mastery of ML topics such as backpropagation, CNNs, LLMs, and optimization, contributing to increased student engagement and positive feedback."
+      ]
+    },
+    {
+      "name": "Zhejiang University, Zhejiang Society for Mathematical Medicine",
+      "position": "Machine Learning Engineer",
+      "url": "https://www.zju.edu.cn",
+      "startDate": "2019-06-01",
+      "endDate": "2020-08-01",
+      "highlights": [
+        "Developed a deep learning-based bone age detection system using CNNs to assist orthopedic diagnostics at Zhejiang No.1 People’s Hospital.",
+        "Collaborated with a team at Zhejiang University to implement machine learning algorithms for medical imaging analysis.",
+        "Applied image preprocessing, augmentation, and CNN-based feature extraction using PyTorch, resulting in more accurate and robust diagnostic outcomes."
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "The State University of New York at Buffalo",
+      "area": "Computer Science",
+      "studyType": "PhD",
+      "startDate": "2022-08-01",
+      "endDate": "",
+      "location": "Buffalo, NY",
+      "url": "https://www.buffalo.edu",
+      "courses": []
+    },
+    {
+      "institution": "The State University of New York at Buffalo",
+      "area": "Robotics and Artificial Intelligence",
+      "studyType": "Master of Science",
+      "startDate": "2020-08-01",
+      "endDate": "2022-06-01",
+      "location": "Buffalo, NY",
+      "url": "https://www.buffalo.edu",
+      "courses": []
+    },
+    {
+      "institution": "Wake Forest University",
+      "area": "Computer Science",
+      "studyType": "Bachelor of Science",
+      "startDate": "2015-08-01",
+      "endDate": "2019-05-01",
+      "location": "Winston-Salem, NC",
+      "url": "https://www.wfu.edu",
+      "courses": []
+    }
+  ],
+  "skills": [
+    {
+      "name": "Programming",
+      "icon": "fa-solid fa-code",
+      "keywords": [
+        "Python",
+        "C++",
+        "Java",
+        "JavaScript"
+      ]
+    },
+    {
+      "name": "Machine Learning",
+      "icon": "fa-solid fa-robot",
+      "keywords": [
+        "PyTorch",
+        "TensorFlow",
+        "Scikit-learn"
+      ]
+    },
+    {
+      "name": "Data Analysis",
+      "icon": "fa-solid fa-chart-bar",
+      "keywords": [
+        "NumPy",
+        "pandas",
+        "Matplotlib",
+        "Seaborn"
+      ]
+    },
+    {
+      "name": "DevOps & Tools",
+      "icon": "fa-solid fa-tools",
+      "keywords": [
+        "Git",
+        "Docker",
+        "Linux",
+        "Weights & Biases"
+      ]
+    },
+    {
+      "name": "Professional",
+      "icon": "fa-solid fa-briefcase",
+      "keywords": [
+        "Curriculum Design",
+        "Technical Writing",
+        "Research",
+        "STEM Teaching"
+      ]
+    }
+  ],
+  "languages": [
+    {
+      "language": "Chinese",
+      "fluency": "Native speaker",
+      "icon": ""
+    },
+    {
+      "language": "English",
+      "fluency": "Fluent",
+      "icon": ""
+    }
+  ],
+  "interests": [
+    {
+      "name": "Machine Learning",
+      "icon": "fa-solid fa-tag",
+      "keywords": [
+        "Continual Learning",
+        "Adversarial Learning",
+        "Graph Representation Learning"
+      ]
+    }
+  ]
+}

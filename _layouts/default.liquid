@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="{{ site.lang }}">
+  <!-- Head -->
+  <head>
+    {% if page.redirect %}
+      {% if page.redirect == true %}
+        {% assign redirect = site.baseurl | append: '/' %}
+      {% elsif page.redirect contains '://' %}
+        {% assign redirect = page.redirect %}
+      {% else %}
+        {% assign redirect = page.redirect | relative_url %}
+      {% endif %}
+      <meta http-equiv="refresh" content="3; url={{ redirect }}">
+    {% endif %}
+    {% include head.liquid %}
+  </head>
+
+  <!-- Body -->
+  <body class="{% if site.navbar_fixed %}fixed-top-nav{% endif %} {% unless site.footer_fixed %}sticky-bottom-footer{% endunless %}">
+    <!-- Header -->
+    {% include header.liquid %}
+
+    <!-- Content -->
+    <div class="container mt-5" role="main">
+      {% if page.toc and page.toc.sidebar %}
+        {% if page.toc.sidebar == 'right' %}
+          <div class="row">
+            <!-- main content area -->
+            <div class="col-sm-9">
+              {{ content }}
+            </div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top">
+                <!-- The TOC is injected by JS or jekyll-toc plugin -->
+              </nav>
+            </div>
+          </div>
+        {% else %}
+          <div class="row">
+            <!-- sidebar (TOC on the left) -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top">
+                <!-- The TOC is injected by JS or jekyll-toc plugin -->
+              </nav>
+            </div>
+            <!-- main content area -->
+            <div class="col-sm-9">
+              {{ content }}
+            </div>
+          </div>
+        {% endif %}
+      {% else %}
+        {{ content }}
+      {% endif %}
+    </div>
+
+    <!-- Footer -->
+    {% include footer.liquid %}
+
+    <!-- JavaScripts -->
+    {% include scripts/jquery.liquid %}
+    {% include scripts/bootstrap.liquid %}
+    {% include scripts/masonry.liquid %}
+    {% include scripts/mermaid.liquid %}
+    {% include scripts/diff2html.liquid %}
+    {% include scripts/leaflet.liquid %}
+    {% include scripts/chartjs.liquid %}
+    {% include scripts/echarts.liquid %}
+    {% include scripts/vega.liquid %}
+    {% include scripts/tikzjax.liquid %}
+    {% include scripts/typograms.liquid %}
+    {% include scripts/misc.liquid %}
+    {% include scripts/badges.liquid %}
+    {% include scripts/mathjax.liquid %}
+    {% include scripts/pseudocode.liquid %}
+    {% include scripts/analytics.liquid %}
+    {% include scripts/progressBar.liquid %}
+    {% include scripts/wechatModal.liquid %}
+    {% include scripts/imageLayouts.liquid %}
+    {% include scripts/jekyll_tabs.liquid %}
+    {% include scripts/back_to_top.liquid %}
+    {% include scripts/search.liquid %}
+
+    <!-- Inline JS snippet: always show the Back link if page.back_link is set,
+     either in #toc-sidebar or, if that doesn't exist, in the navbar. -->
+    <script>
+      window.addEventListener("load", function() {
+        // If page.back_link is present, show a back button
+        {% if page.back_link %}
+        // If page.back_text is missing, default to "Back"
+        {% assign button_label = page.back_text | default: "Back" %}
+
+        // We'll build two versions of the snippet:
+        // 1) A <div> version for the TOC sidebar (no bullet marker)
+        // 2) A <li> version for the navbar fallback
+
+        const tocHTML = `
+          <div class="back-link" style="margin-top:1rem;">
+            <a href="{{ page.back_link | relative_url }}" style="text-decoration: none; display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>{{ button_label }}</span>
+            </a>
+          </div>
+        `;
+
+        const navHTML = `
+          <li class="nav-item back-link" style=""display: inline-flex; align-items: center;"">
+            <a class="nav-link" href="{{ page.back_link | relative_url }}" style="display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>{{ button_label }}</span>
+            </a>
+          </li>
+        `;
+
+        // 1) If #toc-sidebar exists, we insert the "tocHTML" (a <div>)
+        let tocSidebar = document.getElementById("toc-sidebar");
+        if (tocSidebar) {
+          tocSidebar.insertAdjacentHTML("beforeend", tocHTML);
+        } else {
+          // 2) Otherwise, we append the "navHTML" (<li>) to the navbar
+          //    so user sees the link in the top nav
+          let navbarUl = document.querySelector("#navbarNav ul.navbar-nav");
+          if (navbarUl) {
+            navbarUl.insertAdjacentHTML("beforeend", navHTML);
+          }
+        }
+        {% endif %}
+      });
+      </script>
+
+    <!-- Inline JS to number the TOC items, handling userOffset for ANY > 2 -->
+    <script>
+      window.addEventListener("load", function() {
+        // If page.start_h1_number is not set, or not an integer,
+        // treat it as "no offset" => start at 1, 2, 3
+        {% if page.start_h1_number %}
+          {% assign offset_str = page.start_h1_number %}
+        {% else %}
+          {% assign offset_str = "" %}
+        {% endif %}
+
+        const parsedOffset = parseInt("{{ offset_str }}", 10);
+        const hasUserOffset = !isNaN(parsedOffset);
+        
+        const rootUl = document.querySelector("#toc-sidebar > ul");
+        if (!rootUl) return;
+
+        function numberList(ul, prefix = "", startIndex = 1) {
+          const liElements = ul.querySelectorAll(":scope > li");
+          let idx = startIndex;
+
+          liElements.forEach(li => {
+            let label;
+
+            if (!prefix) {
+              // Top-level items
+              if (!hasUserOffset) {
+                // If there's no valid user offset, use 1,2,3...
+                label = String(idx);
+              } else {
+                // If user provided offset => (parsedOffset + 1).1, (parsedOffset + 1).2, etc.
+                label = `${parsedOffset + 1}.${idx}`;
+              }
+            } else {
+              // Nested => prefix + "." + idx
+              label = `${prefix}.${idx}`;
+            }
+
+            const link = li.querySelector(":scope > a");
+            if (link) {
+              link.textContent = label + " " + link.textContent;
+            }
+
+            const nested = li.querySelector(":scope > ul");
+            if (nested) {
+              numberList(nested, label, 1);
+            }
+
+            idx++;
+          });
+        }
+
+        numberList(rootUl);
+      });
+    </script>
+  </body>
+</html>
