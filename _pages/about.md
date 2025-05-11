@@ -17,109 +17,79 @@ selected_papers: false # includes a list of papers marked as "selected={true}"
 social: false # includes social icons at the bottom of the page
 ---
 
-Jue Guo is a dedicated Ph.D. candidate in Computer Science with a strong academic and professional background. His teaching experience spans crucial areas of the field, notably in deep learning and pattern recognition, where he has effectively imparted knowledge and inspired future computer scientists. Jue’s research has been particularly focused on pioneering machine learning methodologies, encompassing diverse applications such as image classification, natural language processing, continual learning, and medical imaging.
+Jue Guo is a Ph.D. candidate in Computer Science at the University at Buffalo, advised by [Prof. A. Erdem Sariyüce](https://sariyuce.com/). His teaching portfolio spans core areas in machine learning, with a focus on deep learning and pattern recognition, where he has guided and inspired the next generation of computer scientists.
 
-Jue’s technical proficiency is demonstrated by his expertise in python, pytorch and JavaScript, which he seamlessly integrates into his research and development work. His adept use of various machine learning frameworks allows him to approach and solve complex computational challenges with precision and innovation. This combination of teaching acumen, research excellence, and versatile programming skills positions Jue as an accomplished and forward-thinking contributor to the field of computer science.
+His research explores advanced machine learning methodologies across a range of domains, including image classification, natural language processing, continual learning, and adversarial machine learning.
+
+Technically, Jue is proficient in Python, PyTorch, and JavaScript, and adept at bridging theory with practice—developing scalable, research-grade models while maintaining strong algorithmic rigor. His ability to integrate complex ML frameworks with domain-specific challenges positions him as a creative and forward-looking contributor to the field.
 
 <!-- teaching -->
-<hr style="margin: 8rem 0 1.5rem 0; border: none; border-top: 1px solid var(--global-divider-color);" />
+<hr class="divider" />
 
-<div class="courses-container" style="max-width: 700px; margin: 0 auto; padding: 0 1rem;">
-  <h2 style="
-    font-size: 1.75rem;
-    font-weight: 500;
-    margin-bottom: 1rem;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    color: var(--global-text-color);
-    text-align: center;">
-    Current Courses I’m Teaching
-  </h2>
-  <div class="year-filter" style="
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
-  ">
-    <label for="year-select" style="
-      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
-      font-size:0.875rem;
-      color:var(--global-text-color);
-      font-weight:600;
-      margin:0;
-    ">
-      Filter by Year:
-    </label>
-    <select id="year-select" style="
-      font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
-      font-size:0.875rem;
-      padding:0.3rem 0.5rem;
-      border:1px solid var(--global-divider-color);
-      border-radius:4px;
-      background: var(--global-bg-color);
-      color: var(--global-text-color);
-      cursor: pointer;
-      outline: none;
-      transition: border-color 0.3s;
-    ">
+<div class="courses-container">
+  <h2 class="courses-title">Current Courses I’m Teaching</h2>
+
+  <div class="courses-filter">
+    <label for="year-select">Filter by Year:</label>
+    <select id="year-select">
       <option value="all">All Years</option>
-      <option value="2025">2025</option>
+      <option value="2025" selected>2025</option>
       <option value="2024">2024</option>
       <option value="2023">2023</option>
     </select>
   </div>
-  <table class="courses-table" style="
-    width:100%; 
-    border-collapse:collapse; 
-    font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;
-    color:var(--global-text-color); 
-    font-size:1rem; 
-    line-height:1.5;
-    background: var(--global-bg-color);
-    border: 1px solid var(--global-divider-color);
-    border-radius: 6px;
-    overflow: hidden; 
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
-  ">
+
+  <table class="courses-table">
     <tbody>
+      <!-- 2025 -->
       <tr data-year="2025">
-        <td style="font-weight:600; padding:0.75rem;">Jan 22, 2025</td>
-        <td style="padding:0.75rem;">
-          <a href="{{ '/teaching/aibasic' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">
-            start teaching basics of artificial intelligence
+        <td class="date">Jan 22, 2025</td>
+        <td class="course">
+          <a href="{{ '/teaching/aibasic' | relative_url }}">
+            Start teaching Basics of Artificial Intelligence
           </a>
         </td>
       </tr>
-      <!-- 2024 Courses -->
+      <!-- 2024 -->
       <tr data-year="2024">
-        <td style="font-weight:600; padding:0.75rem; width:150px;">Aug 26, 2024</td>
-        <td style="padding:0.75rem;">
-          <a href="{{ '/teaching/deeplearnig' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">start teaching deep learning</a>
+        <td class="date">Aug 26, 2024</td>
+        <td class="course">
+          <a href="{{ '/teaching/deeplearning' | relative_url }}">
+            Start teaching Deep Learning
+          </a>
         </td>
       </tr>
       <tr data-year="2024">
-        <td style="font-weight:600; padding:0.75rem;">Jun 24, 2024</td>
-        <td style="padding:0.75rem;">
-          <a href="{{ '/teaching/pattern' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">start teaching intro to pattern recognition</a>
+        <td class="date">Jun 24, 2024</td>
+        <td class="course">
+          <a href="{{ '/teaching/pattern' | relative_url }}">
+            Start teaching Intro to Pattern Recognition
+          </a>
         </td>
       </tr>
       <tr data-year="2024">
-        <td style="font-weight:600; padding:0.75rem;">Jan 24, 2024</td>
-        <td style="padding:0.75rem;">
-          <a href="{{ '/teaching/machinelearning' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">start teaching machine learning</a>
+        <td class="date">Jan 24, 2024</td>
+        <td class="course">
+          <a href="{{ '/teaching/machinelearning' | relative_url }}">
+            Start teaching Machine Learning
+          </a>
         </td>
       </tr>
-      <!-- 2023 Courses -->
+      <!-- 2023 -->
       <tr data-year="2023">
-        <td style="font-weight:600; padding:0.75rem;">Aug 28, 2023</td>
-        <td style="padding:0.75rem;">
-          <a href="{{ '/teaching/deeplearnig' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">start teaching deep learning</a>
+        <td class="date">Aug 28, 2023</td>
+        <td class="course">
+          <a href="{{ '/teaching/deeplearning' | relative_url }}">
+            Start teaching Deep Learning
+          </a>
         </td>
       </tr>
       <tr data-year="2023">
-        <td style="font-weight:600; padding:0.75rem;">Jun 26, 2023</td>
-        <td style="padding:0.75rem;">
-          <a href="{{ '/teaching/pattern' | relative_url }}" style="color:var(--global-theme-color); text-decoration:none;">start teaching intro to pattern recognition</a>
+        <td class="date">Jun 26, 2023</td>
+        <td class="course">
+          <a href="{{ '/teaching/pattern' | relative_url }}">
+            Start teaching Intro to Pattern Recognition
+          </a>
         </td>
       </tr>
     </tbody>
@@ -127,20 +97,72 @@ Jue’s technical proficiency is demonstrated by his expertise in python, pytorc
 </div>
 
 <style>
-  .courses-table tbody tr {
-    transition: background-color 0.3s, color 0.3s;
+  .divider {
+    margin: 8rem 0 1rem;
+    border: none;
+    border-top: 1px solid var(--global-divider-color);
   }
-
-  .courses-table tbody tr:hover td {
-    background-color: #f7f7f7;
+  .courses-container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .courses-title {
+    font-size: 1.75rem;
+    font-weight: 500;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  .courses-filter {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 1rem;
+    gap: 0.5rem;
+  }
+  .courses-filter label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+  .courses-filter select {
+    font-size: 0.875rem;
+    padding: 0.3rem 0.5rem;
+    border: 1px solid var(--global-divider-color);
+    border-radius: 4px;
+    background: var(--global-bg-color);
     color: var(--global-text-color);
+    cursor: pointer;
+    transition: border-color 0.3s;
   }
-
-  .courses-table tbody tr a:hover {
+  .courses-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 1rem;
+    line-height: 1.5;
+    background: var(--global-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  }
+  .courses-table .date {
+    font-weight: 600;
+    padding: 0.75rem;
+    width: 160px;
+    color: #000 !important;
+  }
+  .courses-table .course {
+    padding: 0.75rem;
+  }
+  .courses-table tr:hover .course {
+    background-color: #f7f7f7;
+  }
+  .courses-table a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+  }
+  .courses-table a:hover {
     text-decoration: underline;
   }
-
-  #year-select:hover,
   #year-select:focus {
     border-color: var(--global-theme-color);
   }
@@ -150,17 +172,16 @@ Jue’s technical proficiency is demonstrated by his expertise in python, pytorc
   const yearSelect = document.getElementById('year-select');
   const rows = document.querySelectorAll('.courses-table tbody tr');
 
-  yearSelect.addEventListener('change', function() {
-    const selectedYear = this.value;
-    rows.forEach(row => {
-      const rowYear = row.getAttribute('data-year');
-      if (selectedYear === 'all' || rowYear === selectedYear) {
-        row.style.display = '';
-      } else {
-        row.style.display = 'none';
-      }
+  function filterByYear() {
+    const sel = yearSelect.value;
+    rows.forEach(r => {
+      r.style.display = (sel === 'all' || r.dataset.year === sel) ? '' : 'none';
     });
-  });
+  }
+
+  yearSelect.addEventListener('change', filterByYear);
+  // initial filter to most recent year
+  filterByYear();
 </script>
 
 --- 
