@@ -3,7 +3,7 @@ layout: page
 permalink: /repositories/
 title: github
 description: The following showcase my github statistics and featured repositories.
-nav: false
+nav: true
 nav_order: 4
 ---
 
