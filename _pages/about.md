@@ -54,7 +54,7 @@ Technically, Jue is proficient in Python, PyTorch, and JavaScript, and adept at 
       <tr data-year="2024">
         <td class="date">Aug 26, 2024</td>
         <td class="course">
-          <a href="{{ '/teaching/deeplearning' | relative_url }}">
+          <a href="{{ '/teaching/deeplearnig' | relative_url }}">
             Start teaching Deep Learning
           </a>
         </td>
@@ -79,7 +79,7 @@ Technically, Jue is proficient in Python, PyTorch, and JavaScript, and adept at 
       <tr data-year="2023">
         <td class="date">Aug 28, 2023</td>
         <td class="course">
-          <a href="{{ '/teaching/deeplearning' | relative_url }}">
+          <a href="{{ '/teaching/deeplearnig' | relative_url }}">
             Start teaching Deep Learning
           </a>
         </td>
