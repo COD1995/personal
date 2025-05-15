@@ -102,10 +102,6 @@
 
 
 
-  <a href="https://github.com/COD1995" title="GitHub" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-github"></i></a>
-
-
-  <a href="https://www.linkedin.com/in/jue-g-3642a1187" title="LinkedIn" rel="external nofollow noopener" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
 
 
 
@@ -324,10 +320,9 @@
 <p>Technically, Jue is proficient in Python, PyTorch, and JavaScript, and adept at bridging theory with practice—developing scalable, research-grade models while maintaining strong algorithmic rigor. His ability to integrate complex ML frameworks with domain-specific challenges positions him as a creative and forward-looking contributor to the field.</p>
 
 <!-- teaching -->
-<hr class="divider">
 
-<div class="courses-container">
-  <h2 class="courses-title">Current Courses I’m Teaching</h2>
+<section class="courses-section">
+  <h2 class="courses-title">Teaching</h2>
 
   <div class="courses-filter">
     <label for="year-select">Filter by Year:</label>
@@ -339,149 +334,190 @@
     </select>
   </div>
 
-  <table class="courses-table">
-    <tbody>
-      <!-- 2025 -->
-      <tr data-year="2025">
-        <td class="date">Jan 22, 2025</td>
-        <td class="course">
-          <a href="/personal/teaching/aibasic">
-            Start teaching Basics of Artificial Intelligence
-          </a>
-        </td>
-      </tr>
-      <!-- 2024 -->
-      <tr data-year="2024">
-        <td class="date">Aug 26, 2024</td>
-        <td class="course">
-          <a href="/personal/teaching/deeplearnig">
-            Start teaching Deep Learning
-          </a>
-        </td>
-      </tr>
-      <tr data-year="2024">
-        <td class="date">Jun 24, 2024</td>
-        <td class="course">
-          <a href="/personal/teaching/pattern">
-            Start teaching Intro to Pattern Recognition
-          </a>
-        </td>
-      </tr>
-      <tr data-year="2024">
-        <td class="date">Jan 24, 2024</td>
-        <td class="course">
-          <a href="/personal/teaching/machinelearning">
-            Start teaching Machine Learning
-          </a>
-        </td>
-      </tr>
-      <!-- 2023 -->
-      <tr data-year="2023">
-        <td class="date">Aug 28, 2023</td>
-        <td class="course">
-          <a href="/personal/teaching/deeplearnig">
-            Start teaching Deep Learning
-          </a>
-        </td>
-      </tr>
-      <tr data-year="2023">
-        <td class="date">Jun 26, 2023</td>
-        <td class="course">
-          <a href="/personal/teaching/pattern">
-            Start teaching Intro to Pattern Recognition
-          </a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+  <div class="course-cards">
+    <!-- 2025 -->
+    <article class="course-card" data-year="2025">
+      <time class="course-date">May 27, 2025</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/algo">
+          Algorithm Analysis and Design
+        </a>
+      </h3>
+    </article>
+    <article class="course-card" data-year="2025">
+      <time class="course-date">Jan 22, 2025</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/aibasic">
+          Basics of Artificial Intelligence
+        </a>
+      </h3>
+    </article>
+
+    <!-- 2024 -->
+    <article class="course-card" data-year="2024">
+      <time class="course-date">Aug 26, 2024</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/deeplearning">
+          Deep Learning
+        </a>
+      </h3>
+    </article>
+    <article class="course-card" data-year="2024">
+      <time class="course-date">Jun 24, 2024</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/pattern">
+          Intro to Pattern Recognition
+        </a>
+      </h3>
+    </article>
+    <article class="course-card" data-year="2024">
+      <time class="course-date">Jan 24, 2024</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/machinelearning">
+          Machine Learning
+        </a>
+      </h3>
+    </article>
+
+    <!-- 2023 -->
+    <article class="course-card" data-year="2023">
+      <time class="course-date">Aug 28, 2023</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/deeplearning">
+          Deep Learning
+        </a>
+      </h3>
+    </article>
+    <article class="course-card" data-year="2023">
+      <time class="course-date">Jun 26, 2023</time>
+      <h3 class="course-name">
+        <a href="/personal/teaching/pattern">
+          Intro to Pattern Recognition
+        </a>
+      </h3>
+    </article>
+  </div>
+</section>
 
 <style>
+  /* divider */
   .divider {
-    margin: 8rem 0 1rem;
+    margin: 6rem 0 2rem;
     border: none;
-    border-top: 1px solid var(--global-divider-color);
+    border-top: 2px solid var(--global-divider-color);
   }
-  .courses-container {
-    max-width: 700px;
-    margin: 0 auto;
-    padding: 0 1rem;
+
+  /* section container & spacing */
+  .courses-section {
+    padding-top: 10rem;       /* ensure no overlap */
+    max-width: 900px;
+    /* margin: 0 auto; */
+    /* padding-left: 1rem;
+    padding-right: 1rem; */
   }
+
   .courses-title {
-    font-size: 1.75rem;
-    font-weight: 500;
-    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--global-text-color);
     margin-bottom: 1.5rem;
+    
+    /* Thick colored underline */
+    text-decoration-line: underline;
+    text-decoration-color: rgba(156, 39, 176, 0.3);
+    text-decoration-thickness: 0.3em;
+    text-underline-offset: 0.2em;
   }
+
+
+  /* filter */
   .courses-filter {
     display: flex;
+    align-items: center;      /* <-- add this */
     justify-content: flex-end;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     gap: 0.5rem;
   }
   .courses-filter label {
-    font-size: 0.875rem;
-    font-weight: 600;
+    font-size: 0.9rem;
+    font-weight: 500;
   }
   .courses-filter select {
-    font-size: 0.875rem;
-    padding: 0.3rem 0.5rem;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.6rem;
     border: 1px solid var(--global-divider-color);
     border-radius: 4px;
     background: var(--global-bg-color);
     color: var(--global-text-color);
-    cursor: pointer;
-    transition: border-color 0.3s;
+    transition: border-color 0.2s;
+    margin-top: -4px; 
   }
-  .courses-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 1rem;
-    line-height: 1.5;
+  .courses-filter select:focus {
+    border-color: var(--global-theme-color);
+    outline: none;
+  }
+
+  /* cards grid */
+  .course-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, auto));
+    justify-content: center;
+    gap: 1.5rem;
+  }
+
+  .course-card {
     background: var(--global-bg-color);
     border: 1px solid var(--global-divider-color);
-    border-radius: 6px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .courses-table .date {
+  .course-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+
+  /* date & title */
+  .course-date {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--global-text-color);
+    margin-bottom: 0.5rem;
+  }
+  .course-name {
+    margin: 0;
+    font-size: 1.125rem;
     font-weight: 600;
-    padding: 0.75rem;
-    width: 160px;
-    color: #000 !important;
   }
-  .courses-table .course {
-    padding: 0.75rem;
-  }
-  .courses-table tr:hover .course {
-    background-color: #f7f7f7;
-  }
-  .courses-table a {
+  .course-name a {
     color: var(--global-theme-color);
     text-decoration: none;
   }
-  .courses-table a:hover {
+  .course-name a:hover {
     text-decoration: underline;
-  }
-  #year-select:focus {
-    border-color: var(--global-theme-color);
   }
 </style>
 
 <script>
   const yearSelect = document.getElementById('year-select');
-  const rows = document.querySelectorAll('.courses-table tbody tr');
+  const cards = document.querySelectorAll('.course-card');
 
   function filterByYear() {
-    const sel = yearSelect.value;
-    rows.forEach(r => {
-      r.style.display = (sel === 'all' || r.dataset.year === sel) ? '' : 'none';
+    const year = yearSelect.value;
+    cards.forEach(card => {
+      card.style.display =
+        year === 'all' || card.dataset.year === year
+          ? 'block'
+          : 'none';
     });
   }
 
   yearSelect.addEventListener('change', filterByYear);
-  // initial filter to most recent year
-  filterByYear();
+  filterByYear();  // initial filter
 </script>
 
 <hr>
@@ -517,7 +553,7 @@
       Guo. 
       
       
-        Last updated: May 14, 2025.
+        Last updated: May 15, 2025.
       
     </div>
   </footer>
