@@ -2292,3 +2292,19 @@ table.dataframe tbody th {
     text-align: center; // Center-align the caption text
   }
 }
+
+mark {
+  background: linear-gradient(to right,
+      rgba(156, 39, 176, 0.4) 0%,
+      rgba(156, 39, 176, 0.4) 100%) no-repeat;
+  background-size: 100% 0.3em;
+  /* thin bar behind text */
+  background-position: 0 85%;
+  /* just under the letters */
+  padding: 0;
+  /* no extra padding needed */
+  color: inherit;
+  /* keep your text color */
+  font-weight: 600;
+  /* slight emphasis */
+}

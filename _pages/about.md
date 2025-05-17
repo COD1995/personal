@@ -28,7 +28,7 @@ Technically, Jue is proficient in Python, PyTorch, and JavaScript, and adept at 
 <!-- teaching -->
 
 <section class="courses-section">
-  <h2 class="courses-title">Teaching</h2>
+  <h2 class="courses-title">👨‍🏫 Teaching</h2>
 
   <div class="courses-filter">
     <label for="year-select">Filter by Year:</label>
