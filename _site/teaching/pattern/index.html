@@ -17,7 +17,7 @@
   
   
     
-      CSE455/555 Introduction to Patten Recognition | Jue Guo
+      CSE 455/555 Introduction to Pattern Recognition | Jue Guo
     
   
 </title>
@@ -50,6 +50,9 @@
 <!-- Code Syntax Highlighting -->
 <link defer rel="stylesheet" href="/personal/assets/css/jekyll-pygments-themes-github.css?591dab5a4e56573bf4ef7fd332894c99" media="" id="highlight_theme_light">
 
+
+  <!-- Sidebar Table of Contents -->
+  <link defer href="/personal/assets/css/bootstrap-toc.min.css?6f5af0bb9aab25d79b2448143cbeaa88" rel="stylesheet">
 
 
 <!-- Styles -->
@@ -232,8 +235,54 @@
     <div class="container mt-5" role="main">
       
         
+          <div class="row">
+            <!-- main content area -->
+            <div class="col-sm-9">
+              
 
 <!-- Always apply separation lines (scoped to article) -->
+
+  <style type="text/css">
+    /* Heading 1 */
+    .post > article h1 {
+      border-bottom: 4px solid #4CAF50; /* Green separation line */
+      padding-bottom: 12px;
+      margin-top: 40px; /* Increased spacing above */
+      margin-bottom: 32px; /* Increased spacing below */
+    }
+
+    /* Heading 2 */
+    .post > article h2 {
+      border-bottom: 3px solid #2196F3; /* Blue separation line */
+      padding-bottom: 10px;
+      margin-top: 36px; /* Increased spacing above */
+      margin-bottom: 28px; /* Increased spacing below */
+    }
+
+    /* Heading 3 */
+    .post > article h3 {
+      border-bottom: 3px dashed #FFC107; /* Yellow dashed line */
+      padding-bottom: 8px;
+      margin-top: 32px; /* Increased spacing above */
+      margin-bottom: 24px; /* Increased spacing below */
+    }
+
+    /* Heading 4 */
+    .post > article h4 {
+      border-bottom: 2px dotted #9C27B0; /* Purple dotted line */
+      padding-bottom: 6px;
+      margin-top: 28px; /* Increased spacing above */
+      margin-bottom: 20px; /* Increased spacing below */
+    }
+
+    /* Heading 5 */
+    .post > article h5 {
+      border-bottom: 2px solid #FF5722; /* Orange solid line */
+      padding-bottom: 4px;
+      margin-top: 24px; /* Increased spacing above */
+      margin-bottom: 16px; /* Increased spacing below */
+    }
+  </style>
 
 
 
@@ -242,24 +291,460 @@
 <div class="post">
   <article>
     <header class="post-header">
-      <h1 class="post-title">CSE455/555 Introduction to Patten Recognition</h1>
+      <h1 class="post-title">CSE 455/555 Introduction to Pattern Recognition</h1>
       <p class="post-description"></p>
     </header>
 
-    
+    <div class="course-description-box">
+  <p>
+    In this updated Pattern Recognition course, we’ll learn not only by lectures and problem sets but by diving directly into the original research papers that shaped the field. Each week, you’ll read several papers—ranging from classic template-matching methods and statistical classifiers to modern deep-learning approaches—then discuss and implement key ideas.
+  </p>
+  <p>
+    Our in-class sessions will be a mix of presentations, guided code walkthroughs, and Q&amp;A. You’ll write brief critical analyses for each paper, code up core algorithms in Python (using NumPy, scikit-learn or PyTorch), and compare performance on benchmark datasets. By the end of the semester, you’ll not only master pattern-recognition techniques but also develop the critical reading and implementation skills needed to engage with cutting-edge research.
+  </p>
+  <p class="course-note">
+    <strong>Prerequisite:</strong> Pre-Requisites: CSE 250 or EAS 230 or EAS 240  or CSE 115 or EAS 999TRCP and EAS 305 or STA 301 and STA 301  or MTH 411; Computer Science, Computer Engineering, or Bioinformatics majors only. Students must complete a mandatory advisement session with their faculty advisor. 
+    <br>
+    <strong>Resources:</strong> A curated PDF reading list will be provided; expect weekly code exercises and written critiques.
+  </p>
+</div>
 
 
+<h2>Instructor Information</h2>
+<p><strong>Course Instructor</strong>: Jue Guo</p>
+<ul>
+  <li>
+<em>Research Area:</em> Optimization for machine learning, Adversarial Learning,
+      Continual Learning and Graph Learning
+  </li>
+  <li>Interested in participating in our research?
+      Reach to me by <a href="mailto:jueguo@buffalo.edu">email</a>.
+  </li>
+</ul>
+
+<!-- Outline heading + short intro text -->
+<div class="outline-top">
+  <h2>Course Outline and Logistics</h2>
+  <p>
+    Check out the <a href="#lecture-notes">course material</a> under lecture notes.
+  </p>
+</div>
+
+<!-- The semester-year selector snippet, placed just below the outline -->
+<div class="semester-year-snippet">
+  <!-- _includes/semester-year-toggle.liquid -->
+
+<div class="semester-selector">
+  <label for="semesterYearSelect" class="semester-label">
+    <strong>Select Semester &amp; Year:</strong>
+  </label>
+  <select id="semesterYearSelect" class="semester-select">
     
-      <h2>References</h2>
-      <div class="publications">
-        
-      </div>
+      <option value="summer-2025" selected>
+        Summer 2025
+      </option>
+    
+      <option value="fall-2024">
+        Fall 2024
+      </option>
+    
+      <option value="spring-2026">
+        Spring 2026
+      </option>
+    
+  </select>
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const selectEl = document.getElementById("semesterYearSelect");
+  const blocks   = document.querySelectorAll("[data-semester-year]");
+
+  function showSelected(val) {
+    blocks.forEach(block => {
+      const semYear = block.getAttribute("data-semester-year");
+      block.style.display = (semYear === val) ? "block" : "none";
+    });
+  }
+
+  // On load, show whichever is pre-selected
+  showSelected(selectEl.value);
+
+  // On user change
+  selectEl.addEventListener("change", function() {
+    showSelected(this.value);
+  });
+});
+</script>
+
+</div>
+
+<!-- 2) Blocks for each semester-year -->
+<div data-semester-year="summer-2025">
+  <!-- _includes/teaching/pattern/summer-2025.liquid -->
+
+<div class="course-semester-info">
+  <p><strong>Credits:</strong> 3</p>
+  <p><strong>Course Hours:</strong> Lecture; <em>TuTh 6:30 PM – 9:10 PM</em> (Remote)</p>
+  <p><strong>Term Dates:</strong> Jun 23 – Aug 1, 2025</p>
+  <p><strong>Office Hours:</strong> Monday 7:00 PM – 8:00 PM</p>
+  <p><strong>Grader:</strong> Kristopher Kodweis (<a href="mailto:kkodweis@buffalo.edu">kkodweis@buffalo.edu</a>)</p>
+  <p><strong>Grader Office Hours:</strong> Thursday 6:30 PM – 7:30 PM</p>
+  <hr>
+
+  <table class="styled-table">
+    <thead>
+      <tr>
+        <th>Week</th>
+        <th>Session</th>
+        <th>Date</th>
+        <th>Paper(s) / Topic</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>Session 1</td>
+        <td>June 24, 2025</td>
+        <td>
+          <strong>Back-Propagation</strong> (Rumelhart, Hinton &amp; Williams, 1986)<br>
+          <strong>Dropout</strong> (Srivastava et al., 2014)
+        </td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Session 2</td>
+        <td>June 26, 2025</td>
+        <td>
+          <strong>ReLU</strong> (Nair &amp; Hinton, 2010)<br>
+          <strong>Adam</strong> (Kingma &amp; Ba, 2014)
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Session 3</td>
+        <td>July 1, 2025</td>
+        <td>
+          <strong>Batch Normalization</strong> (Ioffe &amp; Szegedy, 2015)<br>
+          <strong>RNN Encoder–Decoder</strong> (Cho et al., 2014)
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Session 4</td>
+        <td>July 3, 2025</td>
+        <td>
+          <strong>AlexNet</strong> (Krizhevsky et al., 2012)<br>
+          <strong>VGG</strong> (Simonyan &amp; Zisserman, 2014)
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Session 5</td>
+        <td>July 8, 2025</td>
+        <td>
+          <strong>ResNet</strong> (He et al., 2015)<br>
+          <strong>Inception</strong> (Szegedy et al., 2015)
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>Session 6</td>
+        <td>July 10, 2025</td>
+        <td>
+          <strong>U-Net</strong> (Ronneberger et al., 2015)<br>
+          <strong>Faster R-CNN</strong> (Ren et al., 2015)
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Session 7</td>
+        <td>July 15, 2025</td>
+        <td>
+          <strong>YOLO</strong> (Redmon et al., 2016)<br>
+          <strong>Mask R-CNN</strong> (He et al., 2017)
+        </td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>Session 8</td>
+        <td>July 17, 2025</td>
+        <td>
+          <strong>EfficientNet</strong> (Tan &amp; Le, 2019)<br>
+          <strong>Attention Is All You Need</strong> (Vaswani et al., 2017)
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Session 9</td>
+        <td>July 22, 2025</td>
+        <td>
+          <strong>BERT</strong> (Devlin et al., 2018)<br>
+          <strong>GPT-2</strong> (Radford et al., 2019)
+        </td>
+      </tr>
+      <tr>
+        <td>5</td>
+        <td>Session 10</td>
+        <td>July 24, 2025</td>
+        <td>
+          <strong>RoBERTa</strong> (Liu et al., 2019)<br>
+          <strong>T5</strong> (Raffel et al., 2020)
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Session 11</td>
+        <td>July 29, 2025</td>
+        <td>
+          <strong>Graph Attention Networks</strong> (Veličković et al., 2018)<br>
+          <strong>Deep Graph Infomax</strong> (Veličković et al., 2019)
+        </td>
+      </tr>
+      <tr>
+        <td>6</td>
+        <td>Session 12</td>
+        <td>July 31, 2025</td>
+        <td>
+          <strong>Adversarial Examples in the Physical World</strong> (Kurakin et al., 2016)<br>
+          <strong>Fast is Better than Free</strong> (Wong et al., 2020)
+        </td>
+      </tr>
+      <tr>
+        <td>7</td>
+        <td>Capstone</td>
+        <td>August 1, 2025</td>
+        <td>Course Wrap-Up &amp; Future Directions</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h3>Evaluation Components</h3>
+  <table class="evaluation-table">
+    <thead>
+      <tr>
+        <th>Component</th>
+        <th>Weight / Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Attendance</strong></td>
+        <td>10% (Random Attendance Check)</td>
+      </tr>
+      <tr>
+        <td><strong>Programming Assignments</strong></td>
+        <td>30% (2 PAs)</td>
+      </tr>
+      <tr>
+        <td><strong>Weekly Quizzes</strong></td>
+        <td>5% (Weekly Online Quiz)</td>
+      </tr>
+      <tr>
+        <td><strong>Midterm</strong></td>
+        <td>25%</td>
+      </tr>
+      <tr>
+        <td><strong>Final</strong></td>
+        <td>30%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+</div>
+
+<div data-semester-year="fall-2024" style="display:none;">
+
+</div>
+
+<div data-semester-year="spring-2026" style="display:none;">
+
+</div>
+
+<h3>Note on Logistics</h3>
+<ul>
+  <li>A week-ahead notice for mid-term, based on the pace of the course.</li>
+  <li>The logistic is <span style="color:red;">subject to change</span> based on
+      the overall pace and the performance of the class.</li>
+</ul>
+
+<h2>Grading</h2>
+<p>The following is the outline of the grading:</p>
+
+
+
+<h3>Grading Rubric</h3>
+<p>
+  This course is <strong>absolute</strong> grading, meaning no curve, as there is a certain standard we need to uphold
+  for students to have a good knowledge of algorithm.
+</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>95-100</td>
+<td>A</td>
+      <td>70-74</td>
+<td>C+</td>
+    </tr>
+    <tr>
+      <td>90-94</td>
+<td>A-</td>
+      <td>65-69</td>
+<td>C</td>
+    </tr>
+    <tr>
+      <td>85-89</td>
+<td>B+</td>
+      <td>60-64</td>
+<td>C-</td>
+    </tr>
+    <tr>
+      <td>80-84</td>
+<td>B</td>
+      <td>55-59</td>
+<td>D</td>
+    </tr>
+    <tr>
+      <td>75-79</td>
+<td>B-</td>
+      <td>0-54</td>
+<td>F</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<h3>AI Research Reading List</h3>
+
+<h4>Neural Network Foundations</h4>
+<ul>
+  <li>
+<strong>Back-Propagation</strong> (Rumelhart, Hinton &amp; Williams, 1986) – <a href="https://gwern.net/doc/ai/nn/1986-rumelhart-2.pdf" target="_blank" rel="external nofollow noopener">PDF</a>
+</li>
+  <li>
+<strong>Dropout</strong> (Srivastava et al., 2014) – <a href="https://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf" target="_blank" rel="external nofollow noopener">PDF</a>
+</li>
+  <li>
+<strong>ReLU</strong> (Nair &amp; Hinton, 2010) – <a href="https://www.cs.toronto.edu/~fritz/absps/reluICML.pdf" target="_blank" rel="external nofollow noopener">PDF</a>
+</li>
+  <li>
+<strong>Adam</strong> (Kingma &amp; Ba, 2014) – <a href="https://arxiv.org/abs/1412.6980" target="_blank" rel="external nofollow noopener">arXiv:1412.6980</a>
+</li>
+  <li>
+<strong>Batch Normalization</strong> (Ioffe &amp; Szegedy, 2015) – <a href="https://arxiv.org/abs/1502.03167" target="_blank" rel="external nofollow noopener">arXiv:1502.03167</a>
+</li>
+  <li>
+<strong>RNN Encoder–Decoder</strong> (Cho et al., 2014) – <a href="https://aclanthology.org/D14-1179.pdf" target="_blank" rel="external nofollow noopener">PDF</a>
+</li>
+</ul>
+
+<h4>Computer Vision</h4>
+<ul>
+  <li>
+<strong>AlexNet</strong> (Krizhevsky, Sutskever &amp; Hinton, 2012) – <a href="https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" target="_blank" rel="external nofollow noopener">NeurIPS 2012 PDF</a>
+</li>
+  <li>
+<strong>VGG</strong> (Simonyan &amp; Zisserman, 2014) – <a href="https://arxiv.org/abs/1409.1556" target="_blank" rel="external nofollow noopener">arXiv:1409.1556</a>
+</li>
+  <li>
+<strong>ResNet</strong> (He et al., 2015) – <a href="https://arxiv.org/abs/1512.03385" target="_blank" rel="external nofollow noopener">arXiv:1512.03385</a>
+</li>
+  <li>
+<strong>Inception Net</strong> (Szegedy et al., 2015) – <a href="https://arxiv.org/abs/1409.4842" target="_blank" rel="external nofollow noopener">arXiv:1409.4842</a>
+</li>
+  <li>
+<strong>U-Net</strong> (Ronneberger et al., 2015) – <a href="https://arxiv.org/abs/1505.04597" target="_blank" rel="external nofollow noopener">arXiv:1505.04597</a>
+</li>
+  <li>
+<strong>Faster R-CNN</strong> (Ren et al., 2015) – <a href="https://arxiv.org/abs/1506.01497" target="_blank" rel="external nofollow noopener">arXiv:1506.01497</a>
+</li>
+  <li>
+<strong>YOLO</strong> (Redmon et al., 2016) – <a href="https://arxiv.org/abs/1506.02640" target="_blank" rel="external nofollow noopener">arXiv:1506.02640</a>
+</li>
+  <li>
+<strong>Mask R-CNN</strong> (He et al., 2017) – <a href="https://arxiv.org/abs/1703.06870" target="_blank" rel="external nofollow noopener">arXiv:1703.06870</a>
+</li>
+  <li>
+<strong>EfficientNet</strong> (Tan &amp; Le, 2019) – <a href="https://arxiv.org/abs/1905.11946" target="_blank" rel="external nofollow noopener">arXiv:1905.11946</a>
+</li>
+</ul>
+
+<h4>Natural Language Processing</h4>
+<ul>
+  <li>
+<strong>BERT</strong> (Devlin et al., 2018) – <a href="https://arxiv.org/abs/1810.04805" target="_blank" rel="external nofollow noopener">arXiv:1810.04805</a>
+</li>
+  <li>
+<strong>GPT-2</strong> (Radford et al., 2019) – <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" target="_blank" rel="external nofollow noopener">PDF</a>
+</li>
+  <li>
+<strong>RoBERTa</strong> (Liu et al., 2019) – <a href="https://arxiv.org/abs/1907.11692" target="_blank" rel="external nofollow noopener">arXiv:1907.11692</a>
+</li>
+  <li>
+<strong>T5</strong> (Raffel et al., 2020) – <a href="https://arxiv.org/abs/1910.10683" target="_blank" rel="external nofollow noopener">arXiv:1910.10683</a>
+</li>
+  <li>
+<strong>GPT-3</strong> (Brown et al., 2020) – <a href="https://arxiv.org/abs/2005.14165" target="_blank" rel="external nofollow noopener">arXiv:2005.14165</a>
+</li>
+</ul>
+
+<h4>Graph Neural Networks</h4>
+<ul>
+  <li>
+<strong>Graph Attention Networks</strong> (Veličković et al., 2018) – <a href="https://arxiv.org/abs/1710.10903" target="_blank" rel="external nofollow noopener">arXiv:1710.10903</a>
+</li>
+  <li>
+<strong>Deep Graph Infomax</strong> (Veličković et al., 2019) – <a href="https://arxiv.org/abs/1809.10341" target="_blank" rel="external nofollow noopener">arXiv:1809.10341</a>
+</li>
+</ul>
+
+<h4>Adversarial Machine Learning</h4>
+<ul>
+  <li>
+<strong>Adversarial Examples in the Physical World</strong> (Kurakin, Goodfellow &amp; Bengio, 2016) – <a href="https://arxiv.org/abs/1607.02533" target="_blank" rel="external nofollow noopener">arXiv:1607.02533</a>
+</li>
+  <li>
+<strong>Fast Is Better Than Free</strong> (Wong, Rice &amp; Kolter, 2020) – <a href="https://arxiv.org/abs/2001.03994" target="_blank" rel="external nofollow noopener">arXiv:2001.03994</a>
+</li>
+</ul>
+
+<h4>Continual Learning</h4>
+<ul>
+  <li>
+<strong>Overcoming Catastrophic Forgetting</strong> (Kirkpatrick et al., 2017) – <a href="https://arxiv.org/abs/1612.00796" target="_blank" rel="external nofollow noopener">arXiv:1612.00796</a>
+</li>
+  <li>
+<strong>Learning without Forgetting</strong> (Li &amp; Hoiem, 2018) – <a href="https://arxiv.org/abs/1606.09282" target="_blank" rel="external nofollow noopener">arXiv:1606.09282</a>
+</li>
+</ul>
+
+
+
+
     
 
     
   </article>
 </div>
 
+            </div>
+            <!-- sidebar, which will move to the top on a small screen -->
+            <div class="col-sm-3">
+              <nav id="toc-sidebar" class="sticky-top">
+                <!-- The TOC is injected by JS or jekyll-toc plugin -->
+              </nav>
+            </div>
+          </div>
+        
       
     </div>
 
@@ -273,7 +758,7 @@
       Guo. 
       
       
-        Last updated: May 29, 2025.
+        Last updated: June 20, 2025.
       
     </div>
   </footer>
@@ -318,6 +803,9 @@
   <script defer src="https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js" integrity="sha256-ZgMyDAIYDYGxbcpJcfUnYwNevG/xi9OHKaR/8GK+jWc=" crossorigin="anonymous"></script>
   <script defer src="/personal/assets/js/zoom.js?85ddb88934d28b74e78031fd54cf8308"></script>
 
+
+  <!-- Sidebar Table of Contents -->
+  <script defer src="/personal/assets/js/bootstrap-toc.min.js?c82ff4de8b0955d6ff14f5b05eed7eb6"></script>
 
 
 <!-- Bootstrap Table -->
@@ -460,6 +948,52 @@
     <script>
       window.addEventListener("load", function() {
         // If page.back_link is present, show a back button
+        
+        // If page.back_text is missing, default to "Back"
+        
+
+        // We'll build two versions of the snippet:
+        // 1) A <div> version for the TOC sidebar (no bullet marker)
+        // 2) A <li> version for the navbar fallback
+
+        const tocHTML = `
+          <div class="back-link" style="margin-top:1rem;">
+            <a href="/personal/teaching" style="text-decoration: none; display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>Courses Page</span>
+            </a>
+          </div>
+        `;
+
+        const navHTML = `
+          <li class="nav-item back-link" style=""display: inline-flex; align-items: center;"">
+            <a class="nav-link" href="/personal/teaching" style="display: inline-flex; align-items: center;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                  viewBox="0 0 24 24" style="margin-right:0.4rem;">
+                <path d="M0 0h24v24H0z" fill="none"/>
+                <path d="M8 7v4L2 6l6-5v4h5a8 8 0 1 1 0 16H4v-2h9a6 6 0 1 0 0-12H8z"/>
+              </svg>
+              <span>Courses Page</span>
+            </a>
+          </li>
+        `;
+
+        // 1) If #toc-sidebar exists, we insert the "tocHTML" (a <div>)
+        let tocSidebar = document.getElementById("toc-sidebar");
+        if (tocSidebar) {
+          tocSidebar.insertAdjacentHTML("beforeend", tocHTML);
+        } else {
+          // 2) Otherwise, we append the "navHTML" (<li>) to the navbar
+          //    so user sees the link in the top nav
+          let navbarUl = document.querySelector("#navbarNav ul.navbar-nav");
+          if (navbarUl) {
+            navbarUl.insertAdjacentHTML("beforeend", navHTML);
+          }
+        }
         
       });
       </script>
