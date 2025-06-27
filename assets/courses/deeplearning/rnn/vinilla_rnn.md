@@ -5,7 +5,7 @@ description:
 related_publications: false
 toc:
     sidebar: right
-back_link: '/teaching/deeplearnig'
+back_link: '/teaching/deeplearning'
 back_text: 'Deep Learning'
 number_heading: true
 enable_heading_styles: true
