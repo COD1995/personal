@@ -13,13 +13,11 @@ back_text: 'Courses Page'
 enable_heading_styles: true
 
 semesters:
+  - value: "summer-2026"
+    label: "Summer 2026"
+    selected: true
   - value: "summer-2025"
     label: "Summer 2025"
-    selected: true
-  - value: "fall-2024"
-    label: "Fall 2024"
-  - value: "spring-2026"
-    label: "Spring 2026"
 ---
 
 <div class="course-description-box">
@@ -48,30 +46,25 @@ semesters:
   </li>
 </ul>
 
-<!-- Outline heading + short intro text -->
+<!-- Outline heading + selector -->
 <div class="outline-top">
-  <h2>Course Outline and Logistics</h2>
+  <div class="outline-top-row">
+    <h2>Course Outline and Logistics</h2>
+    <div class="semester-year-snippet">
+      {% include semester-year-toggle.liquid semesters=page.semesters %}
+    </div>
+  </div>
   <p>
     Check out the <a href="#lecture-notes">course material</a> under lecture notes.
   </p>
 </div>
 
-<!-- The semester-year selector snippet, placed just below the outline -->
-<div class="semester-year-snippet">
-  {% include semester-year-toggle.liquid semesters=page.semesters %}
+<div data-semester-year="summer-2026">
+  {% include teaching/intro_pr/summer-2026.liquid %}
 </div>
 
-<!-- 2) Blocks for each semester-year -->
-<div data-semester-year="summer-2025">
+<div data-semester-year="summer-2025" style="display:none;">
   {% include teaching/intro_pr/summer-2025.liquid %}
-</div>
-
-<div data-semester-year="fall-2024" style="display:none;">
-
-</div>
-
-<div data-semester-year="spring-2026" style="display:none;">
-
 </div>
 
 <h3>Note on Logistics</h3>

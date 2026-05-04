@@ -40,29 +40,21 @@ semesters:
 </ul>
 
 
-<!-- Outline heading + short intro text -->
+<!-- Outline heading + selector -->
 <div class="outline-top">
-  <h2>Course Outline and Logistics</h2>
+  <div class="outline-top-row">
+    <h2>Course Outline and Logistics</h2>
+    <div class="semester-year-snippet">
+      {% include semester-year-toggle.liquid semesters=page.semesters %}
+    </div>
+  </div>
   <p>
     Check out the <a href="#lecture-notes">course material</a> under lecture notes.
   </p>
 </div>
 
-<!-- The semester-year selector snippet, placed just below the outline -->
-<div class="semester-year-snippet">
-  {% include semester-year-toggle.liquid semesters=page.semesters %}
-</div>
-
-<!-- 2) Blocks for each semester-year -->
 <div data-semester-year="spring-2025">
   {% include teaching/ai_basic/spring-2025.liquid %}
-</div>
-
-<div data-semester-year="fall-2024" style="display:none;">
-
-</div>
-
-<div data-semester-year="spring-2026" style="display:none;">
 </div>
 
 <h3>Note on Logistics</h3>

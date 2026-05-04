@@ -1,177 +1,82 @@
-{% comment %}
-Usage:
-  {% include slide.liquid folder="/assets/courses/deeplearning/cnn/dnn_cnn" %}
-{% endcomment %}
-
-{% assign target_folder = include.folder %}
-{% assign my_slides = site.static_files 
-  | where_exp: "file", "file.path contains target_folder" 
-  | sort: "path" 
-%}
-
-<div class="slideshow-wrapper">
-  <!-- TOP BAR -->
-  <div class="slideshow-top-controls">
-    <!-- Hamburger (Preview Button) pinned on the left -->
-    <div class="preview-left">
-      <div class="slide-preview-button" onclick="togglePreview()">
-        &#9776;  <!-- or any icon you like -->
-      </div>
-    </div>
-
-    <!-- The center group: arrows + slide counter -->
-    <div class="controls-center">
-      <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-      <div class="slide-counter">
-        <input 
-          type="number"
-          id="slideNumberInput"
-          class="slide-number-input"
-          min="1"
-          max="{{ my_slides.size }}"
-          value="1"
-        />
-        <span class="slash">/</span>
-        <span id="slideTotal">{{ my_slides.size }}</span>
-      </div>
-      <a class="next" onclick="plusSlides(1)">&#10095;</a>
-    </div>
+{%- comment -%}
+Slide deck — drag the slider to navigate. Arrow keys also work.
+{%- endcomment -%}
+{%- assign folder = include.folder -%}
+{%- unless folder | slice: 0, 1 == '/' -%}
+  {%- assign folder = '/' | append: folder -%}
+{%- endunless -%}
+{%- unless folder | slice: -1, 1 == '/' -%}
+  {%- assign folder = folder | append: '/' -%}
+{%- endunless -%}
+{%- assign all = site.static_files | sort: 'path' -%}
+{%- assign idx = 0 -%}
+<div class="slide-deck" tabindex="0">
+  <div class="slide-stage">
+    {%- for f in all -%}
+      {%- if f.path contains folder -%}
+        {%- assign ext = f.extname | downcase -%}
+        {%- if ext == '.png' or ext == '.jpg' or ext == '.jpeg' -%}
+          {%- assign idx = idx | plus: 1 -%}
+          {%- if idx == 1 -%}
+            <img class="slide active" src="{{ f.path | relative_url }}" alt="Slide {{ idx }}">
+          {%- else -%}
+            <img class="slide" data-src="{{ f.path | relative_url }}" alt="Slide {{ idx }}">
+          {%- endif -%}
+        {%- endif -%}
+      {%- endif -%}
+    {%- endfor -%}
+    <div class="slide-hint slide-hint-left" aria-hidden="true"><span>‹</span></div>
+    <div class="slide-hint slide-hint-right" aria-hidden="true"><span>›</span></div>
   </div>
-
-  <!-- Main layout: side preview panel + main slideshow area -->
-  <div class="slide-layout">
-    <!-- Collapsible Preview Panel -->
-    <div id="slidePreviewPanel" class="slide-preview-panel">
-      <div class="slide-preview-header">
-      </div>
-      <div class="slide-preview-thumbs">
-        {% for file in my_slides %}
-        <div class="slide-thumbnail" onclick="showSlides({{ forloop.index }})">
-          <img src="{{ file.path | relative_url }}" alt="Slide {{ forloop.index }}" />
-          <span>Slide {{ forloop.index }}</span>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-
-    <!-- Main Slide Content -->
-    <div class="main-slide-content">
-      <div class="slideshow-container">
-        {% for file in my_slides %}
-          <div class="mySlide">
-            <img 
-              src="{{ file.path | relative_url }}"
-              alt="{{ file.name }}"
-            />
-          </div>
-        {% endfor %}
-      </div>
-
-      <!-- Bottom Range Slider + Progress Bar -->
-      <div class="slideshow-footer-overlap">
-        <div class="slide-range-wrapper">
-          <div class="slide-progress-overlap">
-            <div class="slide-progress-bar-overlap"></div>
-          </div>
-          <input
-            type="range"
-            id="slideRange"
-            min="1"
-            max="{{ my_slides.size }}"
-            value="1"
-            step="1"
-            class="slide-range-overlap"
-          />
-        </div>
-      </div>
-    </div>
+  <div class="slide-meta">
+    <input class="slide-slider" type="range" min="1" max="{{ idx }}" value="1" step="1" aria-label="Jump to slide">
+    <span class="slide-counter"><span class="slide-current">1</span> <span class="slide-sep">/</span> <span class="slide-total">{{ idx }}</span></span>
   </div>
 </div>
-
 <script>
-  let slideIndex = 1;
-  const totalSlides = {{ my_slides.size }};
+(function () {
+  document.querySelectorAll('.slide-deck').forEach(function (deck) {
+    var slides = Array.prototype.slice.call(deck.querySelectorAll('.slide'));
+    if (!slides.length) return;
+    var total = slides.length;
+    var counter = deck.querySelector('.slide-current');
+    var slider = deck.querySelector('.slide-slider');
+    var i = 0;
 
-  // Initialize
-  showSlides(slideIndex);
-
-  // Next/previous controls
-  function plusSlides(n) {
-    showSlides(slideIndex + n);
-  }
-
-  // Show a specific slide
-  function showSlides(n) {
-    const slides = document.getElementsByClassName("mySlide");
-    if (n > slides.length) n = 1;
-    if (n < 1) n = slides.length;
-    slideIndex = n;
-
-    // Hide all slides
-    for (let i = 0; i < slides.length; i++) {
-      slides[i].style.display = "none";
+    function ensureLoaded(slide) {
+      if (slide && !slide.src && slide.dataset.src) slide.src = slide.dataset.src;
     }
-    // Show current slide
-    slides[slideIndex - 1].style.display = "block";
-
-    // Update typed number input
-    const slideNumberInput = document.getElementById("slideNumberInput");
-    if (slideNumberInput) {
-      slideNumberInput.value = slideIndex;
+    function show(n) {
+      i = Math.max(0, Math.min(total - 1, n));
+      slides.forEach(function (s, j) { s.classList.toggle('active', j === i); });
+      for (var k = -2; k <= 2; k++) {
+        var t = i + k;
+        if (t >= 0 && t < total) ensureLoaded(slides[t]);
+      }
+      if (counter) counter.textContent = i + 1;
+      if (slider && slider.value !== String(i + 1)) slider.value = String(i + 1);
     }
 
-    // Update the range slider
-    const slideRange = document.getElementById("slideRange");
-    if (slideRange) {
-      slideRange.value = slideIndex;
+    if (slider) {
+      slider.addEventListener('input', function () { show(parseInt(slider.value, 10) - 1); });
     }
 
-    // Update the progress bar
-    updateProgressBar(slideIndex, slides.length);
-  }
+    var stage = deck.querySelector('.slide-stage');
+    stage.addEventListener('click', function (e) {
+      var rect = stage.getBoundingClientRect();
+      ((e.clientX - rect.left) < rect.width / 2) ? show(i - 1) : show(i + 1);
+    });
 
-  function updateProgressBar(current, total) {
-    const bar = document.querySelector(".slide-progress-bar-overlap");
-    if (!bar) return;
-    const percent = (current / total) * 100;
-    bar.style.width = percent + "%";
-  }
+    deck.addEventListener('keydown', function (e) {
+      var t = e.target;
+      if (t && t.tagName === 'INPUT') return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); show(i - 1); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); show(i + 1); }
+      else if (e.key === 'Home') { e.preventDefault(); show(0); }
+      else if (e.key === 'End') { e.preventDefault(); show(total - 1); }
+    });
 
-  // Keyboard navigation
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "ArrowLeft") {
-      plusSlides(-1);
-    } else if (e.key === "ArrowRight") {
-      plusSlides(1);
-    }
+    show(0);
   });
-
-  // Typed changes
-  const slideNumberInput = document.getElementById("slideNumberInput");
-  if (slideNumberInput) {
-    slideNumberInput.addEventListener("change", function() {
-      let val = parseInt(this.value, 10);
-      if (!isNaN(val)) showSlides(val);
-    });
-  }
-
-  // Range slider changes
-  const slideRange = document.getElementById("slideRange");
-  if (slideRange) {
-    slideRange.addEventListener("input", function() {
-      let val = parseInt(this.value, 10);
-      if (!isNaN(val)) showSlides(val);
-    });
-  }
-
-  // Toggle the side preview panel
-  function togglePreview() {
-    const panel = document.getElementById("slidePreviewPanel");
-    // Toggle class "open"
-    if (panel.classList.contains("open")) {
-      panel.classList.remove("open");
-    } else {
-      panel.classList.add("open");
-    }
-  }
+})();
 </script>

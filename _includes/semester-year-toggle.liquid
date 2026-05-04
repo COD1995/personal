@@ -1,20 +1,17 @@
 <!-- _includes/semester-year-toggle.liquid -->
 
+{% if include.semesters.size > 1 %}
 <div class="semester-selector">
-  <label for="semesterYearSelect" class="semester-label">
-    <strong>Select Semester &amp; Year:</strong>
-  </label>
-  <select id="semesterYearSelect" class="semester-select">
-    {% for s in include.semesters %}
-      <option 
-        value="{{ s.value }}"
-        {% if s.selected %} selected {% endif %}
-      >
-        {{ s.label }}
-      </option>
-    {% endfor %}
-  </select>
+  <label for="semesterYearSelect" class="semester-label">Semester</label>
+  <div class="semester-select-wrap">
+    <select id="semesterYearSelect" class="semester-select">
+      {% for s in include.semesters %}
+        <option value="{{ s.value }}" {% if s.selected %}selected{% endif %}>{{ s.label }}</option>
+      {% endfor %}
+    </select>
+  </div>
 </div>
+{% endif %}
 
 <script>
 document.addEventListener("DOMContentLoaded", function() {

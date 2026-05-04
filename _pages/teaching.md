@@ -1,61 +1,31 @@
 ---
 layout: page
-title: courses
+title: Teaching
 permalink: /teaching/
-description: A collection of courses I have taught, complete with resources and materials, covering key AI-focused courses within the Computer Science and Engineering (CSE) department. I <b>highly recommand</b> using your computer, instead of smart devices, to view the course materials.
-nav: true
-nav_order: 3
-display_categories: [undergraduate/graduate , graduate]
-horizontal: false
+description: Courses I have taught at the University at Buffalo, with full lecture notes and materials.
 ---
 
-<div class="project">
-{% if site.enable_teaching_categories and page.display_categories %}
-  <!-- Display categorized courses -->
-  {% for category in page.display_categories %}
-  <a id="{{ category }}" href=".#{{ category }}">
-    <h2 class="teaching-category">{{ category }}</h2>
-  </a>
-  {% assign categorized_courses = site.teaching | where: "category", category %}
-  {% assign sorted_courses = categorized_courses | sort: "year" | reverse %}
-  <!-- Generate cards for each course -->
-  {% if page.horizontal %}
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for course in sorted_courses %}
-      {% include course_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-  {% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for course in sorted_courses %}
-      {% include course.liquid %}
-    {% endfor %}
-  </div>
-  {% endif %}
-  {% endfor %}
+A collection of courses I have led, spanning core areas of AI in the Computer Science and Engineering department. For best readability, view the course materials on a desktop browser.
 
-{% else %}
-
-<!-- Display courses without categories -->
-{% assign sorted_courses = site.teaching | sort: "year" | reverse %}
-
-<!-- Generate cards for each course -->
-{% if page.horizontal %}
-  <div class="container">
-    <div class="row row-cols-1 row-cols-md-2">
-    {% for course in sorted_courses %}
-      {% include course_horizontal.liquid %}
-    {% endfor %}
-    </div>
-  </div>
-{% else %}
-  <div class="row row-cols-1 row-cols-md-3">
-    {% for course in sorted_courses %}
-      {% include course.liquid %}
-    {% endfor %}
-  </div>
-{% endif %}
-{% endif %}
+<div class="course-cards">
+  <article class="course-card">
+    <span class="course-code">CSE 431/531</span>
+    <h3 class="course-name"><a href="{{ '/teaching/algo/' | relative_url }}">Algorithm Analysis &amp; Design</a></h3>
+    <p class="course-blurb">Asymptotic analysis, divide-and-conquer, greedy, DP, graphs, NP-completeness, approximation.</p>
+  </article>
+  <article class="course-card">
+    <span class="course-code">EAS 510</span>
+    <h3 class="course-name"><a href="{{ '/teaching/aibasic/' | relative_url }}">Basics of Artificial Intelligence</a></h3>
+    <p class="course-blurb">Hands-on introduction to PyTorch — tensors, workflows, classification, computer vision, custom datasets.</p>
+  </article>
+  <article class="course-card">
+    <span class="course-code">CSE 676</span>
+    <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
+    <p class="course-blurb">Neural networks from the ground up: optimization, CNNs, RNNs, GNNs, with expanded notes from <em>Dive into Deep Learning</em>.</p>
+  </article>
+  <article class="course-card">
+    <span class="course-code">CSE 455/555</span>
+    <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
+    <p class="course-blurb">Statistical foundations of pattern recognition — Bayes decision theory, parameter estimation, classification.</p>
+  </article>
 </div>
