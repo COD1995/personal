@@ -28,4 +28,9 @@ A collection of courses I have led, spanning core areas of AI in the Computer Sc
     <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
     <p class="course-blurb">Statistical foundations of pattern recognition — Bayes decision theory, parameter estimation, classification.</p>
   </article>
+  <article class="course-card">
+    <span class="course-code">CSE 474/574</span>
+    <h3 class="course-name"><a href="{{ '/teaching/introml/' | relative_url }}">Intro to Machine Learning</a></h3>
+    <p class="course-blurb">First course in ML — supervised &amp; unsupervised learning, neural networks, regularization, model evaluation, with Python / scikit-learn / PyTorch.</p>
+  </article>
 </div>

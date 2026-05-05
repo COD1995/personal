@@ -52,6 +52,10 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
       <time class="course-date">Summer 2024</time>
       <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
     </article>
+    <article class="course-card" data-year="2024">
+      <time class="course-date">Spring 2024</time>
+      <h3 class="course-name"><a href="{{ '/teaching/introml/' | relative_url }}">Intro to Machine Learning</a></h3>
+    </article>
     <article class="course-card" data-year="2023">
       <time class="course-date">Fall 2023</time>
       <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
