@@ -931,6 +931,110 @@ mjx-container[jax="SVG"][display="true"] { margin: 1em 0; }
 }
 .page-body p > mjx-container[jax="SVG"]:only-child { font-size: 1.05em; }
 
+/* ---------- Visitors map ---------- */
+.visitors {
+  margin-top: 3.5rem;
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--rule);
+}
+.visitors-title {
+  font-family: var(--sans);
+  font-size: 1.45rem;
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.35rem;
+  border-bottom: 1px solid var(--rule);
+}
+.visitors-summary {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  color: var(--muted);
+  margin: 0.9rem 0 1rem;
+}
+.visitors-summary strong {
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.visitors-updated { opacity: 0.75; }
+
+.visitor-map-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem 0.75rem;
+}
+#visitor-map {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-height: 240px;
+}
+#visitor-map .country {
+  fill: var(--code-bg);
+  stroke: var(--rule);
+  stroke-width: 0.4;
+  transition: stroke .15s, stroke-width .15s, opacity .15s;
+}
+#visitor-map .country.has-data {
+  stroke: rgba(139, 58, 58, 0.35);
+}
+#visitor-map .country.hover {
+  stroke: var(--accent);
+  stroke-width: 1.2;
+}
+
+.visitor-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--text);
+  color: var(--bg);
+  font-family: var(--sans);
+  font-size: 0.82rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity .12s;
+  z-index: 5;
+  font-variant-numeric: tabular-nums;
+}
+.visitor-tooltip.visible { opacity: 1; }
+
+.visitor-legend {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 0.4rem;
+  padding-left: 0.25rem;
+}
+.visitor-legend-bar {
+  display: inline-block;
+  flex: 0 0 100px;
+  height: 6px;
+  border-radius: 3px;
+  background: linear-gradient(to right, var(--code-bg), var(--accent));
+  border: 1px solid var(--rule);
+}
+
+.visitors-note {
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin: 0.9rem 0 0;
+  line-height: 1.5;
+}
+.visitors-error {
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 0;
+}
+
 /* ---------- Misc ---------- */
 .divider { border: none; border-top: 1px solid var(--rule); margin: 4rem 0 2rem; }
 

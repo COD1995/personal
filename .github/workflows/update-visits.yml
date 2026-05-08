@@ -1,0 +1,85 @@
+name: Update visitor stats
+
+on:
+  schedule:
+    # Daily at 03:00 UTC. Adjust as desired; GoatCounter aggregates hourly.
+    - cron: "0 3 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-visits
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch GoatCounter location stats
+        env:
+          GC_TOKEN: ${{ secrets.GOATCOUNTER_TOKEN }}
+          GC_SITE: ${{ vars.GOATCOUNTER_SITE || 'vikingloard' }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${GC_TOKEN:-}" ]]; then
+            echo "::error::GOATCOUNTER_TOKEN secret is not set."
+            exit 1
+          fi
+
+          start="2020-01-01"
+          end="$(date -u +%Y-%m-%d)"
+
+          # /api/v0/stats/locations returns per-country breakdown.
+          # Paginate until `more` is false (cap at 50 pages as a safety net).
+          : > /tmp/all_stats.json
+          after=""
+          for i in $(seq 1 50); do
+            url="https://${GC_SITE}.goatcounter.com/api/v0/stats/locations?start=${start}&end=${end}&limit=200"
+            if [[ -n "$after" ]]; then
+              url="${url}&after=${after}"
+            fi
+            curl -fsSL \
+              -H "Authorization: Bearer $GC_TOKEN" \
+              -H "Accept: application/json" \
+              "$url" > /tmp/page.json
+            jq -c '.stats[]?' /tmp/page.json >> /tmp/all_stats.json
+            more=$(jq -r '.more // false' /tmp/page.json)
+            if [[ "$more" != "true" ]]; then break; fi
+            # Pagination cursor — GoatCounter uses the last id seen.
+            after=$(jq -r '.stats[-1].id // ""' /tmp/page.json)
+            if [[ -z "$after" ]]; then break; fi
+          done
+
+          # Build the final shape Jekyll will read.
+          jq -s '
+            . as $stats |
+            {
+              updated: (now | todateiso8601),
+              total:   ([$stats[].count] | add // 0),
+              countries: (
+                $stats
+                | map(select((.id // "") != ""))
+                | map({(.id): .count})
+                | add // {}
+              )
+            }
+          ' /tmp/all_stats.json > _data/visits.json
+
+          echo "Wrote _data/visits.json:"
+          jq '{updated, total, country_count: (.countries | length)}' _data/visits.json
+
+      - name: Commit if changed
+        run: |
+          if [[ -n "$(git status --porcelain _data/visits.json)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add _data/visits.json
+            git commit -m "chore(visits): refresh visitor stats"
+            git push
+          else
+            echo "No changes — skipping commit."
+          fi

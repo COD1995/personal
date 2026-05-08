@@ -81,3 +81,5 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
     apply();
   })();
 </script>
+
+{% include visitor-map.liquid %}
