@@ -30,36 +30,67 @@ jobs:
             exit 1
           fi
 
-          start="2020-01-01"
-          end="$(date -u +%Y-%m-%d)"
+          BASE="https://${GC_SITE}.goatcounter.com"
 
-          # /api/v0/stats/locations returns per-country breakdown.
-          # Paginate until `more` is false (cap at 50 pages as a safety net).
-          : > /tmp/all_stats.json
-          after=""
-          for i in $(seq 1 50); do
-            url="https://${GC_SITE}.goatcounter.com/api/v0/stats/locations?start=${start}&end=${end}&limit=200"
-            if [[ -n "$after" ]]; then
-              url="${url}&after=${after}"
-            fi
-            curl -fsSL \
-              -H "Authorization: Bearer $GC_TOKEN" \
+          # Helper: GET with auth, write status to a separate file, never auto-fail
+          # so we can surface the actual error body.
+          gc_get() {
+            local path="$1"
+            local out="$2"
+            curl -sS \
+              -H "Authorization: Bearer ${GC_TOKEN}" \
               -H "Accept: application/json" \
-              "$url" > /tmp/page.json
+              -w "%{http_code}" \
+              -o "$out" \
+              "${BASE}${path}"
+          }
+
+          # 1) Auth sanity check
+          status=$(gc_get "/api/v0/me" /tmp/me.json)
+          if [[ "$status" != "200" ]]; then
+            echo "::error::GoatCounter auth failed (HTTP $status). Body:"
+            cat /tmp/me.json || true
+            exit 1
+          fi
+          echo "Auth OK as: $(jq -r '.user.email // .email // "unknown"' /tmp/me.json)"
+
+          # RFC3339 timestamps — GoatCounter requires date-time, not just date.
+          start="2020-01-01T00:00:00Z"
+          end="$(date -u +%Y-%m-%dT%H:00:00Z)"
+
+          # 2) Paginate /api/v0/stats/locations (offset/limit, max limit=100).
+          : > /tmp/all_stats.json
+          offset=0
+          for i in $(seq 1 100); do
+            qs="start=${start}&end=${end}&limit=100&offset=${offset}"
+            status=$(gc_get "/api/v0/stats/locations?${qs}" /tmp/page.json)
+            if [[ "$status" != "200" ]]; then
+              echo "::error::stats/locations returned HTTP $status. URL: ${BASE}/api/v0/stats/locations?${qs}"
+              cat /tmp/page.json || true
+              exit 1
+            fi
             jq -c '.stats[]?' /tmp/page.json >> /tmp/all_stats.json
+            page_count=$(jq '.stats | length' /tmp/page.json)
             more=$(jq -r '.more // false' /tmp/page.json)
-            if [[ "$more" != "true" ]]; then break; fi
-            # Pagination cursor — GoatCounter uses the last id seen.
-            after=$(jq -r '.stats[-1].id // ""' /tmp/page.json)
-            if [[ -z "$after" ]]; then break; fi
+            if [[ "$more" != "true" || "$page_count" == "0" ]]; then break; fi
+            offset=$((offset + page_count))
           done
 
-          # Build the final shape Jekyll will read.
-          jq -s '
+          # 3) Total pageviews — sum the daily breakdown from /stats/total.
+          status=$(gc_get "/api/v0/stats/total?start=${start}&end=${end}" /tmp/total.json)
+          if [[ "$status" == "200" ]]; then
+            grand_total=$(jq '[.stats[]? | (.daily // .count // 0)] | add // .total // 0' /tmp/total.json 2>/dev/null || echo 0)
+          else
+            echo "::warning::stats/total returned HTTP $status; falling back to sum of locations."
+            grand_total=""
+          fi
+
+          # 4) Assemble _data/visits.json
+          jq -s --arg total "$grand_total" '
             . as $stats |
             {
               updated: (now | todateiso8601),
-              total:   ([$stats[].count] | add // 0),
+              total:   (($total | tonumber? // ([$stats[].count] | add // 0))),
               countries: (
                 $stats
                 | map(select((.id // "") != ""))
