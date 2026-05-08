@@ -14,16 +14,6 @@ A collection of courses I have led, spanning core areas of AI in the Computer Sc
     <p class="course-blurb">Asymptotic analysis, divide-and-conquer, greedy, DP, graphs, NP-completeness, approximation.</p>
   </article>
   <article class="course-card">
-    <span class="course-code">EAS 510</span>
-    <h3 class="course-name"><a href="{{ '/teaching/aibasic/' | relative_url }}">Basics of Artificial Intelligence</a></h3>
-    <p class="course-blurb">Hands-on introduction to PyTorch — tensors, workflows, classification, computer vision, custom datasets.</p>
-  </article>
-  <article class="course-card">
-    <span class="course-code">CSE 676</span>
-    <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
-    <p class="course-blurb">Neural networks from the ground up: optimization, CNNs, RNNs, GNNs, with expanded notes from <em>Dive into Deep Learning</em>.</p>
-  </article>
-  <article class="course-card">
     <span class="course-code">CSE 455/555</span>
     <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
     <p class="course-blurb">Statistical foundations of pattern recognition — Bayes decision theory, parameter estimation, classification.</p>
@@ -32,5 +22,15 @@ A collection of courses I have led, spanning core areas of AI in the Computer Sc
     <span class="course-code">CSE 474/574</span>
     <h3 class="course-name"><a href="{{ '/teaching/introml/' | relative_url }}">Intro to Machine Learning</a></h3>
     <p class="course-blurb">First course in ML — supervised &amp; unsupervised learning, neural networks, regularization, model evaluation, with Python / scikit-learn / PyTorch.</p>
+  </article>
+  <article class="course-card">
+    <span class="course-code">CSE 676</span>
+    <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
+    <p class="course-blurb">Neural networks from the ground up: optimization, CNNs, RNNs, GNNs, with expanded notes from <em>Dive into Deep Learning</em>.</p>
+  </article>
+  <article class="course-card">
+    <span class="course-code">EAS 510</span>
+    <h3 class="course-name"><a href="{{ '/teaching/aibasic/' | relative_url }}">Basics of Artificial Intelligence</a></h3>
+    <p class="course-blurb">Hands-on introduction to PyTorch — tensors, workflows, classification, computer vision, custom datasets.</p>
   </article>
 </div>

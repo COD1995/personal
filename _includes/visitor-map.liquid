@@ -1,9 +1,11 @@
 <section class="visitors">
-  <h2 class="visitors-title">Visitors</h2>
-  <p class="visitors-summary">
-    <strong id="visitors-total">—</strong> page views from
-    <strong id="visitors-countries">—</strong> {% comment %}label set in JS{% endcomment %}<span id="visitors-countries-label">countries</span><span class="visitors-updated" id="visitors-updated"></span>
-  </p>
+  <header class="visitors-header">
+    <h2 class="visitors-title">Visitors</h2>
+    <p class="visitors-summary">
+      <strong id="visitors-total">—</strong> views from
+      <strong id="visitors-countries">—</strong> <span id="visitors-countries-label">countries</span><span class="visitors-updated" id="visitors-updated"></span>
+    </p>
+  </header>
 
   <div class="visitor-map-wrap">
     <svg id="visitor-map"
@@ -12,16 +14,18 @@
          role="img"
          aria-label="World map shaded by visitor counts"></svg>
     <div class="visitor-tooltip" id="visitor-tooltip" aria-hidden="true"></div>
-    <div class="visitor-legend" aria-hidden="true">
+  </div>
+
+  <footer class="visitors-footer">
+    <span class="visitor-legend" aria-hidden="true">
       <span>fewer</span>
       <span class="visitor-legend-bar"></span>
       <span>more</span>
-    </div>
-  </div>
-
-  <p class="visitors-note">
-    Tracking via <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a> — no cookies, no IP storage, country-level only. Refreshed daily.
-  </p>
+    </span>
+    <span class="visitors-note">
+      Tracked via <a href="https://www.goatcounter.com/" target="_blank" rel="noopener">GoatCounter</a> — country-level, no cookies, refreshed daily.
+    </span>
+  </footer>
 </section>
 
 <script type="module">
