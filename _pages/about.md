@@ -28,39 +28,60 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
   <div class="courses-filter">
     <label for="year-select">Year</label>
     <select id="year-select">
-      <option value="all">All</option>
-      <option value="2025" selected>2025</option>
+      <option value="all" selected>All</option>
+      <option value="2025">2025</option>
       <option value="2024">2024</option>
       <option value="2023">2023</option>
     </select>
   </div>
 
   <div class="course-cards">
-    <article class="course-card" data-year="2025">
+    <article class="course-card" data-mode="all">
       <time class="course-date">Summer 2025</time>
       <h3 class="course-name"><a href="{{ '/teaching/algo/' | relative_url }}">Algorithm Analysis &amp; Design</a></h3>
     </article>
-    <article class="course-card" data-year="2025">
+    <article class="course-card" data-mode="all">
       <time class="course-date">Spring 2025</time>
       <h3 class="course-name"><a href="{{ '/teaching/aibasic/' | relative_url }}">Basics of Artificial Intelligence</a></h3>
     </article>
-    <article class="course-card" data-year="2024">
-      <time class="course-date">Fall 2024</time>
+    <article class="course-card" data-mode="all">
+      <time class="course-date">Fall 2024 · Fall 2023</time>
       <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
     </article>
-    <article class="course-card" data-year="2024">
-      <time class="course-date">Summer 2024</time>
+    <article class="course-card" data-mode="all">
+      <time class="course-date">Summer 2024 · Summer 2023</time>
       <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
     </article>
-    <article class="course-card" data-year="2024">
+    <article class="course-card" data-mode="all">
       <time class="course-date">Spring 2024</time>
       <h3 class="course-name"><a href="{{ '/teaching/introml/' | relative_url }}">Intro to Machine Learning</a></h3>
     </article>
-    <article class="course-card" data-year="2023">
+
+    <article class="course-card" data-mode="year" data-year="2025">
+      <time class="course-date">Summer 2025</time>
+      <h3 class="course-name"><a href="{{ '/teaching/algo/' | relative_url }}">Algorithm Analysis &amp; Design</a></h3>
+    </article>
+    <article class="course-card" data-mode="year" data-year="2025">
+      <time class="course-date">Spring 2025</time>
+      <h3 class="course-name"><a href="{{ '/teaching/aibasic/' | relative_url }}">Basics of Artificial Intelligence</a></h3>
+    </article>
+    <article class="course-card" data-mode="year" data-year="2024">
+      <time class="course-date">Fall 2024</time>
+      <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
+    </article>
+    <article class="course-card" data-mode="year" data-year="2024">
+      <time class="course-date">Summer 2024</time>
+      <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
+    </article>
+    <article class="course-card" data-mode="year" data-year="2024">
+      <time class="course-date">Spring 2024</time>
+      <h3 class="course-name"><a href="{{ '/teaching/introml/' | relative_url }}">Intro to Machine Learning</a></h3>
+    </article>
+    <article class="course-card" data-mode="year" data-year="2023">
       <time class="course-date">Fall 2023</time>
       <h3 class="course-name"><a href="{{ '/teaching/deeplearning/' | relative_url }}">Deep Learning</a></h3>
     </article>
-    <article class="course-card" data-year="2023">
+    <article class="course-card" data-mode="year" data-year="2023">
       <time class="course-date">Summer 2023</time>
       <h3 class="course-name"><a href="{{ '/teaching/pattern/' | relative_url }}">Intro to Pattern Recognition</a></h3>
     </article>
@@ -74,7 +95,10 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
     function apply() {
       var y = sel.value;
       cards.forEach(function (c) {
-        c.style.display = (y === 'all' || c.dataset.year === y) ? '' : 'none';
+        var show = (y === 'all')
+          ? c.dataset.mode === 'all'
+          : c.dataset.mode === 'year' && c.dataset.year === y;
+        c.style.display = show ? '' : 'none';
       });
     }
     sel.addEventListener('change', apply);
