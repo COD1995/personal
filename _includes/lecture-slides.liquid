@@ -1,0 +1,300 @@
+<script>
+(function () {
+  var body = document.querySelector('.page-body');
+  if (!body) return;
+
+  // Group every <h2> + everything after it (until the next <h2>) into a section.
+  // Anything BEFORE the first <h2> becomes the "cover" slide (slide 0).
+  // We must walk childNodes (not children) because kramdown leaves display-math
+  // \[ ... \] as raw text nodes between elements; if we skip them, MathJax later
+  // replaces them in place and they appear outside every slide.
+  var nodes = Array.prototype.slice.call(body.childNodes);
+  var groups = [];
+  var current = [];
+
+  for (var i = 0; i < nodes.length; i++) {
+    var node = nodes[i];
+    var isH2 = node.nodeType === Node.ELEMENT_NODE && node.tagName === 'H2';
+    if (isH2) {
+      if (current.length > 0) groups.push(current);
+      current = [node];
+    } else {
+      current.push(node);
+    }
+  }
+  if (current.length > 0) groups.push(current);
+  if (groups.length < 2) return;  // Nothing to slide through.
+
+  // Wrap each group in <section class="lecture-slide">.
+  // appendChild moves text and element nodes alike, so display-math text
+  // nodes go with their surrounding paragraphs.
+  var sections = groups.map(function (group, idx) {
+    var section = document.createElement('section');
+    section.className = 'lecture-slide';
+    section.dataset.slideIndex = String(idx);
+    body.insertBefore(section, group[0]);
+    group.forEach(function (node) { section.appendChild(node); });
+    return section;
+  });
+
+  // ---- Build the toggle in the page header ----
+  var header = document.querySelector('.page-header');
+  var toggle = null;
+  if (header) {
+    header.classList.add('with-toggle');
+    toggle = document.createElement('div');
+    toggle.className = 'lecture-mode-toggle';
+    toggle.setAttribute('role', 'tablist');
+    toggle.innerHTML =
+      '<button type="button" data-mode="scroll" role="tab">Scroll</button>' +
+      '<button type="button" data-mode="slides" role="tab">Slides</button>';
+    var h1 = header.querySelector('h1');
+    if (h1 && h1.nextSibling) header.insertBefore(toggle, h1.nextSibling);
+    else header.appendChild(toggle);
+  }
+
+  // ---- Build the nav bar after the slides ----
+  var nav = document.createElement('div');
+  nav.className = 'lecture-nav';
+  nav.innerHTML =
+    '<button type="button" class="prev" aria-label="Previous slide">‹ Prev</button>' +
+    '<input type="range" min="1" step="1" aria-label="Jump to slide">' +
+    '<span class="counter"><strong class="cur">1</strong> / <span class="total"></span></span>' +
+    '<button type="button" class="next" aria-label="Next slide">Next ›</button>';
+  body.appendChild(nav);
+  var btnPrev = nav.querySelector('.prev');
+  var btnNext = nav.querySelector('.next');
+  var slider  = nav.querySelector('input[type="range"]');
+  var spanCur = nav.querySelector('.cur');
+  var spanTot = nav.querySelector('.total');
+
+  spanTot.textContent = sections.length;
+  slider.max = sections.length;
+  slider.value = 1;
+
+  // ---- State ----
+  var STORAGE_KEY = 'lectureMode:' + location.pathname;
+  var mode = (function () {
+    try {
+      var stored = localStorage.getItem(STORAGE_KEY);
+      if (stored === 'scroll' || stored === 'slides') return stored;
+    } catch (_) {}
+    return 'scroll';
+  })();
+  var index = 0;
+  var fromHash = location.hash.match(/^#slide-(\d+)/);
+  if (fromHash) {
+    index = Math.max(0, Math.min(sections.length - 1, parseInt(fromHash[1], 10) - 1));
+    mode = 'slides';
+  }
+
+  function setMode(next) {
+    mode = next;
+    document.body.dataset.slideMode = mode;
+    if (toggle) {
+      toggle.querySelectorAll('button').forEach(function (b) {
+        b.classList.toggle('active', b.dataset.mode === mode);
+      });
+    }
+    try { localStorage.setItem(STORAGE_KEY, mode); } catch (_) {}
+    if (mode === 'slides') {
+      showSlide(index);
+      // Bring the active slide into view (after the page has settled).
+      requestAnimationFrame(function () {
+        var active = body.querySelector('section.lecture-slide.active');
+        if (active && header) {
+          var headerOffset = header.getBoundingClientRect().bottom + window.scrollY;
+          window.scrollTo({ top: Math.max(0, headerOffset - 12), behavior: 'auto' });
+        }
+      });
+    } else {
+      sections.forEach(function (s) { s.classList.remove('active'); });
+      if (history.replaceState) history.replaceState(null, '', location.pathname + location.search);
+    }
+  }
+
+  function showSlide(n) {
+    index = Math.max(0, Math.min(sections.length - 1, n));
+    sections.forEach(function (s, i) { s.classList.toggle('active', i === index); });
+    spanCur.textContent = index + 1;
+    if (slider.value !== String(index + 1)) slider.value = index + 1;
+    btnPrev.disabled = index === 0;
+    btnNext.disabled = index === sections.length - 1;
+    if (mode === 'slides' && history.replaceState) {
+      history.replaceState(null, '', '#slide-' + (index + 1));
+    }
+  }
+
+  // ---- Wire up controls ----
+  if (toggle) {
+    toggle.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-mode]');
+      if (b) setMode(b.dataset.mode);
+    });
+  }
+  btnPrev.addEventListener('click', function () { showSlide(index - 1); });
+  btnNext.addEventListener('click', function () { showSlide(index + 1); });
+  slider.addEventListener('input', function () { showSlide(parseInt(slider.value, 10) - 1); });
+
+  document.addEventListener('keydown', function (e) {
+    if (mode !== 'slides') return;
+    if (e.target && /^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.key === 'ArrowLeft')  { e.preventDefault(); showSlide(index - 1); }
+    else if (e.key === 'ArrowRight') { e.preventDefault(); showSlide(index + 1); }
+    else if (e.key === 'Home')  { e.preventDefault(); showSlide(0); }
+    else if (e.key === 'End')   { e.preventDefault(); showSlide(sections.length - 1); }
+  });
+
+  // ---- Build the TOC (sidebar on wide screens, dropdown on narrow) ----
+  var toc = document.createElement('aside');
+  toc.className = 'lecture-toc';
+  toc.innerHTML = '<div class="lecture-toc-label">On this page</div><ol class="lecture-toc-list"></ol>';
+  var tocList = toc.querySelector('.lecture-toc-list');
+
+  sections.forEach(function (section, idx) {
+    var h2 = section.querySelector('h2');
+    var title = h2 ? h2.textContent : 'Overview';
+    var li = document.createElement('li');
+    var a = document.createElement('a');
+    a.textContent = title;
+    a.href = h2 && h2.id ? '#' + h2.id : '#slide-' + (idx + 1);
+    a.dataset.slide = String(idx);
+    li.appendChild(a);
+
+    var subs = section.querySelectorAll('h3');
+    if (subs.length > 0) {
+      var subOl = document.createElement('ol');
+      Array.prototype.forEach.call(subs, function (h3) {
+        if (!h3.id) return;
+        var subLi = document.createElement('li');
+        var subA = document.createElement('a');
+        subA.textContent = h3.textContent;
+        subA.href = '#' + h3.id;
+        subA.dataset.slide = String(idx);
+        subA.dataset.heading = h3.id;
+        subLi.appendChild(subA);
+        subOl.appendChild(subLi);
+      });
+      if (subOl.children.length > 0) li.appendChild(subOl);
+    }
+    tocList.appendChild(li);
+  });
+  // Insert TOC as a sibling of .page-main so the wrap can lay them out side-by-side.
+  var article = document.querySelector('article.page.wrap');
+  if (article) article.appendChild(toc);
+  else document.body.appendChild(toc);
+
+  function setActiveTocItem(slideIdx, headingId) {
+    tocList.querySelectorAll('a').forEach(function (a) { a.classList.remove('active'); });
+    var match;
+    if (headingId) match = tocList.querySelector('a[data-heading="' + headingId + '"]');
+    if (!match) match = tocList.querySelector('a[data-slide="' + slideIdx + '"]:not([data-heading])');
+    if (match) {
+      match.classList.add('active');
+      // Scroll the active item into view inside the sidebar.
+      var rect = match.getBoundingClientRect();
+      var pRect = toc.getBoundingClientRect();
+      if (rect.top < pRect.top || rect.bottom > pRect.bottom) {
+        match.scrollIntoView({ block: 'nearest' });
+      }
+    }
+  }
+
+  tocList.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-slide]');
+    if (!a) return;
+    e.preventDefault();
+    var idx = parseInt(a.dataset.slide, 10);
+    var heading = a.dataset.heading || null;
+    if (mode === 'slides') {
+      showSlide(idx);
+      if (heading) {
+        requestAnimationFrame(function () {
+          var el = document.getElementById(heading);
+          if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+      }
+    } else {
+      var target = heading ? document.getElementById(heading) : sections[idx];
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setActiveTocItem(idx, heading);
+  });
+
+  // Mobile dropdown — same data, different chrome
+  var dropdown = document.createElement('details');
+  dropdown.className = 'lecture-toc-dropdown';
+  dropdown.innerHTML = '<summary>Jump to section</summary>';
+  var ddOl = tocList.cloneNode(true);
+  ddOl.classList.add('lecture-toc-dropdown-list');
+  dropdown.appendChild(ddOl);
+  ddOl.addEventListener('click', function (e) {
+    var a = e.target.closest('a[data-slide]');
+    if (!a) return;
+    e.preventDefault();
+    var idx = parseInt(a.dataset.slide, 10);
+    var heading = a.dataset.heading || null;
+    if (mode === 'slides') {
+      showSlide(idx);
+      if (heading) {
+        requestAnimationFrame(function () {
+          var el = document.getElementById(heading);
+          if (el) el.scrollIntoView({ behavior: 'auto', block: 'start' });
+        });
+      }
+    } else {
+      var target = heading ? document.getElementById(heading) : sections[idx];
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    dropdown.removeAttribute('open');
+    setActiveTocItem(idx, heading);
+  });
+  // Insert at top of page-body
+  body.insertBefore(dropdown, body.firstChild);
+
+  // ---- Active section tracking in scroll mode (IntersectionObserver) ----
+  if ('IntersectionObserver' in window) {
+    var allHeadings = [];
+    sections.forEach(function (section, idx) {
+      var h2 = section.querySelector('h2');
+      if (h2) allHeadings.push({ el: h2, slideIdx: idx, headingId: h2.id });
+      Array.prototype.forEach.call(section.querySelectorAll('h3'), function (h3) {
+        if (h3.id) allHeadings.push({ el: h3, slideIdx: idx, headingId: h3.id });
+      });
+    });
+    var inView = new Set();
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) inView.add(entry.target);
+        else inView.delete(entry.target);
+      });
+      if (mode !== 'scroll') return;
+      // Pick the topmost heading currently in view
+      var visible = allHeadings.filter(function (h) { return inView.has(h.el); });
+      if (visible.length > 0) {
+        visible.sort(function (a, b) {
+          return a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top;
+        });
+        setActiveTocItem(visible[0].slideIdx, visible[0].headingId.startsWith('h2') ? null : visible[0].headingId);
+        // Above check is a no-op safeguard; pass headingId only when it's an h3 id.
+        var first = visible[0];
+        var isH3 = first.el.tagName === 'H3';
+        setActiveTocItem(first.slideIdx, isH3 ? first.headingId : null);
+      }
+    }, { rootMargin: '-80px 0px -70% 0px', threshold: 0 });
+    allHeadings.forEach(function (h) { io.observe(h.el); });
+  }
+
+  // ---- Hook slide changes to TOC active state ----
+  var origShowSlide = showSlide;
+  showSlide = function (n) {
+    origShowSlide(n);
+    if (mode === 'slides') setActiveTocItem(index, null);
+  };
+
+  setMode(mode);
+  // Initial active item
+  setActiveTocItem(index, null);
+})();
+</script>

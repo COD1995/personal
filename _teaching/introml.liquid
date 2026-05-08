@@ -47,12 +47,160 @@ semesters:
 </div>
 
 <div data-semester-year="spring-2024">
-  <div class="course-semester-info">
-    <p><strong>Course Hours:</strong> <em>Spring 2024 — University at Buffalo</em></p>
-    <p><strong>Format:</strong> Lecture + programming assignments + final project</p>
-  </div>
+  {% include teaching/introml/spring-2024.liquid %}
 </div>
 
+<h3>Note on Logistics</h3>
+<ul>
+  <li>A week-ahead notice for the mid-term, based on the pace of the course.</li>
+  <li>The schedule is <span style="color:red;">subject to change</span> based on
+      the overall pace and the performance of the class.</li>
+</ul>
+
+<h2>Grading</h2>
+<p>
+  The course is assessed across five problem sets, a midterm exam, a final exam, and a
+  research-style final project (proposal → milestone → draft → presentation → final report).
+</p>
+
+<table class="styled-table">
+  <thead>
+    <tr><th>Component</th><th>Weight</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Problem sets (5 × 8 %)</td><td>40 %</td></tr>
+    <tr><td>Midterm exam</td><td>15 %</td></tr>
+    <tr><td>Final exam</td><td>20 %</td></tr>
+    <tr><td>Final project</td><td>25 %</td></tr>
+  </tbody>
+</table>
+
+<h3>Grading Rubric</h3>
+<p>
+  The final grade will be determined based on the <em>overall performance</em> of the class,
+  taking into consideration all relevant assessments and contributions. The instructor reserves
+  the right to make <strong>final</strong> decisions regarding grades.
+</p>
+<p>
+  Please note that excuses for missed work or poor performance, such as personal conflicts or
+  minor inconveniences, will not be considered unless exceptional and documented circumstances arise.
+</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+      <th>Percentage</th>
+      <th>Letter Grade</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>95-100</td><td>A</td><td>70-74</td><td>C+</td></tr>
+    <tr><td>90-94</td><td>A-</td><td>65-69</td><td>C</td></tr>
+    <tr><td>85-89</td><td>B+</td><td>60-64</td><td>C-</td></tr>
+    <tr><td>80-84</td><td>B</td><td>55-59</td><td>D</td></tr>
+    <tr><td>75-79</td><td>B-</td><td>0-54</td><td>F</td></tr>
+  </tbody>
+</table>
+
+<h2>Course Policies</h2>
+
+<h3>Late work</h3>
+<ul>
+  <li><strong>Three late days</strong> total across all problem sets, no questions asked. Each late day extends a deadline by 24 hours.</li>
+  <li>After late days are exhausted, late submissions lose 20 % per day, up to 3 days; no credit thereafter.</li>
+  <li>Project deadlines (proposal, milestone, draft, final) are <strong>firm</strong>; late days do not apply.</li>
+</ul>
+
+<h3>Collaboration</h3>
+<p>
+  You are encouraged to discuss problem sets with classmates at the conceptual level, but
+  <strong>code and writeups must be your own</strong>. Sketching ideas at a whiteboard or helping
+  someone debug a runtime error is fine; sharing solutions is not. Pair work is allowed (and
+  encouraged) for the final project; each member's contribution should be made explicit in the report.
+</p>
+
+<h3>AI / LLM policy</h3>
+<ul>
+  <li><strong>Allowed without disclosure:</strong> autocomplete-style help (syntax lookups, NumPy ↔ PyTorch conversions), debugging individual error messages, reading recommendations.</li>
+  <li><strong>Allowed with disclosure:</strong> explanations of mathematical concepts you're stuck on, suggested approaches after you've thought about it. Disclosure means a one-line note in your submission.</li>
+  <li><strong>Not allowed:</strong> generating problem-set solutions or large blocks of project code by prompting an LLM. Submitting LLM-generated content without disclosure is an academic-integrity violation.</li>
+</ul>
+<p>When in doubt, disclose. Disclosure costs you nothing; non-disclosure can cost you the course.</p>
+
 <h2 id="lecture-notes">Lecture Notes</h2>
-<p>Course materials from Spring 2024 will be added here. Reach out by
-<a href="mailto:jueguo@buffalo.edu">email</a> if you would like access in the meantime.</p>
+<p>
+  These notes follow Christopher Bishop's <em>Pattern Recognition and Machine Learning</em>
+  (Springer 2006, freely available as a PDF) chapter-by-chapter. The aim is a careful,
+  step-by-step development of the math: every symbol is defined, every transition is
+  justified, and prerequisites are flagged where needed. Notes assume comfort with
+  introductory linear algebra and calculus; the rest is built up as we go.
+</p>
+
+<table class="styled-table">
+  <thead>
+    <tr>
+      <th>Part</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Foundations</td>
+      <td>
+        <ul>
+          <li><a href="{{ '/assets/courses/introml/01_introduction/' | relative_url }}">Ch 1 — Introduction</a></li>
+          <li><a href="{{ '/assets/courses/introml/02_probability_distributions/' | relative_url }}">Ch 2 — Probability Distributions</a></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Linear models</td>
+      <td>
+        <ul>
+          <li><a href="{{ '/assets/courses/introml/03_linear_regression/' | relative_url }}">Ch 3 — Linear Models for Regression</a></li>
+          <li><a href="{{ '/assets/courses/introml/04_linear_classification/' | relative_url }}">Ch 4 — Linear Models for Classification</a></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Neural networks &amp; kernels</td>
+      <td>
+        <ul>
+          <li><a href="{{ '/assets/courses/introml/05_neural_networks/' | relative_url }}">Ch 5 — Neural Networks</a></li>
+          <li><a href="{{ '/assets/courses/introml/06_kernel_methods/' | relative_url }}">Ch 6 — Kernel Methods</a></li>
+          <li><a href="{{ '/assets/courses/introml/07_sparse_kernel_machines/' | relative_url }}">Ch 7 — Sparse Kernel Machines (SVM, RVM)</a></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Probabilistic models &amp; inference</td>
+      <td>
+        <ul>
+          <li><a href="{{ '/assets/courses/introml/08_graphical_models/' | relative_url }}">Ch 8 — Graphical Models</a></li>
+          <li><a href="{{ '/assets/courses/introml/09_mixture_models_em/' | relative_url }}">Ch 9 — Mixture Models &amp; EM</a></li>
+          <li><a href="{{ '/assets/courses/introml/10_approximate_inference/' | relative_url }}">Ch 10 — Approximate Inference</a></li>
+          <li><a href="{{ '/assets/courses/introml/11_sampling_methods/' | relative_url }}">Ch 11 — Sampling Methods</a></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Latent variables &amp; sequential data</td>
+      <td>
+        <ul>
+          <li><a href="{{ '/assets/courses/introml/12_continuous_latent_variables/' | relative_url }}">Ch 12 — Continuous Latent Variables (PCA)</a></li>
+          <li><a href="{{ '/assets/courses/introml/13_sequential_data/' | relative_url }}">Ch 13 — Sequential Data (HMM, LDS)</a></li>
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <td>Ensembles</td>
+      <td>
+        <ul>
+          <li><a href="{{ '/assets/courses/introml/14_combining_models/' | relative_url }}">Ch 14 — Combining Models (Boosting, Trees)</a></li>
+        </ul>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -923,13 +923,339 @@ table ul li, .styled-table ul li, .evaluation-table ul li { margin: 0.1em 0; }
 /* ---------- Math (MathJax) ---------- */
 mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
 mjx-container[jax="SVG"][display="true"] { margin: 1em 0; }
-/* When a paragraph is essentially just one inline equation, treat it as display */
-.page-body p:has(> mjx-container[jax="SVG"]:only-child),
-.page-body p:has(> mjx-container[jax="SVG"]:first-child + br:last-child) {
-  text-align: center;
-  margin: 1.2em 0;
+/* Display math is already centered by MathJax. The previous auto-promote
+   rule used :only-child, which ignores surrounding text nodes and ended up
+   centering ordinary paragraphs that happened to contain inline math. */
+
+/* ---------- Lecture TOC sidebar (wide) ---------- */
+.lecture-toc {
+  display: none;
 }
-.page-body p > mjx-container[jax="SVG"]:only-child { font-size: 1.05em; }
+.lecture-toc-dropdown {
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  margin: 0 0 1.5rem;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  background: var(--surface);
+}
+.lecture-toc-dropdown > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 0.55rem 0.95rem;
+  font-weight: 600;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+.lecture-toc-dropdown > summary::-webkit-details-marker { display: none; }
+.lecture-toc-dropdown > summary::after {
+  content: "";
+  margin-left: auto;
+  width: 8px; height: 8px;
+  border-right: 1.5px solid var(--muted);
+  border-bottom: 1.5px solid var(--muted);
+  transform: rotate(45deg);
+  transition: transform .18s;
+}
+.lecture-toc-dropdown[open] > summary::after { transform: rotate(-135deg); }
+.lecture-toc-dropdown-list {
+  list-style: none;
+  padding: 0.5rem 0.95rem 0.85rem;
+  margin: 0;
+  border-top: 1px solid var(--rule);
+  max-height: 50vh;
+  overflow-y: auto;
+}
+.lecture-toc-dropdown-list ol {
+  list-style: none;
+  padding-left: 1rem;
+  margin: 0.15rem 0 0.4rem;
+}
+.lecture-toc-dropdown-list li { margin: 0.15em 0; }
+.lecture-toc-dropdown-list a {
+  display: block;
+  color: var(--muted);
+  border-bottom: none;
+  padding: 0.18rem 0.3rem;
+  border-radius: 3px;
+  font-size: 0.86rem;
+}
+.lecture-toc-dropdown-list a:hover { color: var(--accent); background: var(--accent-soft); }
+.lecture-toc-dropdown-list a.active { color: var(--accent); font-weight: 600; }
+.lecture-toc-dropdown-list > li > a { font-weight: 600; color: var(--text); font-size: 0.9rem; }
+
+@media (min-width: 1180px) {
+  /* Sidebar on wide screens; hide the mobile dropdown */
+  .lecture-toc-dropdown { display: none; }
+  .page.wrap.has-lecture-toc {
+    max-width: 1140px;
+    display: grid;
+    grid-template-columns: minmax(0, 880px) 220px;
+    column-gap: 40px;
+    align-items: start;
+  }
+  .page.wrap.has-lecture-toc > .page-main { min-width: 0; }
+  .lecture-toc {
+    display: block;
+    position: sticky;
+    top: 88px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+    padding: 0.85rem 0.95rem 1rem;
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    border-radius: 6px;
+    font-family: var(--sans);
+    font-size: 0.84rem;
+    box-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.04),
+      0 8px 24px -16px rgba(0, 0, 0, 0.18);
+  }
+  .lecture-toc-label {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    margin-bottom: 0.55rem;
+  }
+  .lecture-toc-list,
+  .lecture-toc-list ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .lecture-toc-list > li { margin-bottom: 0.35rem; }
+  .lecture-toc-list ol {
+    padding-left: 0.7rem;
+    margin: 0.15rem 0 0.45rem;
+    border-left: 1px solid var(--rule);
+  }
+  .lecture-toc-list ol li { margin: 0.05em 0; }
+  .lecture-toc-list a {
+    display: block;
+    color: var(--muted);
+    border-bottom: none;
+    padding: 0.15rem 0.4rem;
+    border-radius: 3px;
+    line-height: 1.45;
+    transition: color .12s, background-color .12s;
+  }
+  .lecture-toc-list > li > a {
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.86rem;
+  }
+  .lecture-toc-list ol a {
+    font-size: 0.8rem;
+    border-left: 2px solid transparent;
+    padding-left: 0.55rem;
+    margin-left: -0.7rem;
+    border-radius: 0 3px 3px 0;
+  }
+  .lecture-toc-list a:hover { color: var(--accent); background: var(--accent-soft); }
+  .lecture-toc-list a.active {
+    color: var(--accent);
+    background: var(--accent-soft);
+    font-weight: 600;
+  }
+  .lecture-toc-list ol a.active { border-left-color: var(--accent); }
+}
+
+/* ---------- Lecture slide mode ---------- */
+.lecture-mode-toggle {
+  display: inline-flex;
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  overflow: hidden;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  background: var(--surface);
+  margin: 0 0 0 auto;
+  flex-shrink: 0;
+}
+.lecture-mode-toggle button {
+  border: none;
+  padding: 0.4rem 0.95rem;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color .15s, background-color .15s;
+  font: inherit;
+}
+.lecture-mode-toggle button + button { border-left: 1px solid var(--rule); }
+.lecture-mode-toggle button:hover { color: var(--text); }
+.lecture-mode-toggle button.active {
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* Page header gains a flex row to host the toggle */
+.page-header.with-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.6rem 1rem;
+}
+.page-header.with-toggle h1 { flex: 1 1 auto; min-width: 0; }
+.page-header.with-toggle .page-description { flex-basis: 100%; }
+
+/* The slide section wrapper. Always exists in the DOM; visibility toggled by mode. */
+.page-body section.lecture-slide {
+  /* In scroll mode, sections look like ordinary content. */
+  margin: 0;
+  padding: 0;
+}
+
+/* Slides mode — reveal one section at a time */
+body[data-slide-mode="slides"] .page-body > section.lecture-slide { display: none; }
+body[data-slide-mode="slides"] .page-body > section.lecture-slide.active {
+  display: block;
+  animation: slideFadeIn .25s ease;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.5rem 1.75rem 1.75rem;
+  margin: 0 0 1rem;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 14px 32px -16px rgba(0, 0, 0, 0.18);
+  min-height: 60vh;
+}
+body[data-slide-mode="slides"] .page-body > section.lecture-slide.active > :first-child {
+  margin-top: 0;
+}
+@keyframes slideFadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Hide horizontal rules between slides (they're scroll-mode separators) */
+body[data-slide-mode="slides"] .page-body > hr { display: none; }
+
+/* Nav bar */
+.lecture-nav {
+  display: none;
+  align-items: center;
+  gap: 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.88rem;
+  margin: 0.5rem 0 0;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule);
+}
+body[data-slide-mode="slides"] .lecture-nav { display: flex; }
+.lecture-nav button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: 500;
+  padding: 0.4rem 0.95rem;
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background-color .15s;
+}
+.lecture-nav button:hover:not(:disabled) {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.lecture-nav button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.lecture-nav .counter {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.lecture-nav .counter strong { color: var(--text); font-weight: 600; }
+.lecture-nav input[type="range"] {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: var(--rule);
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+}
+.lecture-nav input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px; height: 14px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+  cursor: grab;
+}
+.lecture-nav input[type="range"]::-moz-range-thumb {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--bg);
+  cursor: grab;
+}
+.lecture-nav input[type="range"]:focus-visible { outline: 2px solid var(--accent-soft); outline-offset: 2px; }
+
+@media (max-width: 600px) {
+  body[data-slide-mode="slides"] .page-body > section.lecture-slide.active {
+    padding: 1.1rem 1.15rem 1.25rem;
+  }
+  .lecture-nav { gap: 0.5rem; font-size: 0.82rem; }
+  .lecture-nav button { padding: 0.35rem 0.7rem; }
+}
+
+/* ---------- Inline figures (course notes) ---------- */
+.page-body .figure {
+  margin: 1.75rem auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 0.6rem 0.75rem;
+}
+.page-body .figure img {
+  flex: 0 1 auto;
+  max-width: 100%;
+  max-height: 360px;
+  width: auto;
+  height: auto;
+  border-radius: 4px;
+  background: var(--surface);
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.05),
+    0 8px 18px -10px rgba(0, 0, 0, 0.18);
+}
+/* Multi-image figures: shrink each so a 2-up or 4-up grid fits */
+.page-body .figure img:not(:only-of-type) {
+  flex: 1 1 200px;
+  max-width: calc(50% - 0.5rem);
+  max-height: 240px;
+  object-fit: contain;
+}
+.page-body .figure figcaption {
+  flex-basis: 100%;
+  font-family: var(--sans);
+  font-size: 0.84rem;
+  color: var(--muted);
+  text-align: center;
+  margin: 0.5rem auto 0;
+  max-width: 700px;
+  line-height: 1.55;
+}
+.page-body .figure figcaption strong {
+  font-weight: 600;
+  color: var(--text);
+}
 
 /* ---------- Self-learning resources ---------- */
 .resources-section { margin-top: 4rem; }
@@ -1009,123 +1335,6 @@ a.resource-title:hover { color: var(--accent); }
 @media (max-width: 600px) {
   .resources-list { grid-template-columns: 1fr; }
   .resource-cover { width: 58px; }
-}
-
-/* ---------- Visitors map ---------- */
-.visitors {
-  margin-top: 5rem;
-}
-.visitors-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.6rem 1.2rem;
-  margin: 0 0 1.25rem;
-}
-.visitors-title {
-  font-family: var(--sans);
-  font-size: 1.45rem;
-  margin: 0;
-  padding-bottom: 0;
-  border-bottom: none;
-}
-.visitors-summary {
-  font-family: var(--sans);
-  font-size: 0.88rem;
-  color: var(--muted);
-  margin: 0;
-}
-.visitors-summary strong {
-  font-weight: 600;
-  color: var(--text);
-  font-variant-numeric: tabular-nums;
-}
-.visitors-updated { opacity: 0.75; }
-
-.visitor-map-wrap {
-  position: relative;
-  padding: 0;
-}
-#visitor-map {
-  display: block;
-  width: 100%;
-  height: auto;
-  min-height: 240px;
-}
-#visitor-map .country {
-  fill: #ece9e0;
-  stroke: var(--bg);
-  stroke-width: 0.5;
-  transition: stroke .15s, stroke-width .15s, opacity .15s;
-}
-#visitor-map .country.has-data {
-  stroke: rgba(139, 58, 58, 0.35);
-}
-#visitor-map .country.hover {
-  stroke: var(--accent);
-  stroke-width: 1.2;
-}
-
-.visitor-tooltip {
-  position: absolute;
-  pointer-events: none;
-  background: var(--text);
-  color: var(--bg);
-  font-family: var(--sans);
-  font-size: 0.82rem;
-  padding: 0.35rem 0.6rem;
-  border-radius: 4px;
-  white-space: nowrap;
-  opacity: 0;
-  transition: opacity .12s;
-  z-index: 5;
-  font-variant-numeric: tabular-nums;
-}
-.visitor-tooltip.visible { opacity: 1; }
-
-.visitors-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem 1.2rem;
-  flex-wrap: wrap;
-  margin-top: 0.85rem;
-}
-.visitor-legend {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--sans);
-  font-size: 0.74rem;
-  color: var(--muted);
-  flex-shrink: 0;
-}
-.visitor-legend-bar {
-  display: inline-block;
-  width: 90px;
-  height: 5px;
-  border-radius: 2px;
-  background: linear-gradient(to right, var(--code-bg), var(--accent));
-}
-
-.visitors-note {
-  font-family: var(--sans);
-  font-size: 0.76rem;
-  color: var(--muted);
-  line-height: 1.5;
-  text-align: right;
-  flex: 1 1 auto;
-  min-width: 200px;
-}
-.visitors-note a { color: var(--muted); border-bottom: 1px dotted var(--rule); }
-.visitors-note a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.visitors-error {
-  font-family: var(--sans);
-  font-size: 0.88rem;
-  color: var(--muted);
-  text-align: center;
-  padding: 2rem 0;
 }
 
 /* ---------- CV ---------- */

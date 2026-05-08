@@ -1,17 +1,20 @@
 ---
 layout: default
 ---
-<article class="page wrap">
-  {% if page.back_link %}
-    <a class="back-link" href="{{ page.back_link | relative_url }}">← {{ page.back_text | default: "Back" }}</a>
-  {% endif %}
-  {% if page.title %}
-    <header class="page-header">
-      <h1>{{ page.title }}</h1>
-      {% if page.description %}<p class="page-description">{{ page.description }}</p>{% endif %}
-    </header>
-  {% endif %}
-  <div class="page-body">
-    {{ content }}
+<article class="page wrap{% if page.slides %} has-lecture-toc{% endif %}">
+  <div class="page-main">
+    {% if page.back_link %}
+      <a class="back-link" href="{{ page.back_link | relative_url }}">← {{ page.back_text | default: "Back" }}</a>
+    {% endif %}
+    {% if page.title %}
+      <header class="page-header">
+        <h1>{{ page.title }}</h1>
+        {% if page.description %}<p class="page-description">{{ page.description }}</p>{% endif %}
+      </header>
+    {% endif %}
+    <div class="page-body">
+      {{ content }}
+    </div>
   </div>
+  {% if page.slides %}{% include lecture-slides.liquid %}{% endif %}
 </article>

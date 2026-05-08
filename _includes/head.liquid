@@ -17,8 +17,8 @@
 <script>
   window.MathJax = {
     tex: {
-      inlineMath: [['$$', '$$'], ['\\(', '\\)']],
-      displayMath: [['\\[', '\\]']],
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      displayMath: [['$$', '$$'], ['\\[', '\\]']],
       processEscapes: true,
       processEnvironments: true
     },
@@ -31,9 +31,4 @@
   };
 </script>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js" async></script>
-{% endif %}
-
-{% if site.analytics.goatcounter and jekyll.environment == "production" %}
-<script data-goatcounter="https://{{ site.analytics.goatcounter }}.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
 {% endif %}

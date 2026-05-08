@@ -145,4 +145,3 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
   </ul>
 </section>
 
-{% include visitor-map.liquid %}
