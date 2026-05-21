@@ -22,6 +22,10 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
   <img src="{{ '/assets/img/class_photo.jpeg' | relative_url }}" alt="Class photo" loading="lazy">
 </figure>
 
+<figure class="home-banner home-banner--crop">
+  <img src="{{ '/assets/img/class_photo2.jpeg' | relative_url }}" alt="Class photo" loading="lazy">
+</figure>
+
 <section class="courses-section">
   <h2 class="courses-title">Teaching</h2>
 
