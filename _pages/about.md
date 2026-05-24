@@ -110,6 +110,31 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
   })();
 </script>
 
+<section class="office-hours-section">
+  <h2 class="office-hours-title">AI Office Hours</h2>
+  <p class="office-hours-intro">A relaxed, no-prerequisites Zoom series on where AI actually is — what LLMs, image models, and agents really do, what they don't, and how to read past the hype. Open a deck full-screen and use the arrow keys to navigate.</p>
+  <ul class="sessions-list">
+    <li class="session">
+      <span class="session-num">01</span>
+      <div class="session-text">
+        <a class="session-title" href="{{ '/assets/slides/ai-office-hours/session01_overview.html' | relative_url }}" target="_blank" rel="noopener">Where AI Actually Is in 2026</a>
+        <p class="session-desc">A field overview — foundations, the deep-learning revolution, transformers, and generative AI — closing with open Q&amp;A.</p>
+        <details class="session-preview">
+          <summary>Preview inline</summary>
+          <div class="deck-frame">
+            <iframe
+              src="{{ '/assets/slides/ai-office-hours/session01_overview.html' | relative_url }}"
+              title="AI Office Hours · Session 01 — Where AI Actually Is in 2026"
+              loading="lazy"
+              allowfullscreen></iframe>
+          </div>
+          <p class="deck-hint">Click into the slides, then use the on-screen arrows or your arrow keys. <a href="{{ '/assets/slides/ai-office-hours/session01_overview.html' | relative_url }}" target="_blank" rel="noopener">Open full screen ↗</a></p>
+        </details>
+      </div>
+    </li>
+  </ul>
+</section>
+
 <section class="resources-section">
   <h2 class="resources-title">Self-learning resources</h2>
   <p class="resources-intro">Free books I keep pointing students to when they want to dig into machine learning or deep learning on their own.</p>
@@ -120,14 +145,6 @@ On the teaching side, I have led graduate and undergraduate courses across deep 
         <a class="resource-title" href="https://d2l.ai" target="_blank" rel="noopener">Dive into Deep Learning</a>
         <span class="resource-byline">Zhang, Lipton, Li &amp; Smola</span>
         <p class="resource-desc">Interactive textbook with full implementations in PyTorch, MXNet, and JAX. The reference I lean on most in CSE&nbsp;676.</p>
-      </div>
-    </li>
-    <li class="resource">
-      <img class="resource-cover" src="{{ '/assets/img/books/deep-learning-with-python.jpg' | relative_url }}" alt="Cover of Deep Learning with Python" loading="lazy">
-      <div class="resource-text">
-        <a class="resource-title" href="https://deeplearningwithpython.io" target="_blank" rel="noopener">Deep Learning with Python</a>
-        <span class="resource-byline">François Chollet</span>
-        <p class="resource-desc">Practical, Keras-first introduction to neural networks. Excellent for building intuition before going under the hood.</p>
       </div>
     </li>
     <li class="resource">

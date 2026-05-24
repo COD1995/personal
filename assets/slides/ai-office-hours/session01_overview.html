@@ -1,0 +1,1817 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+    <title>AI Office Hours · Session 01 — Where AI Actually Is in 2026</title>
+
+    <!-- reveal.js core (CDN) -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/theme/black.css"
+      id="theme"
+    />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- KaTeX for typeset math -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+    />
+
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <!-- ============ 1. TITLE ============ -->
+        <section
+          data-background-gradient="radial-gradient(1000px 700px at 20% 0%, rgba(110,231,255,0.16), transparent 60%), radial-gradient(900px 700px at 95% 100%, rgba(167,139,250,0.20), transparent 55%), #08090d"
+        >
+          <div class="titlewrap">
+            <div class="kicker">AI Office Hours · Session 01 · via Zoom</div>
+            <h1>Where AI <span class="grad">Actually</span> Is<br />in 2026</h1>
+            <p class="lead" style="max-width: 18em; margin-top: 0.6em">
+              What LLMs, image models, and agents really do — what they don't —
+              and how to read past the hype.
+            </p>
+            <div style="margin-top: 1.4em">
+              <span class="pill">Relaxed but structured</span>
+              <span class="pill">No prerequisites</span>
+              <span class="pill">Bring a question</span>
+              <span class="pill">Open Q&amp;A</span>
+            </div>
+            <p class="small faint" style="margin-top: 1.6em">
+              Hosted by <span class="accent">Bob (Jue) Guo</span> — CS PhD
+              candidate &amp; adjunct faculty, University at Buffalo
+            </p>
+          </div>
+        </section>
+
+        <!-- ============ 2. HOST ============ -->
+        <section>
+          <div class="kicker">Your host</div>
+          <h2>Hi, I'm <span class="grad">Bob (Jue) Guo</span></h2>
+          <div class="rule"></div>
+          <div class="cols two" style="margin-top: 0.6em; align-items: start">
+            <div>
+              <ul>
+                <li>CS <em>PhD candidate</em> at the University at Buffalo</li>
+                <li>
+                  <em>Adjunct faculty</em> — I teach deep learning, machine
+                  learning, and AI
+                </li>
+                <li>
+                  I spend my days both <em>building</em> these systems and
+                  <em>explaining</em> them
+                </li>
+              </ul>
+            </div>
+            <div class="card">
+              <span class="tag accent">WHY THESE SESSIONS</span>
+              <p style="font-size: 0.82em; line-height: 1.5">
+                There's a huge gap between what AI <strong>can</strong> do, what
+                people <strong>say</strong> it does, and what's actually
+                <strong>useful</strong> to you. Office Hours is where we close
+                that gap — calmly, with real examples, and your questions.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 3. HOW THIS WORKS ============ -->
+        <section>
+          <div class="kicker">How today works</div>
+          <h2>Run it like a class</h2>
+          <div class="rule"></div>
+          <div class="cols three" style="margin-top: 0.5em">
+            <div class="card">
+              <span class="tag accent">FORMAT</span>
+              <p>
+                Relaxed but structured. I walk through a mental model, you
+                interrupt with questions whenever.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag accent">WHO IT'S FOR</span>
+              <p>
+                Beginners leave with a real model. If you already build with
+                these tools, you'll get sharper angles.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag accent">THE DEAL</span>
+              <p>
+                No prerequisites. No slides to memorize. We close with open
+                Q&amp;A — so bring a question.
+              </p>
+            </div>
+          </div>
+          <p class="muted small" style="margin-top: 1.1em">
+            One ask: when something doesn't land, say so. The confusing parts
+            are the whole point.
+          </p>
+        </section>
+
+        <!-- ============ 4. AGENDA ============ -->
+        <section>
+          <div class="kicker">The plan</div>
+          <h2>What we'll cover</h2>
+          <div class="rule"></div>
+          <div style="margin-top: 0.5em">
+            <div class="cols two" style="gap: 0.4em 1.4em">
+              <ul class="clean small">
+                <li>
+                  <span class="mono accent">01</span> &nbsp;How we got here — a
+                  short history
+                </li>
+                <li>
+                  <span class="mono accent">02</span> &nbsp;The big picture —
+                  where AI is in 2026
+                </li>
+                <li>
+                  <span class="mono accent">03</span> &nbsp;LLMs — what they
+                  really do
+                </li>
+                <li>
+                  <span class="mono accent">04</span> &nbsp;Image models — what
+                  they really do
+                </li>
+              </ul>
+              <ul class="clean small">
+                <li>
+                  <span class="mono accent">05</span> &nbsp;Agents — the word
+                  everyone overloads
+                </li>
+                <li>
+                  <span class="mono accent">06</span> &nbsp;How to read past the
+                  hype
+                </li>
+                <li>
+                  <span class="mono accent">07</span> &nbsp;A mental model to
+                  take home + Q&amp;A
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SERIES ROADMAP ============ -->
+        <section>
+          <div class="kicker">An ongoing series</div>
+          <h2>This is <span class="grad">Session 01</span></h2>
+          <div class="rule"></div>
+          <p class="muted small" style="margin: 0 0 0.7em">
+            Office Hours runs as a series — each session stands on its own, so
+            you can drop into any one. Here's the arc.
+          </p>
+          <div class="cols three">
+            <div class="card" style="border-color: rgba(110, 231, 255, 0.45)">
+              <span class="tag accent">SESSION 01 · TODAY</span>
+              <h3 style="font-size: 0.92em">Where AI actually is in 2026</h3>
+              <p>
+                The model family tree, LLMs, image models, agents — and how to
+                read past the hype.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)"
+                >SESSION 02 · NEXT</span
+              >
+              <h3 style="font-size: 0.92em">Topic to be set</h3>
+              <p>
+                A focused deep dive into one area — shaped by the questions you
+                bring today.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-3)">SESSION 03+</span>
+              <h3 style="font-size: 0.92em">More to come</h3>
+              <p>
+                Hands-on building, prompting, agents in practice — and whatever
+                you keep asking about.
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            Today is the <em>foundation</em> — the shared mental model the rest
+            of the series builds on.
+          </p>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 01 — HISTORY ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 20% 25%, rgba(110,231,255,0.15), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 01</div>
+          <h1>How we <span class="grad">got here</span></h1>
+          <p class="lead" style="max-width: 16em">
+            A 70-year-old idea that, for most of those years, didn't work.
+          </p>
+        </section>
+
+        <!-- ============ HISTORY — THE PEOPLE ============ -->
+        <section>
+          <div class="kicker">The pioneers</div>
+          <h2>The "godfathers" of deep learning</h2>
+          <div class="rule"></div>
+          <p class="muted small" style="margin: 0 0 0.6em">
+            Three researchers kept betting on neural networks through decades
+            when almost no one else did. They shared the 2018 Turing Award for
+            it.
+          </p>
+          <div class="cols three">
+            <div class="card">
+              <span class="tag accent">GEOFFREY HINTON</span>
+              <p>
+                Championed <em>backpropagation</em> — how nets learn from
+                mistakes. Mentored the team behind the 2012 breakthrough. Nobel
+                Prize in Physics, 2024.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)">YANN LeCUN</span>
+              <p>
+                Built <em>convolutional nets</em> that could read handwriting in
+                the '90s — the foundation of modern computer vision. Now chief
+                AI scientist at Meta.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-3)"
+                >YOSHUA BENGIO</span
+              >
+              <p>
+                Pushed deep learning for <em>language &amp; sequences</em> and
+                early attention ideas — groundwork for today's LLMs.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ HISTORY — TIMELINE ============ -->
+        <section>
+          <div class="kicker">The short version</div>
+          <h2>From a lab curiosity to ChatGPT</h2>
+          <div class="rule"></div>
+          <div class="milestones">
+            <div class="ms fragment fade-up" style="--c: #6ee7ff">
+              <span class="yr">1958</span>
+              <h3>The perceptron</h3>
+              <p>
+                One artificial neuron. Big hype → a decades-long
+                <em>"AI winter."</em>
+              </p>
+            </div>
+            <div class="ms fragment fade-up" style="--c: #7dd3e8">
+              <span class="yr">1986</span>
+              <h3>Backpropagation</h3>
+              <p>
+                Nets can finally learn many layers — but still too slow to
+                matter.
+              </p>
+            </div>
+            <div class="ms fragment fade-up" style="--c: #93b5f0">
+              <span class="yr">2012</span>
+              <h3>AlexNet + GPUs</h3>
+              <p>
+                Crushes the ImageNet contest. Big data + GPUs make deep learning
+                suddenly <em>work</em>.
+              </p>
+            </div>
+            <div class="ms hero fragment fade-up" style="--c: #a78bfa">
+              <span class="yr">2017 ⚡</span>
+              <h3>The Transformer</h3>
+              <p>
+                <em>"Attention Is All You Need."</em> Google's architecture — the
+                engine of everything since.
+              </p>
+            </div>
+            <div class="ms fragment fade-up" style="--c: #e879c4">
+              <span class="yr">2018–22</span>
+              <h3>GPT scales up → ChatGPT</h3>
+              <p>
+                More data + compute → emergent abilities. <em>ChatGPT</em> takes
+                AI mainstream overnight.
+              </p>
+            </div>
+            <div class="ms now fragment fade-up" style="--c: #f472b6">
+              <span class="yr">2026</span>
+              <h3>You are here</h3>
+              <p>Multimodal models &amp; agents — what we'll unpack today.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ TOUR · OVERVIEW — FOUR ERAS ============ -->
+        <section>
+          <div class="kicker">Part 01 · The full map</div>
+          <h2>The whole map: <span class="grad">four eras</span> of models</h2>
+          <div class="rule"></div>
+          <p class="muted small" style="margin: 0 0 0.5em">
+            Those six were the turning points. Zoom out and the full landscape
+            looks like this — four eras, every model that mattered. Skim it now;
+            then we'll rewind and walk the key ideas in depth.
+          </p>
+          <div class="cols four eras">
+            <div class="card eracard" style="--c: #6ee7ff; --i: 0">
+              <span class="tag">FOUNDATIONS · '58–'06</span>
+              <ul class="eralist">
+                <li><span class="y">'58</span>Perceptron</li>
+                <li><span class="y">'69</span>Perceptrons (book)</li>
+                <li><span class="y">'80</span>Neocognitron</li>
+                <li><span class="y">'86</span>Backprop</li>
+                <li><span class="y">'89</span>LeNet</li>
+                <li><span class="y">'97</span>LSTM</li>
+                <li><span class="y">'98</span>LeNet-5</li>
+                <li><span class="y">'06</span>Deep Belief Nets</li>
+              </ul>
+            </div>
+            <div class="card eracard" style="--c: #93b5f0; --i: 1">
+              <span class="tag">DL REVOLUTION · '09–'16</span>
+              <ul class="eralist">
+                <li><span class="y">'09</span>ImageNet</li>
+                <li><span class="y">'12</span>AlexNet</li>
+                <li><span class="y">'13</span>Word2Vec</li>
+                <li><span class="y">'14</span>GAN</li>
+                <li><span class="y">'14</span>VGG, GoogLeNet</li>
+                <li><span class="y">'14</span>Seq2Seq</li>
+                <li><span class="y">'15</span>ResNet</li>
+                <li><span class="y">'15</span>BatchNorm</li>
+                <li><span class="y">'16</span>AlphaGo</li>
+              </ul>
+            </div>
+            <div class="card eracard" style="--c: #a78bfa; --i: 2">
+              <span class="tag">TRANSFORMER ERA · '17–'21</span>
+              <ul class="eralist">
+                <li><span class="y">'17</span>Transformer</li>
+                <li><span class="y">'18</span>BERT</li>
+                <li><span class="y">'18</span>GPT-1</li>
+                <li><span class="y">'19</span>GPT-2</li>
+                <li><span class="y">'20</span>GPT-3</li>
+                <li><span class="y">'20</span>ViT</li>
+                <li><span class="y">'20</span>DDPM</li>
+                <li><span class="y">'21</span>CLIP</li>
+                <li><span class="y">'21</span>DALL·E</li>
+                <li><span class="y">'21</span>AlphaFold 2</li>
+              </ul>
+            </div>
+            <div class="card eracard" style="--c: #f472b6; --i: 3">
+              <span class="tag">GENERATIVE AI · '22–</span>
+              <ul class="eralist">
+                <li><span class="y">'22</span>ChatGPT</li>
+                <li><span class="y">'22</span>Stable Diffusion</li>
+                <li><span class="y">'23</span>GPT-4</li>
+                <li><span class="y">'23</span>LLaMA</li>
+                <li><span class="y">'23</span>Claude</li>
+                <li><span class="y">'24</span>Sora</li>
+                <li><span class="y">'24</span>GPT-4o</li>
+                <li><span class="y">'24</span>o1</li>
+                <li><span class="y">'25</span>DeepSeek R1</li>
+                <li><span class="y">'25</span>Agentic systems</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ TOUR · ERA 1 — FOUNDATIONS ============ -->
+        <section style="--c: #6ee7ff">
+          <div class="kicker" style="color: #6ee7ff">
+            Part 01 · The tour · Era 1 of 4
+          </div>
+          <h2>
+            Foundations
+            <span class="faint" style="font-weight: 400; font-size: 0.62em"
+              >1958 – 2006</span
+            >
+          </h2>
+          <p class="muted small" style="margin: 0 0 0.1em">
+            The mathematical building blocks of neural networks.
+          </p>
+          <div class="rule" style="background: #6ee7ff"></div>
+          <div class="tl">
+            <div class="tl-row" style="--i: 0">
+              <span class="tl-yr">1958</span><h3>Perceptron</h3>
+              <p><span class="dash">— </span>Rosenblatt's single artificial neuron — learns to separate linear classes.</p>
+            </div>
+            <div class="tl-row" style="--i: 1">
+              <span class="tl-yr">1969</span><h3>Perceptrons (book)</h3>
+              <p><span class="dash">— </span>Minsky &amp; Papert prove the XOR limit. Triggers the first AI winter.</p>
+            </div>
+            <div class="tl-row" style="--i: 2">
+              <span class="tl-yr">1980</span><h3>Neocognitron</h3>
+              <p><span class="dash">— </span>Fukushima's hierarchical visual model — the direct ancestor of CNNs.</p>
+            </div>
+            <div class="tl-row" style="--i: 3">
+              <span class="tl-yr">1986</span><h3>Backpropagation</h3>
+              <p><span class="dash">— </span>Rumelhart, Hinton &amp; Williams — multi-layer training finally tractable.</p>
+            </div>
+            <div class="tl-row" style="--i: 4">
+              <span class="tl-yr">1989</span><h3>LeNet</h3>
+              <p><span class="dash">— </span>LeCun's first CNN — handwritten digit recognition for the US Postal Service.</p>
+            </div>
+            <div class="tl-row" style="--i: 5">
+              <span class="tl-yr">1997</span><h3>LSTM</h3>
+              <p><span class="dash">— </span>Hochreiter &amp; Schmidhuber — gated cells solve the vanishing-gradient problem.</p>
+            </div>
+            <div class="tl-row" style="--i: 6">
+              <span class="tl-yr">1998</span><h3>LeNet-5</h3>
+              <p><span class="dash">— </span>Refined CNN evaluated on MNIST — the benchmark that defined the era.</p>
+            </div>
+            <div class="tl-row" style="--i: 7">
+              <span class="tl-yr">2006</span><h3>Deep Belief Networks</h3>
+              <p><span class="dash">— </span>Hinton's layer-wise pretraining revives the field. Coins "deep learning."</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ TOUR · ERA 2 — DL REVOLUTION ============ -->
+        <section style="--c: #93b5f0">
+          <div class="kicker" style="color: #93b5f0">
+            Part 01 · The tour · Era 2 of 4
+          </div>
+          <h2>
+            Deep learning revolution
+            <span class="faint" style="font-weight: 400; font-size: 0.62em"
+              >2009 – 2016</span
+            >
+          </h2>
+          <p class="muted small" style="margin: 0 0 0.1em">
+            Data + GPUs + depth, in that order.
+          </p>
+          <div class="rule" style="background: #93b5f0"></div>
+          <div class="tl">
+            <div class="tl-row" style="--i: 0">
+              <span class="tl-yr">2009</span><h3>ImageNet</h3>
+              <p><span class="dash">— </span>Fei-Fei Li's 14M-image, 21k-category dataset. The benchmark everyone had to beat.</p>
+            </div>
+            <div class="tl-row" style="--i: 1">
+              <span class="tl-yr">2012</span><h3>AlexNet</h3>
+              <p><span class="dash">— </span>Krizhevsky, Sutskever &amp; Hinton — deep CNN on GPUs halves ImageNet error.</p>
+            </div>
+            <div class="tl-row" style="--i: 2">
+              <span class="tl-yr">2013</span><h3>Word2Vec</h3>
+              <p><span class="dash">— </span>Mikolov — dense word vectors that capture meaning algebraically.</p>
+            </div>
+            <div class="tl-row" style="--i: 3">
+              <span class="tl-yr">2014</span><h3>GAN</h3>
+              <p><span class="dash">— </span>Goodfellow — two networks playing a min-max game. The generative unlock.</p>
+            </div>
+            <div class="tl-row" style="--i: 4">
+              <span class="tl-yr">2014</span><h3>VGG &amp; GoogLeNet</h3>
+              <p><span class="dash">— </span>Oxford and Google — much deeper nets; Inception modules; ensemble tricks.</p>
+            </div>
+            <div class="tl-row" style="--i: 5">
+              <span class="tl-yr">2014</span><h3>Seq2Seq</h3>
+              <p><span class="dash">— </span>Sutskever — encoder-decoder framework. Makes neural translation work.</p>
+            </div>
+            <div class="tl-row" style="--i: 6">
+              <span class="tl-yr">2015</span><h3>ResNet</h3>
+              <p><span class="dash">— </span>He et al. — skip connections let networks scale to 152 layers without degrading.</p>
+            </div>
+            <div class="tl-row" style="--i: 7">
+              <span class="tl-yr">2015</span><h3>Batch Normalization</h3>
+              <p><span class="dash">— </span>Ioffe &amp; Szegedy — normalises activations layer by layer. Becomes a default.</p>
+            </div>
+            <div class="tl-row" style="--i: 8">
+              <span class="tl-yr">2016</span><h3>AlphaGo</h3>
+              <p><span class="dash">— </span>DeepMind — deep RL + Monte Carlo tree search beats Lee Sedol 4–1.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ TOUR · ERA 3 — TRANSFORMER ERA ============ -->
+        <section style="--c: #a78bfa">
+          <div class="kicker" style="color: #a78bfa">
+            Part 01 · The tour · Era 3 of 4
+          </div>
+          <h2>
+            Transformer era
+            <span class="faint" style="font-weight: 400; font-size: 0.62em"
+              >2017 – 2021</span
+            >
+          </h2>
+          <p class="muted small" style="margin: 0 0 0.1em">
+            One architecture starts eating every domain.
+          </p>
+          <div class="rule" style="background: #a78bfa"></div>
+          <div class="tl">
+            <div class="tl-row" style="--i: 0">
+              <span class="tl-yr">2017</span><h3>Transformer</h3>
+              <p><span class="dash">— </span>Vaswani et al. — attention replaces recurrence. The new dominant architecture.</p>
+            </div>
+            <div class="tl-row" style="--i: 1">
+              <span class="tl-yr">2018</span><h3>BERT</h3>
+              <p><span class="dash">— </span>Devlin et al. — bidirectional pretraining → top scores across NLP tasks.</p>
+            </div>
+            <div class="tl-row" style="--i: 2">
+              <span class="tl-yr">2018</span><h3>GPT-1</h3>
+              <p><span class="dash">— </span>OpenAI — decoder-only autoregressive pretraining on books.</p>
+            </div>
+            <div class="tl-row" style="--i: 3">
+              <span class="tl-yr">2019</span><h3>GPT-2</h3>
+              <p><span class="dash">— </span>OpenAI — 1.5B params; generation quality so good they delayed release.</p>
+            </div>
+            <div class="tl-row" style="--i: 4">
+              <span class="tl-yr">2020</span><h3>GPT-3</h3>
+              <p><span class="dash">— </span>OpenAI — 175B params. In-context learning, no fine-tuning required.</p>
+            </div>
+            <div class="tl-row" style="--i: 5">
+              <span class="tl-yr">2020</span><h3>ViT</h3>
+              <p><span class="dash">— </span>Dosovitskiy et al. — split image into patches, feed to a transformer. Works.</p>
+            </div>
+            <div class="tl-row" style="--i: 6">
+              <span class="tl-yr">2020</span><h3>DDPM</h3>
+              <p><span class="dash">— </span>Ho et al. — image generation by learning to reverse a noise process.</p>
+            </div>
+            <div class="tl-row" style="--i: 7">
+              <span class="tl-yr">2021</span><h3>CLIP</h3>
+              <p><span class="dash">— </span>OpenAI — contrastive image-text alignment; one model, many vision tasks.</p>
+            </div>
+            <div class="tl-row" style="--i: 8">
+              <span class="tl-yr">2021</span><h3>DALL·E</h3>
+              <p><span class="dash">— </span>OpenAI — text-to-image generation via transformer + VAE-style decoder.</p>
+            </div>
+            <div class="tl-row" style="--i: 9">
+              <span class="tl-yr">2021</span><h3>AlphaFold 2</h3>
+              <p><span class="dash">— </span>DeepMind — protein structure prediction at experimental accuracy.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ TOUR · ERA 4 — GENERATIVE & MULTIMODAL ============ -->
+        <section style="--c: #f472b6">
+          <div class="kicker" style="color: #f472b6">
+            Part 01 · The tour · Era 4 of 4
+          </div>
+          <h2>
+            Generative &amp; multimodal
+            <span class="faint" style="font-weight: 400; font-size: 0.62em"
+              >2022 –</span
+            >
+          </h2>
+          <p class="muted small" style="margin: 0 0 0.1em">
+            AI leaves the lab. Chat, image, video, voice, code, agents.
+          </p>
+          <div class="rule" style="background: #f472b6"></div>
+          <div class="tl">
+            <div class="tl-row" style="--i: 0">
+              <span class="tl-yr">2022</span><h3>ChatGPT</h3>
+              <p><span class="dash">— </span>OpenAI — RLHF + chat interface make LLMs broadly usable. 100M users in 2 months.</p>
+            </div>
+            <div class="tl-row" style="--i: 1">
+              <span class="tl-yr">2022</span><h3>Stable Diffusion</h3>
+              <p><span class="dash">— </span>Stability AI — open-weight text-to-image. Spawns an ecosystem overnight.</p>
+            </div>
+            <div class="tl-row" style="--i: 2">
+              <span class="tl-yr">2023</span><h3>GPT-4</h3>
+              <p><span class="dash">— </span>OpenAI — multimodal frontier model. Bar exam, code, vision, the works.</p>
+            </div>
+            <div class="tl-row" style="--i: 3">
+              <span class="tl-yr">2023</span><h3>LLaMA</h3>
+              <p><span class="dash">— </span>Meta — open-weight LLMs that anyone can run, fine-tune, and build on.</p>
+            </div>
+            <div class="tl-row" style="--i: 4">
+              <span class="tl-yr">2023</span><h3>Claude</h3>
+              <p><span class="dash">— </span>Anthropic — Constitutional AI; safety-focused frontier model.</p>
+            </div>
+            <div class="tl-row" style="--i: 5">
+              <span class="tl-yr">2024</span><h3>Sora</h3>
+              <p><span class="dash">— </span>OpenAI — coherent minute-long video from text. The video-model moment.</p>
+            </div>
+            <div class="tl-row" style="--i: 6">
+              <span class="tl-yr">2024</span><h3>GPT-4o</h3>
+              <p><span class="dash">— </span>OpenAI — single model handling voice, vision, and text in real time.</p>
+            </div>
+            <div class="tl-row" style="--i: 7">
+              <span class="tl-yr">2024</span><h3>o1</h3>
+              <p><span class="dash">— </span>OpenAI — chain-of-thought at inference time; the reasoning-model unlock.</p>
+            </div>
+            <div class="tl-row" style="--i: 8">
+              <span class="tl-yr">2025</span><h3>DeepSeek R1</h3>
+              <p><span class="dash">— </span>DeepSeek — open-weight reasoning model trained at a fraction of frontier cost.</p>
+            </div>
+            <div class="tl-row" style="--i: 9">
+              <span class="tl-yr">2025</span><h3>Agentic systems</h3>
+              <p><span class="dash">— </span>Tool-using LLMs running multi-step tasks autonomously. The agent era begins.</p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.45em">
+            That's the whole landscape. Now let's <em>rewind to 1958</em> and
+            watch how a handful of these ideas actually work.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 1958 · PERCEPTRON (1/2) ============ -->
+        <section style="--c: #6ee7ff">
+          <div class="kicker" style="color: #6ee7ff">Deep dive · 1958</div>
+          <h2>The perceptron: one artificial neuron</h2>
+          <div class="rule" style="background: #6ee7ff"></div>
+          <p class="muted small" style="margin: 0 0 0.7em">
+            Frank Rosenblatt's bet: build a machine that
+            <em>learns from examples</em> instead of following hand-coded rules.
+            One simple unit, loosely inspired by a brain cell.
+          </p>
+          <div class="flow">
+            <div class="step">
+              <div class="n">INPUTS</div>
+              <h3>x₁ x₂ x₃</h3>
+              <p>the features it sees</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">WEIGH + SUM</div>
+              <h3>Σ wᵢxᵢ + b</h3>
+              <p>each input has a weight</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">THRESHOLD</div>
+              <h3>fire?</h3>
+              <p>over the line → 1</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">OUTPUT</div>
+              <h3>0 or 1</h3>
+              <p>its decision</p>
+            </div>
+          </div>
+          <div class="mathbox" style="--c: #6ee7ff; margin-top: 0.7em">
+            \[ \hat{y} = \begin{cases} 1 & \text{if } w_1 x_1 + w_2 x_2 + \dots +
+            b > 0 \\ 0 & \text{otherwise} \end{cases} \]
+          </div>
+          <p class="tiny faint" style="margin: 0.3em 0 0">
+            learning rule: nudge the weights whenever it's wrong
+          </p>
+          <p class="muted small" style="margin-top: 0.7em">
+            That one idea — <em>adjustable weights tuned by error</em> — is still
+            the beating heart of every neural network in 2026.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 1958 · AI WINTER (2/2) ============ -->
+        <section style="--c: #6ee7ff">
+          <div class="kicker" style="color: #6ee7ff">
+            Deep dive · 1958 → the first freeze
+          </div>
+          <h2>Big promise, then a hard wall</h2>
+          <div class="rule" style="background: #6ee7ff"></div>
+          <div class="cols two" style="align-items: start">
+            <div class="card">
+              <span class="tag accent">THE HYPE (1958)</span>
+              <p>
+                The press called it an electronic brain that would soon walk,
+                talk, see, and reproduce itself. Funding poured in.
+              </p>
+            </div>
+            <div class="card isnt">
+              <span class="tag">THE WALL (1969)</span>
+              <p>
+                Minsky &amp; Papert proved a single perceptron can only draw a
+                <em>straight line</em> — it can't even learn <em>XOR</em>.
+                Optimism collapsed.
+              </p>
+            </div>
+          </div>
+          <div class="eq" style="--c: #6ee7ff; margin-top: 0.8em">
+            promise ↑↑↑ → limit discovered → funding ↓↓↓
+            <span class="cmt">&nbsp;&nbsp;// the first "AI winter," 1970s</span>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            Keep this cycle in mind — we'll use it as a lens on today's hype in
+            Part 06.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · XOR · WHY ONE LINE FAILS ============ -->
+        <section style="--c: #6ee7ff">
+          <div class="kicker" style="color: #6ee7ff">
+            Deep dive · the wall, up close
+          </div>
+          <h2>Why one straight line can't do XOR</h2>
+          <div class="rule" style="background: #6ee7ff"></div>
+          <div class="cols two" style="align-items: center; gap: 1.2em">
+            <div>
+              <p class="muted small" style="margin: 0 0 0.6em">
+                <em>XOR</em> ("exclusive or") outputs <em>1 only when the two
+                inputs differ</em> — a tiny logic function:
+              </p>
+              <table class="ttable">
+                <tr>
+                  <th>x₁</th>
+                  <th>x₂</th>
+                  <th>XOR</th>
+                </tr>
+                <tr>
+                  <td>0</td>
+                  <td>0</td>
+                  <td class="out0">0</td>
+                </tr>
+                <tr>
+                  <td>0</td>
+                  <td>1</td>
+                  <td class="out1">1</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>0</td>
+                  <td class="out1">1</td>
+                </tr>
+                <tr>
+                  <td>1</td>
+                  <td>1</td>
+                  <td class="out0">0</td>
+                </tr>
+              </table>
+              <p class="muted small" style="margin: 0.7em 0 0">
+                A perceptron's decision is one line: \(\mathbf{w}\cdot\mathbf{x}
+                + b = 0\). Try <em>any</em> line on the plot → one dot always
+                lands on the wrong side.
+              </p>
+            </div>
+            <div>
+              <div class="xorplot">
+                <span class="pt zero" style="left: 16%; bottom: 16%">0</span>
+                <span class="pt one" style="left: 16%; bottom: 84%">1</span>
+                <span class="pt one" style="left: 84%; bottom: 16%">1</span>
+                <span class="pt zero" style="left: 84%; bottom: 84%">0</span>
+                <span class="axlbl" style="left: 50%; bottom: -22px">x₁ →</span>
+                <span class="axlbl" style="left: -26px; bottom: 50%">x₂ ↑</span>
+              </div>
+              <p class="tiny center" style="color: var(--accent); margin: 0.6em 0 0">
+                ● = output 1&nbsp;&nbsp;<span style="color: var(--accent-3)"
+                  >● = output 0</span
+                >
+              </p>
+              <p class="tiny center faint" style="margin: 0.2em 0 0">
+                the dashed line is one failed attempt
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.7em">
+            The fix: combine <em>two</em> lines and fold the space — exactly what
+            adding a <em>hidden layer</em> does. <span class="accent">That's the
+            next slide.</span>
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 1986 · MULTILAYER (1/2) ============ -->
+        <section style="--c: #7dd3e8">
+          <div class="kicker" style="color: #7dd3e8">Deep dive · 1986</div>
+          <h2>Stacking neurons breaks the limit</h2>
+          <div class="rule" style="background: #7dd3e8"></div>
+          <p class="muted small" style="margin: 0 0 0.3em">
+            One neuron draws one line. Add a <em>hidden layer</em> and the
+            network can carve space into any shape it likes — XOR included.
+          </p>
+          <div class="net">
+            <div class="layer" style="--c: #7dd3e8">
+              <div class="node"></div>
+              <div class="node"></div>
+              <div class="node"></div>
+              <div class="cap">input layer</div>
+            </div>
+            <div class="arrows">→</div>
+            <div class="layer" style="--c: #a78bfa">
+              <div class="node"></div>
+              <div class="node"></div>
+              <div class="node"></div>
+              <div class="node"></div>
+              <div class="cap">hidden layer</div>
+            </div>
+            <div class="arrows">→</div>
+            <div class="layer" style="--c: #f472b6">
+              <div class="node"></div>
+              <div class="cap">output</div>
+            </div>
+          </div>
+          <p class="muted small" style="margin-top: 0.6em">
+            Sounds abstract — so let's <em>build XOR by hand</em> with exactly
+            two hidden neurons and see it work. <span class="accent">Next
+            slide.</span>
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · HIDDEN LAYER SOLVES XOR ============ -->
+        <section style="--c: #a78bfa">
+          <div class="kicker" style="color: #a78bfa">Deep dive · the fix, concretely</div>
+          <h2>How a hidden layer builds XOR</h2>
+          <div class="rule" style="background: #a78bfa"></div>
+          <p class="muted small" style="margin: 0 0 0.5em">
+            Give the net <em>two</em> hidden neurons. Each draws its own line;
+            the output neuron combines them. XOR = "at least one input on,
+            <em>but not both</em>."
+          </p>
+          <div class="cols two" style="align-items: center; gap: 1.2em">
+            <div>
+              <div class="mathbox" style="--c: #a78bfa; font-size: 0.78em">
+                \[ h_1 = \operatorname{step}(x_1 + x_2 - 0.5) \quad (\text{OR}) \]
+                \[ h_2 = \operatorname{step}(x_1 + x_2 - 1.5) \quad (\text{AND}) \]
+                \[ y = \operatorname{step}(h_1 - h_2 - 0.5) \quad (h_1 \,\wedge\, \neg h_2) \]
+              </div>
+              <table class="ttable" style="margin-top: 0.7em; font-size: 0.66em">
+                <tr>
+                  <th>x₁</th><th>x₂</th><th>h₁</th><th>h₂</th><th>y</th>
+                </tr>
+                <tr><td>0</td><td>0</td><td>0</td><td>0</td><td class="out0">0</td></tr>
+                <tr><td>0</td><td>1</td><td>1</td><td>0</td><td class="out1">1</td></tr>
+                <tr><td>1</td><td>0</td><td>1</td><td>0</td><td class="out1">1</td></tr>
+                <tr><td>1</td><td>1</td><td>1</td><td>1</td><td class="out0">0</td></tr>
+              </table>
+            </div>
+            <div>
+              <svg viewBox="0 0 200 200" style="width: 200px; height: 200px; display: block; margin: 0 auto">
+                <!-- shaded band: 0.5 < x1+x2 < 1.5 -->
+                <polygon points="30,100 100,170 170,170 170,100 100,30 30,30"
+                  fill="rgba(110,231,255,0.10)" stroke="none" />
+                <!-- axes -->
+                <line x1="30" y1="30" x2="30" y2="170" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
+                <line x1="30" y1="170" x2="170" y2="170" stroke="rgba(255,255,255,0.18)" stroke-width="1.5" />
+                <!-- two hidden-unit boundary lines -->
+                <line x1="30" y1="100" x2="100" y2="170" stroke="#6ee7ff" stroke-width="2" stroke-dasharray="5 4" />
+                <line x1="100" y1="30" x2="170" y2="100" stroke="#a78bfa" stroke-width="2" stroke-dasharray="5 4" />
+                <!-- data points -->
+                <circle cx="30"  cy="170" r="11" fill="rgba(244,114,182,0.18)" stroke="#f472b6" stroke-width="2" />
+                <circle cx="170" cy="30"  r="11" fill="rgba(244,114,182,0.18)" stroke="#f472b6" stroke-width="2" />
+                <circle cx="30"  cy="30"  r="11" fill="rgba(110,231,255,0.20)" stroke="#6ee7ff" stroke-width="2" />
+                <circle cx="170" cy="170" r="11" fill="rgba(110,231,255,0.20)" stroke="#6ee7ff" stroke-width="2" />
+                <text x="30"  y="174" text-anchor="middle" fill="#f472b6" font-size="11" font-family="monospace">0</text>
+                <text x="170" y="34"  text-anchor="middle" fill="#f472b6" font-size="11" font-family="monospace">0</text>
+                <text x="30"  y="34"  text-anchor="middle" fill="#6ee7ff" font-size="11" font-family="monospace">1</text>
+                <text x="170" y="174" text-anchor="middle" fill="#6ee7ff" font-size="11" font-family="monospace">1</text>
+              </svg>
+              <p class="tiny center faint" style="margin: 0.3em 0 0">
+                two lines carve a <span class="accent">stripe</span> holding
+                exactly the two "output&nbsp;1" points
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.6em">
+            Here we <em>chose</em> the weights by hand. For real networks nobody
+            can — so how does it find them itself? <span class="accent">That's
+            backprop.</span>
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 1986 · BACKPROP (2/2) ============ -->
+        <section style="--c: #7dd3e8">
+          <div class="kicker" style="color: #7dd3e8">Deep dive · 1986</div>
+          <h2>Backpropagation: learning from mistakes</h2>
+          <div class="rule" style="background: #7dd3e8"></div>
+          <p class="muted small" style="margin: 0 0 0.2em">
+            Rumelhart, <em>Hinton</em> &amp; Williams gave the recipe still used
+            today — repeated millions of times:
+          </p>
+          <div class="flow">
+            <div class="step">
+              <div class="n">01</div>
+              <h3>Guess</h3>
+              <p>forward pass</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">02</div>
+              <h3>Measure error</h3>
+              <p>how wrong?</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">03</div>
+              <h3>Assign blame</h3>
+              <p>push error backward</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">04</div>
+              <h3>Nudge weights</h3>
+              <p>a tiny step better</p>
+            </div>
+            <div class="arrow">↺</div>
+            <div class="step">
+              <div class="n">05</div>
+              <h3>Repeat</h3>
+              <p>millions of times</p>
+            </div>
+          </div>
+          <p class="muted small" style="margin-top: 0.8em">
+            Under the hood it's just the <em>chain rule</em> from calculus, at
+            scale. The math was right — but with little data and slow computers,
+            it still didn't take off. <em>The world wasn't ready yet.</em>
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · THE MATH · WEIGHT UPDATES ============ -->
+        <section style="--c: #7dd3e8">
+          <div class="kicker" style="color: #7dd3e8">
+            Deep dive · the math
+          </div>
+          <h2>How a weight actually moves</h2>
+          <div class="rule" style="background: #7dd3e8"></div>
+          <p class="muted small" style="margin: 0 0 0.6em">
+            Both rules "tune by error." The difference is <em>how the error
+            reaches each weight</em> — and that's the whole leap.
+          </p>
+          <div class="cols two" style="align-items: start">
+            <div class="card">
+              <span class="tag accent">PERCEPTRON · 1958</span>
+              <div class="mathbox" style="--c: #6ee7ff; font-size: 0.82em">
+                \[ \hat{y} = \operatorname{step}(\mathbf{w}\cdot\mathbf{x} + b) \]
+                \[ w_i \leftarrow w_i + \eta\,(y - \hat{y})\,x_i \]
+              </div>
+              <p style="font-size: 0.72em; margin-top: 0.5em">
+                The error \(y - \hat{y}\) is read straight off the output, and
+                those are the <em>only</em> weights. One layer → blame is
+                trivial. \(\eta\) = learning rate.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)">BACKPROP · 1986</span>
+              <div class="mathbox" style="--c: #a78bfa; font-size: 0.82em">
+                \[ L = \tfrac{1}{2}(y - \hat{y})^2 \]
+                \[ w_i \leftarrow w_i - \eta\,\frac{\partial L}{\partial w_i} \]
+                \[ \delta_j = \sigma'(z_j)\sum_k \delta_k\,w_{kj} \]
+              </div>
+              <p style="font-size: 0.72em; margin-top: 0.5em">
+                A hidden neuron has <em>no target of its own</em>. The chain rule
+                propagates the blame \(\delta\) backward to reach it.
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            Same spirit — step downhill along the error. Backprop's trick is
+            <em>credit assignment</em>: computing ∂L/∂w for weights with no
+            target of their own.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 1989 · LeCUN / CNN ============ -->
+        <section style="--c: #84cce0">
+          <div class="kicker" style="color: #84cce0">Deep dive · 1989–1998</div>
+          <h2>LeCun's big idea: the convolutional net</h2>
+          <div class="rule" style="background: #84cce0"></div>
+          <p class="muted small" style="margin: 0 0 0.7em">
+            A plain network treats every pixel as unrelated. <em>Yann LeCun</em>
+            asked a sharper question: in an image, the same shape can appear
+            anywhere — so why not teach the net to <em>scan for features</em>
+            instead of memorizing fixed positions?
+          </p>
+          <div class="cols two" style="align-items: start">
+            <div class="card">
+              <span class="tag accent">THE TRICK</span>
+              <p>
+                Slide small <em>filters</em> across the image to detect edges,
+                then corners, then shapes — reusing the same weights everywhere.
+                Far fewer parameters, built-in to handle position.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)">LeNet · 1998</span>
+              <p>
+                His <em>LeNet</em> read handwritten digits on real bank checks —
+                one of the first genuinely useful, deployed neural nets. Vision
+                had its blueprint.
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            The idea sat ahead of its time for ~15 years — waiting for the data
+            and GPUs to catch up. <span class="accent">Then 2012 happened.</span>
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 2012 · THREE THINGS (1/2) ============ -->
+        <section style="--c: #93b5f0">
+          <div class="kicker" style="color: #93b5f0">Deep dive · 2012</div>
+          <h2>Three things finally lined up</h2>
+          <div class="rule" style="background: #93b5f0"></div>
+          <div class="cols three">
+            <div class="card">
+              <span class="tag accent">DATA</span>
+              <h3 style="font-size: 0.92em">ImageNet</h3>
+              <p>
+                ~14M hand-labeled images (Fei-Fei Li). Finally enough examples
+                to learn from.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)">COMPUTE</span>
+              <h3 style="font-size: 0.92em">GPUs</h3>
+              <p>
+                Gaming chips, repurposed for the massively parallel math neural
+                nets need.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-3)">METHODS</span>
+              <h3 style="font-size: 0.92em">ReLU, dropout</h3>
+              <p>
+                Small tricks that let much deeper networks actually train
+                without falling apart.
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.9em">
+            None of these was new on its own. <em>Together</em>, they crossed a
+            threshold.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 2012 · ALEXNET (2/2) ============ -->
+        <section style="--c: #93b5f0">
+          <div class="kicker" style="color: #93b5f0">Deep dive · 2012</div>
+          <h2>AlexNet: the spark</h2>
+          <div class="rule" style="background: #93b5f0"></div>
+          <div class="cols two" style="align-items: center">
+            <div>
+              <p class="muted small" style="margin: 0">
+                Krizhevsky, Sutskever &amp; <em>Hinton</em> entered the ImageNet
+                contest with a deep convolutional net — <em>LeCun's idea, scaled
+                up</em> on two GPUs — and didn't just win, they crushed it.
+              </p>
+              <div class="eq" style="--c: #93b5f0; margin-top: 0.8em">
+                top-5 error&nbsp; <span class="cmt">runner-up</span> 26.2% →
+                <span style="color: #93b5f0">AlexNet 15.3%</span>
+              </div>
+            </div>
+            <div class="card" style="text-align: center">
+              <div class="bignum" style="--c: #93b5f0">
+                ~10<span class="unit"> pts</span>
+              </div>
+              <p style="margin-top: 0.4em">
+                error gap to the field — an unheard-of leap in one year
+              </p>
+            </div>
+          </div>
+          <p class="muted small" style="margin-top: 0.9em">
+            Overnight, the whole field switched to deep learning. The modern boom
+            starts here. <span class="faint">(Sutskever later co-founds OpenAI — keep that thread.)</span>
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 2017 · BEFORE (1/2) ============ -->
+        <section style="--c: #a78bfa">
+          <div class="kicker" style="color: #a78bfa">Deep dive · 2017</div>
+          <h2>Before: reading one word at a time</h2>
+          <div class="rule" style="background: #a78bfa"></div>
+          <p class="muted small" style="margin: 0 0 0.7em">
+            The best language models (RNNs / LSTMs) walked through a sentence
+            <em>left to right</em>, one word at a time. Two problems:
+          </p>
+          <div class="cols two">
+            <div class="card isnt">
+              <span class="tag">SLOW</span>
+              <p>
+                Each word waits for the one before it — you can't use a GPU's
+                parallelism. Training crawls.
+              </p>
+            </div>
+            <div class="card isnt">
+              <span class="tag">FORGETFUL</span>
+              <p>
+                Over long distances the early words fade. Connecting things far
+                apart is hard.
+              </p>
+            </div>
+          </div>
+          <div class="exbox" style="margin-top: 0.8em">
+            "The <span class="hl">cat</span> that the dog chased across the yard
+            … <span class="hl">was</span> fast."
+            <span class="muted" style="font-size: 0.8em"
+              >— by the time you reach "was," the subject is far behind.</span
+            >
+          </div>
+        </section>
+
+        <!-- ============ DEEP DIVE · 2017 · ATTENTION (2/2) ============ -->
+        <section style="--c: #a78bfa">
+          <div class="kicker" style="color: #a78bfa">Deep dive · 2017</div>
+          <h2>Self-attention: look at everything at once</h2>
+          <div class="rule" style="background: #a78bfa"></div>
+          <p class="muted small" style="margin: 0 0 0.7em">
+            The core move: for every word, the model asks
+            <em>"which other words matter to me?"</em> and weighs them all —
+            in parallel.
+          </p>
+          <div class="exbox">
+            "The <span class="hl2">animal</span> didn't cross the street because
+            <span class="hl">it</span> was too tired."
+            <div class="muted" style="font-size: 0.78em; margin-top: 0.4em">
+              Attention links <span class="hl">it</span> →
+              <span class="hl2">animal</span> (not "street") — that's how it keeps
+              meaning straight.
+            </div>
+          </div>
+          <div class="mathbox center" style="--c: #a78bfa; margin-top: 0.8em">
+            \[ \operatorname{Attention}(Q,K,V) = \operatorname{softmax}\!\left(
+            \frac{QK^{\top}}{\sqrt{d_k}} \right) V \]
+          </div>
+          <div class="cols three" style="margin-top: 0.7em">
+            <div class="card">
+              <span class="mathtag">\( Q K^{\top} \)</span>
+              <p>Each word scores how relevant every other word is to it — a full grid of similarities.</p>
+            </div>
+            <div class="card">
+              <span class="mathtag">\( \div \sqrt{d_k},\ \operatorname{softmax} \)</span>
+              <p>Scale for stable gradients, then normalize the scores into weights that sum to 1.</p>
+            </div>
+            <div class="card">
+              <span class="mathtag">\( \cdot\, V \)</span>
+              <p>Each word becomes a weighted blend of the others' values. All words at once.</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ HISTORY — WHY TRANSFORMERS ============ -->
+        <section>
+          <div class="kicker">The turning point</div>
+          <h2>
+            Why the <span class="grad">Transformer</span> changed everything
+          </h2>
+          <div class="rule"></div>
+          <div class="cols three">
+            <div class="card">
+              <span class="tag accent">ATTENTION</span>
+              <p>
+                It can weigh <em>every</em> part of the input against every
+                other part — capturing context far better than older models.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)">PARALLEL</span>
+              <p>
+                It processes a whole sequence at once, so it scales beautifully
+                on GPUs. More data + compute kept making it better.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-3)">UNIVERSAL</span>
+              <p>
+                The <em>same</em> architecture handles text, images, audio,
+                code. One idea behind LLMs, image models, and agents.
+              </p>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            Everything we talk about today runs on this one 2017 idea — just
+            bigger.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 2018–20 · SCALING (1/2) ============ -->
+        <section style="--c: #e879c4">
+          <div class="kicker" style="color: #e879c4">Deep dive · 2018–2020</div>
+          <h2>"Just make it bigger"</h2>
+          <div class="rule" style="background: #e879c4"></div>
+          <p class="muted small" style="margin: 0 0 0.2em">
+            Take one transformer. Train it on a huge slice of the internet to do
+            one thing — <em>predict the next word</em>. Then scale it up. It
+            kept getting better, predictably.
+          </p>
+          <div class="scale">
+            <div class="step" style="--c: #6ee7ff">
+              <div class="lbl">GPT-1 · 2018</div>
+              <div class="val">117M</div>
+              <p
+                style="
+                  font-size: 0.62em;
+                  color: var(--muted);
+                  margin: 0.3em 0 0;
+                "
+              >
+                proof the recipe works
+              </p>
+            </div>
+            <div class="step" style="--c: #a78bfa">
+              <div class="lbl">GPT-2 · 2019</div>
+              <div class="val">1.5B</div>
+              <p
+                style="
+                  font-size: 0.62em;
+                  color: var(--muted);
+                  margin: 0.3em 0 0;
+                "
+              >
+                surprisingly coherent text
+              </p>
+            </div>
+            <div class="step" style="--c: #e879c4">
+              <div class="lbl">GPT-3 · 2020</div>
+              <div class="val">175B</div>
+              <p
+                style="
+                  font-size: 0.62em;
+                  color: var(--muted);
+                  margin: 0.3em 0 0;
+                "
+              >
+                a different kind of thing
+              </p>
+            </div>
+          </div>
+          <div
+            class="mathbox"
+            style="
+              --c: #e879c4;
+              margin-top: 0.7em;
+              display: flex;
+              align-items: center;
+              gap: 1em;
+            "
+          >
+            <span style="font-size: 0.9em">\( L(N) \approx (N_c / N)^{\alpha} \)</span>
+            <span class="tiny faint"
+              >test loss falls as a power law in model size \(N\) — not luck, a
+              measured trend (scaling laws, 2020)</span
+            >
+          </div>
+          <p class="muted small" style="margin-top: 0.6em">
+            <em>Emergence:</em> past a certain size, abilities nobody trained for
+            start to appear — translating, rough arithmetic, and learning a new
+            task from a couple of examples in the prompt.
+          </p>
+        </section>
+
+        <!-- ============ DEEP DIVE · 2022 · CHATGPT (2/2) ============ -->
+        <section style="--c: #f472b6">
+          <div class="kicker" style="color: #f472b6">Deep dive · 2022</div>
+          <h2>From raw model to <span class="grad">ChatGPT</span></h2>
+          <div class="rule" style="background: #f472b6"></div>
+          <p class="muted small" style="margin: 0 0 0.2em">
+            GPT-3 was powerful but awkward to talk to. Two extra steps turned a
+            text-predictor into a helpful assistant:
+          </p>
+          <div class="flow">
+            <div class="step">
+              <div class="n">01</div>
+              <h3>Pretrain</h3>
+              <p>predict the next word on the internet</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">02</div>
+              <h3>Instruction-tune</h3>
+              <p>learn to follow requests</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">03</div>
+              <h3>RLHF</h3>
+              <p>humans rank answers; it learns what's helpful</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step" style="--c: #f472b6">
+              <div class="n">04</div>
+              <h3>Assistant</h3>
+              <p>anyone can just chat</p>
+            </div>
+          </div>
+          <div class="cols two" style="margin-top: 0.8em; align-items: center">
+            <div class="card" style="text-align: center; --c: #f472b6">
+              <div class="bignum" style="--c: #f472b6">
+                ~100M<span class="unit"> users</span>
+              </div>
+              <p style="margin-top: 0.4em">in about two months — Nov 2022</p>
+            </div>
+            <p class="muted small" style="margin: 0">
+              The model barely changed — the <em>packaging</em> did. A chat box
+              put it in everyone's hands overnight. That's the moment that put us
+              all in this room.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 02 ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 80% 20%, rgba(110,231,255,0.14), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 02</div>
+          <h1 class="grad">The big picture</h1>
+          <p class="lead" style="max-width: 16em">
+            Where AI actually is right now — past the headlines.
+          </p>
+        </section>
+
+        <!-- ============ 5. STATEMENT ============ -->
+        <section data-background-color="#08090d">
+          <p class="statement">
+            Today's AI is <span class="grad">astonishingly capable</span> at
+            some things and <span class="grad">confidently wrong</span> at
+            others — <br />and the trick is knowing <em>which is which</em>.
+          </p>
+          <p class="muted small" style="margin-top: 1.2em">
+            Everything else today is in service of that one skill.
+          </p>
+        </section>
+
+        <!-- ============ 6. THE 3 FAMILIES ============ -->
+        <section>
+          <div class="kicker">The landscape</div>
+          <h2>Three families, one idea</h2>
+          <div class="rule"></div>
+          <p class="muted small" style="margin: 0 0 0.7em">
+            They all learn patterns from enormous data, then
+            <em>predict</em> what fits. Different inputs, same engine.
+          </p>
+          <div class="cols three">
+            <div class="card">
+              <span class="tag accent">LLMs</span>
+              <h3 style="font-size: 0.95em">Text in → text out</h3>
+              <p>
+                Predict the next chunk of language. Chat, code, summaries,
+                reasoning-ish.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)"
+                >IMAGE MODELS</span
+              >
+              <h3 style="font-size: 0.95em">Prompt → pixels</h3>
+              <p>
+                Turn noise into an image that matches a description. Also edit
+                &amp; restyle.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-3)">AGENTS</span>
+              <h3 style="font-size: 0.95em">Model + tools + loop</h3>
+              <p>
+                An LLM that can take actions, check results, and try again. Not
+                a new brain — a new wrapper.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 02 — LLMs ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 20% 30%, rgba(110,231,255,0.16), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 03</div>
+          <h1>Large Language <span class="grad">Models</span></h1>
+          <p class="lead">The thing most people mean when they say "AI."</p>
+        </section>
+
+        <!-- ============ 7. LLM — mental model ============ -->
+        <section>
+          <div class="kicker">What it really does</div>
+          <h2>A very good <span class="grad">next-word</span> guesser</h2>
+          <div class="rule"></div>
+          <ul>
+            <li>
+              It reads everything so far and predicts the most plausible
+              <em>next piece of text</em> — over and over.
+            </li>
+            <li>
+              That's it. No database lookup, no understanding of "true."
+              Plausibility ≠ accuracy.
+            </li>
+            <li>
+              The magic: at huge scale, "what sounds right" turns out to capture
+              a lot of real structure — grammar, code, reasoning patterns,
+              style.
+            </li>
+          </ul>
+          <p class="muted small" style="margin-top: 0.6em">
+            Hold this in your head and almost every quirk below stops being
+            surprising.
+          </p>
+        </section>
+
+        <!-- ============ 8. LLM is / isn't ============ -->
+        <section>
+          <div class="kicker">Calibrate</div>
+          <h2>What LLMs are &amp; aren't good at</h2>
+          <div class="rule"></div>
+          <div class="cols two">
+            <div class="card is">
+              <span class="tag">GREAT AT</span>
+              <ul class="check small" style="margin: 0">
+                <li>Drafting, rewriting, summarizing</li>
+                <li>Translating between formats &amp; languages</li>
+                <li>Code: scaffolding, explaining, debugging</li>
+                <li>Brainstorming &amp; "rubber-duck" thinking</li>
+                <li>Turning messy input into structure</li>
+              </ul>
+            </div>
+            <div class="card isnt">
+              <span class="tag">SHAKY AT</span>
+              <ul class="cross small" style="margin: 0">
+                <li>
+                  Facts it half-remembers (→ confident <em>hallucinations</em>)
+                </li>
+                <li>Exact arithmetic &amp; counting</li>
+                <li>Knowing what it doesn't know</li>
+                <li>Recent events past its training cutoff</li>
+                <li>Staying consistent over very long contexts</li>
+              </ul>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            Rule of thumb: trust it for <em>shape</em>, verify the
+            <em>specifics</em>.
+          </p>
+        </section>
+
+        <!-- ============ 9. LLM hype check ============ -->
+        <section>
+          <div class="kicker">Hype vs. reality</div>
+          <h2>The "reasoning" question</h2>
+          <div class="rule"></div>
+          <div class="cols two" style="align-items: start">
+            <div>
+              <h3 class="accent" style="font-size: 0.85em">THE HYPE</h3>
+              <p class="small muted">
+                "It thinks. It reasons. It's basically a junior employee / a
+                brain."
+              </p>
+            </div>
+            <div>
+              <h3 style="font-size: 0.85em; color: var(--accent-3)">
+                THE REALITY
+              </h3>
+              <p class="small muted">
+                Newer models <em>do</em> show real gains by "thinking out loud"
+                before answering. But it's pattern-completion that
+                <em>looks like</em> reasoning — powerful, yet brittle in
+                unfamiliar territory.
+              </p>
+            </div>
+          </div>
+          <div class="card" style="margin-top: 0.8em">
+            <p style="font-size: 0.8em">
+              <span class="accent mono">TAKEAWAY&nbsp;›</span> &nbsp;Treat it as
+              a brilliant, fast, slightly unreliable intern — not an oracle and
+              not a search engine. Useful framing, not an insult.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 03 — IMAGES ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 75% 35%, rgba(167,139,250,0.18), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 04</div>
+          <h1>Image <span class="grad">Models</span></h1>
+          <p class="lead">Diffusion, in one honest paragraph.</p>
+        </section>
+
+        <!-- ============ 10. Image mental model ============ -->
+        <section>
+          <div class="kicker">What it really does</div>
+          <h2>Sculpting an image out of <span class="grad">noise</span></h2>
+          <div class="rule"></div>
+          <ul>
+            <li>
+              Start with pure static. Step by step, the model removes noise
+              toward "something that matches the prompt."
+            </li>
+            <li>
+              It learned this by watching billions of
+              <em>image + caption</em> pairs — so it knows what words tend to
+              look like.
+            </li>
+            <li>
+              It's painting <em>plausible pixels</em>, not retrieving a real
+              photo or understanding the scene.
+            </li>
+          </ul>
+          <p class="muted small" style="margin-top: 0.5em">
+            Same core trick as LLMs: learn the patterns, then generate what
+            fits.
+          </p>
+        </section>
+
+        <!-- ============ 11. Image is / isn't ============ -->
+        <section>
+          <div class="kicker">Calibrate</div>
+          <h2>Where image models shine &amp; struggle</h2>
+          <div class="rule"></div>
+          <div class="cols two">
+            <div class="card is">
+              <span class="tag">SHINE</span>
+              <ul class="check small" style="margin: 0">
+                <li>Concept art, mood, mockups, style</li>
+                <li>Backgrounds, textures, variations at speed</li>
+                <li>Editing: inpaint, remove, restyle, upscale</li>
+                <li>"Show me 20 directions" exploration</li>
+              </ul>
+            </div>
+            <div class="card isnt">
+              <span class="tag">STRUGGLE</span>
+              <ul class="cross small" style="margin: 0">
+                <li>Reliable text inside images (improving, still iffy)</li>
+                <li>Precise counts, hands, fine spatial logic</li>
+                <li>Exact consistency of a character across shots</li>
+                <li>"Pixel-perfect to spec" without iteration</li>
+              </ul>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            Great for <em>exploration &amp; assets</em>; needs a human for
+            <em>precision &amp; final polish</em>.
+          </p>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 04 — AGENTS ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 25% 30%, rgba(244,114,182,0.16), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 05</div>
+          <h1>Agents <span class="faint">— the overloaded word</span></h1>
+          <p class="lead">Where most of the 2026 hype lives.</p>
+        </section>
+
+        <!-- ============ 12. Agent mental model ============ -->
+        <section>
+          <div class="kicker">What it really is</div>
+          <h2>An LLM in a <span class="grad">loop</span>, with tools</h2>
+          <div class="rule"></div>
+          <div class="flow">
+            <div class="step">
+              <div class="n">01</div>
+              <h3>Goal</h3>
+              <p>You give it a task</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">02</div>
+              <h3>Plan</h3>
+              <p>LLM decides a step</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">03</div>
+              <h3>Act</h3>
+              <p>Calls a tool / API</p>
+            </div>
+            <div class="arrow">→</div>
+            <div class="step">
+              <div class="n">04</div>
+              <h3>Observe</h3>
+              <p>Reads the result</p>
+            </div>
+            <div class="arrow">↺</div>
+            <div class="step">
+              <div class="n">05</div>
+              <h3>Repeat</h3>
+              <p>Until done</p>
+            </div>
+          </div>
+          <p class="muted small" style="margin-top: 0.9em">
+            No new intelligence here — it's the <em>same model</em> given hands
+            (tools) and a feedback loop. That's powerful and fragile for the
+            same reason.
+          </p>
+        </section>
+
+        <!-- ============ 13. Agent is / isn't ============ -->
+        <section>
+          <div class="kicker">Calibrate</div>
+          <h2>Agents today: promise vs. practice</h2>
+          <div class="rule"></div>
+          <div class="cols two">
+            <div class="card is">
+              <span class="tag">WORKS WELL</span>
+              <ul class="check small" style="margin: 0">
+                <li>Bounded, well-defined, repeatable tasks</li>
+                <li>Coding assistants in a tight feedback loop</li>
+                <li>Retrieval + tools + a human checkpoint</li>
+                <li>Automating the boring 80%</li>
+              </ul>
+            </div>
+            <div class="card isnt">
+              <span class="tag">FALLS DOWN</span>
+              <ul class="cross small" style="margin: 0">
+                <li>Long chains — small errors compound</li>
+                <li>Open-ended "go run my business" tasks</li>
+                <li>No human in the loop on anything risky</li>
+                <li>Reliability ≠ a flashy demo</li>
+              </ul>
+            </div>
+          </div>
+          <p class="muted small center" style="margin-top: 0.8em">
+            The gap between a <em>great demo</em> and a
+            <em>dependable system</em> is the whole game right now.
+          </p>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 05 — HYPE ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 50% 30%, rgba(251,191,36,0.12), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 06</div>
+          <h1>Reading past <span class="grad">the hype</span></h1>
+          <p class="lead">A few filters you can reuse forever.</p>
+        </section>
+
+        <!-- ============ 14. Hype filters ============ -->
+        <section>
+          <div class="kicker">Your BS detector</div>
+          <h2>Five questions to ask any claim</h2>
+          <div class="rule"></div>
+          <div class="cols two" style="gap: 0.5em 1.4em">
+            <ul class="small">
+              <li>
+                <em>Demo or product?</em> Cherry-picked once, or reliable at
+                scale?
+              </li>
+              <li>
+                <em>What's the failure mode?</em> If they won't show it, be
+                suspicious.
+              </li>
+              <li>
+                <em>Who's measuring?</em> Benchmark vs. your actual job are
+                different.
+              </li>
+            </ul>
+            <ul class="small">
+              <li>
+                <em>What does it replace?</em> A task, or a whole human? Usually
+                a task.
+              </li>
+              <li>
+                <em>Capability or packaging?</em> New model — or an old one with
+                a nicer wrapper?
+              </li>
+            </ul>
+          </div>
+          <div class="card" style="margin-top: 0.6em">
+            <p style="font-size: 0.8em">
+              <span class="accent mono">HEURISTIC ›</span> &nbsp;The more
+              general and effortless something sounds, the harder you should
+              look for the catch.
+            </p>
+          </div>
+        </section>
+
+        <!-- ============ SECTION DIVIDER 06 — TAKEAWAY ============ -->
+        <section
+          data-background-gradient="radial-gradient(800px 600px at 70% 30%, rgba(110,231,255,0.16), transparent 60%), #08090d"
+        >
+          <div class="kicker">Part 07</div>
+          <h1>The mental model<br /><span class="grad">to take home</span></h1>
+        </section>
+
+        <!-- ============ 15. The mental model ============ -->
+        <section>
+          <div class="kicker">If you remember one slide</div>
+          <h2>This one</h2>
+          <div class="rule"></div>
+          <div class="cols three">
+            <div class="card">
+              <span class="tag accent">IT'S A PATTERN ENGINE</span>
+              <p>
+                LLMs, image models, agents — all predict "what fits" from
+                patterns in data. Brilliant, not magic.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-2)"
+                >PLAUSIBLE ≠ TRUE</span
+              >
+              <p>
+                It optimizes for what <em>sounds/looks</em> right. You supply
+                the judgment about what <em>is</em> right.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag" style="color: var(--accent-3)"
+                >YOU + AI &gt; AI</span
+              >
+              <p>
+                Best results come from a human steering, checking, and deciding.
+                It's leverage, not a replacement.
+              </p>
+            </div>
+          </div>
+          <p class="center muted" style="margin-top: 1em; font-size: 0.9em">
+            Trust it for <em>shape &amp; speed</em>. Own the
+            <em>specifics &amp; the call</em>.
+          </p>
+        </section>
+
+        <!-- ============ 16. For builders ============ -->
+        <section>
+          <div class="kicker">For the folks already building</div>
+          <h2>Sharper angles</h2>
+          <div class="rule"></div>
+          <ul class="small">
+            <li>
+              <em>Context &gt; cleverness.</em> Most "prompt engineering" wins
+              are really retrieval &amp; context design.
+            </li>
+            <li>
+              <em>Evals are the moat.</em> If you can't measure quality, you
+              can't improve it — vibes don't scale.
+            </li>
+            <li>
+              <em>Keep the human checkpoint</em> exactly where errors are
+              expensive; automate around it.
+            </li>
+            <li>
+              <em>Smaller, scoped, reliable</em> beats big-and-flashy in
+              production almost every time.
+            </li>
+            <li>
+              <em>Watch cost &amp; latency</em> as first-class features, not
+              afterthoughts.
+            </li>
+          </ul>
+          <p class="muted small" style="margin-top: 0.5em">
+            Happy to go deeper on any of these in Q&amp;A.
+          </p>
+        </section>
+
+        <!-- ============ 17. Q&A ============ -->
+        <section
+          data-background-gradient="radial-gradient(900px 700px at 50% 40%, rgba(167,139,250,0.18), transparent 60%), #08090d"
+        >
+          <div class="center">
+            <div class="kicker" style="text-align: center">Open floor</div>
+            <h1 class="grad">Your questions.</h1>
+            <p class="lead" style="margin: 0 auto; max-width: 18em">
+              Beginner or advanced — anything goes. What's confusing you, what
+              you're trying to build, or what you read this week and didn't
+              believe.
+            </p>
+            <div style="margin-top: 1.4em">
+              <span class="pill">No bad questions</span>
+              <span class="pill">Unmute or drop it in chat</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- ============ 18. CLOSE ============ -->
+        <section data-background-color="#08090d">
+          <div class="kicker">Thanks for coming</div>
+          <h2>That's <span class="grad">Session 01</span></h2>
+          <div class="rule"></div>
+          <div class="cols two" style="align-items: start">
+            <div>
+              <p class="muted" style="font-size: 0.85em">
+                The goal was a real mental model you can reuse — not a list of
+                tools that'll be stale next month. Mission accomplished if you
+                now read AI news a little more skeptically.
+              </p>
+            </div>
+            <div class="card">
+              <span class="tag accent">STAY IN TOUCH</span>
+              <p style="font-size: 0.82em">
+                <strong>Bob (Jue) Guo</strong><br />
+                CS PhD candidate &amp; adjunct faculty<br />
+                University at Buffalo<br />
+                <span
+                  class="faint tiny mono"
+                  style="display: block; margin-top: 0.5em"
+                  >Session 02 coming soon — topic TBD. Bring a question →</span
+                >
+              </p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/math/math.js"></script>
+    <script>
+      Reveal.initialize({
+        width: 1280,
+        height: 720,
+        margin: 0.06,
+        minScale: 0.2,
+        maxScale: 2.0,
+        hash: true,
+        slideNumber: "c/t",
+        transition: "fade",
+        transitionSpeed: "default",
+        backgroundTransition: "fade",
+        controls: true,
+        progress: true,
+        center: false,
+        katex: {
+          delimiters: [
+            { left: "\\[", right: "\\]", display: true },
+            { left: "\\(", right: "\\)", display: false },
+          ],
+        },
+        plugins: [RevealMath.KaTeX],
+      });
+    </script>
+  </body>
+</html>

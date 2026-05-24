@@ -1,0 +1,742 @@
+:root {
+  --bg: #0a0b0f;
+  --bg-2: #0f1117;
+  --ink: #eef1f6;
+  --muted: #9aa3b2;
+  --faint: #5b6473;
+  --accent: #6ee7ff; /* cyan */
+  --accent-2: #a78bfa; /* violet */
+  --accent-3: #f472b6; /* pink */
+  --good: #34d399;
+  --warn: #fbbf24;
+  --line: rgba(255, 255, 255, 0.08);
+  --card: rgba(255, 255, 255, 0.035);
+  --card-line: rgba(255, 255, 255, 0.09);
+}
+
+.reveal {
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
+  font-size: 32px;
+  color: var(--ink);
+  font-weight: 400;
+}
+
+/* ---------- background ---------- */
+.reveal-viewport {
+  background:
+    radial-gradient(
+      900px 600px at 12% -10%,
+      rgba(110, 231, 255, 0.1),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 700px at 100% 110%,
+      rgba(167, 139, 250, 0.12),
+      transparent 55%
+    ),
+    var(--bg);
+}
+
+/* ---------- typography ---------- */
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: "Inter", sans-serif;
+  color: var(--ink);
+  text-transform: none;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  margin: 0 0 0.35em;
+  font-weight: 800;
+  text-shadow: none;
+}
+.reveal h1 {
+  font-size: 2.45em;
+  font-weight: 900;
+}
+.reveal h2 {
+  font-size: 1.65em;
+}
+.reveal h3 {
+  font-size: 1.15em;
+  font-weight: 700;
+}
+.reveal p {
+  line-height: 1.45;
+}
+
+.reveal section {
+  text-align: left;
+}
+.reveal .slides section .fragment.fade-in-then-semi-out.visible {
+  opacity: 1;
+}
+
+/* ---------- helpers ---------- */
+.grad {
+  background: linear-gradient(
+    100deg,
+    var(--accent),
+    var(--accent-2) 55%,
+    var(--accent-3)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.muted {
+  color: var(--muted);
+}
+.faint {
+  color: var(--faint);
+}
+.accent {
+  color: var(--accent);
+}
+.center {
+  text-align: center;
+}
+.mono {
+  font-family: "JetBrains Mono", monospace;
+}
+.small {
+  font-size: 0.72em;
+}
+.tiny {
+  font-size: 0.58em;
+}
+.lead {
+  font-size: 1.15em;
+  color: var(--muted);
+  line-height: 1.5;
+}
+.nowrap {
+  white-space: nowrap;
+}
+
+.kicker {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.55em;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 500;
+  margin-bottom: 0.9em;
+}
+
+.pill {
+  display: inline-block;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.5em;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.45em 0.9em;
+  border: 1px solid var(--card-line);
+  border-radius: 999px;
+  color: var(--muted);
+  background: var(--card);
+  margin: 0.2em 0.3em 0.2em 0;
+}
+
+.rule {
+  height: 4px;
+  width: 70px;
+  border-radius: 4px;
+  background: linear-gradient(90deg, var(--accent), var(--accent-2));
+  margin: 0.2em 0 0.9em;
+}
+
+/* ---------- cards / columns ---------- */
+.cols {
+  display: grid;
+  gap: 0.7em;
+}
+.cols.two {
+  grid-template-columns: 1fr 1fr;
+}
+.cols.three {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 16px;
+  padding: 0.85em 0.95em;
+}
+.card h3 {
+  margin-bottom: 0.25em;
+}
+.card p {
+  margin: 0;
+  font-size: 0.78em;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.card.is {
+  border-color: rgba(52, 211, 153, 0.35);
+}
+.card.is .tag {
+  color: var(--good);
+}
+.card.isnt {
+  border-color: rgba(244, 114, 182, 0.32);
+}
+.card.isnt .tag {
+  color: var(--accent-3);
+}
+.tag {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.52em;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5em;
+}
+
+/* ---------- lists ---------- */
+.reveal ul {
+  list-style: none;
+  margin-left: 0;
+}
+.reveal ul li {
+  position: relative;
+  padding-left: 1.1em;
+  margin: 0.5em 0;
+  line-height: 1.4;
+}
+.reveal ul li::before {
+  content: "›";
+  position: absolute;
+  left: 0;
+  color: var(--accent);
+  font-weight: 700;
+}
+.reveal .clean li::before {
+  content: "";
+}
+.reveal .clean li {
+  padding-left: 0;
+}
+
+.check li::before {
+  content: "✓";
+  color: var(--good);
+}
+.cross li::before {
+  content: "✕";
+  color: var(--accent-3);
+}
+
+/* ---------- footer / numbers ---------- */
+.reveal .slide-number {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 14px;
+  color: var(--faint);
+  background: transparent;
+  right: auto;
+  left: 22px;
+  bottom: 16px;
+}
+
+.reveal .progress {
+  color: var(--accent);
+  height: 3px;
+}
+
+/* nav arrows: own corner, accent colored, more breathing room */
+.reveal .controls {
+  right: 18px;
+  bottom: 12px;
+  color: var(--muted);
+}
+.reveal .controls button {
+  color: var(--muted);
+}
+.reveal .controls .navigate-left {
+  right: 4.2em;
+}
+.reveal .controls .navigate-right {
+  right: 0.6em;
+}
+.reveal .controls button.highlight,
+.reveal .controls button:hover {
+  color: var(--accent);
+}
+
+/* big quote / statement slide */
+.statement {
+  font-size: 1.9em;
+  font-weight: 800;
+  line-height: 1.18;
+  letter-spacing: -0.02em;
+}
+
+/* mental model diagram */
+.flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0.55em;
+  margin-top: 0.5em;
+}
+.flow .step {
+  flex: 1;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 14px;
+  padding: 0.7em 0.6em;
+  text-align: center;
+}
+.flow .step .n {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--accent);
+  font-size: 0.6em;
+  letter-spacing: 0.1em;
+}
+.flow .step h3 {
+  font-size: 0.85em;
+  margin: 0.25em 0 0.15em;
+}
+.flow .step p {
+  font-size: 0.6em;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.35;
+}
+.flow .arrow {
+  display: flex;
+  align-items: center;
+  color: var(--faint);
+  font-size: 1.1em;
+}
+
+/* ---------- milestone cards ---------- */
+.milestones {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7em;
+  margin-top: 0.6em;
+}
+.ms {
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 16px;
+  padding: 0.8em 0.9em 0.8em 1.05em;
+  overflow: hidden;
+}
+/* colored accent bar on the left edge */
+.ms::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: var(--c, var(--accent));
+}
+.ms .yr {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.78em;
+  color: var(--c, var(--accent));
+  letter-spacing: 0.04em;
+}
+.ms h3 {
+  font-size: 0.9em;
+  margin: 0.1em 0 0.26em;
+  color: var(--ink);
+}
+.ms p {
+  font-size: 0.71em;
+  color: var(--muted);
+  line-height: 1.4;
+  margin: 0;
+}
+.ms p em {
+  color: var(--ink);
+  font-weight: 700;
+}
+/* hero — the Transformer */
+.ms.hero {
+  border-color: rgba(167, 139, 250, 0.45);
+  background: linear-gradient(
+    120deg,
+    rgba(167, 139, 250, 0.16),
+    var(--card) 70%
+  );
+  box-shadow: 0 0 30px -10px rgba(167, 139, 250, 0.7);
+}
+/* now — you are here */
+.ms.now {
+  border-color: rgba(244, 114, 182, 0.45);
+}
+.ms.now .yr {
+  animation: glow 2s infinite;
+}
+@keyframes glow {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.reveal a {
+  color: var(--accent);
+  text-decoration: none;
+}
+.reveal em {
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 700;
+}
+.reveal strong {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.titlewrap {
+  padding-left: 6%;
+}
+
+/* ---------- math (KaTeX) ---------- */
+/* keep typeset equations left-aligned and tight inside cards */
+.reveal .katex-display {
+  margin: 0.35em 0;
+  text-align: left;
+}
+.reveal .katex {
+  color: var(--ink);
+  font-size: 1em;
+}
+/* small typeset-math label used in place of a .tag */
+.mathtag {
+  display: block;
+  margin-bottom: 0.45em;
+  color: var(--accent-2);
+}
+.mathtag .katex {
+  color: inherit;
+  font-size: 1.1em;
+}
+
+/* box to hold one or more typeset equations */
+.mathbox {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-line);
+  border-left: 3px solid var(--c, var(--accent));
+  border-radius: 10px;
+  padding: 0.45em 0.85em;
+}
+.mathbox.center .katex-display {
+  text-align: center;
+}
+
+/* ---------- deep-dive helpers ---------- */
+/* formula / definition box */
+.eq {
+  font-family: "JetBrains Mono", monospace;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid var(--card-line);
+  border-left: 3px solid var(--c, var(--accent));
+  border-radius: 10px;
+  padding: 0.6em 0.85em;
+  font-size: 0.72em;
+  color: var(--ink);
+  line-height: 1.55;
+}
+.eq .cmt {
+  color: var(--faint);
+}
+
+/* big statistic */
+.bignum {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 2.1em;
+  line-height: 1;
+  color: var(--c, var(--accent));
+  letter-spacing: -0.02em;
+}
+.bignum .unit {
+  font-size: 0.38em;
+  color: var(--muted);
+  letter-spacing: 0;
+}
+
+/* example / highlight box */
+.exbox {
+  background: linear-gradient(
+    120deg,
+    rgba(110, 231, 255, 0.08),
+    transparent 80%
+  );
+  border: 1px solid var(--card-line);
+  border-radius: 14px;
+  padding: 0.7em 0.95em;
+  font-size: 0.86em;
+  line-height: 1.5;
+}
+.exbox .hl {
+  color: var(--accent);
+  font-weight: 700;
+}
+.exbox .hl2 {
+  color: var(--accent-3);
+  font-weight: 700;
+}
+
+/* scale escalation cards */
+.scale {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.7em;
+  align-items: end;
+  margin-top: 0.6em;
+}
+.scale .step {
+  background: var(--card);
+  border: 1px solid var(--card-line);
+  border-radius: 14px;
+  padding: 0.7em 0.8em;
+}
+.scale .step .lbl {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.62em;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+}
+.scale .step .val {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 1.3em;
+  color: var(--c, var(--accent));
+}
+
+/* truth table */
+.ttable {
+  border-collapse: collapse;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.74em;
+}
+.ttable th,
+.ttable td {
+  border: 1px solid var(--card-line);
+  padding: 0.32em 0.85em;
+  text-align: center;
+}
+.ttable th {
+  color: var(--muted);
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.03);
+}
+.ttable td.out1 {
+  color: var(--accent);
+  font-weight: 700;
+}
+.ttable td.out0 {
+  color: var(--accent-3);
+  font-weight: 700;
+}
+
+/* XOR scatter plot */
+.xorplot {
+  position: relative;
+  width: 210px;
+  height: 210px;
+  margin: 0.2em auto 32px;
+  border-left: 2px solid var(--card-line);
+  border-bottom: 2px solid var(--card-line);
+}
+/* a sample straight line that fails to separate the classes */
+.xorplot::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  top: 50%;
+  height: 2px;
+  background: repeating-linear-gradient(
+    90deg,
+    var(--faint) 0 8px,
+    transparent 8px 14px
+  );
+  transform: rotate(-32deg);
+}
+.xorplot .pt {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 13px;
+  font-weight: 700;
+  transform: translate(-50%, 50%);
+  z-index: 2;
+}
+.xorplot .pt.one {
+  background: rgba(110, 231, 255, 0.16);
+  border: 2px solid var(--accent);
+  color: var(--accent);
+}
+.xorplot .pt.zero {
+  background: rgba(244, 114, 182, 0.14);
+  border: 2px solid var(--accent-3);
+  color: var(--accent-3);
+}
+.xorplot .axlbl {
+  position: absolute;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 11px;
+  color: var(--faint);
+}
+
+/* mini neural-net layer diagram */
+.net {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4em;
+  margin: 0.7em 0;
+}
+.net .layer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5em;
+}
+.net .node {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px solid var(--c, var(--accent));
+  background: rgba(110, 231, 255, 0.08);
+  box-shadow: 0 0 10px -3px var(--c, var(--accent));
+}
+.net .cap {
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.5em;
+  color: var(--faint);
+  margin-top: 0.5em;
+  letter-spacing: 0.06em;
+}
+.net .arrows {
+  color: var(--faint);
+  font-size: 1.3em;
+}
+
+/* ---------- model-history tour: animated timeline ---------- */
+.tl {
+  margin-top: 0.45em;
+  border-left: 2px solid var(--card-line);
+  padding-left: 1.1em;
+}
+.tl-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.7em;
+  padding: 0.16em 0;
+  position: relative;
+  opacity: 0; /* revealed by the cascade once the slide is present */
+}
+/* dot on the rail */
+.tl-row::before {
+  content: "";
+  position: absolute;
+  left: calc(-1.1em - 6px);
+  top: 0.6em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--c, var(--accent));
+  box-shadow: 0 0 9px -1px var(--c, var(--accent));
+}
+.tl-yr {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 700;
+  font-size: 0.72em;
+  color: var(--c, var(--accent));
+  min-width: 2.7em;
+  flex-shrink: 0;
+}
+.tl-row h3 {
+  font-size: 0.8em;
+  margin: 0;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.tl-row p {
+  font-size: 0.66em;
+  color: var(--muted);
+  margin: 0;
+  line-height: 1.3;
+}
+.tl-row .dash {
+  color: var(--faint);
+  font-size: 0.66em;
+}
+
+/* auto-cascade: rows slide/fade in once the slide is on screen */
+.reveal section.present .tl-row {
+  animation: tlIn 0.45s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.06s);
+}
+@keyframes tlIn {
+  from {
+    opacity: 0;
+    transform: translateY(11px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ---------- tour overview: four-era map ---------- */
+.cols.four {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6em;
+}
+.eracard {
+  padding: 0.7em 0.7em 0.75em;
+  border-top: 3px solid var(--c, var(--accent));
+  opacity: 0;
+}
+.reveal section.present .eracard {
+  animation: tlIn 0.5s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+  animation-delay: calc(var(--i, 0) * 0.12s);
+}
+.eracard .tag {
+  color: var(--c, var(--accent));
+}
+.eralist {
+  list-style: none;
+  margin: 0.2em 0 0;
+  padding: 0;
+}
+.eralist li {
+  padding: 0;
+  margin: 0.16em 0;
+  font-size: 0.62em;
+  line-height: 1.25;
+}
+.eralist li::before {
+  content: "";
+}
+.eralist .y {
+  font-family: "JetBrains Mono", monospace;
+  color: var(--c, var(--accent));
+  margin-right: 0.45em;
+}
