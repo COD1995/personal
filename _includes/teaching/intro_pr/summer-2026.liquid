@@ -6,7 +6,7 @@
 
 <h3>Course Format</h3>
 <p>
-  This is a <strong>paper-reading seminar</strong>. Each session covers one or two papers — one foundational, one modern — tracing an arc from classical statistical pattern recognition to current research frontiers.
+  This is a <strong>paper-reading seminar</strong>. We read twelve landmark papers in sequence, tracing how modern deep learning was built — from <strong>vision foundations</strong> (AlexNet, ResNet), through the <strong>sequence-to-Transformer</strong> arc (Word2Vec, attention, the Transformer), into the <strong>large-language-model era</strong> (scaling laws, RLHF, chain-of-thought, and the latest reasoning models). You see how deep nets work on vision before diving into LLMs, and the back half builds the full modern LLM story end to end. Each session below includes a short <em>reading guide</em> telling you what to focus on and what question to keep in mind.
 </p>
 <ul>
   <li><strong>Pre-class quiz.</strong> Each session is gated by a short online quiz (~10 minutes, mix of multiple-choice and short-answer) released 48 hours before class and due 30 minutes before it starts. Questions check basic comprehension: notation, headline claims, the experimental setup, and one "did you actually read it?" detail from the paper.</li>
@@ -15,104 +15,129 @@
 </ul>
 
 <h3>Schedule</h3>
-<p>Each week pairs one canonical paper with one that builds on or challenges it.</p>
+<p>Twelve sessions over six weeks: three vision foundations → three sequence/Transformer → six on the LLM era. Each row gives the paper(s) and a short reading guide — what to focus on and a question to hold while you read.</p>
 
 <table class="styled-table">
   <thead>
     <tr>
-      <th>Week</th>
+      <th>Arc</th>
+      <th>#</th>
       <th>Date</th>
-      <th>Theme &amp; Papers</th>
+      <th>Paper &amp; reading guide</th>
     </tr>
   </thead>
   <tbody>
+    <!-- ===== Vision foundations ===== -->
     <tr>
-      <td rowspan="2"><strong>1</strong><br><em>Statistical foundations</em></td>
-      <td>Jun 22</td>
+      <td rowspan="3"><strong>Vision<br>foundations</strong></td>
+      <td>1</td>
+      <td>Mon<br>Jun 22</td>
       <td>
-        Course intro &amp; the pattern-recognition problem before deep learning.<br>
-        Cover &amp; Hart 1967, <em>Nearest Neighbor Pattern Classification</em>
+        <strong>Kickoff + How to Read a Paper</strong> — <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf" target="_blank">Keshav 2007, <em>How to Read a Paper</em></a><br>
+        <small><em>Reading guide.</em> Course logistics, expectations, and the three-pass reading method we use all term. <em>Ask yourself:</em> for a paper of your choice, can you do a 5-minute first pass and state its category, its contributions, and whether the claims look sound?</small>
       </td>
     </tr>
     <tr>
-      <td>Jun 24</td>
+      <td>2</td>
+      <td>Wed<br>Jun 24</td>
       <td>
-        <a href="http://yann.lecun.com/exdb/publis/pdf/lecun-01a.pdf" target="_blank">LeCun et al. 1998, <em>Gradient-Based Learning Applied to Document Recognition</em> (LeNet)</a>
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="2"><strong>2</strong><br><em>Deep representations</em></td>
-      <td>Jun 29</td>
-      <td>
-        <a href="https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" target="_blank">Krizhevsky et al. 2012, <em>ImageNet Classification with Deep CNNs</em> (AlexNet)</a>
+        <a href="https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" target="_blank">Krizhevsky et al. 2012, <em>ImageNet Classification with Deep CNNs</em> (AlexNet)</a><br>
+        <small><em>Reading guide.</em> The result that launched the deep-learning era. <em>Focus:</em> the ingredients — ReLU, dropout, data augmentation, two-GPU training — and the size of the ImageNet error drop. <em>Ask yourself:</em> which ingredient mattered most, and which are still standard today?</small>
       </td>
     </tr>
     <tr>
-      <td>Jul 1</td>
+      <td>3</td>
+      <td>Mon<br>Jun 29</td>
       <td>
-        <a href="https://arxiv.org/abs/1512.03385" target="_blank">He et al. 2016, <em>Deep Residual Learning</em> (ResNet)</a><br>
-        <a href="https://arxiv.org/abs/1502.03167" target="_blank">Ioffe &amp; Szegedy 2015, <em>Batch Normalization</em></a>
+        <a href="https://arxiv.org/abs/1512.03385" target="_blank">He et al. 2015, <em>Deep Residual Learning</em> (ResNet)</a><br>
+        <small><em>Reading guide.</em> How to train networks hundreds of layers deep. <em>Focus:</em> the degradation problem and why the skip connection $$F(x)+x$$ fixes it. <em>Ask yourself:</em> why is learning a residual easier than learning the full mapping? (Tie it back to vanishing gradients.)</small>
       </td>
     </tr>
 
+    <!-- ===== NLP → Transformer ===== -->
     <tr>
-      <td rowspan="2"><strong>3</strong><br><em>Sequence &amp; attention</em></td>
-      <td>Jul 6</td>
+      <td rowspan="3"><strong>NLP →<br>Transformer</strong></td>
+      <td>4</td>
+      <td>Wed<br>Jul 1</td>
       <td>
-        <a href="https://aclanthology.org/D14-1179.pdf" target="_blank">Cho et al. 2014, <em>Learning Phrase Representations with RNN Encoder-Decoder</em></a><br>
-        <a href="https://arxiv.org/abs/1409.0473" target="_blank">Bahdanau et al. 2015, <em>NMT by Jointly Learning to Align and Translate</em> (attention)</a>
+        <a href="https://arxiv.org/abs/1301.3781" target="_blank">Mikolov et al. 2013, <em>Efficient Estimation of Word Representations</em> (Word2Vec)</a><br>
+        <small><em>Reading guide.</em> Words become vectors. <em>Focus:</em> skip-gram vs. CBOW and the famous "king − man + woman ≈ queen" analogy. <em>Ask yourself:</em> what does direction and distance in embedding space encode, and how is it learned with no labels?</small>
       </td>
     </tr>
     <tr>
-      <td>Jul 8</td>
+      <td>5</td>
+      <td>Mon<br>Jul 6</td>
       <td>
-        <a href="https://arxiv.org/abs/1706.03762" target="_blank">Vaswani et al. 2017, <em>Attention Is All You Need</em></a>
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="2"><strong>4</strong><br><em>Pretraining &amp; foundation models</em></td>
-      <td>Jul 13</td>
-      <td>
-        <a href="https://arxiv.org/abs/1810.04805" target="_blank">Devlin et al. 2018, <em>BERT</em></a>
+        <strong>Paired:</strong>
+        <a href="https://arxiv.org/abs/1409.3215" target="_blank">Sutskever et al. 2014, <em>Sequence to Sequence Learning</em></a> +
+        <a href="https://arxiv.org/abs/1409.0473" target="_blank">Bahdanau et al. 2015, <em>NMT by Jointly Learning to Align and Translate</em> (attention)</a><br>
+        <small><em>Reading guide.</em> From a single fixed context vector to attention. <em>Focus:</em> why one bottleneck vector fails on long sentences, and how attention lets the decoder look back at every encoder state. <em>Ask yourself:</em> what does a single attention weight actually represent?</small>
       </td>
     </tr>
     <tr>
-      <td>Jul 15</td>
+      <td>6</td>
+      <td>Wed<br>Jul 8</td>
       <td>
-        <a href="https://arxiv.org/abs/2005.14165" target="_blank">Brown et al. 2020, <em>GPT-3</em></a><br>
-        <a href="https://arxiv.org/abs/2103.00020" target="_blank">Radford et al. 2021, <em>CLIP</em></a>
-      </td>
-    </tr>
-
-    <tr>
-      <td rowspan="2"><strong>5</strong><br><em>Robustness &amp; adversarial PR</em></td>
-      <td>Jul 20</td>
-      <td>
-        <a href="https://arxiv.org/abs/1312.6199" target="_blank">Szegedy et al. 2014, <em>Intriguing Properties of Neural Networks</em></a><br>
-        <a href="https://arxiv.org/abs/1412.6572" target="_blank">Goodfellow et al. 2015, <em>Explaining and Harnessing Adversarial Examples</em> (FGSM)</a>
-      </td>
-    </tr>
-    <tr>
-      <td>Jul 22</td>
-      <td>
-        <a href="https://arxiv.org/abs/1706.06083" target="_blank">Madry et al. 2018, <em>Towards Deep Learning Models Resistant to Adversarial Attacks</em> (PGD)</a>
+        <a href="https://arxiv.org/abs/1706.03762" target="_blank">Vaswani et al. 2017, <em>Attention Is All You Need</em></a><br>
+        <small><em>Reading guide.</em> The Transformer — recurrence removed entirely. <em>Focus:</em> scaled dot-product attention, multi-head attention, and positional encodings. <em>Ask yourself:</em> how does self-attention recover word order without an RNN? This architecture underlies every model after it.</small>
       </td>
     </tr>
 
+    <!-- ===== LLM era ===== -->
     <tr>
-      <td rowspan="2"><strong>6</strong><br><em>Graphs &amp; capstone</em></td>
-      <td>Jul 27</td>
+      <td rowspan="6"><strong>LLM era</strong></td>
+      <td>7</td>
+      <td>Mon<br>Jul 13</td>
       <td>
-        <a href="https://arxiv.org/abs/1609.02907" target="_blank">Kipf &amp; Welling 2017, <em>Semi-Supervised Classification with GCNs</em></a><br>
-        <a href="https://arxiv.org/abs/1710.10903" target="_blank">Veličković et al. 2018, <em>Graph Attention Networks</em> (GAT)</a><br>
-        <small>Optional pairings: <a href="https://arxiv.org/abs/1706.02216" target="_blank">GraphSAGE</a>, <a href="https://arxiv.org/abs/1810.00826" target="_blank">GIN — How Powerful are GNNs?</a></small>
+        <a href="https://arxiv.org/abs/1810.04805" target="_blank">Devlin et al. 2018, <em>BERT</em></a><br>
+        <small><em>Reading guide.</em> Pretrain-then-fine-tune, the encoder side. <em>Focus:</em> masked language modeling and bidirectional context. <em>Ask yourself:</em> why does masking enable bidirectionality that a left-to-right language model cannot have?</small>
       </td>
     </tr>
     <tr>
-      <td>Jul 29</td>
-      <td><strong>Final-project lightning talks</strong> — 5 min per student + Q&amp;A.</td>
+      <td>8</td>
+      <td>Wed<br>Jul 15</td>
+      <td>
+        <a href="https://arxiv.org/abs/2005.14165" target="_blank">Brown et al. 2020, <em>Language Models are Few-Shot Learners</em> (GPT-3)</a><br>
+        <small><em>Reading guide.</em> Scale + in-context learning, the decoder side. <em>Focus:</em> few-/zero-shot prompting with no weight updates, at 175B parameters. <em>Ask yourself:</em> how is in-context learning different from fine-tuning, and why might scale alone produce it?</small>
+      </td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Mon<br>Jul 20</td>
+      <td>
+        <strong>Paired:</strong>
+        <a href="https://arxiv.org/abs/2001.08361" target="_blank">Kaplan et al. 2020, <em>Scaling Laws for Neural LMs</em></a> +
+        <a href="https://arxiv.org/abs/2203.15556" target="_blank">Hoffmann et al. 2022, <em>Training Compute-Optimal LLMs</em> (Chinchilla)</a><br>
+        <small><em>Reading guide.</em> How big a model, how much data? <em>Focus:</em> the power-law of loss vs. compute/params/data, and Chinchilla's correction that most LLMs were badly under-trained on tokens. <em>Ask yourself:</em> for a fixed compute budget, how should you split it between parameters and training tokens?</small>
+      </td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Wed<br>Jul 22</td>
+      <td>
+        <a href="https://arxiv.org/abs/2203.02155" target="_blank">Ouyang et al. 2022, <em>Training LMs to Follow Instructions with Human Feedback</em> (InstructGPT / RLHF)</a><br>
+        <small><em>Reading guide.</em> Turning a raw LM into something that follows instructions. <em>Focus:</em> the three stages — supervised fine-tuning → reward model → PPO. <em>Ask yourself:</em> why does a 1.3B InstructGPT beat 175B GPT-3 on human preference, and what is RLHF actually optimizing?</small>
+      </td>
+    </tr>
+    <tr>
+      <td>11</td>
+      <td>Mon<br>Jul 27</td>
+      <td>
+        <strong>Paired:</strong>
+        <a href="https://arxiv.org/abs/2201.11903" target="_blank">Wei et al. 2022, <em>Chain-of-Thought Prompting</em></a> +
+        <a href="https://arxiv.org/abs/2206.07682" target="_blank">Wei et al. 2022, <em>Emergent Abilities of LLMs</em></a><br>
+        <small><em>Reading guide.</em> Reasoning from prompting, and abilities that appear with scale. <em>Focus:</em> how "let's think step by step" unlocks multi-step problems, and the claim that some skills emerge abruptly. <em>Ask yourself:</em> are emergent abilities a real phase change, or an artifact of how we measure them? (Hold both sides.)</small>
+      </td>
+    </tr>
+    <tr>
+      <td>12</td>
+      <td>Wed<br>Jul 29</td>
+      <td>
+        <strong>Reasoning models —</strong>
+        <a href="https://openai.com/index/learning-to-reason-with-llms/" target="_blank">OpenAI 2024, <em>o1 / Learning to Reason</em></a> +
+        <a href="https://arxiv.org/abs/2501.12948" target="_blank">DeepSeek-AI 2025, <em>DeepSeek-R1</em></a><br>
+        <small><em>Reading guide.</em> Test-time compute and RL-trained reasoning. <em>Focus:</em> training models to generate long chains of thought via reinforcement learning, and "thinking longer" at inference. <em>Ask yourself:</em> how does R1's RL recipe differ from RLHF, and what does extra test-time compute buy you?<br><strong>Final-project lightning talks also run this final week</strong> — 5 min per student + Q&amp;A.</small>
+      </td>
     </tr>
   </tbody>
 </table>
@@ -128,7 +153,7 @@
   <tbody>
     <tr>
       <td><strong>Pre-class quizzes</strong></td>
-      <td>50% — 12 quizzes, drop the lowest two</td>
+      <td>50% — one quiz per paper session (11 total, sessions 2–12), drop the lowest two</td>
     </tr>
     <tr>
       <td><strong>In-class participation</strong></td>
@@ -136,16 +161,15 @@
     </tr>
     <tr>
       <td><strong>Final project</strong></td>
-      <td>35% — proposal (Wk 3), draft (Wk 5), final report &amp; demo (Wk 6)</td>
+      <td>35% — a build-it-from-scratch capstone, graded across six milestones (proposal → baseline checkpoint → draft → peer review → report + code → talk). See the <a href="{{ '/assets/courses/pattern/final-project/' | relative_url }}">Final Project page</a>.</td>
     </tr>
   </tbody>
 </table>
 
 <h3>Final Project</h3>
-<p>Pick one of three tracks:</p>
-<ul>
-  <li><strong>Reproduce.</strong> Re-implement a paper from the syllabus on a smaller dataset and verify a key claim.</li>
-  <li><strong>Extend.</strong> Propose and test a small modification to a syllabus method — new dataset, ablation, or hybrid with another paper's idea.</li>
-  <li><strong>Survey.</strong> Write a 6-page critical survey of a sub-topic (max 6 papers cited), comparing methods and identifying open questions.</li>
-</ul>
-<p>Artifacts: <em>2-page proposal</em> (end of Wk 3) → <em>4-page draft for peer review</em> (end of Wk 5) → <em>6-page final report + 5-min lightning talk</em> (Wk 6).</p>
+<p>
+  One capstone, done by everyone — no tracks. You will <strong>build a small language model from scratch, post-train it into an instruction-follower, and then investigate a sharp question about reasoning and scale</strong>, threading the whole back half of the syllabus (Transformer → GPT → scaling laws → RLHF → chain-of-thought). It is graded as a mini research paper across six milestones, with required baselines, ablations, multi-seed results, and a reproducible repo.
+</p>
+<p>
+  → <strong><a href="{{ '/assets/courses/pattern/final-project/' | relative_url }}">Read the full Final Project brief</a></strong> (stages, requirements, milestone deadlines, rubric, and starting points).
+</p>
