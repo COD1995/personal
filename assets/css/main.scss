@@ -3,7 +3,7 @@
 
 /* =====================================================================
    Jue Guo — personal site stylesheet
-   Quiet, classic academic style: ivory paper, navy ink, Garamond type,
+   Quiet, classic academic style: ivory paper, navy ink, Source Sans 3 type,
    hairline rules, small caps. No gradients, glows, or drop shadows.
    Design tokens first; change colors/fonts here before touching rules.
    Light theme only (dark mode was removed at Jue's request).
@@ -30,10 +30,10 @@
   --max: 760px;
   --max-wide: 1120px;
 
-  --display: "Cormorant Garamond", "EB Garamond", Garamond, "Times New Roman", serif;
-  --serif: "EB Garamond", Garamond, "Iowan Old Style", Georgia, serif;
-  --prose: "Source Serif 4", "Iowan Old Style", Georgia, serif;   /* long-form course notes */
-  --sans: "Inter", -apple-system, "Helvetica Neue", system-ui, sans-serif; /* tables & UI inside course notes */
+  --display: "Source Sans 3", "Source Sans Pro", "Myriad Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --serif: "Source Sans 3", "Source Sans Pro", "Myriad Pro", -apple-system, "Segoe UI", system-ui, sans-serif;
+  --prose: "Source Sans 3", "Source Sans Pro", "Myriad Pro", -apple-system, "Segoe UI", system-ui, sans-serif;   /* long-form course notes */
+  --sans: "Source Sans 3", "Source Sans Pro", "Myriad Pro", -apple-system, "Segoe UI", system-ui, sans-serif; /* tables & UI inside course notes */
   --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
 
   color-scheme: light;
@@ -43,7 +43,7 @@
 /* ---------- Reset / base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
 html {
-  font-size: 19px;
+  font-size: 18px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   scroll-behavior: smooth;
@@ -56,7 +56,7 @@ body {
   color: var(--text);
   background: var(--bg);
   line-height: 1.6;
-  font-feature-settings: "kern", "liga", "onum";
+  font-feature-settings: "kern", "liga";
 }
 
 img { max-width: 100%; height: auto; display: block; }
@@ -620,7 +620,7 @@ address { font-style: normal; }
 .back-link:hover { color: var(--accent); }
 
 /* Long-form course notes read best in a text serif with math-friendly metrics */
-.page:not(.page--plain) .page-body { font-family: var(--prose); font-size: 0.92rem; }
+.page:not(.page--plain) .page-body { font-family: var(--prose); font-size: 1rem; }
 .page:not(.page--plain) .page-body :is(table, .course-semester-info, figcaption, button, select, label) { font-family: var(--sans); }
 .page:not(.page--plain) .page-body :is(h2, h3, h4) { font-family: var(--display); }
 .page-body h2 { padding-bottom: 0.4rem; border-bottom: 1px solid var(--rule); }

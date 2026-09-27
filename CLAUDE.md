@@ -6,7 +6,7 @@ Personal academic website for Jue Guo, hand-rolled minimal Jekyll site (replaces
 
 - **Stack:** Jekyll 4.x → static HTML → GitHub Pages.
 - **Deploy:** Push to `master` → GitHub Actions builds → GitHub Pages at the custom domain **https://jue-guo.com** (registered at GoDaddy; DNS: four A records to GitHub Pages IPs + `www` CNAME → cod1995.github.io; custom domain set in repo Settings → Pages). The old `cod1995.github.io/personal/` address redirects there. `url` is `https://jue-guo.com`, `baseurl` is empty.
-- **Design intent:** Low-key, classic, professional — ivory/navy, Garamond, hairline rules, small caps; long-form course notes stay in a readable serif column. No Bootstrap, no MDB, no font-awesome, no Tabler icons, no JS frameworks. One stylesheet.
+- **Design intent:** Low-key, classic, professional — ivory/navy, Source Sans 3, hairline rules, small caps; long-form course notes stay in a readable serif column. No Bootstrap, no MDB, no font-awesome, no Tabler icons, no JS frameworks. One stylesheet.
 
 ## Layout of the source
 
@@ -62,13 +62,13 @@ bundle exec jekyll serve --host 127.0.0.1 --port 4001
 
 ## Design system (in `assets/css/main.scss`)
 
-Restyled Sep 27 2026 to a quiet, classic look ("old money" academic): ivory paper, navy ink, Garamond type, hairline rules, small caps. No gradients, glows, drop shadows, pills, or icon badges — keep it that way.
+Restyled Sep 27 2026 to a quiet, classic look ("old money" academic): ivory paper, navy ink, Source Sans 3 type, hairline rules, small caps. No gradients, glows, drop shadows, pills, or icon badges — keep it that way.
 CSS custom properties at the top — change there before touching rules:
 
 - Light: `--bg #f6f2e9` (ivory), `--surface`, `--surface-2` (alternate section band), `--text #1e1c19`, `--muted`, `--faint`, `--rule`, `--rule-strong`
 - `--accent #1f2e4a` (navy: links, primary button), `--brass #8a6a3a` (eyebrows, small ornaments)
 - Light theme only — dark mode was removed at Jue's request (Sep 27 2026); don't reintroduce it.
-- Fonts: `--display` Cormorant Garamond (headings, name, numbers), `--serif` EB Garamond (body + small caps UI), `--prose` Source Serif 4 (long-form course notes — `.page:not(.page--plain) .page-body`), `--sans` Inter (only tables/UI inside course notes), `--mono` JetBrains Mono. Loaded from Google Fonts in `head.liquid`.
+- Fonts: **Source Sans 3 everywhere** (Jue's choice, Sep 27 2026 — a clear humanist sans, free cousin of the Myriad-style figure font he likes). `--display`, `--serif`, `--prose`, `--sans` all point to it (the variable names are historical); `--mono` JetBrains Mono for code. Loaded from Google Fonts in `head.liquid`.
 - `%smallcaps` placeholder = uppercase letter-spaced serif label; used by nav, buttons, eyebrows.
 - Widths: `--max 760px`; `--max-wide 1120px` (`.wrap.wide`); course pages `.page.wrap` 880px.
 
@@ -89,7 +89,7 @@ Home page and /teaching/ are data-driven — edit YAML, not HTML:
 - `resources.yml` — recommended books (covers in `assets/img/books/`)
 
 Hero copy (eyebrow, headline, lede, interests, portrait) lives in `_pages/about.md` front matter; the bio is its markdown body.
-Page front matter extras for `layout: page`: `eyebrow`, `wide: true`, `prose: false` (Garamond body instead of the Source Serif course-notes body).
+Page front matter extras for `layout: page`: `eyebrow`, `wide: true`, `prose: false` (course-notes body sizing off).
 
 ## Adding content
 
