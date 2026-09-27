@@ -16,12 +16,8 @@ layout: default
         <div class="hero-actions">
           <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">Curriculum Vitae</a>
           <a class="btn btn-ghost" href="{{ '/teaching/' | relative_url }}">Courses</a>
+          <a class="btn btn-ghost" href="#contact">Contact me</a>
         </div>
-        <ul class="text-links" aria-label="Profile links">
-          <li><a href="mailto:{{ site.author.email }}">Email</a></li>
-          <li><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="noopener">LinkedIn</a></li>
-          <li><a href="https://github.com/{{ site.author.github }}" rel="noopener">GitHub</a></li>
-        </ul>
       </div>
       {% if page.profile.image %}
       <figure class="hero-portrait">

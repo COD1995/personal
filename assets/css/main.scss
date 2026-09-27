@@ -709,9 +709,8 @@ address { font-style: normal; }
 }
 @media (max-width: 760px) {
   .nav-wrap { height: auto; flex-wrap: wrap; gap: 0.4rem 1rem; padding-top: 0.8rem; padding-bottom: 0.6rem; }
-  .site-nav { order: 3; width: 100%; margin: 0; gap: 1.1rem; overflow-x: auto; scrollbar-width: none; }
+  .site-nav { order: 3; width: 100%; margin: 0; gap: 1rem; overflow-x: auto; scrollbar-width: none; }
   .site-nav a { letter-spacing: 0.1em; font-size: 0.66rem; }
-  .site-nav .nav-contact { display: none; }
   .site-nav::-webkit-scrollbar { display: none; }
   html { scroll-padding-top: 120px; }
   .course-grid { grid-template-columns: 1fr; }
@@ -722,6 +721,8 @@ address { font-style: normal; }
   .site-main { padding: 2.25rem 0 3.5rem; }
   .hero { padding: 2.5rem 0 3rem; }
   .hero-portrait { max-width: 220px; }
+  .hero-text .hero-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .hero-text .hero-actions .btn-primary { grid-column: 1 / -1; }
   .section { padding: 3.75rem 0; }
   .section-head-row { flex-direction: column; align-items: flex-start; gap: 1rem; }
   .programs { grid-template-columns: 1fr; gap: 1.5rem; }
