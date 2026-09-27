@@ -3,10 +3,13 @@
   {%- for c in site.data.courses %}
   <li class="course">
     <a class="course-link" href="{{ '/teaching/' | append: c.slug | append: '/' | relative_url }}">
-      <p class="course-meta"><span class="course-code">{{ c.code }}</span><span class="course-terms">{{ c.terms }}</span></p>
-      <h3 class="course-title">{{ c.title }}</h3>
-      <p class="course-blurb">{{ c.blurb }}</p>
-      <span class="course-cta">Syllabus &amp; materials <span class="arrow" aria-hidden="true">→</span></span>
+      {% if c.icon %}<span class="course-icon">{% include icon.liquid name=c.icon %}</span>{% endif %}
+      <div class="course-body">
+        <p class="course-meta"><span class="course-code">{{ c.code }}</span><span class="course-terms">{{ c.terms }}</span></p>
+        <h3 class="course-title">{{ c.title }}</h3>
+        <p class="course-blurb">{{ c.blurb }}</p>
+        <span class="course-cta">Syllabus &amp; materials <span class="arrow" aria-hidden="true">→</span></span>
+      </div>
     </a>
   </li>
   {%- endfor %}
