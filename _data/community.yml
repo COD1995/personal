@@ -25,10 +25,5 @@ links:
 meetup: https://www.meetup.com/machine-learning-workshop/
 discord: https://discord.gg/q6jpfJxrV9
 
-# Next session. `ends` is ISO 8601 with offset; the card hides itself after this time.
-next:
-  title: "From Word2Vec to Attention: The Idea Behind Every LLM"
-  when: Saturday, Oct 24 · 2:00 PM EDT · Online
-  ends: "2026-10-24T16:00:00-04:00"
-  desc: How does a machine know that “bank” means something different in “river bank” and “bank account”? We go from static word vectors to the attention mechanism inside every modern LLM — intuitively, with no heavy math, and with open Q&A.
-  url: https://www.meetup.com/machine-learning-workshop/
+# Upcoming sessions come from Meetup automatically: see scripts/fetch_meetup.py
+# and _data/meetup_events.json (refreshed daily by the GitHub Actions build).

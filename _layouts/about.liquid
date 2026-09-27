@@ -126,19 +126,33 @@ layout: default
         </ul>
       </header>
       <div class="split-body">
-        {% if aoh.next %}
-        <article class="next-session" data-ends="{{ aoh.next.ends }}">
-          <p class="eyebrow">Next session</p>
-          <h3><a href="{{ aoh.next.url }}" rel="noopener">{{ aoh.next.title }}</a></h3>
-          <p class="next-when">{{ aoh.next.when }}</p>
-          <p class="next-desc">{{ aoh.next.desc }}</p>
-          <a class="link-quiet" href="{{ aoh.next.url }}" rel="noopener">Reserve a place →</a>
-        </article>
+        {%- assign upcoming = site.data.meetup_events -%}
+        {% if upcoming and upcoming.size > 0 %}
+        <h3 class="mini-title mini-title-first">Upcoming sessions</h3>
+        <ol class="upcoming">
+          {% for e in upcoming %}
+          <li class="event{% if forloop.first %} is-next{% endif %}" data-ends="{{ e.end }}">
+            <p class="event-date" aria-hidden="true"><span class="event-month">{{ e.month }}</span><span class="event-day">{{ e.day }}</span></p>
+            <div class="event-body">
+              <h4><a href="{{ e.url }}" rel="noopener">{{ e.title }}</a></h4>
+              <p class="event-when">{{ e.when }} · Online</p>
+              {% if e.desc != "" %}<p class="event-desc">{{ e.desc }}</p>{% endif %}
+              <a class="event-rsvp" href="{{ e.url }}" rel="noopener">RSVP on Meetup →</a>
+            </div>
+          </li>
+          {% endfor %}
+        </ol>
         <script>
+          // Hide events that ended since the last daily rebuild; feature the next one.
           (function () {
-            var el = document.querySelector('.next-session');
-            var t = el && Date.parse(el.getAttribute('data-ends'));
-            if (t && Date.now() > t) el.hidden = true;
+            var items = document.querySelectorAll('.upcoming .event');
+            var first = true;
+            items.forEach(function (li) {
+              li.classList.remove('is-next');
+              var t = Date.parse(li.getAttribute('data-ends'));
+              if (t && Date.now() > t) { li.hidden = true; return; }
+              if (first) { li.classList.add('is-next'); first = false; }
+            });
           })();
         </script>
         {% endif %}

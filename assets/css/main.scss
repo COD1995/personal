@@ -556,18 +556,33 @@ address { font-style: normal; }
 .platform-list a:hover .platform-name { color: var(--accent); }
 .platform-list a:hover .platform-arrow { color: var(--accent); transform: translateX(3px); }
 
-.next-session {
-  padding: 1.75rem 0 1.9rem;
-  border-top: 3px double var(--rule-strong);
+.mini-title-first { margin-top: 0; }
+.upcoming { list-style: none; margin: 0 0 2.5rem; padding: 0; border-top: 1px solid var(--rule); }
+.event {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 1fr);
+  gap: 1.1rem;
+  margin: 0;
+  padding: 1rem 0;
   border-bottom: 1px solid var(--rule);
-  margin-bottom: 2.5rem;
 }
-.next-session[hidden] { display: none; }
-.next-session h3 { margin: 0 0 0.4rem; font-size: 1.6rem; line-height: 1.2; }
-.next-session h3 a { color: var(--text); }
-.next-session h3 a:hover { color: var(--accent); }
-.next-when { font-style: italic; color: var(--brass); margin: 0 0 0.9rem; }
-.next-desc { color: var(--muted); margin: 0 0 1.2rem; }
+.event[hidden] { display: none; }
+.event-date { margin: 0; display: flex; flex-direction: column; align-items: center; padding-top: 0.15rem; line-height: 1; }
+.event-month { @extend %smallcaps; font-size: 0.62rem; color: var(--brass); }
+.event-day { font-family: var(--display); font-size: 1.6rem; font-weight: 600; color: var(--text); margin-top: 0.2rem; }
+.event h4 { margin: 0 0 0.15rem; font-size: 1.08rem; line-height: 1.3; }
+.event h4 a { color: var(--text); }
+.event h4 a:hover { color: var(--accent); }
+.event-when { margin: 0; font-size: 0.88rem; color: var(--muted); }
+.event-desc, .event-rsvp { display: none; }
+/* the next session is featured: larger, with description and RSVP */
+.event.is-next { padding: 1.4rem 0 1.5rem; }
+.event.is-next .event-day { font-size: 2.1rem; }
+.event.is-next h4 { font-size: 1.4rem; }
+.event.is-next .event-when { color: var(--brass); margin-bottom: 0.7rem; }
+.event.is-next .event-desc { display: block; color: var(--muted); margin: 0 0 0.9rem; }
+.event.is-next .event-rsvp { display: inline-block; @extend %smallcaps; color: var(--accent); border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px; }
+.event.is-next .event-rsvp:hover { border-bottom-color: var(--accent); }
 
 .sessions { list-style: none; margin: 0; padding: 0; }
 .session {
