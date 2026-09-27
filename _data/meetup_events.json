@@ -20,6 +20,16 @@
     "desc": "Last time, we gave every word its own vector — \"king,\" \"queen,\" \"dog\" all became points in space. But there's a problem we quietly swept under the rug: what about a word like \"bank\"?"
   },
   {
+    "title": "Probability and Machine Learning",
+    "url": "https://www.meetup.com/machine-learning-workshop/events/316738285/",
+    "start": "2026-11-07T15:00:00-05:00",
+    "end": "2026-11-07T16:00:00-05:00",
+    "when": "Sat, Nov 7 · 3:00 PM EST",
+    "month": "Nov",
+    "day": "7",
+    "desc": "Why do we train classifiers on cross-entropy? Last time we showed that MSE isn't an arbitrary rule. It falls out of assuming Gaussian noise on a continuous target."
+  },
+  {
     "title": "Running LLMs Locally — A Six-Week Workshop",
     "url": "https://www.meetup.com/machine-learning-workshop/events/316346551/",
     "start": "2027-01-12T19:00:00-05:00",
@@ -28,15 +38,5 @@
     "month": "Jan",
     "day": "12",
     "desc": "This workshop series is extremely hands on and interactive. A dedicated teaching assistant and I will answer your questions within 24 hrs. No API keys. No per-token bills. No data leaving your machine."
-  },
-  {
-    "title": "2027 AWS AI Practitioner Bootcamp",
-    "url": "https://www.meetup.com/machine-learning-workshop/events/316162982/",
-    "start": "2027-08-02T17:00:00-04:00",
-    "end": "2027-08-02T18:30:00-04:00",
-    "when": "Mon, Aug 2, 2027 · 5:00 PM EDT",
-    "month": "Aug",
-    "day": "2",
-    "desc": "A live, 4-week bootcamp built to prepare you for the AWS Certified AI Practitioner exam (AIF-C01) — AWS's foundational credential covering AI/ML fundamentals, generative AI, foundation models, responsible AI, and security."
   }
 ]
