@@ -14,10 +14,6 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-  # Rebuild daily so the "Upcoming sessions" list follows Meetup (10:17 UTC ≈ 6 AM Eastern)
-  schedule:
-    - cron: "17 10 * * *"
-
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
@@ -52,8 +48,6 @@ jobs:
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5
-      - name: Refresh upcoming sessions from Meetup
-        run: python3 scripts/fetch_meetup.py
       - name: Build with Jekyll
         # Outputs to the './_site' directory by default
         run: bundle exec jekyll build --baseurl "${{ steps.pages.outputs.base_path }}"

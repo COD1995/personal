@@ -85,7 +85,7 @@ Home page and /teaching/ are data-driven — edit YAML, not HTML:
 - `roles.yml` — "Currently" list
 - `programs.yml` — "AI programs through CIFF" (roman-numbered) (executive programs, technical training, custom curriculum, applied research)
 - `community.yml` — AI Office Hours platform links (label, url, icon, one-line note).
-- `meetup_events.json` — **generated**: upcoming AI Office Hours events from the public Meetup iCal feed, written by `scripts/fetch_meetup.py`. The GitHub Actions build runs the script before Jekyll on every push and daily at 10:17 UTC (schedule in `.github/workflows/jekyll.yml`), so the site follows Meetup automatically. The committed copy is only a fallback/local snapshot — refresh it locally with `python3 scripts/fetch_meetup.py`. If Meetup is unreachable the script leaves the file untouched. GitHub pauses scheduled workflows after 60 days without repo activity (re-enable in the Actions tab).
+- `meetup_events.json` — **generated**: upcoming AI Office Hours events from the public Meetup iCal feed, written by `scripts/fetch_meetup.py`. Not automated (by choice): after adding or changing a Meetup event, run `python3 scripts/fetch_meetup.py` locally, then commit the JSON and push. Ended events hide themselves client-side, so a stale file only means new events are missing. If Meetup is unreachable the script leaves the file untouched.
 - `sessions.yml` — AI Office Hours decks (files in `assets/slides/ai-office-hours/`)
 - `resources.yml` — recommended books (covers in `assets/img/books/`)
 

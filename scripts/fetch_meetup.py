@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
 """Refresh _data/meetup_events.json from the AI Office Hours Meetup calendar.
 
-Runs in the GitHub Actions build (see .github/workflows/jekyll.yml) before
-Jekyll, so the "Upcoming sessions" list on the home page follows Meetup
-automatically. You can also run it locally:
+Run it locally after adding or changing an event on Meetup, then commit
+_data/meetup_events.json and push:
 
     python3 scripts/fetch_meetup.py            # fetch from Meetup
     python3 scripts/fetch_meetup.py feed.ics   # parse a saved .ics file
