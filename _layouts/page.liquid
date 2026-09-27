@@ -1,13 +1,14 @@
 ---
 layout: default
 ---
-<article class="page wrap{% if page.slides %} has-lecture-toc{% endif %}">
+<article class="page wrap{% if page.wide %} wide{% endif %}{% if page.slides %} has-lecture-toc{% endif %}{% if page.prose == false %} page--plain{% endif %}">
   <div class="page-main">
     {% if page.back_link %}
       <a class="back-link" href="{{ page.back_link | relative_url }}">← {{ page.back_text | default: "Back" }}</a>
     {% endif %}
     {% if page.title %}
       <header class="page-header">
+        {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
         <h1>{{ page.title }}</h1>
         {% if page.description %}<p class="page-description">{{ page.description }}</p>{% endif %}
       </header>

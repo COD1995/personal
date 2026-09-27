@@ -1,0 +1,14 @@
+{%- comment -%} Course list, driven by _data/courses.yml. The whole entry is one link. {%- endcomment -%}
+<ul class="course-grid">
+  {%- for c in site.data.courses %}
+  <li class="course">
+    <a class="course-link" href="{{ '/teaching/' | append: c.slug | append: '/' | relative_url }}">
+      <p class="course-meta"><span class="course-code">{{ c.code }}</span><span class="course-terms">{{ c.terms }}</span></p>
+      <h3 class="course-title">{{ c.title }}</h3>
+      <p class="course-blurb">{{ c.blurb }}</p>
+      <span class="course-cta">Syllabus &amp; materials <span class="arrow" aria-hidden="true">→</span></span>
+    </a>
+  </li>
+  {%- endfor %}
+</ul>
+<p class="course-note">Guest lectures and workshops on deep learning, LLMs, and applied AI are available on request — <a href="#contact">write to me</a>.</p>

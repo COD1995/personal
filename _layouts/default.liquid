@@ -4,10 +4,39 @@
     {% include head.liquid %}
   </head>
   <body>
+    <a class="skip-link" href="#main">Skip to content</a>
     {% include header.liquid %}
-    <main class="site-main">
+    <main class="site-main" id="main">
       {{ content }}
     </main>
     {% include footer.liquid %}
+    <script>
+      // Email links: many visitors have no desktop mail app set up, so a
+      // mailto: click can silently do nothing. Also copy the address and
+      // show a small confirmation, while still letting mailto: open if it can.
+      (function () {
+        var timer;
+        function show(msg) {
+          var toast = document.getElementById('email-toast');
+          if (!toast) return;
+          toast.textContent = msg;
+          toast.classList.add('is-visible');
+          clearTimeout(timer);
+          timer = setTimeout(function () { toast.classList.remove('is-visible'); }, 3200);
+        }
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[href^="mailto:"]');
+          if (!a) return;
+          var addr = decodeURIComponent(a.getAttribute('href').slice(7).split('?')[0]);
+          var done = function () { show('Email address copied: ' + addr); };
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(addr).then(done, function () { show('Email: ' + addr); });
+          } else {
+            show('Email: ' + addr);
+          }
+        });
+      })();
+    </script>
+    <div id="email-toast" class="toast" role="status" aria-live="polite"></div>
   </body>
 </html>

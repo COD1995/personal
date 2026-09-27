@@ -1,10 +1,12 @@
 <header class="site-header">
-  <div class="wrap nav-wrap">
-    <a class="site-name" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
-    <nav class="site-nav">
-      <a href="{{ '/' | relative_url }}" {% if page.permalink == '/' %}class="active"{% endif %}>About</a>
-      <a href="{{ '/teaching/' | relative_url }}" {% if page.url contains '/teaching/' %}class="active"{% endif %}>Teaching</a>
-      <a href="{{ '/cv/' | relative_url }}" {% if page.url contains '/cv' %}class="active"{% endif %}>CV</a>
+  <div class="wrap wide nav-wrap">
+    <a class="brand" href="{{ '/' | relative_url }}">{{ site.author.name }}</a>
+    <nav class="site-nav" aria-label="Primary">
+      <a href="{{ '/' | relative_url }}"{% if page.permalink == '/' %} class="active" aria-current="page"{% endif %}>About</a>
+      <a href="{{ '/teaching/' | relative_url }}"{% if page.url contains '/teaching/' %} class="active" aria-current="page"{% endif %}>Teaching</a>
+      <a href="{{ '/#community' | relative_url }}">Community</a>
+      <a href="{{ '/cv/' | relative_url }}"{% if page.url contains '/cv' %} class="active" aria-current="page"{% endif %}>CV</a>
+      <a class="nav-contact" href="#contact">Contact</a>
     </nav>
   </div>
 </header>

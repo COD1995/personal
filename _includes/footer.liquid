@@ -1,5 +1,164 @@
-<footer class="site-footer">
-  <div class="wrap">
-    <span>© {{ 'now' | date: "%Y" }} {{ site.author.name }}</span>
+<footer class="site-footer" id="contact">
+  <div class="wrap wide footer-grid">
+
+    <!-- Left: a letterhead-style card with the essentials -->
+    <div class="footer-card">
+      <p class="eyebrow">Correspondence</p>
+      <h2>Let’s work together</h2>
+      <p class="footer-lede">I’m glad to hear about AI programs for your organization, guest lectures, research collaborations, and mentoring. I usually reply within a few working days.</p>
+
+      <dl class="directory">
+        <div>
+          <dt>Email</dt>
+          <dd><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></dd>
+        </div>
+        <div>
+          <dt>Office</dt>
+          <dd>
+            <address>
+              335 Jacobs Management Center<br>
+              School of Management, University at Buffalo<br>
+              Buffalo, New York 14260
+            </address>
+          </dd>
+        </div>
+        <div>
+          <dt>Elsewhere</dt>
+          <dd>
+            <ul class="text-links">
+              <li><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="noopener">LinkedIn</a></li>
+              <li><a href="https://github.com/{{ site.author.github }}" rel="noopener">GitHub</a></li>
+              <li><a href="{{ '/assets/pdf/cv.pdf' | relative_url }}">CV (PDF)</a></li>
+            </ul>
+          </dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- Right: the message form -->
+    {% if site.web3forms_key %}
+    <form class="contact-form" action="https://api.web3forms.com/submit" method="POST" novalidate>
+      <p class="form-title">Send a note</p>
+      <input type="hidden" name="access_key" value="{{ site.web3forms_key }}">
+      <input type="hidden" name="subject" value="Website message">
+      <input type="hidden" name="from_name" value="Jue Guo — website">
+      <input type="checkbox" name="botcheck" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <div class="field">
+        <label for="cf-name">Name</label>
+        <input id="cf-name" type="text" name="name" autocomplete="name" required>
+      </div>
+      <div class="field">
+        <label for="cf-email">Email</label>
+        <input id="cf-email" type="email" name="email" autocomplete="email" required>
+      </div>
+      <div class="field">
+        <label for="cf-phone">Phone <span class="optional">(optional)</span></label>
+        <input id="cf-phone" type="tel" name="phone" autocomplete="tel">
+      </div>
+      <div class="field">
+        <label for="cf-topic">Regarding</label>
+        <select id="cf-topic" name="topic">
+          <option>General inquiry</option>
+          <option>AI program for an organization</option>
+          <option>Guest lecture or workshop</option>
+          <option>Research collaboration</option>
+          <option>Mentoring</option>
+          <option>AI Office Hours</option>
+          <option>Something else</option>
+        </select>
+      </div>
+      <div class="field field-full">
+        <label for="cf-message">Message</label>
+        <textarea id="cf-message" name="message" rows="5" required placeholder="A sentence or two about what you have in mind"></textarea>
+      </div>
+      <div class="form-actions field-full">
+        <button class="btn btn-primary" type="submit">Send message</button>
+        <p class="form-status" role="status" aria-live="polite"></p>
+      </div>
+    </form>
+    <script>
+      (function () {
+        var form = document.querySelector('.contact-form');
+        if (!form || !window.fetch) return;   // without fetch, the form posts normally
+        var status = form.querySelector('.form-status');
+        var button = form.querySelector('button[type="submit"]');
+        var message = form.querySelector('textarea[name="message"]');
+        var topic = form.querySelector('select[name="topic"]');
+        var subject = form.querySelector('input[name="subject"]');
+        var loadedAt = Date.now();
+
+        // Light anti-spam checks. They stop bots that fill the form in a browser;
+        // bots posting straight to Web3Forms are handled by its own filter and the
+        // hidden botcheck field. Each check gives a real person a polite prompt.
+        var MIN_SECONDS = 3;       // humans can't fill the form faster than this
+        var MIN_CHARS = 20;        // about one sentence
+        var LINK_RE = /(https?:\/\/|www\.)\S+/gi;
+        function problem() {
+          if ((Date.now() - loadedAt) / 1000 < MIN_SECONDS) {
+            return { msg: 'That was quick — please look over your message, then press Send again.', field: button };
+          }
+          var text = message.value.trim();
+          var links = text.match(LINK_RE) || [];
+          var words = text.replace(LINK_RE, ' ').replace(/\s+/g, ' ').trim();
+          if (links.length >= 3 || (links.length > 0 && words.length < MIN_CHARS)) {
+            return { msg: 'Please describe what you have in mind in words — messages that are mostly links are filtered out as spam.', field: message };
+          }
+          if (text.length < MIN_CHARS) {
+            return { msg: 'Could you add a little more detail? A sentence or two about what you have in mind is plenty.', field: message };
+          }
+          return null;
+        }
+
+        form.addEventListener('submit', function (e) {
+          e.preventDefault();
+          if (!form.checkValidity()) {
+            status.textContent = 'Please add your name, a valid email, and a message.';
+            status.className = 'form-status is-error';
+            var bad = form.querySelector(':invalid');
+            if (bad) bad.focus();
+            return;
+          }
+          var p = problem();
+          if (p) {
+            status.textContent = p.msg;
+            status.className = 'form-status is-error';
+            if (p.field) p.field.focus();
+            return;
+          }
+          // Put the topic in the email subject so messages are easy to sort.
+          subject.value = 'Website message — ' + topic.value;
+          button.disabled = true;
+          status.textContent = 'Sending…';
+          status.className = 'form-status';
+          fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          })
+            .then(function (r) { return r.json().catch(function () { return {}; }).then(function (d) { return { ok: r.ok, d: d }; }); })
+            .then(function (res) {
+              if (res.ok && res.d.success !== false) {
+                form.reset();
+                status.textContent = 'Thank you — your message has been sent. I’ll be in touch soon.';
+                status.className = 'form-status is-ok';
+              } else {
+                throw new Error(res.d.message || 'send failed');
+              }
+            })
+            .catch(function () {
+              status.textContent = 'Sorry, the message could not be sent. Please email me directly instead.';
+              status.className = 'form-status is-error';
+            })
+            .then(function () { button.disabled = false; });
+        });
+      })();
+    </script>
+    {% endif %}
+  </div>
+
+  <div class="wrap wide footer-base">
+    <p>© {{ 'now' | date: "%Y" }} {{ site.author.name }}</p>
+    <p><a href="#top">Back to top ↑</a></p>
   </div>
 </footer>

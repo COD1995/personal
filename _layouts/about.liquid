@@ -1,50 +1,210 @@
 ---
 layout: default
 ---
-<section class="home wrap">
-  <div class="hero">
-    <div class="hero-text">
-      <div class="hero-name-row">
-        <h1>{{ page.title | default: site.author.name }}</h1>
-        <ul class="hero-links" aria-label="Profile links">
-          <li>
-            <a href="{{ '/assets/pdf/cv.pdf' | relative_url }}" aria-label="CV" title="CV">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <rect x="2" y="5" width="20" height="14" rx="2"/>
-                <circle cx="8.5" cy="11" r="2"/>
-                <path d="M5 16.5c0-1.5 1.2-2.5 3.5-2.5s3.5 1 3.5 2.5"/>
-                <line x1="14" y1="10" x2="19" y2="10"/>
-                <line x1="14" y1="14" x2="18" y2="14"/>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="mailto:{{ site.author.email }}" aria-label="Email" title="Email">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/>
-                <polyline points="22 6 12 13 2 6"/>
-              </svg>
-            </a>
-          </li>
-          <li>
-            <a href="https://github.com/{{ site.author.github }}" target="_blank" rel="noopener" aria-label="GitHub" title="GitHub">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-              </svg>
-            </a>
-          </li>
+{%- assign aoh = site.data.community -%}
+<div class="home">
+
+  <!-- ============ Hero ============ -->
+  <section class="hero">
+    <div class="wrap wide hero-grid">
+      <div class="hero-text">
+        {% if page.eyebrow %}<p class="eyebrow">{{ page.eyebrow }}</p>{% endif %}
+        <h1 class="hero-title">{{ page.title | default: site.author.name }}</h1>
+        <span class="rule-short" aria-hidden="true"></span>
+        {% if page.headline %}<p class="hero-headline">{{ page.headline }}</p>{% endif %}
+        {% if page.lede %}<p class="hero-lede">{{ page.lede }}</p>{% endif %}
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="{{ '/cv/' | relative_url }}">Curriculum Vitae</a>
+          <a class="btn btn-ghost" href="{{ '/teaching/' | relative_url }}">Courses</a>
+        </div>
+        <ul class="text-links" aria-label="Profile links">
+          <li><a href="mailto:{{ site.author.email }}">Email</a></li>
+          <li><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/{{ site.author.github }}" rel="noopener">GitHub</a></li>
         </ul>
       </div>
-      {% if page.subtitle %}<p class="hero-subtitle">{{ page.subtitle }}</p>{% endif %}
-      {% if page.profile.more_info %}
-        <div class="hero-meta">{{ page.profile.more_info }}</div>
+      {% if page.profile.image %}
+      <figure class="hero-portrait">
+        <img src="{{ '/assets/img/' | append: page.profile.image | relative_url }}" alt="Portrait of {{ site.author.name }}" width="800" height="800" fetchpriority="high">
+        {% if page.profile.caption %}<figcaption>{{ page.profile.caption }}</figcaption>{% endif %}
+      </figure>
       {% endif %}
     </div>
-    {% if page.profile.image %}
-      <img class="hero-photo" src="{{ '/assets/img/' | append: page.profile.image | relative_url }}" alt="{{ site.author.name }}">
-    {% endif %}
-  </div>
-  <div class="bio">
-    {{ content }}
-  </div>
-</section>
+  </section>
+
+  <!-- ============ At a glance ============ -->
+  {% if site.data.stats %}
+  <section class="stats" aria-label="At a glance">
+    <div class="wrap wide">
+      <dl class="stats-grid">
+        {% for s in site.data.stats %}
+        <div class="stat">
+          <dt>{{ s.label }}</dt>
+          <dd>{{ s.value }}</dd>
+        </div>
+        {% endfor %}
+      </dl>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ============ About ============ -->
+  <section class="section" id="about">
+    <div class="wrap wide split">
+      <header class="section-head">
+        <p class="eyebrow">About</p>
+        <h2>Research-grade rigor, taught to be used.</h2>
+      </header>
+      <div class="split-body">
+        <div class="prose">{{ content }}</div>
+
+        {% if page.interests %}
+        <h3 class="mini-title">Research interests</h3>
+        <p class="interests">{{ page.interests | join: " · " }}</p>
+        {% endif %}
+
+        {% if site.data.roles %}
+        <h3 class="mini-title">Currently</h3>
+        <ul class="roles">
+          {% for r in site.data.roles %}
+          <li>
+            <span class="role-title">{{ r.role }}</span>
+            <span class="role-org">{{ r.org }}</span>
+            {% if r.since %}<span class="role-since">since {{ r.since }}</span>{% endif %}
+          </li>
+          {% endfor %}
+        </ul>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ Teaching ============ -->
+  <section class="section section-alt" id="teaching">
+    <div class="wrap wide">
+      <div class="teaching-lead">
+        <header class="section-head">
+          <p class="eyebrow">Teaching</p>
+          <h2>Graduate courses at the University at Buffalo</h2>
+          <p class="section-intro">Since 2023 I have led five graduate courses for more than 300 students. Full lecture notes, slides, and schedules are online for every course.</p>
+          <p class="section-link"><a class="link-quiet" href="{{ '/teaching/' | relative_url }}">All course materials →</a></p>
+        </header>
+        <figure class="plate">
+          <img src="{{ '/assets/img/class_photo2_plate.jpg' | relative_url }}" alt="Jue Guo with a class of graduate students at the University at Buffalo" loading="lazy" width="1300" height="731">
+          <figcaption>With graduate students at the University at Buffalo.</figcaption>
+        </figure>
+      </div>
+
+      {% include course-grid.liquid %}
+    </div>
+  </section>
+
+  <!-- ============ AI Office Hours ============ -->
+  <section class="section" id="community">
+    <div class="wrap wide split">
+      <header class="section-head">
+        <p class="eyebrow">Community</p>
+        <h2>AI Office Hours</h2>
+        <p class="section-intro">An open, no-prerequisites learning community of 2,800+ members, with around a hundred people at each live session. We set the hype aside and explain how modern AI actually works — for beginners and practitioners alike.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="{{ aoh.meetup }}" rel="noopener">RSVP on Meetup</a>
+          <a class="btn btn-ghost" href="{{ aoh.discord }}" rel="noopener">Join the Discord</a>
+        </div>
+        <ul class="text-links" aria-label="Where the community meets">
+          {% for l in aoh.links %}<li><a href="{{ l.url }}" rel="noopener">{{ l.label }}</a></li>{% endfor %}
+        </ul>
+      </header>
+      <div class="split-body">
+        {% if aoh.next %}
+        <article class="next-session" data-ends="{{ aoh.next.ends }}">
+          <p class="eyebrow">Next session</p>
+          <h3><a href="{{ aoh.next.url }}" rel="noopener">{{ aoh.next.title }}</a></h3>
+          <p class="next-when">{{ aoh.next.when }}</p>
+          <p class="next-desc">{{ aoh.next.desc }}</p>
+          <a class="link-quiet" href="{{ aoh.next.url }}" rel="noopener">Reserve a place →</a>
+        </article>
+        <script>
+          (function () {
+            var el = document.querySelector('.next-session');
+            var t = el && Date.parse(el.getAttribute('data-ends'));
+            if (t && Date.now() > t) el.hidden = true;
+          })();
+        </script>
+        {% endif %}
+
+        <h3 class="mini-title">Session decks</h3>
+        <ul class="sessions">
+          {% for s in site.data.sessions %}
+          {% capture deck %}{{ '/assets/slides/ai-office-hours/' | append: s.file | relative_url }}{% endcapture %}
+          <li class="session">
+            <span class="session-num">{{ s.num }}</span>
+            <div class="session-text">
+              <h4><a href="{{ deck }}" target="_blank" rel="noopener">{{ s.title }}</a></h4>
+              <p>{{ s.desc }}</p>
+              <details class="session-preview">
+                <summary>Preview the slides</summary>
+                <div class="deck-frame">
+                  <iframe src="{{ deck }}" title="AI Office Hours · Session {{ s.num }} — {{ s.title }}" loading="lazy" allowfullscreen></iframe>
+                </div>
+                <p class="deck-hint">Click into the slides, then use the arrow keys to navigate.</p>
+              </details>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+        <p class="aside">Replays are on <a href="{% for l in aoh.links %}{% if l.label == 'YouTube' %}{{ l.url }}{% endif %}{% endfor %}" rel="noopener">YouTube</a>; write-ups go out on <a href="{% for l in aoh.links %}{% if l.label == 'Substack' %}{{ l.url }}{% endif %}{% endfor %}" rel="noopener">Substack</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ For organizations (CIFF) ============ -->
+  {% if site.data.programs %}
+  <section class="section section-alt" id="programs">
+    <div class="wrap wide">
+      <header class="section-head section-head-row">
+        <div>
+          <p class="eyebrow">For organizations</p>
+          <h2>AI programs through CIFF</h2>
+          <p class="section-intro">Through the Center for Intelligent Finance and Fintech at UB's School of Management, we design and deliver AI programs for financial institutions, nonprofits, and international partners.</p>
+        </div>
+        <a class="link-quiet" href="mailto:{{ site.author.email }}?subject=AI%20program%20inquiry">Discuss a program →</a>
+      </header>
+      <ol class="programs">
+        {% for p in site.data.programs %}
+        <li>
+          <h3>{{ p.title }}</h3>
+          <p>{{ p.text }}</p>
+        </li>
+        {% endfor %}
+      </ol>
+    </div>
+  </section>
+  {% endif %}
+
+  <!-- ============ Books ============ -->
+  {% if site.data.resources %}
+  <section class="section" id="resources">
+    <div class="wrap wide">
+      <header class="section-head">
+        <p class="eyebrow">For self-learners</p>
+        <h2>Books I recommend</h2>
+        <p class="section-intro">Freely available texts I point students to when they want to go deeper on their own.</p>
+      </header>
+      <ul class="books">
+        {% for b in site.data.resources %}
+        <li class="book">
+          <img src="{{ '/assets/img/books/' | append: b.cover | relative_url }}" alt="" loading="lazy">
+          <div>
+            <h3>{% if b.url %}<a href="{{ b.url }}" rel="noopener">{{ b.title }}</a>{% else %}{{ b.title }}{% endif %}</h3>
+            <p class="book-by">{{ b.authors }}</p>
+            <p>{{ b.desc }}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </section>
+  {% endif %}
+
+
+</div>

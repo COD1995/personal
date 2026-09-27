@@ -1,8 +1,8 @@
 # Site
 title: Jue Guo
-tagline: Ph.D. candidate, Computer Science, University at Buffalo
-email: jueguo@buffalo.edu
-description: Personal website of Jue Guo — research, teaching, and notes on machine learning.
+tagline: Lead, AI Curriculum · University at Buffalo School of Management
+email: guoj1995@gmail.com
+description: Jue Guo — Lead, AI Curriculum at the University at Buffalo School of Management, adjunct faculty, and Ph.D. candidate in Computer Science. Machine learning teaching, research, and open AI education.
 lang: en
 
 # Deploy
@@ -12,9 +12,13 @@ baseurl: /personal
 # Author
 author:
   name: Jue Guo
-  email: jueguo@buffalo.edu
+  email: guoj1995@gmail.com
   github: COD1995
   linkedin: jue-g-3642a1187
+
+# Contact form (Web3Forms). This access key is meant to be public — it only lets
+# the form deliver messages to the inbox registered at web3forms.com.
+web3forms_key: 77c1c150-b5f6-438d-ab35-969b87100619
 
 # Build
 markdown: kramdown

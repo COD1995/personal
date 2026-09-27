@@ -1,17 +1,51 @@
+{%- assign page_title = site.title -%}
+{%- if page.title and page.permalink != "/" -%}{%- assign page_title = page.title | append: " · " | append: site.title -%}{%- endif -%}
+{%- assign page_desc = page.description | default: site.description -%}
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page.title and page.permalink != "/" %}{{ page.title }} · {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
-<meta name="description" content="{{ page.description | default: site.description }}">
+<title>{{ page_title }}</title>
+<meta name="description" content="{{ page_desc | strip_html | strip }}">
 <meta name="author" content="{{ site.author.name }}">
+<meta name="theme-color" content="#f6f2e9">
 
 <link rel="canonical" href="{{ page.url | absolute_url }}">
-<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}?v=2">
-<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
+<link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}?v=4">
 <link rel="alternate" type="application/atom+xml" title="{{ site.title }}" href="{{ '/feed.xml' | absolute_url }}">
+
+<!-- Open Graph / social previews -->
+<meta property="og:type" content="{% if page.permalink == '/' %}profile{% else %}website{% endif %}">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ page_title }}">
+<meta property="og:description" content="{{ page_desc | strip_html | strip }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:image" content="{{ '/assets/img/prof_pic.jpg' | absolute_url }}">
+<meta name="twitter:card" content="summary">
+
+{%- if page.permalink == '/' %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.author.name }}",
+  "url": "{{ '/' | absolute_url }}",
+  "image": "{{ '/assets/img/prof_pic.jpg' | absolute_url }}",
+  "jobTitle": "Lead, AI Curriculum",
+  "worksFor": { "@type": "CollegeOrUniversity", "name": "University at Buffalo School of Management" },
+  "alumniOf": { "@type": "CollegeOrUniversity", "name": "University at Buffalo" },
+  "email": "mailto:{{ site.author.email }}",
+  "sameAs": [
+    "https://github.com/{{ site.author.github }}",
+    "https://www.linkedin.com/in/{{ site.author.linkedin }}/"
+  ]
+}
+</script>
+{%- endif %}
+
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=EB+Garamond:ital,wght@0,400..600;1,400&family=Inter:wght@400..600&family=Source+Serif+4:ital,opsz,wght@0,8..60,400..600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
 
 {% if page.math or page.url contains '/teaching/' or page.url contains '/assets/courses/' %}
 <script>
