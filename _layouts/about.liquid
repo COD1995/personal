@@ -143,7 +143,8 @@ layout: default
           {% endfor %}
         </ol>
         <script>
-          // Hide events that ended since the last daily rebuild; feature the next one.
+          // Hide events that have ended and feature the next one, so the list stays
+          // current between manual refreshes of _data/meetup_events.json.
           (function () {
             var items = document.querySelectorAll('.upcoming .event');
             var first = true;
@@ -153,6 +154,11 @@ layout: default
               if (t && Date.now() > t) { li.hidden = true; return; }
               if (first) { li.classList.add('is-next'); first = false; }
             });
+            if (first && items.length) {          // every listed event is over
+              var list = items[0].parentNode;
+              list.hidden = true;
+              if (list.previousElementSibling) list.previousElementSibling.hidden = true;
+            }
           })();
         </script>
         {% endif %}
