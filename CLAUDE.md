@@ -22,7 +22,7 @@ _layouts/
 _includes/
   head.liquid            <head> contents — meta, canonical, CSS, Google Fonts
   header.liquid          sticky top nav (About / Teaching / Community / CV / Contact) — "Community" links to the AI Office Hours section; don't label it "Office Hours" (students would mistake it for course office hours)
-  footer.liquid          two-column "Correspondence" footer: letterhead-style details (email, office, links) + "Send a note" form; base row with © and back-to-top
+  footer.liquid          two-column "Correspondence" footer: letterhead-style details (email, office, links) + "Get in touch" form; base row with © and back-to-top
   icon.liquid            inline SVG icon set
   course-grid.liquid     course list from _data/courses.yml (+ guest-lecture note)
   figure.liquid          minimal <figure> wrapper used by course markdown
