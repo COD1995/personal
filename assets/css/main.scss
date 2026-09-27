@@ -558,6 +558,15 @@ address { font-style: normal; }
 
 .mini-title-first { margin-top: 0; }
 .upcoming { list-style: none; margin: 0 0 2.5rem; padding: 0; border-top: 1px solid var(--rule); }
+.upcoming-empty {
+  margin: 0 0 2.5rem;
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  color: var(--muted);
+  font-style: italic;
+}
+.upcoming-empty[hidden] { display: none; }
 .event {
   display: grid;
   grid-template-columns: 3.4rem minmax(0, 1fr);

@@ -127,8 +127,8 @@ layout: default
       </header>
       <div class="split-body">
         {%- assign upcoming = site.data.meetup_events -%}
-        {% if upcoming and upcoming.size > 0 %}
         <h3 class="mini-title mini-title-first">Upcoming sessions</h3>
+        {% if upcoming and upcoming.size > 0 %}
         <ol class="upcoming">
           {% for e in upcoming %}
           <li class="event{% if forloop.first %} is-next{% endif %}" data-ends="{{ e.end }}">
@@ -142,9 +142,12 @@ layout: default
           </li>
           {% endfor %}
         </ol>
+        {% endif %}
+        <p class="upcoming-empty"{% if upcoming and upcoming.size > 0 %} hidden{% endif %}>Next session coming soon — <a href="{{ aoh.meetup }}" rel="noopener">follow on Meetup</a> for the date.</p>
         <script>
           // Hide events that have ended and feature the next one, so the list stays
           // current between manual refreshes of _data/meetup_events.json.
+          // If none are left, show the "coming soon" line instead.
           (function () {
             var items = document.querySelectorAll('.upcoming .event');
             var first = true;
@@ -155,13 +158,11 @@ layout: default
               if (first) { li.classList.add('is-next'); first = false; }
             });
             if (first && items.length) {          // every listed event is over
-              var list = items[0].parentNode;
-              list.hidden = true;
-              if (list.previousElementSibling) list.previousElementSibling.hidden = true;
+              items[0].parentNode.hidden = true;
+              document.querySelector('.upcoming-empty').hidden = false;
             }
           })();
         </script>
-        {% endif %}
 
         <h3 class="mini-title">Session decks</h3>
         <ul class="sessions">
