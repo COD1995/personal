@@ -88,6 +88,18 @@
         var subject = form.querySelector('input[name="subject"]');
         var loadedAt = Date.now();
 
+        // Links elsewhere on the page (href="#contact" data-topic="...") jump here
+        // and preselect the matching "Regarding" option.
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[data-topic]');
+          if (!a) return;
+          var want = a.getAttribute('data-topic');
+          for (var i = 0; i < topic.options.length; i++) {
+            if (topic.options[i].text === want) { topic.selectedIndex = i; break; }
+          }
+          setTimeout(function () { form.querySelector('#cf-name').focus({ preventScroll: true }); }, 400);
+        });
+
         // Light anti-spam checks. They stop bots that fill the form in a browser;
         // bots posting straight to Web3Forms are handled by its own filter and the
         // hidden botcheck field. Each check gives a real person a polite prompt.

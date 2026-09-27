@@ -1,15 +1,26 @@
-# AI Office Hours links + the next live session (shown until its date passes).
+# AI Office Hours links (icon = a name in _includes/icon.liquid; note = one short line)
+# + the next live session (shown until its date passes).
 links:
   - label: Meetup
     url: https://www.meetup.com/machine-learning-workshop/
+    icon: calendar
+    note: RSVP for live sessions
   - label: Discord
     url: https://discord.gg/q6jpfJxrV9
+    icon: chat
+    note: Questions and discussion between sessions
   - label: YouTube
     url: https://www.youtube.com/@AIOfficeHr
+    icon: play
+    note: Replays of past sessions
   - label: LinkedIn Group
     url: https://www.linkedin.com/groups/40233002/
+    icon: users
+    note: Professional community and announcements
   - label: Substack
     url: https://substack.com/@aiofficehr
+    icon: newsletter
+    note: Written deep dives and newsletter
 
 meetup: https://www.meetup.com/machine-learning-workshop/
 discord: https://discord.gg/q6jpfJxrV9

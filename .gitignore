@@ -15,3 +15,10 @@ _site/
 
 # Files the Claude desktop app saves into this folder
 Claude outputs/
+
+# LaTeX build files for the CV
+_cv/*.aux
+_cv/*.log
+_cv/*.out
+_cv/*.synctex.gz
+_cv/cv.pdf

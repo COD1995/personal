@@ -45,7 +45,7 @@ _teaching/               Jekyll collection (output: true, /teaching/:path/)
 assets/
   css/main.scss          THE stylesheet — has front matter so Jekyll compiles to main.css
   img/                   prof_pic.jpg (web-optimized; prof_pic.png is the original), class_photo2_plate.jpg (16:9 crop of class_photo2.jpeg for the home page), course banners (algorithm.png, Deep-learning.png, etc.)
-  pdf/cv.pdf             linked from nav
+  pdf/cv.pdf             compiled from _cv/cv.tex (pdflatex; needs fontawesome5 + sourcesanspro) — rebuild and copy here after editing the LaTeX
   courses/               long-form lecture notes as .md files (basicai/, deeplearning/)
                          these are reachable as pages and use {% include figure.liquid %} / slide.liquid
 ```

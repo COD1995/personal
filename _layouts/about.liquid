@@ -110,8 +110,19 @@ layout: default
           <a class="btn btn-primary" href="{{ aoh.meetup }}" rel="noopener">RSVP on Meetup</a>
           <a class="btn btn-ghost" href="{{ aoh.discord }}" rel="noopener">Join the Discord</a>
         </div>
-        <ul class="text-links" aria-label="Where the community meets">
-          {% for l in aoh.links %}<li><a href="{{ l.url }}" rel="noopener">{{ l.label }}</a></li>{% endfor %}
+        <ul class="platform-list" aria-label="Where the community meets">
+          {% for l in aoh.links %}
+          <li>
+            <a href="{{ l.url }}" rel="noopener">
+              <span class="platform-icon">{% include icon.liquid name=l.icon %}</span>
+              <span class="platform-text">
+                <span class="platform-name">{{ l.label }}</span>
+                {% if l.note %}<span class="platform-note">{{ l.note }}</span>{% endif %}
+              </span>
+              <span class="platform-arrow" aria-hidden="true">→</span>
+            </a>
+          </li>
+          {% endfor %}
         </ul>
       </header>
       <div class="split-body">
@@ -167,7 +178,7 @@ layout: default
           <h2>AI programs through CIFF</h2>
           <p class="section-intro">Through the Center for Intelligent Finance and Fintech at UB's School of Management, we design and deliver AI programs for financial institutions, nonprofits, and international partners.</p>
         </div>
-        <a class="link-quiet" href="mailto:{{ site.author.email }}?subject=AI%20program%20inquiry">Discuss a program →</a>
+        <a class="link-quiet" href="#contact" data-topic="AI program for an organization">Discuss a program →</a>
       </header>
       <ol class="programs">
         {% for p in site.data.programs %}
