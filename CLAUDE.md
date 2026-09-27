@@ -5,7 +5,7 @@ Personal academic website for Jue Guo, hand-rolled minimal Jekyll site (replaces
 ## What this site is
 
 - **Stack:** Jekyll 4.x → static HTML → GitHub Pages.
-- **Deploy:** Pushed branch builds at `https://cod1995.github.io/personal/` (`url` + `baseurl` set in `_config.yml`).
+- **Deploy:** Push to `master` → GitHub Actions builds → GitHub Pages at the custom domain **https://jue-guo.com** (registered at GoDaddy; DNS: four A records to GitHub Pages IPs + `www` CNAME → cod1995.github.io; custom domain set in repo Settings → Pages). The old `cod1995.github.io/personal/` address redirects there. `url` is `https://jue-guo.com`, `baseurl` is empty.
 - **Design intent:** Low-key, classic, professional — ivory/navy, Garamond, hairline rules, small caps; long-form course notes stay in a readable serif column. No Bootstrap, no MDB, no font-awesome, no Tabler icons, no JS frameworks. One stylesheet.
 
 ## Layout of the source
@@ -55,7 +55,7 @@ assets/
 ```bash
 bundle install
 bundle exec jekyll serve --host 127.0.0.1 --port 4001
-# → http://127.0.0.1:4001/personal/
+# → http://127.0.0.1:4001/
 ```
 
 `bundle exec jekyll build` for one-shot. Output goes to `_site/` (gitignored).
