@@ -15,7 +15,7 @@ layout: default
 {%- if idx > 0 -%}{%- assign prev = mods[prev_i] -%}{%- endif -%}
 {%- if next_i < mods.size -%}{%- assign next = mods[next_i] -%}{%- endif -%}
 <article class="page wrap lec">
-  <div class="page-main">
+  <div class="page-main" id="lec-top">
     <a class="back-link" href="{{ course.url | relative_url }}">← {{ course.code }} · {{ course.short }}</a>
 
     <header class="page-header lec-header">
@@ -35,6 +35,11 @@ layout: default
       </ol>
     </section>
     {% endif %}
+
+    <details class="lec-toc-mobile" hidden>
+      <summary><span class="lec-toc-mobile-label">Contents</span><span class="lec-toc-mobile-current"></span></summary>
+      <ol class="lec-toc-list"></ol>
+    </details>
 
     <div class="page-body">
       {{ content }}
@@ -56,4 +61,99 @@ layout: default
       rewritten for engineering students meeting Python and machine learning for the first time.
     </p>
   </div>
+
+  <aside class="lec-toc" aria-label="On this page" hidden>
+    <p class="lec-toc-title">On this page</p>
+    <ol class="lec-toc-list"></ol>
+    <a class="lec-toc-top" href="#lec-top">↑ Back to top</a>
+  </aside>
 </article>
+
+<script>
+/* Heading tracker: builds the "On this page" list from the note's h2/h3 headings
+   (sidebar on wide screens, a sticky "Contents" drop-down on narrow ones) and
+   highlights the section you are reading. */
+(function () {
+  var body = document.querySelector(".lec .page-body");
+  if (!body) return;
+  var heads = Array.prototype.slice.call(body.querySelectorAll("h2[id], h3[id]"));
+  if (heads.length < 2) return;
+  var aside = document.querySelector(".lec-toc");
+  var mobile = document.querySelector(".lec-toc-mobile");
+  var current = mobile.querySelector(".lec-toc-mobile-current");
+  var links = [];
+
+  function build(list) {
+    var ol = null;
+    heads.forEach(function (h, i) {
+      var li = document.createElement("li");
+      var a = document.createElement("a");
+      a.href = "#" + h.id;
+      a.textContent = h.textContent;
+      a.dataset.i = i;
+      li.appendChild(a);
+      if (h.tagName === "H2") {
+        list.appendChild(li);
+        ol = document.createElement("ol");
+        li.appendChild(ol);
+      } else if (ol) {
+        ol.appendChild(li);
+      } else {
+        list.appendChild(li);
+      }
+      links.push(a);
+    });
+    list.querySelectorAll("ol:empty").forEach(function (e) { e.remove(); });
+  }
+  build(aside.querySelector(".lec-toc-list"));
+  build(mobile.querySelector(".lec-toc-list"));
+  aside.hidden = false;
+  mobile.hidden = false;
+  document.querySelector(".lec").classList.add("has-toc");
+  mobile.addEventListener("click", function (e) {
+    if (e.target.tagName === "A") mobile.open = false;
+  });
+
+  var active = -1, ticking = false;
+  function update() {
+    ticking = false;
+    var idx = 0;
+    for (var i = 0; i < heads.length; i++) {
+      if (heads[i].getBoundingClientRect().top - line <= 0) idx = i; else break;
+    }
+    if (idx === active) return;
+    active = idx;
+    var sec = idx;  // the h2 that contains the active heading
+    while (sec > 0 && heads[sec].tagName !== "H2") sec--;
+    links.forEach(function (a) {
+      var i = +a.dataset.i;
+      a.classList.toggle("active", i === idx);
+      var li = a.parentNode;
+      if (heads[i].tagName === "H2") li.classList.toggle("open", i === sec);
+    });
+    current.textContent = heads[sec].textContent;
+    var act = aside.querySelector("a.active");
+    if (act && aside.scrollHeight > aside.clientHeight) {
+      var r = act.getBoundingClientRect(), ar = aside.getBoundingClientRect();
+      if (r.top < ar.top + 40 || r.bottom > ar.bottom - 40) aside.scrollTop += r.top - ar.top - ar.height / 3;
+    }
+  }
+  window.addEventListener("scroll", function () {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  var line = 110;  // a heading counts as "current" once it scrolls above this line
+  function stickBelowHeader() {  // the site header is taller on phones (two rows)
+    var h = document.querySelector(".site-header");
+    var hh = h ? h.offsetHeight : 0;
+    mobile.style.top = hh + "px";
+    // keep headings reached from a link clear of the header and the Contents bar
+    var bar = mobile.offsetParent ? mobile.querySelector("summary").offsetHeight : 0;
+    var offset = hh + bar + 16;
+    document.documentElement.style.scrollPaddingTop = offset + "px";
+    line = offset + 10;
+  }
+  window.addEventListener("resize", function () { stickBelowHeader(); update(); });
+  stickBelowHeader();
+  update();
+})();
+</script>
