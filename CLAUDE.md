@@ -24,7 +24,7 @@ _includes/
   header.liquid          sticky top nav (About / Teaching / Community / CV / Contact) — "Community" links to the AI Office Hours section; don't label it "Office Hours" (students would mistake it for course office hours); also the reading-progress hairline (.scroll-progress + small inline script)
   footer.liquid          two-column "Correspondence" footer: letterhead-style details (email, office, links) + "Get in touch" form; base row with © and back-to-top
   icon.liquid            inline SVG icon set
-  course-grid.liquid     course list from _data/courses.yml (+ guest-lecture note)
+  course-grid.liquid     course list from _data/courses.yml (+ guest-lecture note); links to /teaching/<slug>/
   figure.liquid          minimal <figure> wrapper used by course markdown
   slide.liquid           walks site.static_files in a folder, renders <img> stack
   semester-year-toggle.liquid
@@ -97,6 +97,12 @@ Page front matter extras for `layout: page`: `eyebrow`, `wide: true`, `prose: fa
 - **New course:** drop `_teaching/<slug>.liquid` with front matter `layout: page`, `title`, `description`, optional `back_link: '/teaching/'`. Add an entry to `_data/courses.yml` (shows on both home and /teaching/).
 - **New semester for an existing course:** create `_includes/teaching/<course>/<sem>.liquid` and reference it from the parent course file inside a `<div data-semester-year="...">` block; add it to the `semesters:` front-matter list.
 - **Lecture notes (long markdown):** drop `.md` under `assets/courses/...` with front matter `layout: page`, `title`, optional `back_link`. They auto-render as pages.
+
+## Course pages (`_teaching/*.liquid`)
+
+Redone Sep 28 2026 in a "catalog entry" style: `_layouts/course.liquid` (layout: course). Left column = course facts, right = title, description, and "What the course covers". Everything is front matter:
+`title`, `code`, `level`, `taught`, `prereq`, `text`, `grading`, `description` (meta), `lede` (first paragraph), `about` (HTML, more paragraphs), and `semesters:` — each `{value, label, selected, intro, assessment: [[name, weight], ...], outline: [{when, topic, guide} | {group}]}`. The semester select appears automatically when there is more than one semester; it toggles both the outline and the assessment weights. The page body holds optional extra sections (introml: course policies; pattern: final project).
+Lecture notes, slides, reading notes, and project briefs are **not published** — they were half-finished. They live in `_private-course-notes/` (git-ignored and excluded from the build). To publish one again, move it back to its original path and link it from the course page. The old per-semester includes are in `_private-course-notes/_old-course-includes/`.
 
 ## Conventions / gotchas
 

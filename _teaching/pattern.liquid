@@ -1,185 +1,119 @@
 ---
-layout: page
-title: CSE 455/555 Introduction to Pattern Recognition
-description:
-img: assets/img/itpr.png
-year: 2025
-category: undergraduate/graduate
-related_publications: false
-toc:
-    sidebar: right
-back_link: '/teaching'
-back_text: 'Courses Page'
-enable_heading_styles: true
-
+layout: course
+title: Introduction to Pattern Recognition
+code: CSE 455/555
+level: Undergraduate and graduate
+taught: Summers, 2023–2026
+prereq: A programming or data-structures course (CSE 115 or 250, EAS 230 or 240) and probability or statistics (EAS 305, STA 301, or MTH 411)
+text: Landmark research papers
+grading: Absolute scale, no curve
+description: CSE 455/555 Introduction to Pattern Recognition at the University at Buffalo — taught through the papers that shaped the field.
+lede: >-
+  Pattern recognition taught through the research papers that shaped it — from the first deep vision networks to the
+  Transformer and today's large language models.
+about: >-
+  <p>Rather than learning only from lectures and problem sets, students go straight to the original papers. Each session
+  pairs a landmark paper with a short framing lecture and discussion, and students turn the key ideas into working code
+  in Python. By the end of the term, you know the central techniques of the field and, just as importantly, how to read a
+  research paper critically.</p>
 semesters:
-  - value: "summer-2026"
-    label: "Summer 2026"
+  - value: summer-2026
+    label: Summer 2026
     selected: true
-  - value: "summer-2025"
-    label: "Summer 2025"
+    intro: >-
+      A paper-reading seminar: twelve sessions over six weeks, each opening with a short quiz on that day's paper. No exams;
+      the rest of the term goes into the final project.
+    assessment:
+      - [In-class quizzes, 50%]
+      - [Participation, 15%]
+      - [Final project, 35%]
+    outline:
+      - group: Vision foundations
+      - when: Session 1
+        topic: >-
+          How to read a paper — <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf" rel="noopener">Keshav, 2007</a>
+        guide: The three-pass reading method used all term.
+      - when: Session 2
+        topic: >-
+          <a href="https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" rel="noopener">AlexNet</a> (Krizhevsky et al., 2012)
+        guide: The result that launched the deep-learning era, and which of its ingredients still matter.
+      - when: Session 3
+        topic: >-
+          <a href="https://arxiv.org/abs/1512.03385" rel="noopener">ResNet</a> (He et al., 2015)
+        guide: Why skip connections make networks hundreds of layers deep trainable.
+      - group: Sequences and the Transformer
+      - when: Session 4
+        topic: >-
+          <a href="https://arxiv.org/abs/1301.3781" rel="noopener">Word2Vec</a> (Mikolov et al., 2013)
+        guide: How words become vectors, learned without labels.
+      - when: Session 5
+        topic: >-
+          <a href="https://arxiv.org/abs/1409.3215" rel="noopener">Sequence to sequence</a> (Sutskever et al., 2014) and
+          <a href="https://arxiv.org/abs/1409.0473" rel="noopener">attention</a> (Bahdanau et al., 2015)
+        guide: From a single fixed context vector to attention over every input.
+      - when: Session 6
+        topic: >-
+          <a href="https://arxiv.org/abs/1706.03762" rel="noopener">Attention Is All You Need</a> (Vaswani et al., 2017)
+        guide: The Transformer, with recurrence removed entirely.
+      - group: The large-language-model era
+      - when: Session 7
+        topic: >-
+          <a href="https://arxiv.org/abs/1810.04805" rel="noopener">BERT</a> (Devlin et al., 2018)
+        guide: Pretraining and fine-tuning on the encoder side.
+      - when: Session 8
+        topic: >-
+          <a href="https://arxiv.org/abs/2005.14165" rel="noopener">GPT-3</a> (Brown et al., 2020)
+        guide: Scale and in-context learning on the decoder side.
+      - when: Session 9
+        topic: >-
+          <a href="https://arxiv.org/abs/2001.08361" rel="noopener">Scaling laws</a> (Kaplan et al., 2020) and
+          <a href="https://arxiv.org/abs/2203.15556" rel="noopener">Chinchilla</a> (Hoffmann et al., 2022)
+        guide: How to split a compute budget between model size and training data.
+      - when: Session 10
+        topic: >-
+          <a href="https://arxiv.org/abs/2203.02155" rel="noopener">InstructGPT and RLHF</a> (Ouyang et al., 2022)
+        guide: Turning a raw language model into one that follows instructions.
+      - when: Session 11
+        topic: >-
+          <a href="https://arxiv.org/abs/2201.11903" rel="noopener">Chain-of-thought prompting</a> and
+          <a href="https://arxiv.org/abs/2206.07682" rel="noopener">emergent abilities</a> (Wei et al., 2022)
+        guide: Reasoning through prompting, and abilities that appear with scale.
+      - when: Session 12
+        topic: >-
+          Reasoning models — <a href="https://openai.com/index/learning-to-reason-with-llms/" rel="noopener">OpenAI o1</a> (2024) and
+          <a href="https://arxiv.org/abs/2501.12948" rel="noopener">DeepSeek-R1</a> (2025); final-project talks
+        guide: Test-time compute and reasoning trained with reinforcement learning.
+  - value: summer-2025
+    label: Summer 2025
+    intro: >-
+      Two papers per session, from neural-network foundations through vision and language to graphs and robustness.
+    assessment:
+      - [Attendance, 15%]
+      - [Exam 1, 35%]
+      - [Exam 2, 25%]
+      - [Project, 25%]
+    outline:
+      - when: Week 1
+        topic: Back-propagation, dropout, ReLU, and Adam
+      - when: Week 2
+        topic: Batch normalization, the RNN encoder–decoder, AlexNet, and VGG
+      - when: Week 3
+        topic: ResNet, Inception, U-Net, and Faster R-CNN
+      - when: Week 4
+        topic: YOLO, Mask R-CNN, EfficientNet, and the Transformer
+      - when: Week 5
+        topic: BERT, GPT-2, RoBERTa, and T5
+      - when: Week 6
+        topic: Graph attention networks, Deep Graph Infomax, and adversarial robustness
+      - when: Week 7
+        topic: Course wrap-up and future directions
 ---
-
-<div class="course-description-box">
-  <p>
-    In this updated Pattern Recognition course, we’ll learn not only by lectures and problem sets but by diving directly into the original research papers that shaped the field. Each week, you’ll read several papers—ranging from classic template-matching methods and statistical classifiers to modern deep-learning approaches—then discuss and implement key ideas.
-  </p>
-  <p>
-    Our in-class sessions will be a mix of presentations, guided code walkthroughs, and Q&A. You’ll write brief critical analyses for each paper, code up core algorithms in Python (using NumPy, scikit-learn or PyTorch), and compare performance on benchmark datasets. By the end of the semester, you’ll not only master pattern-recognition techniques but also develop the critical reading and implementation skills needed to engage with cutting-edge research.
-  </p>
-  <p class="course-note">
-    <strong>Prerequisite:</strong> Pre-Requisites: CSE 250 or EAS 230 or EAS 240  or CSE 115 or EAS 999TRCP and EAS 305 or STA 301 and STA 301  or MTH 411; Computer Science, Computer Engineering, or Bioinformatics majors only. Students must complete a mandatory advisement session with their faculty advisor. 
-    <br>
-    <strong>Resources:</strong> A curated PDF reading list will be provided; expect weekly code exercises and written critiques.
-  </p>
-</div>
-
-
-<h2>Instructor Information</h2>
-<p><strong>Course Instructor</strong>: Jue Guo</p>
-<ul>
-  <li><em>Research Area:</em> Graph representation learning, AI in finance, and large language models
-  </li>
-  <li>Interested in participating in our research?
-      Reach to me by <a href="mailto:{{ site.author.email }}">email</a>.
-  </li>
-</ul>
-
-<!-- Outline heading + selector -->
-<div class="outline-top">
-  <div class="outline-top-row">
-    <h2>Course Outline and Logistics</h2>
-    <div class="semester-year-snippet">
-      {% include semester-year-toggle.liquid semesters=page.semesters %}
-    </div>
-  </div>
-  <p>
-    Check out the <a href="#lecture-notes">course material</a> under lecture notes.
-  </p>
-</div>
-
 <div data-semester-year="summer-2026">
-  {% include teaching/intro_pr/summer-2026.liquid %}
+  <h2>Final project</h2>
+  <p>
+    One capstone for everyone: <strong>build a small language model from scratch, post-train it to follow instructions,
+    and investigate a sharp question about reasoning and scale</strong>, drawing on the whole second half of the course.
+    It is graded as a short research paper across six milestones, from proposal to final talk, with required baselines,
+    ablations, and reproducible code.
+  </p>
 </div>
-
-<div data-semester-year="summer-2025" style="display:none;">
-  {% include teaching/intro_pr/summer-2025.liquid %}
-</div>
-
-<h3>Note on Logistics</h3>
-<ul>
-  <li>A week-ahead notice for mid-term, based on the pace of the course.</li>
-  <li>The logistic is <span style="color:red;">subject to change</span> based on
-      the overall pace and the performance of the class.</li>
-</ul>
-
-<h2>Grading</h2>
-<p>The following is the outline of the grading:</p>
-
-
-
-<h3>Grading Rubric</h3>
-<p>
-  This course is <strong>absolute</strong> grading, meaning no curve, as there is a certain standard we need to uphold
-  for students to have a good knowledge of algorithm.
-</p>
-
-<table class="styled-table">
-  <thead>
-    <tr>
-      <th>Percentage</th>
-      <th>Letter Grade</th>
-      <th>Percentage</th>
-      <th>Letter Grade</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>95-100</td><td>A</td>
-      <td>70-74</td><td>C+</td>
-    </tr>
-    <tr>
-      <td>90-94</td><td>A-</td>
-      <td>65-69</td><td>C</td>
-    </tr>
-    <tr>
-      <td>85-89</td><td>B+</td>
-      <td>60-64</td><td>C-</td>
-    </tr>
-    <tr>
-      <td>80-84</td><td>B</td>
-      <td>55-59</td><td>D</td>
-    </tr>
-    <tr>
-      <td>75-79</td><td>B-</td>
-      <td>0-54</td><td>F</td>
-    </tr>
-  </tbody>
-</table>
-
-
-<h3>AI Research Reading List</h3>
-
-<details class="reading-cat" open>
-  <summary><h4>Neural Network Foundations</h4></summary>
-  <ul>
-    <li><strong>Back-Propagation</strong> (Rumelhart, Hinton & Williams, 1986) – <a href="https://gwern.net/doc/ai/nn/1986-rumelhart-2.pdf" target="_blank">PDF</a> · <a href="{{ '/assets/courses/pattern/papers/back-propagation-1986/' | relative_url }}">notes</a></li>
-    <li><strong>Dropout</strong> (Srivastava et al., 2014) – <a href="https://www.cs.toronto.edu/~rsalakhu/papers/srivastava14a.pdf" target="_blank">PDF</a> · <a href="{{ '/assets/courses/pattern/papers/dropout-2014/' | relative_url }}">notes</a></li>
-    <li><strong>ReLU</strong> (Nair & Hinton, 2010) – <a href="https://www.cs.toronto.edu/~fritz/absps/reluICML.pdf" target="_blank">PDF</a> · <a href="{{ '/assets/courses/pattern/papers/relu-2010/' | relative_url }}">notes</a></li>
-    <li><strong>Adam</strong> (Kingma & Ba, 2014) – <a href="https://arxiv.org/abs/1412.6980" target="_blank">arXiv:1412.6980</a> · <a href="{{ '/assets/courses/pattern/papers/adam-2014/' | relative_url }}">notes</a></li>
-    <li><strong>Batch Normalization</strong> (Ioffe & Szegedy, 2015) – <a href="https://arxiv.org/abs/1502.03167" target="_blank">arXiv:1502.03167</a> · <a href="{{ '/assets/courses/pattern/papers/batch-normalization-2015/' | relative_url }}">notes</a></li>
-    <li><strong>RNN Encoder–Decoder</strong> (Cho et al., 2014) – <a href="https://aclanthology.org/D14-1179.pdf" target="_blank">PDF</a> · <a href="{{ '/assets/courses/pattern/papers/rnn-encoder-decoder-2014/' | relative_url }}">notes</a></li>
-  </ul>
-</details>
-
-<details class="reading-cat" open>
-  <summary><h4>Computer Vision</h4></summary>
-  <ul>
-    <li><strong>AlexNet</strong> (Krizhevsky, Sutskever & Hinton, 2012) – <a href="https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" target="_blank">NeurIPS 2012 PDF</a></li>
-    <li><strong>VGG</strong> (Simonyan & Zisserman, 2014) – <a href="https://arxiv.org/abs/1409.1556" target="_blank">arXiv:1409.1556</a></li>
-    <li><strong>ResNet</strong> (He et al., 2015) – <a href="https://arxiv.org/abs/1512.03385" target="_blank">arXiv:1512.03385</a></li>
-    <li><strong>Inception Net</strong> (Szegedy et al., 2015) – <a href="https://arxiv.org/abs/1409.4842" target="_blank">arXiv:1409.4842</a></li>
-    <li><strong>U-Net</strong> (Ronneberger et al., 2015) – <a href="https://arxiv.org/abs/1505.04597" target="_blank">arXiv:1505.04597</a></li>
-    <li><strong>Faster R-CNN</strong> (Ren et al., 2015) – <a href="https://arxiv.org/abs/1506.01497" target="_blank">arXiv:1506.01497</a></li>
-    <li><strong>YOLO</strong> (Redmon et al., 2016) – <a href="https://arxiv.org/abs/1506.02640" target="_blank">arXiv:1506.02640</a></li>
-    <li><strong>Mask R-CNN</strong> (He et al., 2017) – <a href="https://arxiv.org/abs/1703.06870" target="_blank">arXiv:1703.06870</a></li>
-    <li><strong>EfficientNet</strong> (Tan & Le, 2019) – <a href="https://arxiv.org/abs/1905.11946" target="_blank">arXiv:1905.11946</a></li>
-  </ul>
-</details>
-
-<details class="reading-cat" open>
-  <summary><h4>Natural Language Processing</h4></summary>
-  <ul>
-    <li><strong>BERT</strong> (Devlin et al., 2018) – <a href="https://arxiv.org/abs/1810.04805" target="_blank">arXiv:1810.04805</a></li>
-    <li><strong>GPT-2</strong> (Radford et al., 2019) – <a href="https://cdn.openai.com/better-language-models/language_models_are_unsupervised_multitask_learners.pdf" target="_blank">PDF</a></li>
-    <li><strong>RoBERTa</strong> (Liu et al., 2019) – <a href="https://arxiv.org/abs/1907.11692" target="_blank">arXiv:1907.11692</a></li>
-    <li><strong>T5</strong> (Raffel et al., 2020) – <a href="https://arxiv.org/abs/1910.10683" target="_blank">arXiv:1910.10683</a></li>
-    <li><strong>GPT-3</strong> (Brown et al., 2020) – <a href="https://arxiv.org/abs/2005.14165" target="_blank">arXiv:2005.14165</a></li>
-  </ul>
-</details>
-
-<details class="reading-cat" open>
-  <summary><h4>Graph Neural Networks</h4></summary>
-  <ul>
-    <li><strong>Graph Attention Networks</strong> (Veličković et al., 2018) – <a href="https://arxiv.org/abs/1710.10903" target="_blank">arXiv:1710.10903</a></li>
-    <li><strong>Deep Graph Infomax</strong> (Veličković et al., 2019) – <a href="https://arxiv.org/abs/1809.10341" target="_blank">arXiv:1809.10341</a></li>
-  </ul>
-</details>
-
-<details class="reading-cat" open>
-  <summary><h4>Adversarial Machine Learning</h4></summary>
-  <ul>
-    <li><strong>Adversarial Examples in the Physical World</strong> (Kurakin, Goodfellow & Bengio, 2016) – <a href="https://arxiv.org/abs/1607.02533" target="_blank">arXiv:1607.02533</a></li>
-    <li><strong>Fast Is Better Than Free</strong> (Wong, Rice & Kolter, 2020) – <a href="https://arxiv.org/abs/2001.03994" target="_blank">arXiv:2001.03994</a></li>
-  </ul>
-</details>
-
-<details class="reading-cat" open>
-  <summary><h4>Continual Learning</h4></summary>
-  <ul>
-    <li><strong>Overcoming Catastrophic Forgetting</strong> (Kirkpatrick et al., 2017) – <a href="https://arxiv.org/abs/1612.00796" target="_blank">arXiv:1612.00796</a></li>
-    <li><strong>Learning without Forgetting</strong> (Li & Hoiem, 2018) – <a href="https://arxiv.org/abs/1606.09282" target="_blank">arXiv:1606.09282</a></li>
-  </ul>
-</details>
-
-

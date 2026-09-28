@@ -1,7 +1,7 @@
 ---
 layout: default
 ---
-<article class="page wrap{% if page.wide %} wide{% endif %}{% if page.slides %} has-lecture-toc{% endif %}{% if page.prose == false %} page--plain{% endif %}">
+<article class="page wrap{% if page.wide %} wide{% endif %}{% if page.prose == false %} page--plain{% endif %}">
   <div class="page-main">
     {% if page.back_link %}
       <a class="back-link" href="{{ page.back_link | relative_url }}">← {{ page.back_text | default: "Back" }}</a>
@@ -17,5 +17,4 @@ layout: default
       {{ content }}
     </div>
   </div>
-  {% if page.slides %}{% include lecture-slides.liquid %}{% endif %}
 </article>

@@ -1,0 +1,70 @@
+---
+layout: default
+---
+{%- comment -%}
+  Course page, "catalog entry" style: course facts in a narrow left column,
+  description and outline on the right. Everything comes from front matter:
+    code, title, level, taught, prereq, text, grading, lede, about (HTML)
+    semesters: - value, label, selected, assessment: [[name, weight], ...],
+                 outline: [{when, topic, guide} | {group}]
+  The page body ({{ content }}) holds optional extra sections (policies, project, reading list).
+{%- endcomment -%}
+<article class="wrap wide course-cat">
+  <a class="back-link" href="{{ '/teaching/' | relative_url }}">← All courses</a>
+
+  <div class="course-cat-grid">
+    <aside class="course-cat-facts" aria-label="Course facts">
+      <p class="course-cat-code">{{ page.code }}</p>
+      <p class="course-cat-level">{{ page.level }} · University at Buffalo</p>
+      <dl>
+        {% if page.taught %}<dt>Taught</dt><dd>{{ page.taught }}</dd>{% endif %}
+        {% if page.prereq %}<dt>Prerequisite</dt><dd>{{ page.prereq }}</dd>{% endif %}
+        {% if page.text %}<dt>Text</dt><dd>{{ page.text }}</dd>{% endif %}
+        {% for s in page.semesters %}{% if s.assessment %}
+        <div data-semester-year="{{ s.value }}"{% unless s.selected %} style="display:none;"{% endunless %}>
+          <dt>Assessment{% if page.semesters.size > 1 %} · {{ s.label }}{% endif %}</dt>
+          <dd>
+            <table class="course-cat-weights">
+              {% for a in s.assessment %}<tr><td>{{ a[0] }}</td><td>{{ a[1] }}</td></tr>{% endfor %}
+            </table>
+          </dd>
+        </div>
+        {% endif %}{% endfor %}
+        {% if page.grading %}<dt>Grading</dt><dd>{{ page.grading }}</dd>{% endif %}
+      </dl>
+    </aside>
+
+    <div class="course-cat-main">
+      <p class="course-cat-eyebrow">{{ page.code }} · {{ page.level }}</p>
+      <h1>{{ page.title }}</h1>
+      {% if page.lede %}<p class="course-cat-lede">{{ page.lede }}</p>{% endif %}
+      {{ page.about }}
+
+      {% if page.semesters %}
+      <div class="course-cat-head">
+        <h2>What the course covers</h2>
+        {% include semester-year-toggle.liquid semesters=page.semesters %}
+      </div>
+      {% for s in page.semesters %}
+      <div data-semester-year="{{ s.value }}"{% unless s.selected %} style="display:none;"{% endunless %}>
+        {% if s.intro %}<p class="course-cat-note">{{ s.intro }}</p>{% endif %}
+        <ol class="course-cat-outline">
+          {% for o in s.outline %}
+            {% if o.group %}
+          <li class="is-group">{{ o.group }}</li>
+            {% else %}
+          <li>
+            <span class="when">{{ o.when }}</span>
+            <span class="topic">{{ o.topic }}{% if o.guide %}<small>{{ o.guide }}</small>{% endif %}</span>
+          </li>
+            {% endif %}
+          {% endfor %}
+        </ol>
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      {{ content }}
+    </div>
+  </div>
+</article>

@@ -1,5 +1,3 @@
-<!-- _includes/semester-year-toggle.liquid -->
-
 {% if include.semesters.size > 1 %}
 <div class="semester-selector">
   <label for="semesterYearSelect" class="semester-label">Semester</label>
@@ -17,6 +15,7 @@
 document.addEventListener("DOMContentLoaded", function() {
   const selectEl = document.getElementById("semesterYearSelect");
   const blocks   = document.querySelectorAll("[data-semester-year]");
+  if (!selectEl) return;   // only one semester: nothing to toggle
 
   function showSelected(val) {
     blocks.forEach(block => {

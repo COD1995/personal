@@ -1,242 +1,44 @@
 ---
-layout: page
-title: "CSE676 Deep Learning"
-description:
-img: assets/img/Deep-learning.png
-year: 2024
-category: graduate
-related_publications: false
-toc:
-    sidebar: right
-back_link: '/teaching'
-back_text: 'Courses Page'
-enable_heading_styles: true
-
+layout: course
+title: Deep Learning
+code: CSE 676
+level: Graduate
+taught: Fall 2023, Fall 2024
+prereq: Introduction to Machine Learning or equivalent; probabilistic graphical models helpful but not required
+text: <em>Dive into Deep Learning</em>
+grading: Absolute scale, no curve
+description: CSE 676 Deep Learning at the University at Buffalo — neural networks from the ground up.
+lede: >-
+  Deep learning algorithms learn multi-level representations of data, with each level explaining the data at a higher
+  level of abstraction. They have been remarkably effective at uncovering structure in data and have driven progress in
+  image classification, speech recognition, and natural language processing.
+about: >-
+  <p>Taught through lectures and projects, the course covers the underlying theory, the range of problems deep learning
+  has been applied to, and learning from very large datasets. We study fully connected, convolutional, recurrent, and
+  graph neural networks, with a focus on how to train and optimize them and use them for effective inference. Students
+  work throughout in PyTorch.</p>
 semesters:
-  - value: "fall-2024"
-    label: "Fall 2024"
+  - value: fall-2024
+    label: Fall 2024
     selected: true
+    assessment:
+      - [Attendance, 10%]
+      - [Programming assignments, 30%]
+      - [Midterm exam, 30%]
+      - [Final exam, 30%]
+    outline:
+      - when: Weeks 1–2
+        topic: Mathematical background, machine learning review, and linear regression
+      - when: Weeks 3–4
+        topic: Softmax regression and multilayer perceptrons
+      - when: Weeks 5–6
+        topic: Optimization and convolutional networks; a reading of the EfficientNet paper
+      - when: Week 7
+        topic: Midterm exam
+      - when: Weeks 8–9
+        topic: Recurrent neural networks; a reading of the Transformer paper
+      - when: Weeks 10–13
+        topic: Graph neural networks through paper reading
+      - when: Weeks 14–15
+        topic: Review and final exam
 ---
-
-
-  <!-- Course description -->
-  <div class="course-description-box">
-    <p>
-      Deep Learning algorithms learn multi-level representations of data, with each level explaining the data in
-      a hierarchical manner. Such algorithms have been effective at uncovering underlying structure in data,
-      e.g., features to discriminate between classes. They have been successful in many artificial intelligence
-      problems including image classification, speech recognition, and natural language processing.
-    </p>
-    <p>
-      The course, which will be taught through lectures and projects, will cover the underlying theory, the range
-      of applications to which it has been applied, and learning from very large data sets. The course will cover
-      connectionist architectures commonly associated with deep learning, e.g., basic neural networks, convolutional
-      neural networks, and recurrent neural networks. Methods to train and optimize the architectures and methods
-      to perform effective inference with them will be the main focus. Students will be encouraged to use open-source
-      software libraries such as PyTorch.
-    </p>
-    <p class="course-note">
-      <strong>Pre-requisite:</strong>
-      <a href="{{ '/teaching/machinelearning/' | relative_url }}">
-        Introductory Machine Learning (ML)
-      </a>.
-      A course on Probabilistic Graphical Models (PGMs) is helpful but not necessary.
-    </p>
-  </div>
-
-  <!-- Course Logistics -->
-  <h2>Instructor Information</h2>
-  <p><strong>Course Instructor</strong>: Jue Guo [C]</p>
-  <ul>
-    <li>
-      <em>Research Area:</em>
-      Graph representation learning, AI in finance, and large language models
-    </li>
-    <li>
-      Interested in participating in our research? Reach to me by
-      <a href="mailto:{{ site.author.email }}">email</a>.
-    </li>
-  </ul>
-
-
-<!-- Outline heading + selector -->
-<div class="outline-top">
-  <div class="outline-top-row">
-    <h2>Course Outline and Logistics</h2>
-    <div class="semester-year-snippet">
-      {% include semester-year-toggle.liquid semesters=page.semesters %}
-    </div>
-  </div>
-  <p>
-    Check out the <a href="#lecture-notes">course material</a> under lecture notes.
-  </p>
-</div>
-
-<div class="outline-content">
-  <div data-semester-year="fall-2024">
-    {% include teaching/deep_learning/fall-2024.liquid %}
-  </div>
-</div>
-
-
-<h3>Note on Logistics</h3>
-<ul>
-  <li>A week-ahead notice for mid-term, based on the pace of the course.</li>
-  <li>The logistic is <span style="color:red;">subject to change</span> based on
-      the overall pace and the performance of the class.</li>
-</ul>
-
-  <!-- Grading Section -->
-<h2>Grading</h2>
-<p>
-  The following is the outline of the grading:
-</p>
-
-<h3>Grading Rubric</h3>
-<p>
-  This course is <strong>absolute</strong> grading, meaning no curve, as there is a certain standard we need to
-  uphold for students to have a good knowledge of deep learning.
-</p>
-
-<table class="styled-table">
-  <thead>
-    <tr>
-      <th>Percentage</th>
-      <th>Letter Grade</th>
-      <th>Percentage</th>
-      <th>Letter Grade</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>95-100</td><td>A</td>
-      <td>70-74</td><td>C+</td>
-    </tr>
-    <tr>
-      <td>90-94</td><td>A-</td>
-      <td>65-69</td><td>C</td>
-    </tr>
-    <tr>
-      <td>85-89</td><td>B+</td>
-      <td>60-64</td><td>C-</td>
-    </tr>
-    <tr>
-      <td>80-84</td><td>B</td>
-      <td>55-59</td><td>D</td>
-    </tr>
-    <tr>
-      <td>75-79</td><td>B-</td>
-      <td>0-54</td><td>F</td>
-    </tr>
-  </tbody>
-</table>
-
-<!-- Lecture Notes -->
-<h2 id="lecture-notes">Lecture Notes</h2>
-<p>
-  The notes are based on
-  <a href="https://d2l.ai/" target="_blank">Dive into Deep Learning</a>.
-  Throughout my teaching, I have noticed that students sometimes struggle with understanding the derivations in
-  the textbook due to the omission of several steps. To address this, I have expanded the derivations and provided
-  more detailed explanations.
-</p>
-<p>
-  Below are the lecture notes. Please note that these notes are updated regularly, so be sure to check back often
-  for the latest updates.
-</p>
-
-<table class="styled-table">
-  <thead>
-    <tr>
-      <th>Topic</th>
-      <th>Notes</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Introduction</td>
-      <td>
-        <ul>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/week_1_2/introduction' | relative_url }}">
-              Introduction, Preliminaries &amp; Linear Neural Network
-            </a>
-          </li>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/week_1_2/classification_convexity' | relative_url }}">
-              Linear Neural Network for Classification &amp; Start of Optimization
-            </a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>Optimization</td>
-      <td>
-        <ul>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/optimization/convexity_gd' | relative_url }}">
-              Convexity &amp; Gradient Descent
-            </a>
-          </li>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/optimization/stochastic_gd' | relative_url }}">
-              Stochastic Gradient Descent
-            </a>
-          </li>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/optimization/optimization_algorithms' | relative_url }}">
-              Optimization Algorithms
-            </a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>DNN and CNN</td>
-      <td>
-        <ul>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/cnn/dnn_cnn' | relative_url }}">
-              DNN and CNNs
-            </a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>RNN</td>
-      <td>
-        <ul>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/rnn/markov' | relative_url }}">
-              Markov Models and \(n\)-gram
-            </a>
-          </li>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/rnn/vinilla_rnn' | relative_url }}">
-              Recurrent Neural Networks
-            </a>
-          </li>
-          <li>
-            <a href="{{ 'assets/courses/deeplearning/rnn/modern_rnn' | relative_url }}">
-              Modern Recurrent Neural Networks
-            </a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-    <tr>
-      <td>GNN</td>
-      <td>
-        <ul>
-          <li>
-            <a href="{{ '/assets/courses/deeplearning/gnnpapers/grl' | relative_url }}">
-              Graph Representation Learning
-            </a>
-          </li>
-        </ul>
-      </td>
-    </tr>
-  </tbody>
-</table>

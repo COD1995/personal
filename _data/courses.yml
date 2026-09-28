@@ -1,19 +1,5 @@
 # Courses shown on the home page and the /teaching/ index.
 # icon: one of algo | pattern | ml | dl | ai  (see _includes/icon.liquid)
-- slug: pattern
-  code: CSE 455/555
-  title: Intro to Pattern Recognition
-  level: Graduate
-  terms: Summer 2023 – 2026
-  icon: pattern
-  blurb: Statistical foundations of pattern recognition taught through the original papers — from Bayes decision theory to modern vision and Transformer models.
-- slug: algo
-  code: CSE 431/531
-  title: Algorithm Analysis & Design
-  level: Graduate
-  terms: Summer 2025
-  icon: algo
-  blurb: Asymptotic analysis, divide-and-conquer, greedy, dynamic programming, graphs, NP-completeness, and approximation.
 - slug: aibasic
   code: EAS 510
   title: Basics of Artificial Intelligence
@@ -21,13 +7,20 @@
   terms: Spring 2025
   icon: ai
   blurb: A hands-on introduction to modern AI in PyTorch — tensors, training workflows, classification, computer vision, and custom datasets.
-- slug: deeplearning
-  code: CSE 676
-  title: Deep Learning
+- slug: algo
+  code: CSE 431/531
+  title: Algorithm Analysis & Design
   level: Graduate
-  terms: Fall 2023, Fall 2024
-  icon: dl
-  blurb: Neural networks from the ground up — optimization, CNNs, RNNs, and GNNs — with expanded notes from Dive into Deep Learning.
+  terms: Summer 2025
+  icon: algo
+  blurb: Asymptotic analysis, divide-and-conquer, greedy, dynamic programming, graphs, NP-completeness, and approximation.
+- slug: pattern
+  code: CSE 455/555
+  title: Intro to Pattern Recognition
+  level: Graduate
+  terms: Summer 2023 – 2026
+  icon: pattern
+  blurb: Statistical foundations of pattern recognition taught through the original papers — from Bayes decision theory to modern vision and Transformer models.
 - slug: introml
   code: CSE 474/574
   title: Intro to Machine Learning
@@ -35,3 +28,10 @@
   terms: Spring 2024
   icon: ml
   blurb: Supervised and unsupervised learning, neural networks, regularization, and model evaluation with Python, scikit-learn, and PyTorch.
+- slug: deeplearning
+  code: CSE 676
+  title: Deep Learning
+  level: Graduate
+  terms: Fall 2023, Fall 2024
+  icon: dl
+  blurb: Neural networks from the ground up — optimization, CNNs, RNNs, and GNNs — taught through lectures, projects, and paper reading.

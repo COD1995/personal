@@ -5,12 +5,11 @@ eyebrow: University at Buffalo
 permalink: /teaching/
 wide: true
 prose: false
-description: Graduate courses I have led at the University at Buffalo, with full lecture notes, slides, and schedules.
+description: Graduate courses I have led at the University at Buffalo.
 ---
 
 <div class="teaching-intro">
-  <p>Since 2023 I have taught five graduate courses at UB to more than 300 students, and mentored over 20 thesis students. Each course pairs the mathematical foundations with hands-on implementation in Python and PyTorch, and every course page below has the complete schedule, lecture notes, and slides.</p>
-  <p class="teaching-note">Course materials are best viewed on a desktop browser.</p>
+  <p>Since 2023 I have taught five graduate courses at UB to more than 300 students, and mentored over 20 thesis students. Each course pairs the mathematical foundations with hands-on implementation in Python and PyTorch; the pages below outline what each one covers and how it is taught.</p>
 </div>
 
 {% include course-grid.liquid %}
