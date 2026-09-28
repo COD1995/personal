@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 262" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <!-- column headers -->
+  <g font-size="11.5" letter-spacing="1.8" fill="#8a6a3a" text-anchor="middle">
+    <text x="120" y="22">LOGITS</text><text x="302" y="22">ACTIVATION</text><text x="492" y="22">PROBABILITIES</text><text x="701" y="22">LABEL</text>
+  </g>
+  <line x1="20" y1="36" x2="740" y2="36" stroke="#d9d0bf"/>
+
+  <!-- binary row -->
+  <text x="20" y="60" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">BINARY</text>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a" text-anchor="middle">
+    <rect x="20" y="72" width="200" height="40" fill="#fbf8f2" stroke="#b9ad96"/><text x="120" y="97">1.2</text>
+    <rect x="384" y="72" width="216" height="40" fill="#fbf8f2" stroke="#b9ad96"/><text x="492" y="97">0.77</text>
+  </g>
+  <rect x="254" y="72" width="96" height="40" fill="#1f2e4a"/><text x="302" y="97" text-anchor="middle" fill="#f6f2e9">sigmoid</text>
+  <rect x="662" y="72" width="78" height="40" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.5"/><text x="701" y="97" text-anchor="middle">class 1</text>
+  <g fill="none" stroke="#1f2e4a" stroke-width="1.3">
+    <path d="M222 92 L248 92" marker-end="url(#a)"/><path d="M352 92 L378 92" marker-end="url(#a)"/><path d="M602 92 L656 92" marker-end="url(#a)"/>
+  </g>
+  <text x="630" y="84" text-anchor="middle" font-size="12.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">round</text>
+  <g font-size="12" fill="#5d574d" text-anchor="middle">
+    <text x="120" y="130">one logit, any real number</text>
+    <text x="492" y="130">chance of class 1, from 0 to 1</text>
+    <text x="630" y="110">&gt; 0.5 → 1</text>
+  </g>
+
+  <line x1="20" y1="148" x2="740" y2="148" stroke="#d9d0bf"/>
+
+  <!-- multi-class row -->
+  <text x="20" y="172" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">MULTI-CLASS</text>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a" text-anchor="middle">
+    <rect x="20" y="184" width="200" height="40" fill="#fbf8f2" stroke="#b9ad96"/><text x="120" y="209">[2.1, −0.3, 0.4, −1.5]</text>
+    <rect x="384" y="184" width="216" height="40" fill="#fbf8f2" stroke="#b9ad96"/><text x="492" y="209">[<tspan fill="#8a6a3a" font-weight="600">0.77</tspan>, 0.07, 0.14, 0.02]</text>
+  </g>
+  <rect x="254" y="184" width="96" height="40" fill="#1f2e4a"/><text x="302" y="209" text-anchor="middle" fill="#f6f2e9">softmax</text>
+  <rect x="662" y="184" width="78" height="40" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.5"/><text x="701" y="209" text-anchor="middle">class 0</text>
+  <g fill="none" stroke="#1f2e4a" stroke-width="1.3">
+    <path d="M222 204 L248 204" marker-end="url(#a)"/><path d="M352 204 L378 204" marker-end="url(#a)"/><path d="M602 204 L656 204" marker-end="url(#a)"/>
+  </g>
+  <text x="630" y="196" text-anchor="middle" font-size="12.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">argmax</text>
+  <g font-size="12" fill="#5d574d" text-anchor="middle">
+    <text x="120" y="242">one logit per class</text>
+    <text x="492" y="242">one per class, adding up to 1</text>
+    <text x="630" y="222">largest</text>
+  </g>
+</svg>

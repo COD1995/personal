@@ -1,0 +1,59 @@
+---
+layout: default
+---
+{%- comment -%}
+  Lecture notes for a course module (currently EAS 510 Basics of AI).
+  Front matter: title, module ("00"…"09"), description, objectives (list), math (true to load MathJax).
+  Module order, weeks, reading links, and previous/next come from _data/aibasic.yml.
+{%- endcomment -%}
+{%- assign course = site.data.aibasic.course -%}
+{%- assign mods = site.data.aibasic.modules -%}
+{%- assign idx = -1 -%}
+{%- for m in mods -%}{%- if m.num == page.module -%}{%- assign idx = forloop.index0 -%}{%- assign cur = m -%}{%- endif -%}{%- endfor -%}
+{%- assign prev_i = idx | minus: 1 -%}
+{%- assign next_i = idx | plus: 1 -%}
+{%- if idx > 0 -%}{%- assign prev = mods[prev_i] -%}{%- endif -%}
+{%- if next_i < mods.size -%}{%- assign next = mods[next_i] -%}{%- endif -%}
+<article class="page wrap lec">
+  <div class="page-main">
+    <a class="back-link" href="{{ course.url | relative_url }}">← {{ course.code }} · {{ course.short }}</a>
+
+    <header class="page-header lec-header">
+      <p class="eyebrow">{{ course.code }} · Module {{ page.module }}{% if cur.weeks %} · {{ cur.weeks }}{% endif %}</p>
+      <h1>{{ page.title }}</h1>
+      {% if page.description %}<p class="page-description">{{ page.description }}</p>{% endif %}
+      {% if cur.reading %}
+      <p class="lec-reading">Companion reading: <a href="{{ cur.reading }}" rel="noopener">Learn PyTorch for Deep Learning, chapter {{ cur.num }}</a></p>
+      {% endif %}
+    </header>
+
+    {% if page.objectives %}
+    <section class="lec-goals" aria-label="Learning objectives">
+      <p class="lec-goals-title">By the end of this module you can</p>
+      <ol>
+        {% for o in page.objectives %}<li>{{ o | markdownify | remove: '<p>' | remove: '</p>' | strip }}</li>{% endfor %}
+      </ol>
+    </section>
+    {% endif %}
+
+    <div class="page-body">
+      {{ content }}
+    </div>
+
+    <nav class="lec-pager" aria-label="Modules">
+      {% if prev %}
+      <a class="lec-pager-prev" href="{{ course.url | append: prev.slug | append: '/' | relative_url }}"><span>← Module {{ prev.num }}</span>{{ prev.title }}</a>
+      {% else %}<span></span>{% endif %}
+      {% if next %}
+      <a class="lec-pager-next" href="{{ course.url | append: next.slug | append: '/' | relative_url }}"><span>Module {{ next.num }} →</span>{{ next.title }}</a>
+      {% endif %}
+    </nav>
+
+    <p class="lec-credit">
+      These notes follow the path of Daniel Bourke's
+      <a href="https://www.learnpytorch.io/" rel="noopener">Learn PyTorch for Deep Learning</a>
+      (<a href="https://github.com/mrdbourke/pytorch-deep-learning" rel="noopener">MIT license</a>),
+      rewritten for engineering students meeting Python and machine learning for the first time.
+    </p>
+  </div>
+</article>

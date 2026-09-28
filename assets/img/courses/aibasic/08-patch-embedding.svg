@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 350" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+    <pattern id="g" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0L0 0L0 10" fill="none" stroke="#b9ad96" stroke-width="0.6"/></pattern>
+  </defs>
+  <g font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">
+    <text x="20" y="22">IMAGE</text>
+    <text x="250" y="22">SEQUENCE OF PATCHES</text>
+  </g>
+
+  <!-- image: 14 x 14 grid of patches -->
+  <rect x="20" y="40" width="140" height="140" fill="#fbf8f2"/>
+  <rect x="20" y="40" width="30" height="10" fill="#e6d8bd"/>
+  <rect x="150" y="170" width="10" height="10" fill="#e6d8bd"/>
+  <rect x="20" y="40" width="140" height="140" fill="url(#g)"/>
+  <rect x="20" y="40" width="140" height="140" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <g font-size="12" fill="#5d574d">
+    <text x="20" y="198">224 × 224 pixels, 3 colors</text>
+    <text x="20" y="214">14 × 14 grid of 16 × 16 patches</text>
+  </g>
+
+  <path d="M166 77 L232 77" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <text x="199" y="68" text-anchor="middle" font-size="12" fill="#5d574d">split</text>
+
+  <!-- patch sequence -->
+  <g text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a">
+    <rect x="253" y="60" width="34" height="34" fill="#e6d8bd" stroke="#b9ad96"/><text x="270" y="82">1</text>
+    <rect x="303" y="60" width="34" height="34" fill="#e6d8bd" stroke="#b9ad96"/><text x="320" y="82">2</text>
+    <rect x="353" y="60" width="34" height="34" fill="#e6d8bd" stroke="#b9ad96"/><text x="370" y="82">3</text>
+    <rect x="403" y="60" width="34" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="420" y="82">4</text>
+    <rect x="453" y="60" width="34" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="470" y="82">5</text>
+    <text x="520" y="82" fill="#5d574d">…</text>
+    <rect x="553" y="60" width="34" height="34" fill="#e6d8bd" stroke="#b9ad96"/><text x="570" y="82">196</text>
+  </g>
+  <g font-size="12" fill="#5d574d">
+    <text x="610" y="74">N = 196 patches,</text>
+    <text x="610" y="90">each 16·16·3 = 768</text>
+    <text x="610" y="106">numbers</text>
+  </g>
+
+  <!-- projection arrows -->
+  <g stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#a)">
+    <path d="M270 98 L270 196"/><path d="M320 98 L320 196"/><path d="M370 98 L370 196"/>
+    <path d="M420 98 L420 196"/><path d="M470 98 L470 196"/><path d="M570 98 L570 196"/>
+  </g>
+  <rect x="244" y="132" width="352" height="28" fill="#f6f2e9"/>
+  <text x="420" y="151" text-anchor="middle" font-size="13" fill="#1f2e4a">× E — one learned linear projection, shared by every patch</text>
+
+  <!-- tokens: class token + patch embeddings -->
+  <rect x="203" y="202" width="34" height="80" fill="#1f2e4a"/>
+  <text x="220" y="246" text-anchor="middle" font-size="12" fill="#f6f2e9">cls</text>
+  <g fill="#fbf8f2" stroke="#1f2e4a">
+    <rect x="253" y="202" width="34" height="80"/><rect x="303" y="202" width="34" height="80"/><rect x="353" y="202" width="34" height="80"/>
+    <rect x="403" y="202" width="34" height="80"/><rect x="453" y="202" width="34" height="80"/><rect x="553" y="202" width="34" height="80"/>
+  </g>
+  <g stroke="#d9d0bf">
+    <line x1="253" y1="218" x2="287" y2="218"/><line x1="253" y1="234" x2="287" y2="234"/><line x1="253" y1="250" x2="287" y2="250"/><line x1="253" y1="266" x2="287" y2="266"/>
+    <line x1="303" y1="218" x2="337" y2="218"/><line x1="303" y1="234" x2="337" y2="234"/><line x1="303" y1="250" x2="337" y2="250"/><line x1="303" y1="266" x2="337" y2="266"/>
+    <line x1="353" y1="218" x2="387" y2="218"/><line x1="353" y1="234" x2="387" y2="234"/><line x1="353" y1="250" x2="387" y2="250"/><line x1="353" y1="266" x2="387" y2="266"/>
+    <line x1="403" y1="218" x2="437" y2="218"/><line x1="403" y1="234" x2="437" y2="234"/><line x1="403" y1="250" x2="437" y2="250"/><line x1="403" y1="266" x2="437" y2="266"/>
+    <line x1="453" y1="218" x2="487" y2="218"/><line x1="453" y1="234" x2="487" y2="234"/><line x1="453" y1="250" x2="487" y2="250"/><line x1="453" y1="266" x2="487" y2="266"/>
+    <line x1="553" y1="218" x2="587" y2="218"/><line x1="553" y1="234" x2="587" y2="234"/><line x1="553" y1="250" x2="587" y2="250"/><line x1="553" y1="266" x2="587" y2="266"/>
+  </g>
+  <text x="520" y="246" text-anchor="middle" fill="#5d574d">…</text>
+
+  <!-- plus signs and position embeddings -->
+  <g text-anchor="middle" font-size="15" fill="#8a6a3a">
+    <text x="220" y="302">+</text><text x="270" y="302">+</text><text x="320" y="302">+</text><text x="370" y="302">+</text>
+    <text x="420" y="302">+</text><text x="470" y="302">+</text><text x="570" y="302">+</text>
+  </g>
+  <g fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.2">
+    <rect x="203" y="310" width="34" height="24"/><rect x="253" y="310" width="34" height="24"/><rect x="303" y="310" width="34" height="24"/>
+    <rect x="353" y="310" width="34" height="24"/><rect x="403" y="310" width="34" height="24"/><rect x="453" y="310" width="34" height="24"/>
+    <rect x="553" y="310" width="34" height="24"/>
+  </g>
+  <g text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="11.5" fill="#8a6a3a">
+    <text x="220" y="326">0</text><text x="270" y="326">1</text><text x="320" y="326">2</text><text x="370" y="326">3</text>
+    <text x="420" y="326">4</text><text x="470" y="326">5</text><text x="520" y="326">…</text><text x="570" y="326">196</text>
+  </g>
+
+  <!-- row labels -->
+  <g font-size="12.5" fill="#5d574d">
+    <text x="20" y="252">class token +</text>
+    <text x="20" y="268">patch embeddings</text>
+    <text x="20" y="326">+ position embeddings</text>
+  </g>
+
+  <!-- result -->
+  <path d="M600 202 L608 202 L608 334 L600 334" fill="none" stroke="#1f2e4a" stroke-width="1.3"/>
+  <text x="622" y="258" font-size="17" fill="#1f2e4a">z<tspan dy="5" font-size="12">0</tspan></text>
+  <g font-size="12" fill="#5d574d">
+    <text x="622" y="280" font-family="'JetBrains Mono',Menlo,monospace" fill="#1f2e4a">[197, 768]</text>
+    <text x="622" y="298">1 + 196 tokens,</text>
+    <text x="622" y="314">each D = 768 numbers</text>
+  </g>
+</svg>

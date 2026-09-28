@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <g font-size="11.5" letter-spacing="1.8" fill="#8a6a3a" text-anchor="middle">
+    <text x="105" y="26">ON DISK</text><text x="331" y="26">DATASET</text><text x="552" y="26">DATALOADER</text><text x="706" y="26">MODEL</text>
+  </g>
+  <!-- folder tree -->
+  <rect x="20" y="44" width="170" height="156" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a">
+    <text x="32" y="68">train/</text>
+    <text x="32" y="88">├─ pizza/</text>
+    <text x="32" y="106" fill="#5d574d">│  ├─ 1008844.jpg</text>
+    <text x="32" y="124" fill="#5d574d">│  └─ …</text>
+    <text x="32" y="144">├─ steak/</text>
+    <text x="32" y="162">└─ sushi/</text>
+    <text x="32" y="188" fill="#5d574d">test/  (same layout)</text>
+  </g>
+  <path d="M192 122 L228 122" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- dataset -->
+  <rect x="232" y="44" width="198" height="156" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a">
+    <text x="331" y="68" text-anchor="middle" font-weight="600">ImageFolder</text>
+    <text x="331" y="86" text-anchor="middle" font-size="11.5" fill="#5d574d">or ImageFolderCustom</text>
+    <text x="246" y="116">dataset[i]</text>
+    <text x="246" y="136" font-size="11.5" fill="#5d574d">open → Resize → ToTensor</text>
+    <text x="246" y="164">image [3, 64, 64]</text>
+    <text x="246" y="184">label 0  (pizza)</text>
+  </g>
+  <line x1="246" y1="146" x2="416" y2="146" stroke="#d9d0bf"/>
+  <path d="M432 122 L460 122" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- dataloader -->
+  <rect x="464" y="44" width="176" height="156" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a" text-anchor="middle">
+    <text x="552" y="68" font-weight="600">DataLoader</text>
+    <text x="552" y="86" font-size="11.5" fill="#5d574d">batch_size=32, shuffle</text>
+  </g>
+  <g fill="#fbf8f2" stroke="#1f2e4a">
+    <rect x="560" y="98" width="30" height="30"/><rect x="555" y="102" width="30" height="30"/><rect x="550" y="106" width="30" height="30"/><rect x="545" y="110" width="30" height="30"/><rect x="540" y="114" width="30" height="30"/><rect x="535" y="118" width="30" height="30"/>
+  </g>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#1f2e4a" text-anchor="middle">
+    <text x="552" y="170">X [32, 3, 64, 64]</text>
+    <text x="552" y="188">y [32]</text>
+  </g>
+  <path d="M642 122 L668 122" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <rect x="672" y="100" width="68" height="44" fill="#1f2e4a"/>
+  <text x="706" y="127" text-anchor="middle" fill="#f6f2e9">model</text>
+  <!-- notes -->
+  <g font-size="12.5" fill="#5d574d" text-anchor="middle">
+    <text x="105" y="224">folder name = label</text>
+    <text x="331" y="224">loads one sample on request</text>
+    <text x="552" y="224">groups samples into batches</text>
+  </g>
+</svg>

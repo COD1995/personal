@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 320" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <!-- centre label -->
+  <g text-anchor="middle">
+    <text x="380" y="160" font-size="12" letter-spacing="2" fill="#8a6a3a">ONE EPOCH</text>
+    <text x="380" y="182" font-size="13" fill="#5d574d">repeat for every epoch</text>
+  </g>
+  <!-- 1 forward pass -->
+  <rect x="280" y="22" width="200" height="58" fill="#1f2e4a"/>
+  <text x="380" y="46" text-anchor="middle" fill="#f6f2e9">1  Forward pass</text>
+  <text x="380" y="67" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#f6f2e9">y_pred = model(X)</text>
+  <!-- 2 loss -->
+  <rect x="530" y="110" width="200" height="58" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="630" y="134" text-anchor="middle">2  Compute the loss</text>
+  <text x="630" y="155" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">loss_fn(y_pred, y)</text>
+  <!-- 3 zero grad -->
+  <rect x="440" y="242" width="200" height="58" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="540" y="266" text-anchor="middle">3  Zero the gradients</text>
+  <text x="540" y="287" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">optimizer.zero_grad()</text>
+  <!-- 4 backprop -->
+  <rect x="120" y="242" width="200" height="58" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="220" y="266" text-anchor="middle">4  Backpropagation</text>
+  <text x="220" y="287" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">loss.backward()</text>
+  <!-- 5 step -->
+  <rect x="30" y="110" width="200" height="58" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.5"/>
+  <text x="130" y="134" text-anchor="middle">5  Update parameters</text>
+  <text x="130" y="155" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">optimizer.step()</text>
+  <!-- arrows, clockwise -->
+  <g fill="none" stroke="#1f2e4a" stroke-width="1.3">
+    <path d="M482 51 Q615 51 628 104" marker-end="url(#a)"/>
+    <path d="M618 170 L574 236" marker-end="url(#a)"/>
+    <path d="M438 271 L326 271" marker-end="url(#a)"/>
+    <path d="M186 240 L150 174" marker-end="url(#a)"/>
+    <path d="M132 108 Q145 51 274 51" marker-end="url(#a)"/>
+  </g>
+  <g font-size="12" fill="#5d574d" text-anchor="middle">
+    <text x="68" y="68" text-anchor="start">next epoch</text>
+  </g>
+</svg>

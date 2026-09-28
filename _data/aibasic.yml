@@ -1,0 +1,71 @@
+# EAS 510 Basics of AI — lecture modules, in teaching order.
+# Each module is a page at /teaching/aibasic/<slug>/ (source: _teaching/aibasic/<slug>.md, layout: lecture).
+# The lecture layout uses this list for the "Module N of 10" line and the previous/next links,
+# and the course page (_teaching/aibasic.liquid) links each module from its outline.
+# reading: the matching chapter of Daniel Bourke's Learn PyTorch for Deep Learning (learnpytorch.io).
+course:
+  code: EAS 510
+  title: Basics of Artificial Intelligence
+  short: Basics of AI
+  url: /teaching/aibasic/
+modules:
+  - num: "00"
+    slug: 00-pytorch-fundamentals
+    title: PyTorch Fundamentals
+    weeks: Week 1
+    summary: What AI, machine learning, and deep learning are, and the tensor — the one data structure every model is built from.
+    reading: https://www.learnpytorch.io/00_pytorch_fundamentals/
+  - num: "01"
+    slug: 01-pytorch-workflow
+    title: The PyTorch Workflow
+    weeks: Week 2
+    summary: The six steps of every project — data, model, loss, optimizer, training loop, evaluation — on a straight-line example.
+    reading: https://www.learnpytorch.io/01_pytorch_workflow/
+  - num: "02"
+    slug: 02-neural-network-classification
+    title: Neural Network Classification
+    weeks: Week 3
+    summary: From predicting numbers to predicting categories — logits, sigmoid and softmax, accuracy, and why non-linearity matters.
+    reading: https://www.learnpytorch.io/02_pytorch_classification/
+  - num: "03"
+    slug: 03-computer-vision
+    title: Computer Vision
+    weeks: Week 4
+    summary: Teaching a model to see — image tensors, mini-batches with DataLoader, and a small convolutional neural network.
+    reading: https://www.learnpytorch.io/03_pytorch_computer_vision/
+  - num: "04"
+    slug: 04-custom-datasets
+    title: Custom Datasets
+    weeks: Week 5
+    summary: Bringing your own images — folder layouts, transforms, data augmentation, and diagnosing over- and underfitting.
+    reading: https://www.learnpytorch.io/04_pytorch_custom_datasets/
+  - num: "05"
+    slug: 05-going-modular
+    title: Going Modular
+    weeks: Week 6
+    summary: Turning a notebook into a small Python package you can train from the command line and reuse in every later module.
+    reading: https://www.learnpytorch.io/05_pytorch_going_modular/
+  - num: "06"
+    slug: 06-transfer-learning
+    title: Transfer Learning
+    weeks: Week 6
+    summary: Standing on the shoulders of a pretrained model — freezing, replacing the classifier head, and fine-tuning.
+    reading: https://www.learnpytorch.io/06_pytorch_transfer_learning/
+  - num: "07"
+    slug: 07-experiment-tracking
+    title: Experiment Tracking
+    weeks: Week 8
+    summary: Running many experiments on purpose — changing one thing at a time, logging results, and choosing a model with evidence.
+    reading: https://www.learnpytorch.io/07_pytorch_experiment_tracking/
+  - num: "08"
+    slug: 08-paper-replicating
+    title: Replicating a Research Paper
+    weeks: Week 9
+    summary: Reading a paper as a set of equations and a figure, and turning it into code — the Vision Transformer, piece by piece.
+    reading: https://www.learnpytorch.io/08_pytorch_paper_replicating/
+  - num: "09"
+    slug: 09-model-deployment
+    title: Model Deployment
+    weeks: Weeks 10–11
+    summary: Getting a model out of the notebook — speed versus accuracy, a Gradio demo, and a public app, plus using AI responsibly.
+    reading: https://www.learnpytorch.io/09_pytorch_model_deployment/

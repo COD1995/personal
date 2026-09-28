@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <text x="140" y="26" text-anchor="middle" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">UNDERFITTING</text>
+  <g transform="translate(40,44)">
+    <path d="M0 0 L0 150 L200 150" fill="none" stroke="#b9ad96"/>
+    <path d="M0 26 C 60 44, 120 52, 200 56" fill="none" stroke="#1f2e4a" stroke-width="2.2"/>
+    <path d="M0 22 C 60 34, 120 40, 200 43" fill="none" stroke="#8a6a3a" stroke-width="2.2"/>
+    <text x="200" y="168" text-anchor="end" font-size="12" fill="#5d574d">epochs →</text>
+    <text x="-8" y="0" text-anchor="end" font-size="12" fill="#5d574d" transform="rotate(-90 -8 0)">loss →</text>
+  </g>
+  <text x="390" y="26" text-anchor="middle" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">OVERFITTING</text>
+  <g transform="translate(290,44)">
+    <path d="M0 0 L0 150 L200 150" fill="none" stroke="#b9ad96"/>
+    <line x1="100" y1="100" x2="100" y2="150" stroke="#8a6a3a" stroke-dasharray="3 3"/>
+    <circle cx="100" cy="100" r="3.5" fill="#8a6a3a"/>
+    <text x="100" y="76" text-anchor="middle" font-size="12" fill="#5d574d">lowest test loss</text>
+    <path d="M0 22 C 40 90, 100 126, 200 138" fill="none" stroke="#1f2e4a" stroke-width="2.2"/>
+    <path d="M0 26 C 40 84, 75 100, 100 100 C 130 100, 165 82, 200 62" fill="none" stroke="#8a6a3a" stroke-width="2.2"/>
+    <text x="200" y="168" text-anchor="end" font-size="12" fill="#5d574d">epochs →</text>
+    <text x="-8" y="0" text-anchor="end" font-size="12" fill="#5d574d" transform="rotate(-90 -8 0)">loss →</text>
+  </g>
+  <text x="640" y="26" text-anchor="middle" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">JUST RIGHT</text>
+  <g transform="translate(540,44)">
+    <path d="M0 0 L0 150 L200 150" fill="none" stroke="#b9ad96"/>
+    <path d="M0 22 C 40 90, 100 118, 200 124" fill="none" stroke="#1f2e4a" stroke-width="2.2"/>
+    <path d="M0 26 C 40 86, 100 108, 200 114" fill="none" stroke="#8a6a3a" stroke-width="2.2"/>
+    <text x="200" y="168" text-anchor="end" font-size="12" fill="#5d574d">epochs →</text>
+    <text x="-8" y="0" text-anchor="end" font-size="12" fill="#5d574d" transform="rotate(-90 -8 0)">loss →</text>
+  </g>
+  <g font-size="12.5" fill="#1e1c19">
+    <line x1="250" y1="236" x2="280" y2="236" stroke="#1f2e4a" stroke-width="2.2"/><text x="288" y="240">training loss</text>
+    <line x1="410" y1="236" x2="440" y2="236" stroke="#8a6a3a" stroke-width="2.2"/><text x="448" y="240">test loss</text>
+  </g>
+</svg>

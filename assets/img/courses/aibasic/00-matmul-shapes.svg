@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 200" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="26" text-anchor="middle">
+    <text x="150" y="92" fill="#1e1c19">(3, <tspan fill="#8a6a3a" font-weight="600">2</tspan>)</text>
+    <text x="260" y="92" fill="#5d574d">@</text>
+    <text x="370" y="92" fill="#1e1c19">(<tspan fill="#8a6a3a" font-weight="600">2</tspan>, 3)</text>
+    <text x="480" y="92" fill="#5d574d">→</text>
+    <text x="600" y="92" fill="#1f2e4a" font-weight="600">(3, 3)</text>
+  </g>
+  <!-- inner brackets -->
+  <path d="M182 104 L182 124 L338 124 L338 104" fill="none" stroke="#8a6a3a" stroke-width="1.4"/>
+  <text x="260" y="146" text-anchor="middle" fill="#8a6a3a">1. inner dimensions must match</text>
+  <!-- outer brackets -->
+  <path d="M114 58 L114 34 L408 34 L408 58" fill="none" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="260" y="24" text-anchor="middle" fill="#1f2e4a">2. result takes the outer dimensions</text>
+  <path d="M408 34 L560 34 L560 60" fill="none" stroke="#1f2e4a" stroke-width="1.4" stroke-dasharray="4 4"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#5d574d">
+    <text x="60" y="186">(3, 2) @ (3, 2)  →  error: 2 ≠ 3</text>
+    <text x="440" y="186">(2, 3) @ (3, 2)  →  (2, 2)</text>
+  </g>
+  <line x1="40" y1="162" x2="720" y2="162" stroke="#d9d0bf"/>
+</svg>

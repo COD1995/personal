@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 272" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <!-- goal region -->
+  <rect x="110" y="24" width="150" height="104" fill="#efe9dd"/>
+  <text x="185" y="66" text-anchor="middle" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">GOAL</text>
+  <text x="185" y="84" text-anchor="middle" font-size="12.5" fill="#5d574d">fast and accurate</text>
+  <!-- axes -->
+  <path d="M110 222 L110 16" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <path d="M110 222 L738 222" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <text x="424" y="262" text-anchor="middle" fill="#5d574d">prediction time per image (lower is better)</text>
+  <text transform="translate(36 120) rotate(-90)" text-anchor="middle" fill="#5d574d">test accuracy</text>
+  <!-- targets -->
+  <line x1="260" y1="24" x2="260" y2="222" stroke="#8a6a3a" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <line x1="110" y1="128" x2="726" y2="128" stroke="#8a6a3a" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="260" y="240" text-anchor="middle" font-size="12.5" fill="#8a6a3a">30 ms</text>
+  <text x="102" y="132" text-anchor="end" font-size="12.5" fill="#8a6a3a">95%</text>
+  <!-- EfficientNet-B2 -->
+  <circle cx="286" cy="110" r="9" fill="#1f2e4a"/>
+  <text x="304" y="106">EfficientNet-B2</text>
+  <text x="304" y="123" font-size="12.5" fill="#5d574d">about 30 MB</text>
+  <!-- ViT-B/16 -->
+  <circle cx="570" cy="88" r="30" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.6"/>
+  <circle cx="570" cy="88" r="2.5" fill="#8a6a3a"/>
+  <text x="610" y="84">ViT-B/16</text>
+  <text x="610" y="101" font-size="12.5" fill="#5d574d">about 330 MB</text>
+  <!-- size key -->
+  <g font-size="12" fill="#5d574d">
+    <circle cx="560" cy="186" r="5" fill="none" stroke="#5d574d"/>
+    <text x="572" y="190">circle area: file size</text>
+  </g>
+</svg>

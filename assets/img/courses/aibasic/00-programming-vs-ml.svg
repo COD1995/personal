@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <!-- Traditional programming -->
+  <text x="20" y="26" font-size="12" letter-spacing="2" fill="#8a6a3a">TRADITIONAL PROGRAMMING</text>
+  <rect x="20" y="44" width="120" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="80" y="66" text-anchor="middle">Rules</text>
+  <rect x="20" y="90" width="120" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="80" y="112" text-anchor="middle">Data</text>
+  <path d="M142 61 L204 76" stroke="#1f2e4a" stroke-width="1.3" fill="none" marker-end="url(#a)"/><path d="M142 107 L204 92" stroke="#1f2e4a" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+  <rect x="208" y="61" width="150" height="46" fill="#1f2e4a"/><text x="283" y="89" text-anchor="middle" fill="#f6f2e9">Program</text>
+  <path d="M360 84 L414 84" stroke="#1f2e4a" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+  <rect x="418" y="67" width="120" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="478" y="89" text-anchor="middle">Answers</text>
+  <text x="566" y="80" font-size="13.5" fill="#5d574d">You write the rules;</text>
+  <text x="566" y="98" font-size="13.5" fill="#5d574d">the computer applies them.</text>
+
+  <line x1="20" y1="150" x2="740" y2="150" stroke="#d9d0bf"/>
+
+  <!-- Machine learning -->
+  <text x="20" y="180" font-size="12" letter-spacing="2" fill="#8a6a3a">MACHINE LEARNING</text>
+  <rect x="20" y="198" width="120" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="80" y="220" text-anchor="middle">Data</text>
+  <rect x="20" y="244" width="120" height="34" fill="#fbf8f2" stroke="#b9ad96"/><text x="80" y="266" text-anchor="middle">Answers</text>
+  <path d="M142 215 L204 230" stroke="#1f2e4a" stroke-width="1.3" fill="none" marker-end="url(#a)"/><path d="M142 261 L204 246" stroke="#1f2e4a" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+  <rect x="208" y="215" width="150" height="46" fill="#1f2e4a"/><text x="283" y="236" text-anchor="middle" fill="#f6f2e9">Learning</text><text x="283" y="253" text-anchor="middle" fill="#f6f2e9">algorithm</text>
+  <path d="M360 238 L414 238" stroke="#1f2e4a" stroke-width="1.3" fill="none" marker-end="url(#a)"/>
+  <rect x="418" y="221" width="120" height="34" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.5"/><text x="478" y="243" text-anchor="middle">Rules (a model)</text>
+  <text x="566" y="234" font-size="13.5" fill="#5d574d">You supply examples;</text>
+  <text x="566" y="252" font-size="13.5" fill="#5d574d">the computer finds the rules.</text>
+</svg>

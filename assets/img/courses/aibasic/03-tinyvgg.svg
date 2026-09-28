@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <g font-size="11.5" letter-spacing="1.8" fill="#8a6a3a" text-anchor="middle">
+    <text x="60" y="30">INPUT</text><text x="190" y="30">CONV BLOCK 1</text><text x="380" y="30">CONV BLOCK 2</text><text x="555" y="30">CLASSIFIER</text><text x="700" y="30">OUTPUT</text>
+  </g>
+  <!-- input image -->
+  <rect x="32" y="72" width="56" height="56" fill="#fbf8f2" stroke="#1f2e4a"/>
+  <g stroke="#d9d0bf" stroke-width="0.6"><line x1="32" y1="86" x2="88" y2="86"/><line x1="32" y1="100" x2="88" y2="100"/><line x1="32" y1="114" x2="88" y2="114"/><line x1="46" y1="72" x2="46" y2="128"/><line x1="60" y1="72" x2="60" y2="128"/><line x1="74" y1="72" x2="74" y2="128"/></g>
+  <text x="60" y="146" text-anchor="middle" font-size="12.5" fill="#5d574d">28 × 28 pixels</text>
+  <path d="M90 100 L104 100" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- block 1 -->
+  <rect x="108" y="44" width="164" height="112" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="11.5" fill="#1f2e4a">
+    <text x="118" y="66">Conv2d 1→10, 3×3</text>
+    <text x="118" y="84">ReLU</text>
+    <text x="118" y="102">Conv2d 10→10, 3×3</text>
+    <text x="118" y="120">ReLU</text>
+    <text x="118" y="143" fill="#8a6a3a" font-weight="600">MaxPool2d 2</text>
+  </g>
+  <path d="M274 100 L294 100" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- block 2 -->
+  <rect x="298" y="44" width="164" height="112" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="11.5" fill="#1f2e4a">
+    <text x="308" y="66">Conv2d 10→10, 3×3</text>
+    <text x="308" y="84">ReLU</text>
+    <text x="308" y="102">Conv2d 10→10, 3×3</text>
+    <text x="308" y="120">ReLU</text>
+    <text x="308" y="143" fill="#8a6a3a" font-weight="600">MaxPool2d 2</text>
+  </g>
+  <path d="M464 100 L484 100" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- classifier -->
+  <rect x="488" y="44" width="134" height="112" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="11.5" fill="#1f2e4a">
+    <text x="498" y="90">Flatten</text>
+    <text x="498" y="114">Linear 490→10</text>
+  </g>
+  <path d="M624 100 L650 100" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <rect x="654" y="78" width="92" height="44" fill="#1f2e4a"/>
+  <text x="700" y="105" text-anchor="middle" fill="#f6f2e9">10 logits</text>
+
+  <!-- shapes row -->
+  <line x1="20" y1="176" x2="740" y2="176" stroke="#d9d0bf"/>
+  <text x="20" y="198" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">SHAPE</text>
+  <!-- input 28x28 -->
+  <rect x="32" y="210" width="56" height="56" fill="#fbf8f2" stroke="#1f2e4a"/>
+  <!-- 10 maps of 14x14 -->
+  <g fill="#fbf8f2" stroke="#1f2e4a">
+    <rect x="188" y="206" width="28" height="28"/><rect x="184" y="210" width="28" height="28"/><rect x="180" y="214" width="28" height="28"/><rect x="176" y="218" width="28" height="28"/><rect x="172" y="222" width="28" height="28"/>
+  </g>
+  <!-- 10 maps of 7x7 -->
+  <g fill="#fbf8f2" stroke="#1f2e4a">
+    <rect x="384" y="214" width="14" height="14"/><rect x="380" y="218" width="14" height="14"/><rect x="376" y="222" width="14" height="14"/><rect x="372" y="226" width="14" height="14"/><rect x="368" y="230" width="14" height="14"/>
+  </g>
+  <!-- flattened vector -->
+  <rect x="496" y="226" width="118" height="10" fill="#fbf8f2" stroke="#1f2e4a"/>
+  <g stroke="#d9d0bf" stroke-width="0.8"><line x1="508" y1="226" x2="508" y2="236"/><line x1="520" y1="226" x2="520" y2="236"/><line x1="532" y1="226" x2="532" y2="236"/><line x1="544" y1="226" x2="544" y2="236"/><line x1="556" y1="226" x2="556" y2="236"/><line x1="568" y1="226" x2="568" y2="236"/><line x1="580" y1="226" x2="580" y2="236"/><line x1="592" y1="226" x2="592" y2="236"/><line x1="604" y1="226" x2="604" y2="236"/></g>
+  <!-- 10 logits -->
+  <g fill="#1f2e4a"><rect x="665" y="226" width="7" height="10"/><rect x="672" y="226" width="7" height="10" fill="#f6f2e9" stroke="#1f2e4a"/><rect x="679" y="226" width="7" height="10"/><rect x="686" y="226" width="7" height="10" fill="#f6f2e9" stroke="#1f2e4a"/><rect x="693" y="226" width="7" height="10"/><rect x="700" y="226" width="7" height="10" fill="#f6f2e9" stroke="#1f2e4a"/><rect x="707" y="226" width="7" height="10"/><rect x="714" y="226" width="7" height="10" fill="#f6f2e9" stroke="#1f2e4a"/><rect x="721" y="226" width="7" height="10"/><rect x="728" y="226" width="7" height="10" fill="#f6f2e9" stroke="#1f2e4a"/></g>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12" text-anchor="middle" fill="#1e1c19">
+    <text x="62" y="288">[1, 1, 28, 28]</text>
+    <text x="190" y="288">[1, 10, 14, 14]</text>
+    <text x="380" y="288">[1, 10, 7, 7]</text>
+    <text x="555" y="288">[1, 490]</text>
+    <text x="700" y="288">[1, 10]</text>
+  </g>
+  <g font-size="12" text-anchor="middle" fill="#5d574d">
+    <text x="190" y="268">10 maps, 14 × 14</text>
+    <text x="380" y="262">10 maps, 7 × 7</text>
+    <text x="555" y="258">10 × 7 × 7 = 490</text>
+  </g>
+</svg>

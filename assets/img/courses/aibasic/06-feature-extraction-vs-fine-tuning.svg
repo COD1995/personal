@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 340" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+    <marker id="m" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#5d574d"/></marker>
+  </defs>
+
+  <!-- ============ FEATURE EXTRACTION ============ -->
+  <text x="20" y="22" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">FEATURE EXTRACTION</text>
+
+  <!-- general -> specific scale over the backbone -->
+  <path d="M112 66 L416 66" stroke="#5d574d" stroke-width="1" marker-end="url(#m)"/>
+  <text x="112" y="58" font-size="12.5" fill="#5d574d">general: edges, colors</text>
+  <text x="418" y="58" font-size="12.5" fill="#5d574d" text-anchor="end">specific: parts, objects</text>
+
+  <!-- discarded ImageNet head -->
+  <rect x="526" y="24" width="130" height="36" fill="none" stroke="#b9ad96" stroke-dasharray="4 3"/>
+  <text x="591" y="39" font-size="12" fill="#5d574d" text-anchor="middle">ImageNet head</text>
+  <text x="591" y="54" font-size="12" fill="#5d574d" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace">1280 → 1000</text>
+  <path d="M591 62 L591 81" stroke="#8a6a3a" stroke-width="1.2" stroke-dasharray="3 2"/>
+  <text x="600" y="76" font-size="12" fill="#8a6a3a">replaced by</text>
+
+  <!-- image -->
+  <rect x="20" y="84" width="64" height="56" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="52" y="117" text-anchor="middle">image</text>
+  <path d="M86 112 L108 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <!-- backbone: all frozen -->
+  <g fill="#ece6da" stroke="#b9ad96">
+    <rect x="112" y="84" width="46" height="56"/>
+    <rect x="164" y="84" width="46" height="56"/>
+    <rect x="216" y="84" width="46" height="56"/>
+    <rect x="268" y="84" width="46" height="56"/>
+    <rect x="320" y="84" width="46" height="56"/>
+    <rect x="372" y="84" width="46" height="56"/>
+  </g>
+  <path d="M420 112 L442 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <!-- pool -->
+  <rect x="446" y="94" width="54" height="36" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="473" y="117" text-anchor="middle">pool</text>
+  <path d="M502 112 L522 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <!-- new head -->
+  <rect x="526" y="84" width="130" height="56" fill="#1f2e4a"/>
+  <text x="591" y="107" text-anchor="middle" fill="#f6f2e9">new head</text>
+  <text x="591" y="127" text-anchor="middle" fill="#f6f2e9" font-size="12.5" font-family="'JetBrains Mono',Menlo,monospace">1280 → 3</text>
+  <path d="M658 112 L680 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#1f2e4a">
+    <text x="686" y="97">pizza</text><text x="686" y="116">steak</text><text x="686" y="135">sushi</text>
+  </g>
+
+  <g font-size="12.5" fill="#5d574d" text-anchor="middle">
+    <text x="265" y="160">backbone: frozen (requires_grad = False)</text>
+    <text x="591" y="160">trainable</text>
+  </g>
+
+  <line x1="20" y1="186" x2="740" y2="186" stroke="#d9d0bf"/>
+
+  <!-- ============ FINE-TUNING ============ -->
+  <text x="20" y="214" font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">FINE-TUNING</text>
+
+  <rect x="20" y="236" width="64" height="56" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="52" y="269" text-anchor="middle">image</text>
+  <path d="M86 264 L108 264" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <!-- backbone: first four frozen, last two unfrozen -->
+  <g fill="#ece6da" stroke="#b9ad96">
+    <rect x="112" y="236" width="46" height="56"/>
+    <rect x="164" y="236" width="46" height="56"/>
+    <rect x="216" y="236" width="46" height="56"/>
+    <rect x="268" y="236" width="46" height="56"/>
+  </g>
+  <g fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.6">
+    <rect x="320" y="236" width="46" height="56"/>
+    <rect x="372" y="236" width="46" height="56"/>
+  </g>
+  <path d="M420 264 L442 264" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <rect x="446" y="246" width="54" height="36" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="473" y="269" text-anchor="middle">pool</text>
+  <path d="M502 264 L522 264" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <rect x="526" y="236" width="130" height="56" fill="#1f2e4a"/>
+  <text x="591" y="259" text-anchor="middle" fill="#f6f2e9">new head</text>
+  <text x="591" y="279" text-anchor="middle" fill="#f6f2e9" font-size="12.5" font-family="'JetBrains Mono',Menlo,monospace">1280 → 3</text>
+  <path d="M658 264 L680 264" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#1f2e4a">
+    <text x="686" y="249">pizza</text><text x="686" y="268">steak</text><text x="686" y="287">sushi</text>
+  </g>
+
+  <g font-size="12.5" text-anchor="middle">
+    <text x="213" y="312" fill="#5d574d">frozen</text>
+    <text x="369" y="312" fill="#8a6a3a">unfrozen</text>
+    <text x="369" y="328" fill="#8a6a3a">small learning rate</text>
+    <text x="591" y="312" fill="#5d574d">trainable (trained first)</text>
+  </g>
+</svg>

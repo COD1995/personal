@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 250" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+    <marker id="b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#8a6a3a"/></marker>
+    <marker id="w" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10z" fill="#f6f2e9"/></marker>
+  </defs>
+  <g font-size="11.5" letter-spacing="1.8" fill="#8a6a3a" text-anchor="middle">
+    <text x="57" y="22">MODEL</text><text x="211" y="22">APP FOLDER</text><text x="385" y="22">GRADIO</text><text x="552" y="22">HUGGING FACE SPACE</text><text x="706" y="22">USER</text>
+  </g>
+  <!-- trained model -->
+  <rect x="12" y="84" width="90" height="56" fill="#fbf8f2" stroke="#1f2e4a"/>
+  <text x="57" y="108" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">effnetb2</text>
+  <text x="57" y="126" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">.pth</text>
+  <text x="57" y="162" text-anchor="middle" font-size="12.5" fill="#5d574d">weights, ~30 MB</text>
+  <path d="M104 112 L132 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- app folder -->
+  <rect x="136" y="44" width="150" height="140" fill="#fbf8f2" stroke="#b9ad96"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="11.5" fill="#1e1c19">
+    <text x="148" y="66" fill="#1f2e4a">app.py</text>
+    <text x="148" y="86">model.py</text>
+    <text x="148" y="106">requirements.txt</text>
+    <text x="148" y="126">README.md</text>
+    <text x="148" y="146">examples/</text>
+    <text x="148" y="166" fill="#8a6a3a">effnetb2.pth</text>
+  </g>
+  <text x="211" y="204" text-anchor="middle" font-size="12.5" fill="#5d574d">runs anywhere Python runs</text>
+  <path d="M288 112 L316 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- gradio -->
+  <rect x="320" y="58" width="130" height="108" fill="#1f2e4a"/>
+  <g fill="#f6f2e9" text-anchor="middle">
+    <text x="385" y="80" font-size="13">image</text>
+    <text x="385" y="117" font-family="'JetBrains Mono',Menlo,monospace" font-size="12">predict()</text>
+    <text x="385" y="155" font-size="12.5">probabilities, time</text>
+  </g>
+  <g stroke="#f6f2e9" stroke-width="1.1">
+    <path d="M385 86 L385 102" marker-end="url(#w)"/>
+    <path d="M385 124 L385 140" marker-end="url(#w)"/>
+  </g>
+  <text x="385" y="186" text-anchor="middle" font-size="12.5" fill="#5d574d">gr.Interface</text>
+  <path d="M452 112 L480 112" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <!-- space -->
+  <rect x="484" y="68" width="136" height="88" fill="#fbf8f2" stroke="#1f2e4a"/>
+  <g text-anchor="middle">
+    <text x="552" y="96">cloud server</text>
+    <text x="552" y="118" font-size="12.5" fill="#5d574d">installs requirements,</text>
+    <text x="552" y="135" font-size="12.5" fill="#5d574d">runs app.py</text>
+  </g>
+  <text x="552" y="186" text-anchor="middle" font-size="12.5" fill="#5d574d">public web address</text>
+  <!-- user -->
+  <path d="M622 100 L660 100" stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)"/>
+  <path d="M660 126 L624 126" stroke="#8a6a3a" stroke-width="1.3" marker-end="url(#b)"/>
+  <g font-size="11" fill="#5d574d" text-anchor="middle">
+    <text x="641" y="92">page</text>
+    <text x="642" y="142">photo</text>
+  </g>
+  <rect x="664" y="70" width="84" height="84" fill="#fbf8f2" stroke="#b9ad96"/>
+  <rect x="678" y="80" width="56" height="40" fill="#efe9dd" stroke="#b9ad96"/>
+  <text x="706" y="104" text-anchor="middle" font-size="11" fill="#5d574d">photo</text>
+  <text x="706" y="142" text-anchor="middle" font-size="12.5" fill="#1f2e4a">“sushi”</text>
+  <text x="706" y="186" text-anchor="middle" font-size="12.5" fill="#5d574d">browser or phone</text>
+  <line x1="12" y1="226" x2="748" y2="226" stroke="#d9d0bf"/>
+  <g font-size="12" fill="#5d574d">
+    <text x="12" y="244">In the notebook</text>
+    <text x="748" y="244" text-anchor="end">On the internet</text>
+  </g>
+</svg>

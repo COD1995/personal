@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 310" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#1f2e4a"/></marker>
+  </defs>
+  <g font-size="11.5" letter-spacing="1.8" fill="#8a6a3a">
+    <text x="20" y="24">NOTEBOOK CELLS (MODULE 04)</text>
+    <text x="300" y="24">FILES IN GOING_MODULAR/</text>
+    <text x="566" y="24">REUSED BY</text>
+  </g>
+
+  <!-- notebook cells -->
+  <g fill="#fbf8f2" stroke="#b9ad96">
+    <rect x="20" y="40" width="222" height="32"/>
+    <rect x="20" y="84" width="222" height="32"/>
+    <rect x="20" y="128" width="222" height="32"/>
+    <rect x="20" y="172" width="222" height="32"/>
+    <rect x="20" y="216" width="222" height="32"/>
+    <rect x="20" y="260" width="222" height="32"/>
+  </g>
+  <g>
+    <text x="34" y="61">Download the images</text>
+    <text x="34" y="105">Datasets and DataLoaders</text>
+    <text x="34" y="149">TinyVGG model class</text>
+    <text x="34" y="193">Training and testing loops</text>
+    <text x="34" y="237">Save the model</text>
+    <text x="34" y="281">Hyperparameters, run training</text>
+  </g>
+
+  <!-- cell -> file arrows -->
+  <g stroke="#1f2e4a" stroke-width="1.3" marker-end="url(#a)">
+    <path d="M244 56 L296 56"/>
+    <path d="M244 100 L296 100"/>
+    <path d="M244 144 L296 144"/>
+    <path d="M244 188 L296 188"/>
+    <path d="M244 232 L296 232"/>
+    <path d="M244 276 L296 276"/>
+  </g>
+
+  <!-- files -->
+  <g fill="#fbf8f2" stroke="#1f2e4a">
+    <rect x="300" y="40" width="160" height="32"/>
+    <rect x="300" y="84" width="160" height="32"/>
+    <rect x="300" y="128" width="160" height="32"/>
+    <rect x="300" y="172" width="160" height="32"/>
+    <rect x="300" y="216" width="160" height="32"/>
+  </g>
+  <rect x="300" y="260" width="160" height="32" fill="#1f2e4a"/>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#1f2e4a">
+    <text x="314" y="61">get_data.py</text>
+    <text x="314" y="105">data_setup.py</text>
+    <text x="314" y="149">model_builder.py</text>
+    <text x="314" y="193">engine.py</text>
+    <text x="314" y="237">utils.py</text>
+    <text x="314" y="281" fill="#f6f2e9">train.py</text>
+  </g>
+  <text x="474" y="61" font-size="12.5" fill="#5d574d">run once</text>
+
+  <!-- import bus: data_setup, model_builder, engine, utils -> train.py and later notebooks -->
+  <g stroke="#1f2e4a" stroke-width="1.3" fill="none">
+    <path d="M460 100 L494 100"/>
+    <path d="M460 144 L494 144"/>
+    <path d="M460 188 L494 188"/>
+    <path d="M460 232 L494 232"/>
+    <path d="M494 100 L494 276"/>
+    <path d="M494 276 L464 276" marker-end="url(#a)"/>
+    <path d="M494 166 L562 166" marker-end="url(#a)"/>
+  </g>
+  <text x="502" y="252" font-size="12.5" fill="#5d574d">import</text>
+
+  <!-- later notebooks -->
+  <rect x="566" y="120" width="174" height="92" fill="#fbf8f2" stroke="#b9ad96"/>
+  <text x="580" y="144">Notebooks in</text>
+  <text x="580" y="162">modules 06–09</text>
+  <g font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#1f2e4a">
+    <text x="580" y="184">from going_modular</text>
+    <text x="580" y="200">  import engine</text>
+  </g>
+</svg>
