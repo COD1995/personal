@@ -1989,10 +1989,22 @@ body[data-slide-mode="slides"] .lecture-nav { display: flex; }
     margin-top: 12rem;
     max-height: calc(100vh - 120px);
     overflow-y: auto;
-    padding: 0 0 1rem;
+    padding: 0 0.6rem 1rem 0;
     font-size: 0.86rem;
+    /* quiet scrollbar: no track, a hairline thumb that shows only while hovering the list */
     scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    scrollbar-gutter: stable;
   }
+  .lec.has-toc .lec-toc:hover { scrollbar-color: var(--rule-strong) transparent; }
+  .lec.has-toc .lec-toc::-webkit-scrollbar { width: 6px; background: transparent; }
+  .lec.has-toc .lec-toc::-webkit-scrollbar-track { background: transparent; }
+  .lec.has-toc .lec-toc::-webkit-scrollbar-thumb { background: transparent; border-radius: 3px; }
+  .lec.has-toc .lec-toc:hover::-webkit-scrollbar-thumb { background: var(--rule-strong); }
+  /* soft fade at an edge when there is more list beyond it */
+  .lec.has-toc .lec-toc.more-below { -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent); mask-image: linear-gradient(to bottom, #000 calc(100% - 3rem), transparent); }
+  .lec.has-toc .lec-toc.more-above { -webkit-mask-image: linear-gradient(to top, #000 calc(100% - 3rem), transparent); mask-image: linear-gradient(to top, #000 calc(100% - 3rem), transparent); }
+  .lec.has-toc .lec-toc.more-above.more-below { -webkit-mask-image: linear-gradient(to bottom, transparent, #000 3rem, #000 calc(100% - 3rem), transparent); mask-image: linear-gradient(to bottom, transparent, #000 3rem, #000 calc(100% - 3rem), transparent); }
   .lec.has-toc .lec-toc-mobile { display: none; }
   .lec.has-toc #markdown-toc { display: none; }   /* the sidebar replaces the inline contents list */
 }
