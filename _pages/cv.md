@@ -7,14 +7,23 @@ permalink: /cv/
 prose: false
 ---
 
-<p class="cv-contact">
-  <a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a>
-  <span class="cv-sep">·</span>
-  <a href="https://github.com/{{ site.author.github }}" rel="noopener">github.com/{{ site.author.github }}</a>
-  <span class="cv-sep">·</span>
-  <a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="noopener">LinkedIn</a>
-  <a class="btn btn-primary btn-sm cv-download" href="{{ '/assets/pdf/cv.pdf' | relative_url }}" download>Download PDF</a>
-</p>
+<div class="cv-contact">
+  <dl class="cv-directory">
+    <div>
+      <dt>Email</dt>
+      <dd><a href="mailto:{{ site.author.email }}">{{ site.author.email }}</a></dd>
+    </div>
+    <div>
+      <dt>GitHub</dt>
+      <dd><a href="https://github.com/{{ site.author.github }}" rel="noopener">{{ site.author.github }}</a></dd>
+    </div>
+    <div>
+      <dt>LinkedIn</dt>
+      <dd><a href="https://www.linkedin.com/in/{{ site.author.linkedin }}/" rel="noopener">Jue Guo</a></dd>
+    </div>
+  </dl>
+  <a class="btn btn-ghost btn-sm cv-download" href="{{ '/assets/pdf/cv.pdf' | relative_url }}" download>Download PDF</a>
+</div>
 
 <section class="cv-section">
   <h2>Profile</h2>
