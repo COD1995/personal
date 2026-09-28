@@ -196,6 +196,23 @@ address { font-style: normal; }
   background: var(--header-bg);
   border-bottom: 1px solid var(--rule);
 }
+/* Reading progress: a navy hairline riding on the header's bottom rule */
+.scroll-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  pointer-events: none;
+}
+.scroll-progress span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  will-change: transform;
+}
 .nav-wrap {
   display: flex;
   align-items: center;
