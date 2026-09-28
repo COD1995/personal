@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#b9ad96"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#8a6a3a"/></marker>
+  </defs>
+  <line x1="380" y1="20" x2="380" y2="380" stroke="#d9d0bf"/>
+  <line x1="107.0" y1="133.0" x2="171.6" y2="68.4" stroke="#8a6a3a" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="185.0" y1="128.0" x2="185.0" y2="74.0" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="263.0" y1="133.0" x2="198.4" y2="68.4" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="61.9" y1="219.5" x2="87.3" y2="162.4" stroke="#8a6a3a" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="128.1" y1="219.5" x2="102.7" y2="162.4" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="55.0" y1="308.0" x2="55.0" y2="254.0" stroke="#8a6a3a" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="275.0" y1="218.0" x2="275.0" y2="164.0" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <circle cx="185" cy="55" r="17" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.4"/><text x="185" y="60" text-anchor="middle" fill="#f6f2e9">A</text><text x="205" y="44" fill="#5d574d" font-size="12">3</text>
+  <circle cx="95" cy="145" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="95" y="150" text-anchor="middle" fill="#1e1c19">B</text><text x="115" y="134" fill="#5d574d" font-size="12">2</text>
+  <circle cx="185" cy="145" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="185" y="150" text-anchor="middle" fill="#1e1c19">E</text><text x="205" y="134" fill="#5d574d" font-size="12">0</text>
+  <circle cx="275" cy="145" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="275" y="150" text-anchor="middle" fill="#1e1c19">H</text><text x="295" y="134" fill="#5d574d" font-size="12">1</text>
+  <circle cx="55" cy="235" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="55" y="240" text-anchor="middle" fill="#1e1c19">C</text><text x="75" y="224" fill="#5d574d" font-size="12">1</text>
+  <circle cx="135" cy="235" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="135" y="240" text-anchor="middle" fill="#1e1c19">F</text><text x="155" y="224" fill="#5d574d" font-size="12">0</text>
+  <circle cx="275" cy="235" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="275" y="240" text-anchor="middle" fill="#1e1c19">I</text><text x="295" y="224" fill="#5d574d" font-size="12">0</text>
+  <circle cx="55" cy="325" r="17" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2.2"/><text x="55" y="330" text-anchor="middle" fill="#1e1c19">D</text><text x="75" y="314" fill="#5d574d" font-size="12">0</text>
+  <text x="185" y="378" text-anchor="middle" fill="#8a6a3a" font-size="12.5" letter-spacing="1.6">BEFORE FIND(D)</text>
+  <line x1="438.1" y1="169.1" x2="560.4" y2="67.2" stroke="#8a6a3a" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="508.7" y1="165.4" x2="565.2" y2="71.3" stroke="#8a6a3a" stroke-width="2.4" marker-end="url(#ab)"/>
+  <line x1="575.0" y1="163.0" x2="575.0" y2="74.0" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="641.3" y1="165.4" x2="584.8" y2="71.3" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="711.9" y1="169.1" x2="589.6" y2="67.2" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="575.0" y1="273.0" x2="575.0" y2="199.0" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <line x1="725.0" y1="273.0" x2="725.0" y2="199.0" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#an)"/>
+  <circle cx="575" cy="55" r="17" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.4"/><text x="575" y="60" text-anchor="middle" fill="#f6f2e9">A</text><text x="595" y="44" fill="#5d574d" font-size="12">3</text>
+  <circle cx="425" cy="180" r="17" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2.2"/><text x="425" y="185" text-anchor="middle" fill="#1e1c19">D</text><text x="445" y="169" fill="#5d574d" font-size="12">0</text>
+  <circle cx="500" cy="180" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="500" y="185" text-anchor="middle" fill="#1e1c19">C</text><text x="520" y="169" fill="#5d574d" font-size="12">1</text>
+  <circle cx="575" cy="180" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="575" y="185" text-anchor="middle" fill="#1e1c19">B</text><text x="595" y="169" fill="#5d574d" font-size="12">2</text>
+  <circle cx="650" cy="180" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="650" y="185" text-anchor="middle" fill="#1e1c19">E</text><text x="670" y="169" fill="#5d574d" font-size="12">0</text>
+  <circle cx="725" cy="180" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="725" y="185" text-anchor="middle" fill="#1e1c19">H</text><text x="745" y="169" fill="#5d574d" font-size="12">1</text>
+  <circle cx="575" cy="290" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="575" y="295" text-anchor="middle" fill="#1e1c19">F</text><text x="595" y="279" fill="#5d574d" font-size="12">0</text>
+  <circle cx="725" cy="290" r="17" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/><text x="725" y="295" text-anchor="middle" fill="#1e1c19">I</text><text x="745" y="279" fill="#5d574d" font-size="12">0</text>
+  <text x="575" y="378" text-anchor="middle" fill="#8a6a3a" font-size="12.5" letter-spacing="1.6">AFTER FIND(D)</text>
+</svg>

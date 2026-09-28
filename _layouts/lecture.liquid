@@ -2,12 +2,14 @@
 layout: default
 ---
 {%- comment -%}
-  Lecture notes for a course module (currently EAS 510 Basics of AI).
-  Front matter: title, module ("00"…"09"), description, objectives (list), math (true to load MathJax).
-  Module order, weeks, reading links, and previous/next come from _data/aibasic.yml.
+  Lecture notes for a course module (EAS 510 Basics of AI, CSE 431/531 Algorithms).
+  Front matter: title, module ("00"…"09"), description, objectives (list), math (true to load MathJax),
+  notes (which _data file holds the module list: aibasic (default) or algo).
+  Module order, weeks, reading, credit line, and previous/next come from _data/<notes>.yml.
 {%- endcomment -%}
-{%- assign course = site.data.aibasic.course -%}
-{%- assign mods = site.data.aibasic.modules -%}
+{%- assign notes_key = page.notes | default: 'aibasic' -%}
+{%- assign course = site.data[notes_key].course -%}
+{%- assign mods = site.data[notes_key].modules -%}
 {%- assign idx = -1 -%}
 {%- for m in mods -%}{%- if m.num == page.module -%}{%- assign idx = forloop.index0 -%}{%- assign cur = m -%}{%- endif -%}{%- endfor -%}
 {%- assign prev_i = idx | minus: 1 -%}
@@ -24,6 +26,8 @@ layout: default
       {% if page.description %}<p class="page-description">{{ page.description }}</p>{% endif %}
       {% if cur.reading %}
       <p class="lec-reading">Companion reading: <a href="{{ cur.reading }}" rel="noopener">Learn PyTorch for Deep Learning, chapter {{ cur.num }}</a></p>
+      {% elsif cur.chapter %}
+      <p class="lec-reading">Companion reading: {{ course.book }}, chapter {{ cur.chapter }}{% if cur.chapter_title %}, “{{ cur.chapter_title }}”{% endif %}</p>
       {% endif %}
     </header>
 
@@ -54,12 +58,16 @@ layout: default
       {% endif %}
     </nav>
 
+    {% if course.credit %}
+    <p class="lec-credit">{{ course.credit }}</p>
+    {% else %}
     <p class="lec-credit">
       These notes follow the path of Daniel Bourke's
       <a href="https://www.learnpytorch.io/" rel="noopener">Learn PyTorch for Deep Learning</a>
       (<a href="https://github.com/mrdbourke/pytorch-deep-learning" rel="noopener">MIT license</a>),
       rewritten for engineering students meeting Python and machine learning for the first time.
     </p>
+    {% endif %}
   </div>
 
   <aside class="lec-toc" aria-label="On this page" hidden>

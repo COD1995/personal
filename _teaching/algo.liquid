@@ -5,9 +5,9 @@ code: CSE 431/531
 level: Undergraduate and graduate
 taught: Summer 2025
 prereq: CSE 250 (data structures) or similar; basic calculus and linear algebra; comfort reading and writing proofs; some programming experience
-text: Dasgupta, Papadimitriou &amp; Vazirani, <em>Algorithms</em>
+text: Dasgupta, Papadimitriou &amp; Vazirani, <em>Algorithms</em>, with course notes (below) for every chapter we cover
 grading: Absolute scale, no curve
-description: CSE 431/531 Algorithm Analysis and Design at the University at Buffalo.
+description: CSE 431/531 Algorithm Analysis and Design at the University at Buffalo — design and analysis of algorithms, with full lecture notes for every module.
 lede: >-
   An introduction to the design and analysis of algorithms: asymptotic analysis, divide and conquer, greedy algorithms,
   dynamic programming, fundamental graph algorithms, NP-completeness, and approximation algorithms.
@@ -15,6 +15,8 @@ about: >-
   <p>Each topic is covered in depth and anchored in one or more representative problems and their algorithms. Beyond
   designing and analyzing algorithms, students build the discrete-mathematics problem-solving skills that every computer
   scientist and engineer relies on.</p>
+  <p>Every module has a full set of notes below: the ideas and proofs in plain language, working Python for each
+  algorithm with its real output, figures, and exercises.</p>
 semesters:
   - value: summer-2025
     label: Summer 2025
@@ -26,18 +28,60 @@ semesters:
       - [Midterm exam, 25%]
       - [Final exam, 30%]
     outline:
+      - group: Foundations
       - when: Week 1
-        topic: Algorithms with numbers — arithmetic and modular arithmetic
+        topic: >-
+          <a href="/teaching/algo/00-prologue/">Prologue: why algorithms, and big-O</a>; <a href="/teaching/algo/01-algorithms-with-numbers/">algorithms with numbers</a>
+        guide: Fibonacci two ways, big-O notation; arithmetic on n-bit numbers and modular arithmetic.
       - when: Week 2
-        topic: Primality testing, cryptography, and universal hashing; divide and conquer begins with multiplication and recurrences
+        topic: >-
+          <a href="/teaching/algo/01-algorithms-with-numbers/">Primality, cryptography, and hashing</a>; <a href="/teaching/algo/02-divide-and-conquer/">divide and conquer</a> begins
+        guide: Fermat's test, RSA, universal hashing, and randomized algorithms; fast multiplication and recurrences.
       - when: Week 3
-        topic: Mergesort, medians, matrix multiplication, and the fast Fourier transform; depth-first search and strongly connected components
+        topic: >-
+          <a href="/teaching/algo/02-divide-and-conquer/">Divide and conquer</a> continued; <a href="/teaching/algo/03-graph-decompositions/">decompositions of graphs</a>
+        guide: Mergesort, medians, Strassen, and the FFT; depth-first search, DAGs, and strongly connected components.
+      - group: Graphs and greedy algorithms
       - when: Week 4
-        topic: Paths in graphs — breadth-first search and Dijkstra's algorithm; greedy algorithms — spanning trees, Huffman encoding, set cover
+        topic: >-
+          <a href="/teaching/algo/04-paths-in-graphs/">Paths in graphs</a>; <a href="/teaching/algo/05-greedy-algorithms/">greedy algorithms</a>
+        guide: BFS, Dijkstra, priority queues, Bellman–Ford; minimum spanning trees, Huffman codes, set cover.
       - when: Week 5
-        topic: Midterm exam; dynamic programming — longest increasing subsequence, edit distance, knapsack
+        topic: Midterm exam; <a href="/teaching/algo/06-dynamic-programming/">dynamic programming</a>
+        guide: The midterm covers weeks 1–4. Then longest increasing subsequences, edit distance, and knapsack.
+      - group: Hard problems
       - when: Week 6
-        topic: NP-complete problems and reductions; coping with NP-completeness — exhaustive search, approximation, local search
+        topic: >-
+          <a href="/teaching/algo/07-np-complete-problems/">NP-complete problems</a>; <a href="/teaching/algo/08-coping-with-np-completeness/">coping with NP-completeness</a>
+        guide: P, NP, and reductions; backtracking, approximation algorithms, and local search.
       - when: Week 7
         topic: Review and final exam
+        guide: Course review, including selected topics from chapters 7 and 10.
 ---
+
+<h2>Course notes</h2>
+<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Dasgupta,
+  Papadimitriou &amp; Vazirani's <em>Algorithms</em>, the course text, and explains the same ideas in its own words:
+  the problem, the idea behind the algorithm, working Python code with its real output, a proof of correctness, the
+  running-time analysis, and exercises. The notes and the chapter support each other, and the book has the
+  full exercise sets.</p>
+<ol class="notes-list" start="0">
+{% for m in site.data.algo.modules %}  <li><a href="{{ m.slug | prepend: site.data.algo.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
+{% endfor %}</ol>
+<p><a class="link-quiet" href="{{ '/teaching/algo/00-prologue/' | relative_url }}">Start with module 00, the prologue →</a></p>
+
+<h2>How the course runs</h2>
+<p>Each class works through one or two chapters. The exercises at the end of each module are the best practice for
+  the quizzes, the assignments, and the exams: try to write each proof yourself before checking it against the notes.</p>
+<ul>
+  <li><strong>Attendance (10%)</strong> — random attendance checks during the term.</li>
+  <li><strong>Programming assignments (30%)</strong> — two assignments, implementing and analyzing algorithms from the course.</li>
+  <li><strong>Weekly quizzes (5%)</strong> — a short online quiz each week.</li>
+  <li><strong>Midterm exam (25%)</strong> — in week 5, covering weeks 1–4.</li>
+  <li><strong>Final exam (30%)</strong> — in week 7.</li>
+</ul>
+
+<h2>Getting set up</h2>
+<p>The code in the notes is plain Python 3 with only the standard library, so any recent Python installation — or a
+  free <a href="https://colab.research.google.com/" rel="noopener">Google Colab</a> notebook in the browser — runs every
+  example. Type the examples yourself and change them: the fastest way to understand a running-time claim is to test it.</p>

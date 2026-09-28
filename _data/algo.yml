@@ -1,0 +1,80 @@
+# CSE 431/531 Algorithm Analysis and Design — lecture modules, in teaching order.
+# Each module is a page at /teaching/algo/<slug>/ (source: _teaching/algo/<slug>.md, layout: lecture, notes: algo).
+# The lecture layout uses this list for the eyebrow, the companion-reading line, and the previous/next links,
+# and the course page (_teaching/algo.liquid) links each module from its outline.
+# chapter: the matching chapter of Dasgupta, Papadimitriou & Vazirani, Algorithms (McGraw-Hill, 2008).
+# The Summer 2025 syllabus skips chapter 7 (linear programming) and chapter 10 (quantum algorithms).
+course:
+  code: CSE 431/531
+  title: Algorithm Analysis and Design
+  short: Algorithms
+  url: /teaching/algo/
+  book: Dasgupta, Papadimitriou &amp; Vazirani, <em>Algorithms</em>
+  credit: >-
+    These notes follow the chapters of S. Dasgupta, C. H. Papadimitriou, and U. V. Vazirani,
+    <em>Algorithms</em> (McGraw-Hill, 2008), the course text. The explanations, code, figures, and exercises
+    here are written for this course; the book remains the reference, with many more exercises.
+modules:
+  - num: "00"
+    slug: 00-prologue
+    title: "Prologue: Why Algorithms, and Big-O"
+    weeks: Week 1
+    chapter: 0
+    chapter_title: Prologue
+    summary: Two ways to compute Fibonacci numbers, the three questions we ask of every algorithm, and big-O notation.
+  - num: "01"
+    slug: 01-algorithms-with-numbers
+    title: Algorithms with Numbers
+    weeks: Weeks 1–2
+    chapter: 1
+    chapter_title: Algorithms with numbers
+    summary: Arithmetic on n-bit numbers, modular arithmetic, primality testing, RSA, and universal hashing.
+  - num: "02"
+    slug: 02-divide-and-conquer
+    title: Divide and Conquer
+    weeks: Weeks 2–3
+    chapter: 2
+    chapter_title: Divide-and-conquer algorithms
+    summary: Fast multiplication, the master theorem, mergesort and the sorting lower bound, medians, Strassen, and the FFT.
+  - num: "03"
+    slug: 03-graph-decompositions
+    title: Decompositions of Graphs
+    weeks: Week 3
+    chapter: 3
+    chapter_title: Decompositions of graphs
+    summary: Representing graphs, depth-first search, pre/post numbers, DAGs and topological order, strongly connected components.
+  - num: "04"
+    slug: 04-paths-in-graphs
+    title: Paths in Graphs
+    weeks: Week 4
+    chapter: 4
+    chapter_title: Paths in graphs
+    summary: Breadth-first search, Dijkstra's algorithm and priority queues, Bellman–Ford with negative edges, and shortest paths in DAGs.
+  - num: "05"
+    slug: 05-greedy-algorithms
+    title: Greedy Algorithms
+    weeks: Week 4
+    chapter: 5
+    chapter_title: Greedy algorithms
+    summary: Minimum spanning trees and the cut property, Kruskal and Prim, union–find, Huffman codes, Horn formulas, and set cover.
+  - num: "06"
+    slug: 06-dynamic-programming
+    title: Dynamic Programming
+    weeks: Week 5
+    chapter: 6
+    chapter_title: Dynamic programming
+    summary: Subproblems and DAGs, longest increasing subsequences, edit distance, knapsack, chain matrix multiplication, and all-pairs shortest paths.
+  - num: "07"
+    slug: 07-np-complete-problems
+    title: NP-Complete Problems
+    weeks: Week 6
+    chapter: 8
+    chapter_title: NP-complete problems
+    summary: Search problems, P and NP, reductions, and the chain of reductions that makes SAT, 3SAT, independent set, and friends NP-complete.
+  - num: "08"
+    slug: 08-coping-with-np-completeness
+    title: Coping with NP-Completeness
+    weeks: Week 6
+    chapter: 9
+    chapter_title: Coping with NP-completeness
+    summary: Backtracking, branch and bound, approximation algorithms with guarantees, and local search heuristics.

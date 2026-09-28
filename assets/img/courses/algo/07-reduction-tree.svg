@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 438" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d574d"/></marker>
+  </defs>
+  <line x1="330" y1="50" x2="330" y2="76" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="330" y1="112" x2="330" y2="138" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="330" y1="174" x2="170" y2="200" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="330" y1="174" x2="490" y2="200" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="170" y1="236" x2="90" y2="262" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="170" y1="236" x2="250" y2="262" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="490" y1="236" x2="490" y2="262" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="490" y1="298" x2="350" y2="324" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="490" y1="298" x2="490" y2="324" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="490" y1="298" x2="630" y2="324" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <line x1="630" y1="360" x2="630" y2="386" stroke="#5d574d" stroke-width="1.2" marker-end="url(#arrow)"/>
+  <rect x="264.0" y="16" width="132" height="34" fill="none" stroke="#8a6a3a" stroke-width="1.2" stroke-dasharray="5 4"/>
+  <text x="330" y="38" text-anchor="middle" font-size="12" letter-spacing="1.6" fill="#8a6a3a">ALL OF NP</text>
+  <rect x="264.0" y="78" width="132" height="34" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="330" y="100" text-anchor="middle" fill="#f6f2e9">SAT</text>
+  <rect x="264.0" y="140" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="330" y="162" text-anchor="middle" fill="#1e1c19">3SAT</text>
+  <rect x="104.0" y="202" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="170" y="224" text-anchor="middle" fill="#1e1c19">Independent set</text>
+  <rect x="424.0" y="202" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="490" y="224" text-anchor="middle" fill="#1e1c19">3D matching</text>
+  <rect x="24.0" y="264" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="90" y="286" text-anchor="middle" fill="#1e1c19">Vertex cover</text>
+  <rect x="184.0" y="264" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="250" y="286" text-anchor="middle" fill="#1e1c19">Clique</text>
+  <rect x="424.0" y="264" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="490" y="286" text-anchor="middle" fill="#1e1c19">ZOE</text>
+  <rect x="284.0" y="326" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="350" y="348" text-anchor="middle" fill="#1e1c19">Subset sum</text>
+  <rect x="424.0" y="326" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="490" y="348" text-anchor="middle" fill="#1e1c19">ILP</text>
+  <rect x="564.0" y="326" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="630" y="348" text-anchor="middle" fill="#1e1c19">Rudrata cycle</text>
+  <rect x="564.0" y="388" width="132" height="34" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="630" y="410" text-anchor="middle" fill="#1e1c19">TSP</text>
+</svg>

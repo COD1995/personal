@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 468" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <line x1="20" y1="62" x2="345" y2="62" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="57" fill="#5d574d" font-size="12">0</text>
+  <line x1="20" y1="118" x2="345" y2="118" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="113" fill="#5d574d" font-size="12">1</text>
+  <line x1="20" y1="174" x2="345" y2="174" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="169" fill="#5d574d" font-size="12">2</text>
+  <line x1="20" y1="230" x2="345" y2="230" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="225" fill="#5d574d" font-size="12">3</text>
+  <line x1="20" y1="286" x2="345" y2="286" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="281" fill="#5d574d" font-size="12">4</text>
+  <line x1="20" y1="342" x2="345" y2="342" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="337" fill="#5d574d" font-size="12">5</text>
+  <line x1="20" y1="398" x2="345" y2="398" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="20" y="393" fill="#5d574d" font-size="12">6</text>
+  <line x1="395" y1="62" x2="740" y2="62" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="740" y="57" text-anchor="end" fill="#5d574d" font-size="12">distance 0</text>
+  <line x1="395" y1="118" x2="740" y2="118" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="740" y="113" text-anchor="end" fill="#5d574d" font-size="12">distance 1</text>
+  <line x1="395" y1="174" x2="740" y2="174" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="740" y="169" text-anchor="end" fill="#5d574d" font-size="12">distance 2</text>
+  <line x1="395" y1="230" x2="740" y2="230" stroke="#d9d0bf" stroke-width="0.8"/>
+  <text x="740" y="225" text-anchor="end" fill="#5d574d" font-size="12">distance 3</text>
+  <text x="20" y="22" text-anchor="start" fill="#8a6a3a" font-size="11.5" letter-spacing="1.6">DEPTH-FIRST SEARCH TREE</text>
+  <text x="20" y="38" fill="#5d574d" font-size="12">depth</text>
+  <text x="740" y="22" text-anchor="end" fill="#8a6a3a" font-size="11.5" letter-spacing="1.6">BREADTH-FIRST LAYERS</text>
+  <line x1="370" y1="12" x2="370" y2="414" stroke="#d9d0bf" stroke-width="1"/>
+  <line x1="200" y1="62" x2="200" y2="118" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="200" y1="118" x2="200" y2="174" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="200" y1="174" x2="200" y2="230" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="200" y1="230" x2="200" y2="286" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="200" y1="286" x2="200" y2="342" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="200" y1="286" x2="285" y2="342" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="285" y1="342" x2="320" y2="398" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="285" y1="342" x2="250" y2="398" stroke="#1f2e4a" stroke-width="2"/>
+  <path d="M185,62 C105,102 105,302 185,342" fill="none" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <path d="M185,118 C145,148 145,256 185,286" fill="none" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <path d="M215,230 C245,260 225,328 244,384" fill="none" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <path d="M215,62 C350,82 352,288 324,383" fill="none" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <circle cx="200" cy="62" r="15" fill="#1f2e4a" stroke="#1f2e4a"/><text x="200" y="67" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#f6f2e9">s</text>
+  <circle cx="200" cy="118" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="200" y="123" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">a</text>
+  <circle cx="200" cy="174" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="200" y="179" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">b</text>
+  <circle cx="200" cy="230" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="200" y="235" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">f</text>
+  <circle cx="200" cy="286" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="200" y="291" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">d</text>
+  <circle cx="200" cy="342" r="15" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2"/><text x="200" y="347" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">c</text>
+  <circle cx="285" cy="342" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="285" y="347" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">g</text>
+  <circle cx="250" cy="398" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="250" y="403" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">h</text>
+  <circle cx="320" cy="398" r="15" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2"/><text x="320" y="403" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">e</text>
+  <line x1="560" y1="118" x2="520" y2="174" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <line x1="520" y1="174" x2="470" y2="230" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <line x1="520" y1="174" x2="660" y2="174" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <line x1="470" y1="230" x2="600" y2="230" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/>
+  <line x1="560" y1="62" x2="460" y2="118" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="560" y1="62" x2="560" y2="118" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="560" y1="62" x2="660" y2="118" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="460" y1="118" x2="420" y2="174" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="460" y1="118" x2="520" y2="174" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="660" y1="118" x2="660" y2="174" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="420" y1="174" x2="470" y2="230" stroke="#1f2e4a" stroke-width="2"/>
+  <line x1="660" y1="174" x2="600" y2="230" stroke="#1f2e4a" stroke-width="2"/>
+  <circle cx="560" cy="62" r="15" fill="#1f2e4a" stroke="#1f2e4a"/><text x="560" y="67" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#f6f2e9">s</text>
+  <circle cx="460" cy="118" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="460" y="123" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">a</text>
+  <circle cx="560" cy="118" r="15" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2"/><text x="560" y="123" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">c</text>
+  <circle cx="660" cy="118" r="15" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2"/><text x="660" y="123" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">e</text>
+  <circle cx="420" cy="174" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="420" y="179" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">b</text>
+  <circle cx="520" cy="174" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="520" y="179" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">d</text>
+  <circle cx="660" cy="174" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="660" y="179" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">g</text>
+  <circle cx="470" cy="230" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="470" y="235" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">f</text>
+  <circle cx="600" cy="230" r="15" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/><text x="600" y="235" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="14" fill="#1e1c19">h</text>
+  <line x1="20" y1="424" x2="740" y2="424" stroke="#d9d0bf"/>
+  <line x1="20" y1="442" x2="48" y2="442" stroke="#1f2e4a" stroke-width="2"/><text x="56" y="447" fill="#5d574d" font-size="13.5">tree edge</text>
+  <line x1="150" y1="442" x2="178" y2="442" stroke="#b9ad96" stroke-width="1.4" stroke-dasharray="5 4"/><text x="186" y="447" fill="#5d574d" font-size="13.5">other edge</text>
+  <circle cx="300" cy="442" r="8" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="2"/><text x="314" y="447" fill="#5d574d" font-size="13.5">neighbors of s: c and e</text>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 318" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="arr-navy" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#1f2e4a"/></marker>
+    <marker id="arr-grey" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#b9ad96"/></marker>
+  </defs>
+  <line x1="110" y1="145" x2="175" y2="145" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#arr-navy)"/>
+  <rect x="131.0" y="134.0" width="26" height="20" fill="#f6f2e9"/><text x="144.0" y="149.0" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">1</text>
+  <path d="M93,120 C115,40 291,40 313,117" fill="none" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#arr-navy)"/>
+  <rect x="190.0" y="54.2" width="26" height="20" fill="#f6f2e9"/><text x="203.0" y="69.2" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">2</text>
+  <line x1="228" y1="145" x2="293" y2="145" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#arr-grey)"/>
+  <rect x="249.0" y="134.0" width="26" height="20" fill="#f6f2e9"/><text x="262.0" y="149.0" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">4</text>
+  <path d="M211,170 C233,250 409,250 431,173" fill="none" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#arr-navy)"/>
+  <rect x="308.0" y="213.8" width="26" height="20" fill="#f6f2e9"/><text x="321.0" y="228.8" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">2</text>
+  <line x1="346" y1="145" x2="411" y2="145" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#arr-grey)"/>
+  <rect x="367.0" y="134.0" width="26" height="20" fill="#f6f2e9"/><text x="380.0" y="149.0" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">3</text>
+  <path d="M329,120 C351,40 527,40 549,117" fill="none" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#arr-navy)"/>
+  <rect x="426.0" y="54.2" width="26" height="20" fill="#f6f2e9"/><text x="439.0" y="69.2" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#8a6a3a">−1</text>
+  <line x1="464" y1="145" x2="529" y2="145" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#arr-grey)"/>
+  <rect x="485.0" y="134.0" width="26" height="20" fill="#f6f2e9"/><text x="498.0" y="149.0" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">1</text>
+  <path d="M447,170 C469,250 645,250 667,173" fill="none" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#arr-grey)"/>
+  <rect x="544.0" y="213.8" width="26" height="20" fill="#f6f2e9"/><text x="557.0" y="228.8" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">5</text>
+  <line x1="582" y1="145" x2="647" y2="145" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#arr-navy)"/>
+  <rect x="603.0" y="134.0" width="26" height="20" fill="#f6f2e9"/><text x="616.0" y="149.0" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12.5" fill="#5d574d">2</text>
+  <rect x="60" y="120" width="50" height="50" fill="#1f2e4a" stroke="#1f2e4a"/><text x="85" y="142" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#f6f2e9">s</text><text x="85" y="161" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#f6f2e9">0</text>
+  <rect x="178" y="120" width="50" height="50" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/><text x="203" y="142" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#1e1c19">a</text><text x="203" y="161" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#8a6a3a">1</text>
+  <rect x="296" y="120" width="50" height="50" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/><text x="321" y="142" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#1e1c19">b</text><text x="321" y="161" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#8a6a3a">2</text>
+  <rect x="414" y="120" width="50" height="50" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/><text x="439" y="142" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#1e1c19">c</text><text x="439" y="161" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#8a6a3a">3</text>
+  <rect x="532" y="120" width="50" height="50" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/><text x="557" y="142" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#1e1c19">d</text><text x="557" y="161" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#8a6a3a">1</text>
+  <rect x="650" y="120" width="50" height="50" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/><text x="675" y="142" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="15" fill="#1e1c19">e</text><text x="675" y="161" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="12" fill="#8a6a3a">3</text>
+  <line x1="20" y1="276" x2="740" y2="276" stroke="#d9d0bf"/>
+  <line x1="20" y1="294" x2="48" y2="294" stroke="#1f2e4a" stroke-width="2.4"/><text x="56" y="299" fill="#5d574d" font-size="13.5">shortest-path tree edge</text>
+  <line x1="235" y1="294" x2="263" y2="294" stroke="#b9ad96" stroke-width="1.4"/><text x="271" y="299" fill="#5d574d" font-size="13.5">other edge</text>
+  <rect x="370" y="283" width="22" height="22" fill="#fbf8f2" stroke="#b9ad96"/><text x="381" y="298" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace" font-size="11" fill="#8a6a3a">3</text><text x="400" y="299" fill="#5d574d" font-size="13.5">distance from s</text>
+</svg>

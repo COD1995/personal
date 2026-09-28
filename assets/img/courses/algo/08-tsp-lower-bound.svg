@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 380" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="14" fill="#1e1c19">
+  <line x1="215.0" y1="265.0" x2="450.0" y2="250.0" stroke="#1f2e4a" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 5"/>
+  <line x1="450.0" y1="250.0" x2="520.0" y2="130.0" stroke="#1f2e4a" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 5"/>
+  <line x1="520.0" y1="130.0" x2="600.0" y2="45.0" stroke="#1f2e4a" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 5"/>
+  <line x1="520.0" y1="130.0" x2="640.0" y2="225.0" stroke="#1f2e4a" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 5"/>
+  <line x1="110.0" y1="190.0" x2="215.0" y2="265.0" stroke="#8a6a3a" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="350.0" y1="175.0" x2="450.0" y2="250.0" stroke="#8a6a3a" stroke-width="2.4" stroke-linecap="round"/>
+  <line x1="110.0" y1="190.0" x2="175.0" y2="95.0" stroke="#1f2e4a" stroke-width="2.6" stroke-linecap="round"/>
+  <line x1="175.0" y1="95.0" x2="300.0" y2="70.0" stroke="#1f2e4a" stroke-width="2.6" stroke-linecap="round"/>
+  <line x1="300.0" y1="70.0" x2="350.0" y2="175.0" stroke="#1f2e4a" stroke-width="2.6" stroke-linecap="round"/>
+  <circle cx="110.0" cy="190.0" r="7" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.4"/>
+  <circle cx="175.0" cy="95.0" r="7" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.4"/>
+  <circle cx="300.0" cy="70.0" r="7" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.4"/>
+  <circle cx="350.0" cy="175.0" r="7" fill="#1f2e4a" stroke="#1f2e4a" stroke-width="1.4"/>
+  <circle cx="215.0" cy="265.0" r="7" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <circle cx="450.0" cy="250.0" r="7" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <circle cx="520.0" cy="130.0" r="7" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <circle cx="640.0" cy="225.0" r="7" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <circle cx="600.0" cy="45.0" r="7" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="96.0" y="195.0" text-anchor="end" font-size="17" fill="#1e1c19" font-style="italic">a</text>
+  <text x="364.0" y="169.0" text-anchor="start" font-size="17" fill="#1e1c19" font-style="italic">b</text>
+  <line x1="20" y1="305" x2="740" y2="305" stroke="#d9d0bf"/>
+  <line x1="24.0" y1="331.0" x2="60.0" y2="331.0" stroke="#1f2e4a" stroke-width="2.6" stroke-linecap="round"/>
+  <text x="70.0" y="335.0" text-anchor="start" font-size="13.5" fill="#5d574d">path so far (cities in S)</text>
+  <line x1="258.0" y1="331.0" x2="294.0" y2="331.0" stroke="#8a6a3a" stroke-width="2.4" stroke-linecap="round"/>
+  <text x="304.0" y="335.0" text-anchor="start" font-size="13.5" fill="#5d574d">cheapest edge from a and from b</text>
+  <line x1="520.0" y1="331.0" x2="556.0" y2="331.0" stroke="#1f2e4a" stroke-width="1.6" stroke-linecap="round" stroke-dasharray="6 5"/>
+  <text x="566.0" y="335.0" text-anchor="start" font-size="13.5" fill="#5d574d">MST of unvisited cities</text>
+</svg>
