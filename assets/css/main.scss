@@ -2002,8 +2002,7 @@ body[data-slide-mode="slides"] .lecture-nav { display: flex; }
 .lec-toc > .lec-toc-list > li > a.active,
 .lec-toc > .lec-toc-list > li.open > a { color: var(--text); }
 .lec-toc > .lec-toc-list > li > a.active { border-left-color: var(--accent); color: var(--accent); }
-.lec-toc .lec-toc-list ol { display: none; margin: 0.1rem 0 0.4rem; }
-.lec-toc .lec-toc-list li.open > ol { display: block; }
+.lec-toc .lec-toc-list ol { margin: 0.1rem 0 0.4rem; }
 .lec-toc .lec-toc-list ol a { font-size: 0.8rem; padding: 0.2rem 0 0.2rem 1.7rem; margin-left: -1px; border-left: 2px solid transparent; }
 .lec-toc .lec-toc-list ol a.active { border-left-color: var(--accent); }
 .lec-toc-top { display: inline-block; margin: 1rem 0 0 0.9rem; font-size: 0.78rem; color: var(--faint); border: none; }
@@ -2038,6 +2037,30 @@ body[data-slide-mode="slides"] .lecture-nav { display: flex; }
 .lec-toc-mobile > .lec-toc-list { max-height: 60vh; overflow-y: auto; padding: 0.25rem 0 0.75rem; border-top: 1px solid var(--rule); }
 .lec-toc-mobile .lec-toc-list a { padding: 0.3rem 0; }
 .lec-toc-mobile .lec-toc-list ol a { padding-left: 1rem; font-size: 0.84rem; }
+
+/* Arrow that shows/hides a section's subheadings (sidebar and drop-down) */
+.lec-toc-list li.has-sub { position: relative; }
+.lec-toc-list li.has-sub > a { padding-right: 1.9rem; }
+.lec-toc-list ol { display: none; }
+.lec-toc-list li.open > ol { display: block; }
+.lec-toc-toggle {
+  position: absolute; top: 0.05rem; right: 0;
+  width: 1.6rem; height: 1.6rem;
+  padding: 0; border: none; background: none; cursor: pointer;
+  color: var(--faint);
+}
+.lec-toc-mobile .lec-toc-toggle { top: -0.05rem; width: 2rem; height: 2rem; }   /* bigger tap target */
+.lec-toc-toggle::before {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 6px; height: 6px; margin: -5px 0 0 -4px;
+  border-right: 1.2px solid currentColor; border-bottom: 1.2px solid currentColor;
+  transform: rotate(-45deg);               /* points right: collapsed */
+  transition: transform .15s;
+}
+.lec-toc-toggle[aria-expanded="true"]::before { transform: rotate(45deg); margin: -6px 0 0 -3px; }   /* points down: expanded */
+.lec-toc-toggle:hover { color: var(--accent); }
+.lec-toc-toggle:focus-visible { outline: 1px solid var(--accent); outline-offset: -2px; }
+@media (prefers-reduced-motion: reduce) { .lec-toc-toggle::before { transition: none; } }
 
 /* Long inline code (paths, URLs, call signatures) may break anywhere rather than widen the page */
 .page-body :not(pre) > code { overflow-wrap: anywhere; }

@@ -82,6 +82,10 @@ layout: default
   var mobile = document.querySelector(".lec-toc-mobile");
   var current = mobile.querySelector(".lec-toc-mobile-current");
   var links = [];
+  var items = {};       // h2 index -> its <li> in the sidebar and in the drop-down
+  var userOpen = {};    // sections the reader expanded with the arrow
+  var userClosed = {};  // sections the reader collapsed with the arrow
+  var sec = -1;         // index of the h2 section being read
 
   function build(list) {
     var ol = null;
@@ -104,6 +108,22 @@ layout: default
       links.push(a);
     });
     list.querySelectorAll("ol:empty").forEach(function (e) { e.remove(); });
+    // h2 entries with subheadings get an arrow button that shows/hides them
+    list.querySelectorAll(":scope > li").forEach(function (li) {
+      var sub = li.querySelector("ol");
+      if (!sub) return;
+      var a = li.querySelector("a");
+      var i = +a.dataset.i;
+      li.classList.add("has-sub");
+      var btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "lec-toc-toggle";
+      btn.setAttribute("aria-label", "Show subtopics of " + a.textContent);
+      btn.setAttribute("aria-expanded", "false");
+      btn.dataset.i = i;
+      li.insertBefore(btn, sub);
+      (items[i] = items[i] || []).push(li);
+    });
   }
   build(aside.querySelector(".lec-toc-list"));
   build(mobile.querySelector(".lec-toc-list"));
@@ -112,6 +132,29 @@ layout: default
   document.querySelector(".lec").classList.add("has-toc");
   mobile.addEventListener("click", function (e) {
     if (e.target.tagName === "A") mobile.open = false;
+  });
+
+  // A section is expanded if the reader opened it, or if it is the one being read
+  // (unless the reader collapsed it).
+  function refresh() {
+    Object.keys(items).forEach(function (k) {
+      var i = +k;
+      var open = !!userOpen[i] || (i === sec && !userClosed[i]);
+      items[k].forEach(function (li) {
+        li.classList.toggle("open", open);
+        li.querySelector(".lec-toc-toggle").setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    });
+  }
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest && e.target.closest(".lec-toc-toggle");
+    if (!btn) return;
+    e.preventDefault();
+    var i = +btn.dataset.i;
+    var isOpen = btn.getAttribute("aria-expanded") === "true";
+    if (isOpen) { userClosed[i] = true; delete userOpen[i]; }
+    else { userOpen[i] = true; delete userClosed[i]; }
+    refresh();
   });
 
   var active = -1, ticking = false;
@@ -123,14 +166,13 @@ layout: default
     }
     if (idx === active) return;
     active = idx;
-    var sec = idx;  // the h2 that contains the active heading
-    while (sec > 0 && heads[sec].tagName !== "H2") sec--;
+    var s2 = idx;  // the h2 that contains the active heading
+    while (s2 > 0 && heads[s2].tagName !== "H2") s2--;
+    if (s2 !== sec) { delete userClosed[sec]; sec = s2; }  // a collapse lasts until you leave that section
     links.forEach(function (a) {
-      var i = +a.dataset.i;
-      a.classList.toggle("active", i === idx);
-      var li = a.parentNode;
-      if (heads[i].tagName === "H2") li.classList.toggle("open", i === sec);
+      a.classList.toggle("active", +a.dataset.i === idx);
     });
+    refresh();
     current.textContent = heads[sec].textContent;
     var act = aside.querySelector("a.active");
     if (act && aside.scrollHeight > aside.clientHeight) {
