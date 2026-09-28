@@ -42,10 +42,10 @@ layout: default
 
     <nav class="lec-pager" aria-label="Modules">
       {% if prev %}
-      <a class="lec-pager-prev" href="{{ course.url | append: prev.slug | append: '/' | relative_url }}"><span>← Module {{ prev.num }}</span>{{ prev.title }}</a>
+      <a class="lec-pager-prev" href="{{ course.url | append: prev.slug | append: '/' | relative_url }}"><span>← Module {{ prev.num }}{% if prev.weeks %} · {{ prev.weeks }}{% endif %}</span>{{ prev.title }}</a>
       {% else %}<span></span>{% endif %}
       {% if next %}
-      <a class="lec-pager-next" href="{{ course.url | append: next.slug | append: '/' | relative_url }}"><span>Module {{ next.num }} →</span>{{ next.title }}</a>
+      <a class="lec-pager-next" href="{{ course.url | append: next.slug | append: '/' | relative_url }}"><span>Module {{ next.num }}{% if next.weeks %} · {{ next.weeks }}{% endif %} →</span>{{ next.title }}</a>
       {% endif %}
     </nav>
 
