@@ -156,6 +156,7 @@ layout: default
     else { userOpen[i] = true; delete userClosed[i]; }
     refresh();
     edges();
+    rail();
   });
 
   var active = -1, ticking = false;
@@ -175,6 +176,7 @@ layout: default
     });
     refresh();
     edges();
+    rail();
     current.textContent = heads[sec].textContent;
     var act = aside.querySelector("a.active");
     if (act && aside.scrollHeight > aside.clientHeight) {
@@ -187,6 +189,15 @@ layout: default
   }, { passive: true });
 
   // fade the sidebar's top/bottom edge when part of the list is scrolled out of view
+  // move the rail's navy segment and dot to the active entry
+  var railList = aside.querySelector(".lec-toc-list");
+  function rail() {
+    var act = railList.querySelector("a.active");
+    if (!act || !aside.offsetParent) return;
+    var lr = railList.getBoundingClientRect(), r = act.getBoundingClientRect();
+    railList.style.setProperty("--rail", Math.round(r.top - lr.top + r.height / 2) + "px");
+    railList.classList.add("has-rail");
+  }
   function edges() {
     var more = aside.scrollHeight - aside.clientHeight > 2;
     aside.classList.toggle("more-above", more && aside.scrollTop > 2);
@@ -204,7 +215,7 @@ layout: default
     document.documentElement.style.scrollPaddingTop = offset + "px";
     line = offset + 10;
   }
-  window.addEventListener("resize", function () { stickBelowHeader(); update(); });
+  window.addEventListener("resize", function () { stickBelowHeader(); update(); rail(); });
   stickBelowHeader();
   update();
 })();

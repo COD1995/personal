@@ -1994,7 +1994,6 @@ body[data-slide-mode="slides"] .lecture-nav { display: flex; }
     /* quiet scrollbar: no track, a hairline thumb that shows only while hovering the list */
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
-    scrollbar-gutter: stable;
   }
   .lec.has-toc .lec-toc:hover { scrollbar-color: var(--rule-strong) transparent; }
   .lec.has-toc .lec-toc::-webkit-scrollbar { width: 6px; background: transparent; }
@@ -2008,16 +2007,34 @@ body[data-slide-mode="slides"] .lecture-nav { display: flex; }
   .lec.has-toc .lec-toc-mobile { display: none; }
   .lec.has-toc #markdown-toc { display: none; }   /* the sidebar replaces the inline contents list */
 }
-.lec-toc-title { @extend %smallcaps; font-size: 0.64rem; color: var(--brass); margin: 0 0 0.75rem; }
-.lec-toc > .lec-toc-list { border-left: 1px solid var(--rule); }
-.lec-toc > .lec-toc-list > li > a { padding: 0.28rem 0 0.28rem 0.9rem; margin-left: -1px; border-left: 2px solid transparent; }
-.lec-toc > .lec-toc-list > li > a.active,
+.lec-toc-title { @extend %smallcaps; font-size: 0.64rem; color: var(--brass); margin: 0 0 0.75rem 5px; }
+/* The rail: a hairline down the left of the list; a navy segment fills it down to the
+   section being read and ends in a small dot, so the list doubles as a progress line. */
+.lec-toc > .lec-toc-list { position: relative; margin-left: 5px; border-left: 1px solid var(--rule); --rail: 0px; }   /* margin: room for the dot inside the scroll box */
+.lec-toc > .lec-toc-list::before {
+  content: ""; position: absolute; left: -1px; top: 0; width: 1px;
+  height: var(--rail); background: var(--accent);
+  transition: height .35s ease;
+}
+.lec-toc > .lec-toc-list.has-rail::after {
+  content: ""; position: absolute; left: -5px; top: calc(var(--rail) - 4.5px);
+  width: 9px; height: 9px; border-radius: 50%;   /* 5px dot inside a 2px ivory ring (border-box) */
+  background: var(--accent); border: 2px solid var(--bg);
+  transition: top .35s ease;
+}
+.lec-toc > .lec-toc-list > li > a { padding: 0.34rem 0 0.34rem 1.05rem; font-size: 0.88rem; }
 .lec-toc > .lec-toc-list > li.open > a { color: var(--text); }
-.lec-toc > .lec-toc-list > li > a.active { border-left-color: var(--accent); color: var(--accent); }
-.lec-toc .lec-toc-list ol { margin: 0.1rem 0 0.4rem; }
-.lec-toc .lec-toc-list ol a { font-size: 0.8rem; padding: 0.2rem 0 0.2rem 1.7rem; margin-left: -1px; border-left: 2px solid transparent; }
-.lec-toc .lec-toc-list ol a.active { border-left-color: var(--accent); }
-.lec-toc-top { display: inline-block; margin: 1rem 0 0 0.9rem; font-size: 0.78rem; color: var(--faint); border: none; }
+.lec-toc .lec-toc-list a.active { color: var(--accent); font-weight: 500; }
+.lec-toc .lec-toc-list ol { margin: 0 0 0.45rem; }
+.lec-toc .lec-toc-list ol a { font-size: 0.8rem; padding: 0.22rem 0 0.22rem 1.8rem; line-height: 1.35; }
+.lec-toc .lec-toc-toggle { opacity: 0.45; transition: opacity .15s; }
+.lec-toc .lec-toc-list li:hover > .lec-toc-toggle,
+.lec-toc .lec-toc-list li.open > .lec-toc-toggle,
+.lec-toc .lec-toc-toggle:focus-visible { opacity: 1; }
+@media (prefers-reduced-motion: reduce) {
+  .lec-toc > .lec-toc-list::before, .lec-toc > .lec-toc-list.has-rail::after { transition: none; }
+}
+.lec-toc-top { display: inline-block; margin: 1.1rem 0 0 calc(1.05rem + 6px); font-size: 0.78rem; color: var(--faint); border: none; }
 .lec-toc-top:hover { color: var(--accent); }
 
 /* Narrow screens: a sticky "Contents" drop-down under the site header */
