@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" width="760" height="300" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif">
+<rect x="45" y="84.0" width="9.6" height="112.0" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="49.8" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">1 × 28 × 28</text>
+<text x="49.8" y="234" font-size="12" fill="#5d574d" text-anchor="middle" font-style="italic">input</text>
+<rect x="146.53333333333333" y="88.0" width="20.8" height="96.0" fill="#fbf8f2" stroke="#d9d0bf" stroke-width="1"/>
+<rect x="142.53333333333333" y="92.0" width="20.8" height="96.0" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="152.93333333333334" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">8 × 24 × 24</text>
+<rect x="255.26666666666665" y="112.0" width="20.8" height="48.0" fill="#fbf8f2" stroke="#d9d0bf" stroke-width="1"/>
+<rect x="251.26666666666665" y="116.0" width="20.8" height="48.0" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="261.66666666666663" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">8 × 12 × 12</text>
+<rect x="364.0" y="120.0" width="33.6" height="32.0" fill="#fbf8f2" stroke="#d9d0bf" stroke-width="1"/>
+<rect x="360.0" y="124.0" width="33.6" height="32.0" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="376.8" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">16 × 8 × 8</text>
+<rect x="485.5333333333333" y="128.0" width="33.6" height="16.0" fill="#fbf8f2" stroke="#d9d0bf" stroke-width="1"/>
+<rect x="481.5333333333333" y="132.0" width="33.6" height="16.0" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="498.3333333333333" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">16 × 4 × 4</text>
+<rect x="603.0666666666666" y="80.0" width="12" height="120" fill="#eadfcd" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="609.0666666666666" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">64</text>
+<rect x="703.0" y="118.0" width="12" height="44" fill="#eadfcd" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="709.0" y="216" font-size="13" fill="#1e1c19" text-anchor="middle">10</text>
+<text x="709.0" y="234" font-size="12" fill="#5d574d" text-anchor="middle" font-style="italic">logits</text>
+<line x1="62.6" y1="140" x2="128.53333333333333" y2="140" stroke="#1f2e4a" stroke-width="1.4"/>
+<path d="M136.53333333333333,140 l-9,-4.5 v9 z" fill="#1f2e4a"/>
+<text x="99.56666666666666" y="52" font-size="13" fill="#1f2e4a" text-anchor="middle">conv 5 × 5</text>
+<text x="99.56666666666666" y="68" font-size="12" fill="#5d574d" text-anchor="middle">8 channels, ReLU</text>
+<text x="99.56666666666666" y="260" font-size="12" fill="#8a6a3a" text-anchor="middle">208 parameters</text>
+<line x1="171.33333333333334" y1="140" x2="237.26666666666665" y2="140" stroke="#5d574d" stroke-width="1.4"/>
+<path d="M245.26666666666665,140 l-9,-4.5 v9 z" fill="#5d574d"/>
+<text x="208.3" y="52" font-size="13" fill="#5d574d" text-anchor="middle">max pool</text>
+<text x="208.3" y="68" font-size="12" fill="#5d574d" text-anchor="middle">2 × 2, stride 2</text>
+<line x1="280.06666666666666" y1="140" x2="346.0" y2="140" stroke="#1f2e4a" stroke-width="1.4"/>
+<path d="M354.0,140 l-9,-4.5 v9 z" fill="#1f2e4a"/>
+<text x="317.0333333333333" y="52" font-size="13" fill="#1f2e4a" text-anchor="middle">conv 5 × 5</text>
+<text x="317.0333333333333" y="68" font-size="12" fill="#5d574d" text-anchor="middle">16 channels, ReLU</text>
+<text x="317.0333333333333" y="260" font-size="12" fill="#8a6a3a" text-anchor="middle">3,216 parameters</text>
+<line x1="401.6" y1="140" x2="467.5333333333333" y2="140" stroke="#5d574d" stroke-width="1.4"/>
+<path d="M475.5333333333333,140 l-9,-4.5 v9 z" fill="#5d574d"/>
+<text x="438.56666666666666" y="52" font-size="13" fill="#5d574d" text-anchor="middle">max pool</text>
+<text x="438.56666666666666" y="68" font-size="12" fill="#5d574d" text-anchor="middle">2 × 2, stride 2</text>
+<line x1="523.1333333333333" y1="140" x2="589.0666666666666" y2="140" stroke="#1f2e4a" stroke-width="1.4"/>
+<path d="M597.0666666666666,140 l-9,-4.5 v9 z" fill="#1f2e4a"/>
+<text x="560.0999999999999" y="52" font-size="13" fill="#1f2e4a" text-anchor="middle">flatten, fully</text>
+<text x="560.0999999999999" y="68" font-size="12" fill="#5d574d" text-anchor="middle">connected, ReLU</text>
+<text x="560.0999999999999" y="260" font-size="12" fill="#8a6a3a" text-anchor="middle">16,448 parameters</text>
+<line x1="623.0666666666666" y1="140" x2="689.0" y2="140" stroke="#1f2e4a" stroke-width="1.4"/>
+<path d="M697.0,140 l-9,-4.5 v9 z" fill="#1f2e4a"/>
+<text x="660.0333333333333" y="52" font-size="13" fill="#1f2e4a" text-anchor="middle">fully</text>
+<text x="660.0333333333333" y="68" font-size="12" fill="#5d574d" text-anchor="middle">connected</text>
+<text x="660.0333333333333" y="260" font-size="12" fill="#8a6a3a" text-anchor="middle">650 parameters</text>
+</svg>

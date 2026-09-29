@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 300" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <circle cx="70" cy="55" r="19" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.6"/>
+  <text x="70.0" y="60.3" text-anchor="middle" font-size="16" fill="#1e1c19" font-style="italic">L</text>
+  <circle cx="200" cy="55" r="19" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.6"/>
+  <text x="200.0" y="60.3" text-anchor="middle" font-size="16" fill="#1e1c19" font-style="italic">B</text>
+  <circle cx="135" cy="150" r="19" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.6"/>
+  <text x="135.0" y="155.3" text-anchor="middle" font-size="16" fill="#1e1c19" font-style="italic">N</text>
+  <circle cx="135" cy="245" r="19" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.6"/>
+  <text x="135.0" y="250.3" text-anchor="middle" font-size="16" fill="#1e1c19" font-style="italic">A</text>
+  <polygon points="123.7,133.5 115.5,128.2 121.7,123.9" fill="#1f2e4a"/>
+  <line x1="80.7" y1="70.7" x2="119.5" y2="127.3" stroke="#1f2e4a" stroke-width="1.4"/>
+  <polygon points="146.3,133.5 148.3,123.9 154.5,128.2" fill="#1f2e4a"/>
+  <line x1="189.3" y1="70.7" x2="150.5" y2="127.3" stroke="#1f2e4a" stroke-width="1.4"/>
+  <polygon points="135.0,225.0 131.2,216.0 138.8,216.0" fill="#1f2e4a"/>
+  <line x1="135.0" y1="169.0" x2="135.0" y2="217.5" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="70.0" y="27.0" text-anchor="middle" font-size="12.5" fill="#5d574d">learning rate too high</text>
+  <text x="200.0" y="27.0" text-anchor="middle" font-size="12.5" fill="#5d574d">data bug</text>
+  <text x="163.0" y="155.0" text-anchor="start" font-size="12.5" fill="#5d574d">loss diverges</text>
+  <text x="163.0" y="250.0" text-anchor="start" font-size="12.5" fill="#5d574d">alert fires</text>
+  <line x1="430.0" y1="28" x2="430.0" y2="244" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="430.0" y="260.0" text-anchor="middle" font-size="12" fill="#5d574d">0</text>
+  <line x1="502.5" y1="28" x2="502.5" y2="244" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="502.5" y="260.0" text-anchor="middle" font-size="12" fill="#5d574d">0.25</text>
+  <line x1="575.0" y1="28" x2="575.0" y2="244" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="575.0" y="260.0" text-anchor="middle" font-size="12" fill="#5d574d">0.5</text>
+  <line x1="647.5" y1="28" x2="647.5" y2="244" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="647.5" y="260.0" text-anchor="middle" font-size="12" fill="#5d574d">0.75</text>
+  <line x1="720.0" y1="28" x2="720.0" y2="244" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="720.0" y="260.0" text-anchor="middle" font-size="12" fill="#5d574d">1</text>
+  <text x="575.0" y="282.0" text-anchor="middle" font-size="13" fill="#5d574d">p(B = 1 | evidence)</text>
+  <text x="420.0" y="45.0" text-anchor="end" font-size="13" fill="#1e1c19">no evidence</text>
+  <rect x="430" y="31" width="14.5" height="18" fill="#5d574d"/>
+  <text x="450.5" y="45.0" text-anchor="start" font-size="12.5" fill="#5d574d">0.050</text>
+  <text x="420.0" y="81.0" text-anchor="end" font-size="13" fill="#1e1c19">N = 1</text>
+  <rect x="430" y="67" width="70.5" height="18" fill="#1f2e4a"/>
+  <text x="506.5" y="81.0" text-anchor="start" font-size="12.5" fill="#5d574d">0.243</text>
+  <text x="420.0" y="117.0" text-anchor="end" font-size="13" fill="#1e1c19">N = 1, L = 1</text>
+  <rect x="430" y="103" width="22.3" height="18" fill="#1f2e4a"/>
+  <text x="458.3" y="117.0" text-anchor="start" font-size="12.5" fill="#5d574d">0.077</text>
+  <text x="420.0" y="153.0" text-anchor="end" font-size="13" fill="#1e1c19">N = 1, L = 0</text>
+  <rect x="430" y="139" width="196.6" height="18" fill="#1f2e4a"/>
+  <text x="632.6" y="153.0" text-anchor="start" font-size="12.5" fill="#5d574d">0.678</text>
+  <text x="420.0" y="189.0" text-anchor="end" font-size="13" fill="#1e1c19">A = 1</text>
+  <rect x="430" y="175" width="61.7" height="18" fill="#8a6a3a"/>
+  <text x="497.7" y="189.0" text-anchor="start" font-size="12.5" fill="#5d574d">0.213</text>
+  <text x="420.0" y="225.0" text-anchor="end" font-size="13" fill="#1e1c19">A = 1, L = 1</text>
+  <rect x="430" y="211" width="21.9" height="18" fill="#8a6a3a"/>
+  <text x="457.9" y="225.0" text-anchor="start" font-size="12.5" fill="#5d574d">0.076</text>
+</svg>

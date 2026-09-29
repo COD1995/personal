@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8a6a3a"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a4b3c"/></marker>
+  </defs>
+  <polygon points="110,305 520,305 650,185 240,185" fill="#d5d9e0" fill-opacity="0.55" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="610" y="210" font-size="17" font-style="italic" fill="#5d574d">S</text>
+  <line x1="389.9" y1="270.2" x2="460.1" y2="222.0" stroke="#b9ad96" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="320.2" y1="213.8" x2="460.1" y2="222.0" stroke="#b9ad96" stroke-width="1" stroke-dasharray="3 3"/>
+  <line x1="250.0" y1="262.0" x2="420.0" y2="272.0" stroke="#8a6a3a" stroke-width="1.8" marker-end="url(#ab)"/>
+  <line x1="250.0" y1="262.0" x2="330.0" y2="207.0" stroke="#8a6a3a" stroke-width="1.8" marker-end="url(#ab)"/>
+  <text x="426" y="290" font-size="16" fill="#8a6a3a" text-anchor="start" font-style="italic" font-weight="600">φ<tspan font-size="10.9" dy="4">1</tspan></text>
+  <text x="340" y="205" font-size="16" fill="#8a6a3a" text-anchor="start" font-style="italic" font-weight="600">φ<tspan font-size="10.9" dy="4">2</tspan></text>
+  <line x1="250.0" y1="262.0" x2="460.1" y2="62.0" stroke="#1f2e4a" stroke-width="2.0" marker-end="url(#an)"/>
+  <line x1="250.0" y1="262.0" x2="460.1" y2="222.0" stroke="#1f2e4a" stroke-width="2.0" marker-end="url(#an)"/>
+  <line x1="460.1" y1="62.0" x2="460.1" y2="219.0" stroke="#9a4b3c" stroke-width="1.6" stroke-dasharray="6 4" marker-end="url(#ar)"/>
+  <text x="468.06999999999994" y="66" font-size="16" fill="#1f2e4a" text-anchor="start" font-style="italic" font-weight="600">t</text>
+  <text x="470.06999999999994" y="239.995" font-size="16" fill="#1f2e4a" text-anchor="start" font-style="italic">y = Φw</text>
+  <text x="470.06999999999994" y="146.9975" font-size="16" fill="#9a4b3c" text-anchor="start" font-style="italic">t − y</text>
+  <polyline points="460.1,210.0 472.0,210.7 472.0,222.7" fill="none" stroke="#9a4b3c" stroke-width="1.1"/>
+  <circle cx="250" cy="262" r="3" fill="#1e1c19"/>
+  <text x="242" y="282" font-size="14" fill="#5d574d" text-anchor="end">0</text>
+</svg>

@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8a6a3a"/></marker>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b9ad96"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#5d574d"/></marker>
+  </defs>
+  <line x1="137.0" y1="114.1" x2="206.1" y2="135.3" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="137.0" y1="216.4" x2="206.2" y2="184.5" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="137.0" y1="82.3" x2="206.0" y2="68.1" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="137.0" y1="254.5" x2="206.0" y2="265.2" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="332.0" y1="139.1" x2="401.1" y2="121.4" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="332.0" y1="70.9" x2="401.1" y2="88.6" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="527.0" y1="130.4" x2="596.1" y2="158.8" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <line x1="332.0" y1="260.7" x2="596.1" y2="199.8" stroke="#b9ad96" stroke-width="1.3" marker-end="url(#am)"/>
+  <rect x="16.0" y="62.0" width="118.0" height="66.0" rx="4" fill="#d5d9e0" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="25.0" y="83" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">1</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = x₁</tspan></text>
+  <text x="25.0" y="104.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">1.5000</text>
+  <text x="25.0" y="121.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">+0.3462</text>
+  <rect x="16.0" y="212.0" width="118.0" height="66.0" rx="4" fill="#d5d9e0" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="25.0" y="233" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">2</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = x₂</tspan></text>
+  <text x="25.0" y="254.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">0.5000</text>
+  <text x="25.0" y="271.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">−0.1501</text>
+  <rect x="211.0" y="122.0" width="118.0" height="66.0" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="220.0" y="143" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">3</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = v₁ v₂</tspan></text>
+  <text x="220.0" y="164.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">0.7500</text>
+  <text x="220.0" y="181.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">+0.6065</text>
+  <rect x="211.0" y="22.0" width="118.0" height="66.0" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="220.0" y="43" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">4</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = sin v₁</tspan></text>
+  <text x="220.0" y="64.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">0.9975</text>
+  <text x="220.0" y="81.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">+0.6065</text>
+  <rect x="211.0" y="242.0" width="118.0" height="66.0" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="220.0" y="263" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">6</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = exp(−v₂)</tspan></text>
+  <text x="220.0" y="284.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">0.6065</text>
+  <text x="220.0" y="301.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">+1.7475</text>
+  <rect x="406.0" y="72.0" width="118.0" height="66.0" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="415.0" y="93" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">5</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = v₃ + v₄</tspan></text>
+  <text x="415.0" y="114.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">1.7475</text>
+  <text x="415.0" y="131.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">+0.6065</text>
+  <rect x="601.0" y="152.0" width="118.0" height="66.0" rx="4" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="610.0" y="173" font-size="15" font-style="italic">v<tspan font-size="10.5" dy="4" font-style="normal">7</tspan><tspan dy="-4" font-style="normal" fill="#5d574d" font-size="13"> = v₅ v₆</tspan></text>
+  <text x="610.0" y="194.0" text-anchor="start" font-size="13.5" fill="#1f2e4a" font-family="'JetBrains Mono',Menlo,monospace">1.0599</text>
+  <text x="610.0" y="211.0" text-anchor="start" font-size="13.5" fill="#8a6a3a" font-family="'JetBrains Mono',Menlo,monospace">+1.0000</text>
+  <text x="470.0" y="300.0" text-anchor="start" font-size="12.5" fill="#1f2e4a">value</text>
+  <rect x="455" y="291" width="10" height="10" fill="#1f2e4a"/>
+  <text x="470.0" y="320.0" text-anchor="start" font-size="12.5" fill="#8a6a3a">adjoint ∂f/∂vᵢ</text>
+  <rect x="455" y="311" width="10" height="10" fill="#8a6a3a"/>
+</svg>

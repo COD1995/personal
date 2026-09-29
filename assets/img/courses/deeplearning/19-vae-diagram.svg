@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 400" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a4b3c"/></marker>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b9ad96"/></marker>
+    <marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#5d574d"/></marker>
+  </defs>
+  <text x="12.0" y="22.0" text-anchor="start" font-size="13.5" fill="#5d574d" font-style="italic">sampling z directly</text>
+  <circle cx="34.0" cy="78.0" r="18" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="34.0" y="83.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">x</text>
+  <rect x="72.0" y="54.0" width="100.0" height="48.0" rx="4" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="122.0" y="75.0" text-anchor="middle" font-size="14" fill="#1e1c19">encoder</text>
+  <text x="122.0" y="92.0" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">φ</text>
+  <rect x="219.0" y="42.0" width="34.0" height="28.0" rx="3" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="236.0" y="61.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">μ</text>
+  <rect x="219.0" y="86.0" width="34.0" height="28.0" rx="3" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="236.0" y="105.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">σ</text>
+  <circle cx="360.0" cy="78.0" r="20" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="360.0" y="83.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">z</text>
+  <text x="360.0" y="48.0" text-anchor="middle" font-size="13" fill="#5d574d">z ∼ q(z | x, φ)</text>
+  <rect x="424.0" y="54.0" width="100.0" height="48.0" rx="4" fill="#eadfcd" stroke="#8a6a3a" stroke-width="1.2"/>
+  <text x="474.0" y="75.0" text-anchor="middle" font-size="14" fill="#1e1c19">decoder</text>
+  <text x="474.0" y="92.0" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">w</text>
+  <rect x="588.0" y="58.0" width="156.0" height="40.0" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="666.0" y="83.0" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">ln p(x | z, w)</text>
+  <line x1="52.0" y1="78.0" x2="71.0" y2="78.0" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="172.0" y1="64.8" x2="218.0" y2="56.2" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="253.0" y1="56.0" x2="339.4" y2="73.8" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="172.0" y1="91.2" x2="218.0" y2="99.8" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="253.0" y1="100.0" x2="339.4" y2="82.2" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="380.0" y1="78.0" x2="423.0" y2="78.0" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="524.0" y1="78.0" x2="587.0" y2="78.0" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="588.0" y1="90.0" x2="524.0" y2="90.0" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="424.0" y1="90.0" x2="377.0" y2="90.0" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="381.0" y1="82.0" x2="381.0" y2="100.0" stroke="#9a4b3c" stroke-width="3"/>
+  <text x="370.0" y="120.0" text-anchor="middle" font-size="13" fill="#9a4b3c">gradient stops at the sample</text>
+  <line x1="12" y1="160" x2="748" y2="160" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="12.0" y="184.0" text-anchor="start" font-size="13.5" fill="#5d574d" font-style="italic">reparameterized</text>
+  <circle cx="34.0" cy="282.0" r="18" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="34.0" y="287.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">x</text>
+  <rect x="72.0" y="258.0" width="100.0" height="48.0" rx="4" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="122.0" y="279.0" text-anchor="middle" font-size="14" fill="#1e1c19">encoder</text>
+  <text x="122.0" y="296.0" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">φ</text>
+  <rect x="219.0" y="246.0" width="34.0" height="28.0" rx="3" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="236.0" y="265.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">μ</text>
+  <rect x="219.0" y="290.0" width="34.0" height="28.0" rx="3" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.2"/>
+  <text x="236.0" y="309.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">σ</text>
+  <circle cx="360.0" cy="282.0" r="20" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="360.0" y="287.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">z</text>
+  <circle cx="360.0" cy="368.0" r="18" fill="#fbf8f2" stroke="#5d574d" stroke-width="1.5" stroke-dasharray="3 2"/>
+  <text x="360.0" y="373.0" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">ε</text>
+  <text x="390.0" y="373.0" text-anchor="start" font-size="13" fill="#5d574d">∼ N(0, I)</text>
+  <line x1="360.0" y1="350.0" x2="360.0" y2="303.0" stroke="#5d574d" stroke-width="1.2" marker-end="url(#at)"/>
+  <rect x="424.0" y="258.0" width="100.0" height="48.0" rx="4" fill="#eadfcd" stroke="#8a6a3a" stroke-width="1.2"/>
+  <text x="474.0" y="279.0" text-anchor="middle" font-size="14" fill="#1e1c19">decoder</text>
+  <text x="474.0" y="296.0" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">w</text>
+  <rect x="588.0" y="262.0" width="156.0" height="40.0" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+  <text x="666.0" y="287.0" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">ln p(x | z, w)</text>
+  <line x1="52.0" y1="282.0" x2="71.0" y2="282.0" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="172.0" y1="268.8" x2="218.0" y2="260.2" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="253.0" y1="260.0" x2="339.4" y2="277.8" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="172.0" y1="295.2" x2="218.0" y2="303.8" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="253.0" y1="304.0" x2="339.4" y2="286.2" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="380.0" y1="282.0" x2="423.0" y2="282.0" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="524.0" y1="282.0" x2="587.0" y2="282.0" stroke="#1f2e4a" stroke-width="1.2" marker-end="url(#an)"/>
+  <line x1="588.0" y1="294.0" x2="524.0" y2="294.0" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="424.0" y1="294.0" x2="377.0" y2="294.0" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="342.2" y1="294.8" x2="256.8" y2="312.4" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="342.2" y1="269.2" x2="256.8" y2="251.6" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="215.6" y1="252.5" x2="172.5" y2="260.6" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <line x1="215.6" y1="311.5" x2="172.5" y2="303.4" stroke="#9a4b3c" stroke-width="1.4" stroke-dasharray="5 3" marker-end="url(#ar)"/>
+  <text x="360.0" y="252.0" text-anchor="middle" font-size="13" fill="#5d574d">z = μ + σ ⊙ ε</text>
+  <rect x="178.0" y="190.0" width="116.0" height="30.0" rx="4" fill="#fbf8f2" stroke="#5b7055" stroke-width="1.2"/>
+  <text x="236.0" y="210.0" text-anchor="middle" font-size="13.5" fill="#5b7055">KL(q ‖ p(z))</text>
+  <line x1="236.0" y1="246.0" x2="236.0" y2="220.0" stroke="#5b7055" stroke-width="1.2"/>
+</svg>

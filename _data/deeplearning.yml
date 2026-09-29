@@ -1,0 +1,159 @@
+# CSE 676 Deep Learning — lecture modules, in teaching order.
+# Each module is a page at /teaching/deeplearning/<slug>/ (source: _teaching/deeplearning/<slug>.md, layout: lecture, notes: deeplearning).
+# The lecture layout uses this list for the eyebrow, the companion-reading line, and the previous/next links,
+# and the course page (_teaching/deeplearning.liquid) links each module from its outline.
+# chapter: the matching chapter of C. M. Bishop and H. Bishop, Deep Learning: Foundations and Concepts (Springer, 2024).
+# Module numbers equal chapter numbers (01–20). Weeks follow the Fall 2024 schedule (week 7 = midterm, week 15 = review and final).
+course:
+  code: CSE 676
+  title: Deep Learning
+  short: Deep Learning
+  url: /teaching/deeplearning/
+  book: "Bishop &amp; Bishop, <em>Deep Learning: Foundations and Concepts</em>"
+  credit: >-
+    These notes follow the chapters of C. M. Bishop and H. Bishop, <em>Deep Learning: Foundations and Concepts</em>
+    (Springer, 2024), the course text, which the authors make
+    <a href="https://www.bishopbook.com/" rel="noopener">free to read online</a>.
+    The explanations, code, figures, and exercises here are written for this course; the book remains the reference,
+    with the full derivations and many more exercises.
+modules:
+  - num: "01"
+    slug: 01-deep-learning-revolution
+    title: The Deep Learning Revolution
+    weeks: Week 1
+    chapter: 1
+    chapter_title: The Deep Learning Revolution
+    summary: What deep learning has changed, a first model fitted end to end (polynomial regression, overfitting, regularization, model selection), and a short history from the perceptron to deep networks.
+  - num: "02"
+    slug: 02-probabilities
+    title: Probabilities
+    weeks: Week 1
+    chapter: 2
+    chapter_title: Probabilities
+    summary: The sum and product rules, Bayes' theorem, densities and expectations, the Gaussian and maximum likelihood, change of variables, information theory, and the Bayesian view of parameters.
+  - num: "03"
+    slug: 03-standard-distributions
+    title: Standard Distributions
+    weeks: Week 2
+    chapter: 3
+    chapter_title: Standard Distributions
+    summary: Bernoulli, binomial, and multinomial; the multivariate Gaussian with its conditionals, marginals, and mixtures; periodic variables; the exponential family; histograms, kernels, and nearest neighbors.
+  - num: "04"
+    slug: 04-single-layer-regression
+    title: "Single-layer Networks: Regression"
+    weeks: Week 2
+    chapter: 4
+    chapter_title: "Single-layer Networks: Regression"
+    summary: Linear regression as a one-layer network — basis functions, maximum likelihood and least squares, its geometry, sequential learning, regularization, decision theory for regression, and the bias–variance trade-off.
+  - num: "05"
+    slug: 05-single-layer-classification
+    title: "Single-layer Networks: Classification"
+    weeks: Week 3
+    chapter: 5
+    chapter_title: "Single-layer Networks: Classification"
+    summary: Discriminant functions, decision theory and ROC curves, generative classifiers, logistic and softmax regression, probit regression, and canonical link functions.
+  - num: "06"
+    slug: 06-deep-neural-networks
+    title: Deep Neural Networks
+    weeks: Week 3
+    chapter: 6
+    chapter_title: Deep Neural Networks
+    summary: Why fixed basis functions fail in high dimensions, multilayer networks and universal approximation, activation functions, representation and transfer learning, error functions, and mixture density networks.
+  - num: "07"
+    slug: 07-gradient-descent
+    title: Gradient Descent
+    weeks: Week 4
+    chapter: 7
+    chapter_title: Gradient Descent
+    summary: Error surfaces, batch and stochastic gradient descent, mini-batches and initialization, momentum, learning-rate schedules, RMSProp and Adam, and data, batch, and layer normalization.
+  - num: "08"
+    slug: 08-backpropagation
+    title: Backpropagation
+    weeks: Week 4
+    chapter: 8
+    chapter_title: Backpropagation
+    summary: Backpropagation derived and built from scratch, gradient checking, the Jacobian and Hessian, and forward- and reverse-mode automatic differentiation.
+  - num: "09"
+    slug: 09-regularization
+    title: Regularization
+    weeks: Week 5
+    chapter: 9
+    chapter_title: Regularization
+    summary: Inductive bias, invariance and equivariance, weight decay, early stopping and double descent, parameter sharing, residual connections, model averaging, and dropout.
+  - num: "10"
+    slug: 10-convolutional-networks
+    title: Convolutional Networks
+    weeks: Week 6
+    chapter: 10
+    chapter_title: Convolutional Networks
+    summary: Convolutional filters, padding, stride, and pooling; example architectures; visualizing trained networks and adversarial examples; object detection; segmentation with U-nets; and style transfer.
+  - num: "11"
+    slug: 11-structured-distributions
+    title: Structured Distributions
+    weeks: Week 8
+    chapter: 11
+    chapter_title: Structured Distributions
+    summary: Directed graphical models, factorization, conditional independence and d-separation, explaining away, naive Bayes, Markov blankets, and sequence models with hidden variables.
+  - num: "12"
+    slug: 12-transformers
+    title: Transformers
+    weeks: Week 9
+    chapter: 12
+    chapter_title: Transformers
+    summary: Attention and self-attention, multi-head attention and transformer layers, positional encoding, word embeddings and tokenization, recurrent networks, decoder and encoder language models, and multimodal transformers.
+  - num: "13"
+    slug: 13-graph-neural-networks
+    title: Graph Neural Networks
+    weeks: Week 10
+    chapter: 13
+    chapter_title: Graph Neural Networks
+    summary: Graphs and permutation equivariance, neural message passing and graph convolutional networks, node, edge, and graph tasks, graph attention, over-smoothing, and geometric deep learning.
+  - num: "14"
+    slug: 14-sampling
+    title: Sampling
+    weeks: Week 11
+    chapter: 14
+    chapter_title: Sampling
+    summary: Monte Carlo expectations, rejection and importance sampling, Markov chain Monte Carlo (Metropolis–Hastings, Gibbs, ancestral sampling), energy-based models, and Langevin dynamics.
+  - num: "15"
+    slug: 15-discrete-latent-variables
+    title: Discrete Latent Variables
+    weeks: Week 11
+    chapter: 15
+    chapter_title: Discrete Latent Variables
+    summary: K-means, Gaussian mixtures, the EM algorithm and its relation to K-means, Bernoulli mixtures, and the evidence lower bound that justifies EM.
+  - num: "16"
+    slug: 16-continuous-latent-variables
+    title: Continuous Latent Variables
+    weeks: Week 12
+    chapter: 16
+    chapter_title: Continuous Latent Variables
+    summary: Principal component analysis, probabilistic PCA and factor analysis, ICA and Kalman filters, EM for linear-Gaussian models, and nonlinear latent-variable models.
+  - num: "17"
+    slug: 17-generative-adversarial-networks
+    title: Generative Adversarial Networks
+    weeks: Week 12
+    chapter: 17
+    chapter_title: Generative Adversarial Networks
+    summary: The adversarial game and its loss, why GAN training is hard and what helps in practice, image GANs, and CycleGAN.
+  - num: "18"
+    slug: 18-normalizing-flows
+    title: Normalizing Flows
+    weeks: Week 13
+    chapter: 18
+    chapter_title: Normalizing Flows
+    summary: Exact likelihoods through invertible maps — coupling flows, autoregressive flows, and continuous flows built on neural ordinary differential equations.
+  - num: "19"
+    slug: 19-autoencoders
+    title: Autoencoders
+    weeks: Week 13
+    chapter: 19
+    chapter_title: Autoencoders
+    summary: Linear, deep, sparse, denoising, and masked autoencoders; variational autoencoders with amortized inference and the reparameterization trick.
+  - num: "20"
+    slug: 20-diffusion-models
+    title: Diffusion Models
+    weeks: Week 14
+    chapter: 20
+    chapter_title: Diffusion Models
+    summary: The noising encoder, the learned reverse decoder and its evidence lower bound, predicting the noise, score matching and stochastic differential equations, and classifier and classifier-free guidance.

@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 464" width="760" height="464" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse" markerUnits="userSpaceOnUse"><path d="M0,0 L10,5 L0,10 z" fill="#5d574d"/></marker></defs>
+<text x="125" y="18" font-size="13" fill="#5d574d" text-anchor="middle" font-weight="normal" font-style="italic">one attention head</text>
+<text x="385" y="18" font-size="13" fill="#5d574d" text-anchor="middle" font-weight="normal" font-style="italic">multi-head attention</text>
+<text x="635" y="18" font-size="13" fill="#5d574d" text-anchor="middle" font-weight="normal" font-style="italic">transformer layer (pre-norm)</text>
+<g transform="translate(0,14)">
+<rect x="90.0" y="407.0" width="70" height="26" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="125" y="425" font-size="14" fill="#1e1c19" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">X</tspan></text>
+<path d="M125 407 L125 390 L50 390 L50 364" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="19.0" y="336.0" width="62" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="50" y="355" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">× <tspan font-weight="bold">W</tspan><tspan dy="-6" font-size="10">(q)</tspan><tspan dy="6"></tspan></text>
+<text x="56" y="328" font-size="13" fill="#1f2e4a" text-anchor="start" font-weight="normal"><tspan font-weight="bold">Q</tspan></text>
+<path d="M125 407 L125 390 L125 390 L125 364" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="94.0" y="336.0" width="62" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="125" y="355" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">× <tspan font-weight="bold">W</tspan><tspan dy="-6" font-size="10">(k)</tspan><tspan dy="6"></tspan></text>
+<text x="131" y="328" font-size="13" fill="#1f2e4a" text-anchor="start" font-weight="normal"><tspan font-weight="bold">K</tspan></text>
+<path d="M125 407 L125 390 L205 390 L205 364" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="174.0" y="336.0" width="62" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="205" y="355" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">× <tspan font-weight="bold">W</tspan><tspan dy="-6" font-size="10">(v)</tspan><tspan dy="6"></tspan></text>
+<text x="211" y="328" font-size="13" fill="#1f2e4a" text-anchor="start" font-weight="normal"><tspan font-weight="bold">V</tspan></text>
+<path d="M50 336 L50 299" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<path d="M125 336 L125 311 L94 311 L94 299" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="22.0" y="271.0" width="96" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="70" y="290" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">Q</tspan><tspan font-weight="bold">K</tspan><tspan dy="-6" font-size="10">T</tspan><tspan dy="6"></tspan></text>
+<line x1="70" y1="271" x2="70" y2="249" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="22.0" y="221.0" width="96" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="70" y="240" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">÷ √<tspan font-style="italic">D</tspan><tspan dy="4" font-size="10" font-style="italic">k</tspan><tspan dy="-4"></tspan></text>
+<line x1="70" y1="221" x2="70" y2="199" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="22.0" y="171.0" width="96" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3" stroke-dasharray="4 3"/>
+<text x="70" y="190" font-size="13" fill="#5d574d" text-anchor="middle" font-weight="normal">mask</text>
+<line x1="70" y1="171" x2="70" y2="149" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="22.0" y="121.0" width="96" height="28" rx="4" fill="#d5d9e0" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="70" y="140" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">softmax</text>
+<text x="126" y="123" font-size="11" fill="#5d574d" text-anchor="start" font-weight="normal" font-style="italic">weights</text>
+<path d="M70 121 L70 106 L120 106 L120 94" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<path d="M205 336 L205 106 L150 106 L150 94" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="90.0" y="66.0" width="90" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="135" y="85" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">matmul</text>
+<line x1="135" y1="66" x2="135" y2="50" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<text x="135" y="40" font-size="15" fill="#1f2e4a" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">Y</tspan></text>
+<rect x="350.0" y="407.0" width="70" height="26" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="385" y="425" font-size="14" fill="#1e1c19" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">X</tspan></text>
+<path d="M385 407 L385 386 L310 386 L310 300" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="288" y="240" width="44" height="58" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="310" y="266" font-size="12" fill="#1e1c19" text-anchor="middle" font-weight="normal">head</text>
+<text x="310" y="282" font-size="12" fill="#1e1c19" text-anchor="middle" font-weight="normal">1</text>
+<path d="M310 240 L310 222 L385 222 L385 205" fill="none" stroke="#5d574d" stroke-width="1.3"/>
+<path d="M385 407 L385 386 L360 386 L360 300" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="338" y="240" width="44" height="58" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="360" y="266" font-size="12" fill="#1e1c19" text-anchor="middle" font-weight="normal">head</text>
+<text x="360" y="282" font-size="12" fill="#1e1c19" text-anchor="middle" font-weight="normal">2</text>
+<path d="M360 240 L360 222 L385 222 L385 205" fill="none" stroke="#5d574d" stroke-width="1.3"/>
+<text x="410" y="285" font-size="16" fill="#5d574d" text-anchor="middle" font-weight="normal">…</text>
+<path d="M385 407 L385 386 L460 386 L460 300" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="438" y="240" width="44" height="58" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="460" y="266" font-size="12" fill="#1e1c19" text-anchor="middle" font-weight="normal">head</text>
+<text x="460" y="282" font-size="12" fill="#1e1c19" text-anchor="middle" font-weight="normal" font-style="italic">H</text>
+<path d="M460 240 L460 222 L385 222 L385 205" fill="none" stroke="#5d574d" stroke-width="1.3"/>
+<line x1="385" y1="205" x2="385" y2="199" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="330.0" y="171.0" width="110" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="385" y="190" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">concat</text>
+<line x1="385" y1="171" x2="385" y2="149" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="330.0" y="121.0" width="110" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="385" y="140" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">× <tspan font-weight="bold">W</tspan><tspan dy="-6" font-size="10">(o)</tspan><tspan dy="6"></tspan></text>
+<line x1="385" y1="121" x2="385" y2="50" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<text x="385" y="40" font-size="15" fill="#1f2e4a" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">Y</tspan></text>
+<rect x="600.0" y="407.0" width="70" height="26" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="635" y="425" font-size="14" fill="#1e1c19" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">X</tspan></text>
+<path d="M635 407 L635 390 L560 390 L560 262 L625 262" fill="none" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#ah)"/>
+<path d="M635 390 L635 376" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="580.0" y="348.0" width="110" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="635" y="367" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">layer norm</text>
+<line x1="635" y1="348" x2="635" y2="322" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="570.0" y="289.0" width="130" height="32" rx="4" fill="#d5d9e0" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="635" y="310" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">multi-head attention</text>
+<line x1="635" y1="289" x2="635" y2="273" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<circle cx="635" cy="262" r="10" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<line x1="630" y1="262" x2="640" y2="262" stroke="#1e1c19" stroke-width="1.4"/>
+<line x1="635" y1="257" x2="635" y2="267" stroke="#1e1c19" stroke-width="1.4"/>
+<line x1="635" y1="252" x2="635" y2="234" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<text x="657" y="232" font-size="14" fill="#1f2e4a" text-anchor="start" font-weight="normal"><tspan font-weight="bold">Z</tspan></text>
+<path d="M635 228 L635 216 L560 216 L560 86 L625 86" fill="none" stroke="#1f2e4a" stroke-width="2.4" marker-end="url(#ah)"/>
+<path d="M635 216 L635 202" fill="none" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="580.0" y="174.0" width="110" height="28" rx="4" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="635" y="193" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">layer norm</text>
+<line x1="635" y1="174" x2="635" y2="150" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<rect x="580.0" y="118.0" width="110" height="32" rx="4" fill="#d5d9e0" stroke="#b9ad96" stroke-width="1.3"/>
+<text x="635" y="139" font-size="13" fill="#1e1c19" text-anchor="middle" font-weight="normal">MLP</text>
+<text x="697" y="116" font-size="11" fill="#5d574d" text-anchor="start" font-weight="normal" font-style="italic">per token</text>
+<line x1="635" y1="118" x2="635" y2="97" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<circle cx="635" cy="86" r="10" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.3"/>
+<line x1="630" y1="86" x2="640" y2="86" stroke="#1e1c19" stroke-width="1.4"/>
+<line x1="635" y1="81" x2="635" y2="91" stroke="#1e1c19" stroke-width="1.4"/>
+<line x1="635" y1="76" x2="635" y2="50" stroke="#5d574d" stroke-width="1.3" marker-end="url(#ah)"/>
+<text x="635" y="42" font-size="15" fill="#1f2e4a" text-anchor="middle" font-weight="normal"><tspan font-weight="bold">X</tspan></text>
+<text x="635" y="28" font-size="15" fill="#1f2e4a" text-anchor="middle" font-weight="normal">~</text>
+<text x="552" y="340" font-size="11" fill="#1f2e4a" text-anchor="end" font-weight="normal" font-style="italic">residual</text>
+</g>
+</svg>

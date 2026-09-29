@@ -4,19 +4,23 @@ title: Deep Learning
 code: CSE 676
 level: Graduate
 taught: Fall 2023, Fall 2024
-prereq: Introduction to Machine Learning or equivalent; probabilistic graphical models helpful but not required
-text: <em>Dive into Deep Learning</em>
+prereq: Introduction to Machine Learning or equivalent; linear algebra, probability, multivariable calculus, and Python
+text: 'Bishop &amp; Bishop, <em>Deep Learning: Foundations and Concepts</em> (<a href="https://www.bishopbook.com/" rel="noopener">free to read online</a>), with course notes (below) for every chapter'
 grading: Absolute scale, no curve
-description: CSE 676 Deep Learning at the University at Buffalo — neural networks from the ground up.
+description: 'CSE 676 Deep Learning at the University at Buffalo — neural networks from the ground up, with full lecture notes and code for every chapter of Bishop &amp; Bishop.'
 lede: >-
   Deep learning algorithms learn multi-level representations of data, with each level explaining the data at a higher
-  level of abstraction. They have been remarkably effective at uncovering structure in data and have driven progress in
-  image classification, speech recognition, and natural language processing.
+  level of abstraction. This course builds them from the ground up: the probability and linear models underneath, the
+  networks and how to train them, the architectures that made the field, and the generative models at its frontier.
 about: >-
-  <p>Taught through lectures and projects, the course covers the underlying theory, the range of problems deep learning
-  has been applied to, and learning from very large datasets. We study fully connected, convolutional, recurrent, and
-  graph neural networks, with a focus on how to train and optimize them and use them for effective inference. Students
-  work throughout in PyTorch.</p>
+  <p>The course follows Bishop &amp; Bishop's <em>Deep Learning: Foundations and Concepts</em>, one chapter per
+  module. We start from probability, single-layer networks, and the mechanics of training — gradient descent,
+  backpropagation, and regularization — then study convolutional networks, transformers and language models, and
+  graph neural networks, and finish with sampling, latent-variable models, and the four families of deep generative
+  models: GANs, normalizing flows, variational autoencoders, and diffusion models.</p>
+  <p>Every module has a full set of notes below: the ideas and derivations in plain language, code with its real
+  output, figures, and exercises. The early modules build layers, optimizers, and backpropagation from scratch in
+  NumPy and check them against PyTorch; from there on we work in PyTorch, writing the key pieces ourselves.</p>
 semesters:
   - value: fall-2024
     label: Fall 2024
@@ -27,18 +31,104 @@ semesters:
       - [Midterm exam, 30%]
       - [Final exam, 30%]
     outline:
-      - when: Weeks 1–2
-        topic: Mathematical background, machine learning review, and linear regression
-      - when: Weeks 3–4
-        topic: Softmax regression and multilayer perceptrons
-      - when: Weeks 5–6
-        topic: Optimization and convolutional networks; a reading of the EfficientNet paper
+      - group: Foundations
+      - when: Week 1
+        topic: >-
+          <a href="/teaching/deeplearning/01-deep-learning-revolution/">The deep learning revolution</a>;
+          <a href="/teaching/deeplearning/02-probabilities/">probabilities</a>
+        guide: A first model fitted end to end, overfitting and model selection; Bayes' theorem, the Gaussian, change of variables, and information theory.
+      - when: Week 2
+        topic: >-
+          <a href="/teaching/deeplearning/03-standard-distributions/">Standard distributions</a>;
+          <a href="/teaching/deeplearning/04-single-layer-regression/">single-layer networks: regression</a>
+        guide: The distributions networks output; linear regression as a one-layer network, its geometry, and the bias–variance trade-off.
+      - when: Week 3
+        topic: >-
+          <a href="/teaching/deeplearning/05-single-layer-classification/">Single-layer networks: classification</a>;
+          <a href="/teaching/deeplearning/06-deep-neural-networks/">deep neural networks</a>
+        guide: Logistic and softmax regression, ROC curves; multilayer networks, activation functions, error functions, and mixture density networks.
+      - group: Training deep networks
+      - when: Week 4
+        topic: >-
+          <a href="/teaching/deeplearning/07-gradient-descent/">Gradient descent</a>;
+          <a href="/teaching/deeplearning/08-backpropagation/">backpropagation</a>
+        guide: SGD, momentum, Adam, initialization, and normalization, all built from scratch; backpropagation and automatic differentiation.
+      - when: Week 5
+        topic: >-
+          <a href="/teaching/deeplearning/09-regularization/">Regularization</a>
+        guide: Inductive bias and equivariance, weight decay, early stopping and double descent, residual connections, ensembles, and dropout.
+      - group: Architectures
+      - when: Week 6
+        topic: >-
+          <a href="/teaching/deeplearning/10-convolutional-networks/">Convolutional networks</a>
+        guide: Convolution, pooling, and architectures; saliency and adversarial examples; detection, U-net segmentation, and style transfer.
       - when: Week 7
         topic: Midterm exam
-      - when: Weeks 8–9
-        topic: Recurrent neural networks; a reading of the Transformer paper
-      - when: Weeks 10–13
-        topic: Graph neural networks through paper reading
-      - when: Weeks 14–15
+        guide: Covers modules 01–10.
+      - when: Week 8
+        topic: >-
+          <a href="/teaching/deeplearning/11-structured-distributions/">Structured distributions</a>
+        guide: Directed graphical models, conditional independence and d-separation, and sequence models.
+      - when: Week 9
+        topic: >-
+          <a href="/teaching/deeplearning/12-transformers/">Transformers</a>
+        guide: Attention, transformer layers, tokenization, RNNs, a small language model trained from scratch, and vision transformers.
+      - when: Week 10
+        topic: >-
+          <a href="/teaching/deeplearning/13-graph-neural-networks/">Graph neural networks</a>
+        guide: Permutation equivariance, message passing and GCNs, graph attention, over-smoothing, and equivariant networks.
+      - group: Sampling, latent variables, and generative models
+      - when: Week 11
+        topic: >-
+          <a href="/teaching/deeplearning/14-sampling/">Sampling</a>;
+          <a href="/teaching/deeplearning/15-discrete-latent-variables/">discrete latent variables</a>
+        guide: Monte Carlo, MCMC, and Langevin dynamics; K-means, Gaussian mixtures, EM, and the evidence lower bound.
+      - when: Week 12
+        topic: >-
+          <a href="/teaching/deeplearning/16-continuous-latent-variables/">Continuous latent variables</a>;
+          <a href="/teaching/deeplearning/17-generative-adversarial-networks/">generative adversarial networks</a>
+        guide: PCA, probabilistic PCA, and factor analysis; the adversarial game, its training problems, and CycleGAN.
+      - when: Week 13
+        topic: >-
+          <a href="/teaching/deeplearning/18-normalizing-flows/">Normalizing flows</a>;
+          <a href="/teaching/deeplearning/19-autoencoders/">autoencoders</a>
+        guide: Coupling, autoregressive, and continuous flows; denoising and masked autoencoders, and variational autoencoders.
+      - when: Week 14
+        topic: >-
+          <a href="/teaching/deeplearning/20-diffusion-models/">Diffusion models</a>
+        guide: The noising process, learning to denoise, score matching and SDEs, and classifier-free guidance.
+      - when: Week 15
         topic: Review and final exam
+        guide: The final exam is cumulative, with emphasis on modules 11–20.
 ---
+<h2>Course notes</h2>
+<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Bishop &amp; Bishop's
+  <em>Deep Learning: Foundations and Concepts</em>, the course text, and explains the same ideas in its own words: the
+  model and why it works, the derivations that matter, code with its real output, checks of that code against
+  closed forms, finite differences, or PyTorch's own layers, figures, and exercises. Where a chapter revisits material
+  developed at length in the <a href="{{ '/teaching/introml/' | relative_url }}">Introduction to Machine Learning</a>
+  notes, the module is shorter and links there. The book remains the reference, with the full derivations and many
+  more exercises.</p>
+<ol class="notes-list">
+{% for m in site.data.deeplearning.modules %}  <li><a href="{{ m.slug | prepend: site.data.deeplearning.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
+{% endfor %}</ol>
+<p><a class="link-quiet" href="{{ '/teaching/deeplearning/01-deep-learning-revolution/' | relative_url }}">Start with module 01, the deep learning revolution →</a></p>
+
+<h2>How the course runs</h2>
+<p>Each week works through one or two chapters. Read the module's notes, and ideally the matching chapter, before
+  class. The exercises at the end of each module are the best preparation for the assignments and the exams: try each
+  derivation yourself before checking it against the notes, and change the code to see what breaks.</p>
+<ul>
+  <li><strong>Attendance (10%)</strong> — random attendance checks.</li>
+  <li><strong>Programming assignments (30%)</strong> — two assignments in PyTorch.</li>
+  <li><strong>Midterm exam (30%)</strong> — in week 7, covering modules 01–10.</li>
+  <li><strong>Final exam (30%)</strong> — cumulative, with emphasis on modules 11–20.</li>
+</ul>
+
+<h2>Getting set up</h2>
+<p>The code in the notes needs Python 3 with NumPy, SciPy, PyTorch, and torchvision. A laptop CPU runs every example:
+  the models are deliberately small and trained on subsets of MNIST or on synthetic data, and each module takes a few
+  seconds to a couple of minutes. A free <a href="https://colab.research.google.com/" rel="noopener">Google Colab</a>
+  notebook works too. Paste the cells of a module into a notebook in order and run them. Every random number comes
+  from a seeded generator, and the notes were run on one CPU thread, so your output should match closely; on a GPU or
+  with several threads, the last digits of training numbers can differ, and timings always will.</p>

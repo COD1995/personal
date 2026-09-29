@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 290" width="760" height="290" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif">
+<line x1="210" y1="48" x2="210" y2="252" stroke="#5d574d" stroke-width="1"/>
+<line x1="540" y1="40" x2="540" y2="252" stroke="#5d574d" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="540" y="30" text-anchor="middle" font-size="13" fill="#1e1c19">ln p(X | θ<tspan baseline-shift="sub" font-size="10">old</tspan>)</text>
+<line x1="690" y1="40" x2="690" y2="252" stroke="#5d574d" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="690" y="30" text-anchor="middle" font-size="13" fill="#1e1c19">ln p(X | θ<tspan baseline-shift="sub" font-size="10">new</tspan>)</text>
+<text x="16" y="85" font-size="14" fill="#1e1c19">any q</text>
+<text x="16" y="102" font-size="12.5" fill="#5d574d">θ = θ<tspan baseline-shift='sub' font-size='10'>old</tspan></text>
+<rect x="210" y="70" width="175" height="36" fill="#1f2e4a"/>
+<text x="297.5" y="93" text-anchor="middle" font-size="13.5" fill="#ffffff">ℒ(q, θ)</text>
+<rect x="385" y="70" width="155" height="36" fill="#eadfcd" stroke="#8a6a3a" stroke-width="1"/>
+<text x="462.5" y="93" text-anchor="middle" font-size="13.5" fill="#1e1c19">KL(q ‖ p)</text>
+<text x="16" y="155" font-size="14" fill="#1e1c19">after the E step</text>
+<text x="16" y="172" font-size="12.5" fill="#5d574d">q = p(Z | X, θ<tspan baseline-shift='sub' font-size='10'>old</tspan>)</text>
+<rect x="210" y="140" width="330" height="36" fill="#1f2e4a"/>
+<text x="375.0" y="163" text-anchor="middle" font-size="13.5" fill="#ffffff">ℒ(q, θ)</text>
+<text x="548" y="163" font-size="12.5" fill="#5d574d">KL = 0</text>
+<text x="16" y="225" font-size="14" fill="#1e1c19">after the M step</text>
+<text x="16" y="242" font-size="12.5" fill="#5d574d">same q, θ = θ<tspan baseline-shift='sub' font-size='10'>new</tspan></text>
+<rect x="210" y="210" width="395" height="36" fill="#1f2e4a"/>
+<text x="407.5" y="233" text-anchor="middle" font-size="13.5" fill="#ffffff">ℒ(q, θ)</text>
+<rect x="605" y="210" width="85" height="36" fill="#eadfcd" stroke="#8a6a3a" stroke-width="1"/>
+<text x="647.5" y="233" text-anchor="middle" font-size="13.5" fill="#1e1c19">KL(q ‖ p)</text>
+<path d="M 540 256 V 260 H 605 V 256" fill="none" stroke="#1f2e4a" stroke-width="1"/>
+<text x="572.5" y="275" text-anchor="middle" font-size="12" fill="#5d574d">gain in ℒ</text>
+</svg>

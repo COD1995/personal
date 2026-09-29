@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 270" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8a6a3a"/></marker>
+  </defs>
+  <text x="22" y="24" text-anchor="start" font-size="13" fill="#5d574d">sampling direction</text>
+  <text x="38" y="68" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">z<tspan font-size="11.6" dy="4" font-style="normal">A</tspan></text>
+  <line x1="60" y1="62" x2="324" y2="62" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <text x="348" y="68" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">x<tspan font-size="11.6" dy="4" font-style="normal">A</tspan></text>
+  <text x="272" y="52" text-anchor="middle" font-size="12" fill="#5d574d">copy</text>
+  <circle cx="106" cy="62" r="3" fill="#8a6a3a"/>
+  <path d="M106,62 L106,138 L140,138" fill="none" stroke="#8a6a3a" stroke-width="1.4" marker-end="url(#ab)"/>
+  <rect x="140.0" y="118.0" width="104" height="40" rx="3" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.4"/>
+  <text x="192" y="136" text-anchor="middle" font-size="13" fill="#1e1c19">conditioner</text>
+  <text x="192" y="151" text-anchor="middle" font-size="13" fill="#1e1c19">network</text>
+  <text x="38" y="220" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">z<tspan font-size="11.6" dy="4" font-style="normal">B</tspan></text>
+  <line x1="60" y1="214" x2="179" y2="214" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <circle cx="192" cy="214" r="12" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <circle cx="192" cy="214" r="2.6" fill="#1f2e4a"/>
+  <line x1="204" y1="214" x2="259" y2="214" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <circle cx="272" cy="214" r="12" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <line x1="266" y1="214" x2="278" y2="214" stroke="#1f2e4a" stroke-width="1.5"/>
+  <line x1="272" y1="208" x2="272" y2="220" stroke="#1f2e4a" stroke-width="1.5"/>
+  <line x1="284" y1="214" x2="324" y2="214" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <path d="M192,158 L192,201" fill="none" stroke="#8a6a3a" stroke-width="1.4" marker-end="url(#ab)"/>
+  <text x="182" y="188" text-anchor="end" font-size="13" fill="#8a6a3a" font-style="italic">exp(s)</text>
+  <path d="M244,138 L272,138 L272,201" fill="none" stroke="#8a6a3a" stroke-width="1.4" marker-end="url(#ab)"/>
+  <text x="280" y="188" text-anchor="start" font-size="13" fill="#8a6a3a" font-style="italic">b</text>
+  <text x="348" y="220" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">x<tspan font-size="11.6" dy="4" font-style="normal">B</tspan></text>
+  <text x="192" y="256" text-anchor="middle" font-size="13" fill="#5d574d">ln |det K| = + Σ sᵢ</text>
+  <line x1="380" y1="16" x2="380" y2="258" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="404" y="24" text-anchor="start" font-size="13" fill="#5d574d">density direction</text>
+  <text x="420" y="68" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">x<tspan font-size="11.6" dy="4" font-style="normal">A</tspan></text>
+  <line x1="442" y1="62" x2="706" y2="62" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <text x="730" y="68" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">z<tspan font-size="11.6" dy="4" font-style="normal">A</tspan></text>
+  <text x="654" y="52" text-anchor="middle" font-size="12" fill="#5d574d">copy</text>
+  <circle cx="488" cy="62" r="3" fill="#8a6a3a"/>
+  <path d="M488,62 L488,138 L522,138" fill="none" stroke="#8a6a3a" stroke-width="1.4" marker-end="url(#ab)"/>
+  <rect x="522.0" y="118.0" width="104" height="40" rx="3" fill="#fbf8f2" stroke="#8a6a3a" stroke-width="1.4"/>
+  <text x="574" y="136" text-anchor="middle" font-size="13" fill="#1e1c19">conditioner</text>
+  <text x="574" y="151" text-anchor="middle" font-size="13" fill="#1e1c19">network</text>
+  <text x="420" y="220" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">x<tspan font-size="11.6" dy="4" font-style="normal">B</tspan></text>
+  <line x1="442" y1="214" x2="561" y2="214" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <circle cx="574" cy="214" r="12" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <line x1="568" y1="214" x2="580" y2="214" stroke="#1f2e4a" stroke-width="1.5"/>
+  <line x1="586" y1="214" x2="641" y2="214" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <circle cx="654" cy="214" r="12" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <circle cx="654" cy="214" r="2.6" fill="#1f2e4a"/>
+  <line x1="666" y1="214" x2="706" y2="214" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <path d="M574,158 L574,201" fill="none" stroke="#8a6a3a" stroke-width="1.4" marker-end="url(#ab)"/>
+  <text x="564" y="188" text-anchor="end" font-size="13" fill="#8a6a3a" font-style="italic">b</text>
+  <path d="M626,138 L654,138 L654,201" fill="none" stroke="#8a6a3a" stroke-width="1.4" marker-end="url(#ab)"/>
+  <text x="662" y="188" text-anchor="start" font-size="13" fill="#8a6a3a" font-style="italic">exp(−s)</text>
+  <text x="730" y="220" text-anchor="middle" font-size="17" fill="#1e1c19" font-style="italic" font-weight="600">z<tspan font-size="11.6" dy="4" font-style="normal">B</tspan></text>
+  <text x="574" y="256" text-anchor="middle" font-size="13" fill="#5d574d">ln |det J| = − Σ sᵢ</text>
+</svg>

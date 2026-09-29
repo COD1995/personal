@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 335" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8a6a3a"/></marker>
+    <marker id="as" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#5b7055"/></marker>
+  </defs>
+  <circle cx="60" cy="170" r="25" fill="#d5d9e0" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="60" y="176" text-anchor="middle" font-size="18" font-weight="600">x</text>
+  <circle cx="190" cy="170" r="25" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="190" y="176" text-anchor="middle" font-size="18" font-weight="600">z<tspan font-size="12" dy="4" font-weight="400">1</tspan></text>
+  <circle cx="385" cy="170" r="25" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="385" y="176" text-anchor="middle" font-size="18" font-weight="600">z<tspan font-size="12" dy="4" font-weight="400">t−1</tspan></text>
+  <circle cx="545" cy="170" r="25" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="545" y="176" text-anchor="middle" font-size="18" font-weight="600">z<tspan font-size="12" dy="4" font-weight="400">t</tspan></text>
+  <circle cx="700" cy="170" r="25" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.4"/>
+  <text x="700" y="176" text-anchor="middle" font-size="18" font-weight="600">z<tspan font-size="12" dy="4" font-weight="400">T</tspan></text>
+  <circle cx="277.5" cy="170" r="2" fill="#5d574d"/>
+  <circle cx="287.5" cy="170" r="2" fill="#5d574d"/>
+  <circle cx="297.5" cy="170" r="2" fill="#5d574d"/>
+  <circle cx="612.5" cy="170" r="2" fill="#5d574d"/>
+  <circle cx="622.5" cy="170" r="2" fill="#5d574d"/>
+  <circle cx="632.5" cy="170" r="2" fill="#5d574d"/>
+  <line x1="87" y1="161" x2="161" y2="161" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="163" y1="179" x2="89" y2="179" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="412" y1="161" x2="516" y2="161" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="518" y1="179" x2="414" y2="179" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="217" y1="161" x2="269.5" y2="161" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="305.5" y1="161" x2="356" y2="161" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="358" y1="179" x2="305.5" y2="179" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="269.5" y1="179" x2="219" y2="179" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="572" y1="161" x2="604.5" y2="161" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="640.5" y1="161" x2="671" y2="161" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <line x1="673" y1="179" x2="640.5" y2="179" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="604.5" y1="179" x2="574" y2="179" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <text x="465.0" y="150" text-anchor="middle" font-size="14" fill="#8a6a3a">q(z<tspan dy='4' font-size='11'>t</tspan><tspan dy='-4'> | z<tspan dy='4' font-size='11'>t−1</tspan><tspan dy='-4'>)</tspan></tspan></text>
+  <text x="465.0" y="204" text-anchor="middle" font-size="14" fill="#1f2e4a">p(z<tspan dy='4' font-size='11'>t−1</tspan><tspan dy='-4'> | z<tspan dy='4' font-size='11'>t</tspan><tspan dy='-4'>, w)</tspan></tspan></text>
+  <text x="125.0" y="204" text-anchor="middle" font-size="14" fill="#1f2e4a">p(x | z<tspan dy='4' font-size='11'>1</tspan><tspan dy='-4'>, w)</tspan></text>
+  <path d="M70,146 C170,45 435,45 537,143" fill="none" stroke="#5b7055" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#as)"/>
+  <text x="302.5" y="52" text-anchor="middle" font-size="14" fill="#5b7055">q(z<tspan dy='4' font-size='11'>t</tspan><tspan dy='-4'> | x) = N(√α<tspan dy='4' font-size='11'>t</tspan><tspan dy='-4'> x, (1 − α<tspan dy='4' font-size='11'>t</tspan><tspan dy='-4'>) I)</tspan></tspan></tspan></text>
+  <text x="302.5" y="30" text-anchor="middle" font-size="13" fill="#5d574d">diffusion kernel: jump to any step in one draw</text>
+  <path d="M539,195 C515,270 415,270 393,197" fill="none" stroke="#8a6a3a" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ab)"/>
+  <text x="465.0" y="276" text-anchor="middle" font-size="14" fill="#8a6a3a">q(z<tspan dy='4' font-size='11'>t−1</tspan><tspan dy='-4'> | z<tspan dy='4' font-size='11'>t</tspan><tspan dy='-4'>, x)</tspan></tspan></text>
+  <text x="465.0" y="294" text-anchor="middle" font-size="13" fill="#5d574d">Gaussian target for each reverse step</text>
+  <text x="60" y="236" text-anchor="middle" font-size="13" fill="#5d574d">data</text>
+  <text x="700" y="236" text-anchor="middle" font-size="13" fill="#5d574d">≈ N(0, I)</text>
+  <line x1="20" y1="300" x2="48" y2="300" stroke="#8a6a3a" stroke-width="1.5" marker-end="url(#ab)"/>
+  <text x="56" y="305" text-anchor="start" font-size="13" fill="#8a6a3a">forward: fixed noising</text>
+  <line x1="48" y1="322" x2="20" y2="322" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <text x="56" y="327" text-anchor="start" font-size="13" fill="#1f2e4a">reverse: learned denoising</text>
+</svg>

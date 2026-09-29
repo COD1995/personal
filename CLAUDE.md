@@ -19,8 +19,8 @@ _layouts/
   about.liquid           home page — hero, stats, about, teaching, office hours, programs, books (contact lives in the footer)
   page.liquid            everything else (teaching index, CV)
   course.liquid          course pages (catalog-entry style, see "Course pages" below)
-  lecture.liquid         lecture notes for a course module (EAS 510 Basics of AI, CSE 431/531 Algorithms, CSE 474/574 Intro ML, CSE 455/555 Pattern Recognition) — header, objectives, body, prev/next;
-                         front matter `notes: algo` / `notes: introml` / `notes: pattern` picks _data/<key>.yml (default aibasic)
+  lecture.liquid         lecture notes for a course module (EAS 510 Basics of AI, CSE 431/531 Algorithms, CSE 474/574 Intro ML, CSE 455/555 Pattern Recognition, CSE 676 Deep Learning) — header, objectives, body, prev/next;
+                         front matter `notes: algo` / `notes: introml` / `notes: pattern` / `notes: deeplearning` picks _data/<key>.yml (default aibasic)
 
 _includes/
   head.liquid            <head> contents — meta, canonical, CSS, Google Fonts
@@ -46,7 +46,8 @@ _teaching/               Jekyll collection (output: true, /teaching/:path/)
   aibasic/NN-<slug>.md   EAS 510 lecture notes, modules 00–09 (layout: lecture) → /teaching/aibasic/<slug>/
   introml.liquid         CSE 474/574 — outline and "Course notes" list link the module notes
   introml/NN-<slug>.md   CSE 474/574 lecture notes, modules 01–14 = Bishop ch. 1–14 (layout: lecture, notes: introml) → /teaching/introml/<slug>/
-  deeplearning.liquid    CSE 676
+  deeplearning.liquid    CSE 676 Deep Learning — outline and "Course notes" list link the module notes
+  deeplearning/NN-<slug>.md  CSE 676 lecture notes, modules 01–20 = Bishop & Bishop ch. 1–20 (layout: lecture, notes: deeplearning) → /teaching/deeplearning/<slug>/
   pattern.liquid         CSE 455/555 Intro to Pattern Recognition — outline and "Course notes" list link the module notes
   pattern/NN-<slug>.md   CSE 455/555 lecture notes, modules 01–10 = Duda, Hart & Stork ch. 1–10 (layout: lecture, notes: pattern) → /teaching/pattern/<slug>/
 
@@ -58,6 +59,7 @@ assets/
   img/courses/algo/      SVG figures for the CSE 431/531 lecture notes (NN-*.svg, editable)
   img/courses/introml/   SVG figures for the CSE 474/574 lecture notes (NN-*.svg, editable; 84 files)
   img/courses/pattern/   SVG figures for the CSE 455/555 lecture notes (NN-*.svg, editable)
+  img/courses/deeplearning/  SVG figures for the CSE 676 lecture notes (NN-*.svg, editable; 121 files)
 ```
 
 ## Build / run
@@ -101,6 +103,7 @@ Home page and /teaching/ are data-driven — edit YAML, not HTML:
 - `algo.yml` — CSE 431/531 module list (num, slug, title, weeks, DPV chapter + chapter_title, summary) plus `course.book` and `course.credit` (the credit line under every note). Module numbers run 00–08; from 07 on they differ from the DPV chapter numbers (07 = ch. 8, 08 = ch. 9; ch. 7 and 10 are not covered). Keep in sync with `_teaching/algo/` and the outline in `_teaching/algo.liquid`.
 - `introml.yml` — CSE 474/574 module list (num, slug, title, weeks, Bishop chapter + chapter_title, summary) plus `course.book` and `course.credit` (credit line links Microsoft's free PRML PDF page). Module numbers equal chapter numbers (01–14); weeks follow Spring 2024 (week 8 = midterm). Keep in sync with `_teaching/introml/` and the outline in `_teaching/introml.liquid`.
 - `pattern.yml` — CSE 455/555 module list (num, slug, title, weeks = session, DHS chapter + chapter_title, summary) plus `course.book` and `course.credit`. Module numbers equal chapter numbers (01–10). Keep in sync with `_teaching/pattern/` and the outline in `_teaching/pattern.liquid`.
+- `deeplearning.yml` — CSE 676 module list (num, slug, title, weeks, Bishop & Bishop chapter + chapter_title, summary) plus `course.book` and `course.credit` (credit line links bishopbook.com, where the book is free to read). Module numbers equal chapter numbers (01–20); weeks follow Fall 2024 (week 7 = midterm, week 15 = review and final). Keep in sync with `_teaching/deeplearning/` and the outline in `_teaching/deeplearning.liquid`.
 - `aibasic.yml` — EAS 510 module list (num, slug, title, weeks, summary, learnpytorch.io reading link). Drives the lecture layout's eyebrow, companion-reading link, and previous/next links. Keep it in sync with `_teaching/aibasic/` and the outline in `_teaching/aibasic.liquid`.
 
 Hero copy (eyebrow, headline, lede, interests, portrait) lives in `_pages/about.md` front matter; the bio is its markdown body.
@@ -119,7 +122,8 @@ Redone Sep 28 2026 in a "catalog entry" style: `_layouts/course.liquid` (layout:
 **EAS 510 Basics of AI has full, published lecture notes** (Sep 28 2026): `_teaching/aibasic/00-…09-*.md`, one per learnpytorch.io chapter, rewritten in Jue's teaching voice for engineering students with no CS background (own prose; code path follows Daniel Bourke's MIT-licensed *Learn PyTorch for Deep Learning*, credited on every page). See "Lecture notes (EAS 510)" below.
 **CSE 431/531 Algorithm Analysis and Design has full, published lecture notes** (Sep 28 2026): `_teaching/algo/00-…08-*.md`, one per chapter of Dasgupta, Papadimitriou & Vazirani, *Algorithms* (ch. 0–6, 8, 9 — the Summer 2025 syllabus), in Jue's teaching voice (own prose, own examples and exercises; the book is cited on every page, not copied). See "Lecture notes (CSE 431/531)" below.
 **CSE 474/574 Introduction to Machine Learning has full, published lecture notes** (Sep 28 2026): `_teaching/introml/01-…14-*.md`, one per chapter of Bishop, *Pattern Recognition and Machine Learning* (all 14 chapters), in Jue's teaching voice (own prose, NumPy code from scratch, own figures and exercises; the book is cited on every page, not copied). See "Lecture notes (CSE 474/574)" below.
-For Deep Learning, the old lecture notes, slides, reading notes, and project briefs are **not published** — they were half-finished. They live in `_private-course-notes/` (git-ignored and excluded from the build). To publish one again, move it back to its original path and link it from the course page. The old per-semester includes are in `_private-course-notes/_old-course-includes/`.
+**CSE 676 Deep Learning has full, published lecture notes** (Sep 29 2026): `_teaching/deeplearning/01-…20-*.md`, one per chapter of Bishop & Bishop, *Deep Learning: Foundations and Concepts* (all 20 chapters). The course page was rebuilt around the book (text, one outline row per week linking the modules, Fall 2024 grading kept). See "Lecture notes (CSE 676)" below.
+The old Deep Learning lecture notes, slides, reading notes, and project briefs (D2L-based) are **not published** — they were half-finished. They live in `_private-course-notes/` (git-ignored and excluded from the build). To publish one again, move it back to its original path and link it from the course page. The old per-semester includes are in `_private-course-notes/_old-course-includes/`.
 
 ## Lecture notes (EAS 510)
 
@@ -159,6 +163,16 @@ For Deep Learning, the old lecture notes, slides, reading notes, and project bri
 - Code is NumPy from scratch (SciPy only for helpers/cross-checks, plus `scipy.optimize.linprog` in module 05's LP section and `scipy.spatial.Delaunay` once in module 04); every output block comes from running the note top to bottom; all randomness is seeded.
 - Figures: `assets/img/courses/pattern/NN-*.svg`, each made by a script that recomputes it with the note's code and seeds.
 - Build kit (not in git): `Claude outputs/pattern-notes-build/` — runner `tools/runmd_pr.py`, kramdown-based preview `tools/preview_pr.py` (real kramdown via Ruby, cloned from GitHub), page checker `tools/checkpage_pr.py`, book-overlap check `tools/overlap.py`, style guide `tools/STYLE_PR.md`, figure scripts `figure-scripts/pr*.py` (+ `plotstyle_pr.py`), and a copy of the notes.
+
+## Lecture notes (CSE 676)
+
+- Same layout, markup, callouts, and heading tracker as the other notes; front matter adds `notes: deeplearning`. Companion-reading line and credit come from `_data/deeplearning.yml` (module NN = Bishop & Bishop chapter NN).
+- The book is free to read online but copyrighted: the notes use their own prose, examples, data, figures, and exercises, and cite the book by section. 8-word overlap with the whole book is ≤0.08% per module.
+- Notation follows Bishop & Bishop (same as the CSE 474/574 notes). Chapters 2–5, 11, and 14–16 revisit PRML material, so those modules are shorter and link the CSE 474/574 notes for the long derivations.
+- Code: NumPy first, then PyTorch. Modules 01–05, 11, 14–16 are NumPy (SciPy for helpers/checks); 06–08 build layers, optimizers, and backprop/autodiff from scratch in NumPy and check them against PyTorch; 09–10, 12–13, 17–20 use PyTorch with the key pieces written by hand (attention, message passing, coupling layers, diffusion loss). No scikit-learn, PyG, Hugging Face, or pretrained weights. Data: synthetic, MNIST/FashionMNIST via torchvision (subsets), Tiny Shakespeare from GitHub raw, karate club via networkx.
+- Every output block comes from running the note top to bottom on one CPU thread (PyTorch 2.14); all randomness is seeded, so outputs repeat exactly except cells labeled "your times will differ". Each note runs in ~1 s to ~90 s on a CPU.
+- Figures: `assets/img/courses/deeplearning/NN-*.svg`, each made by a script that recomputes it with the note's code and seeds (some retrain small models).
+- Build kit (not in git): `Claude outputs/deeplearning-notes-build/` — runner `tools/runmd_dl.py`, kramdown-based preview `tools/preview_dl.py` (+ `kram.rb`), page checker `tools/checkpage_dl.py`, overlap check `tools/overlap.py`, style guide `tools/STYLE_DL.md`, figure scripts `figure-scripts/dl*.py` (+ `plotstyle_dl.py`, `shot.py`), and a copy of the notes.
 
 ## Conventions / gotchas
 

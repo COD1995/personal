@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b9ad96"/></marker>
+  </defs>
+  <text x="50" y="30" text-anchor="middle" font-size="11" letter-spacing="1.5" fill="#8a6a3a">INPUT</text>
+  <text x="175" y="30" text-anchor="middle" font-size="11" letter-spacing="1.5" fill="#8a6a3a">BASIS FUNCTIONS</text>
+  <text x="330" y="30" text-anchor="middle" font-size="11" letter-spacing="1.5" fill="#8a6a3a">OUTPUT</text>
+  <rect x="139" y="50" width="72" height="258" fill="none" stroke="#d9d0bf" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="175" y="325" text-anchor="middle" font-size="11" fill="#5d574d">fixed</text>
+  <line x1="68.7" y1="156.6" x2="155.5" y2="94.0" stroke="#b9ad96" stroke-width="1.1" marker-end="url(#am)"/>
+  <line x1="73.0" y1="170.0" x2="151.0" y2="170.0" stroke="#b9ad96" stroke-width="1.1" marker-end="url(#am)"/>
+  <line x1="71.4" y1="178.5" x2="152.7" y2="211.1" stroke="#b9ad96" stroke-width="1.1" marker-end="url(#am)"/>
+  <circle cx="50" cy="170" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="50" y="175" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">x</text>
+  <line x1="194.0" y1="92.9" x2="310.1" y2="171.5" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="197.9" y1="172.2" x2="306.1" y2="182.7" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="197.4" y1="214.9" x2="306.6" y2="190.3" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="194.6" y1="268.0" x2="309.5" y2="197.5" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <circle cx="175" cy="80" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="171" y="85" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">φ<tspan font-size="9.5" dy="4">M−1</tspan></text>
+  <circle cx="175" cy="170" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="173" y="175" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">φ<tspan font-size="10.2" dy="4">2</tspan></text>
+  <circle cx="175" cy="220" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="173" y="225" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">φ<tspan font-size="10.2" dy="4">1</tspan></text>
+  <circle cx="175" cy="280" r="21" fill="#ece6da" stroke="#b9ad96" stroke-width="1.5"/>
+  <text x="173" y="285" text-anchor="middle" font-size="15" fill="#5d574d" font-style="italic">φ<tspan font-size="10.2" dy="4">0</tspan></text>
+  <circle cx="175" cy="116" r="1.8" fill="#5d574d"/>
+  <circle cx="175" cy="125" r="1.8" fill="#5d574d"/>
+  <circle cx="175" cy="134" r="1.8" fill="#5d574d"/>
+  <circle cx="330" cy="185" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="330" y="190" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">y</text>
+  <text x="262" y="118" text-anchor="middle" font-size="14" fill="#1f2e4a" font-style="italic">w<tspan font-size="9.5" dy="4">M−1</tspan></text>
+  <text x="258" y="168" text-anchor="middle" font-size="14" fill="#1f2e4a" font-style="italic">w<tspan font-size="9.5" dy="4">2</tspan></text>
+  <text x="262" y="214" text-anchor="middle" font-size="14" fill="#1f2e4a" font-style="italic">w<tspan font-size="9.5" dy="4">1</tspan></text>
+  <text x="262" y="262" text-anchor="middle" font-size="14" fill="#1f2e4a" font-style="italic">w<tspan font-size="9.5" dy="4">0</tspan></text>
+  <text x="330" y="232" text-anchor="middle" font-size="12" fill="#5d574d">y = wᵀφ(x)</text>
+  <line x1="400" y1="20" x2="400" y2="320" stroke="#d9d0bf" stroke-width="1"/>
+  <text x="500" y="30" text-anchor="middle" font-size="11" letter-spacing="1.5" fill="#8a6a3a">BASIS FUNCTIONS</text>
+  <text x="680" y="30" text-anchor="middle" font-size="11" letter-spacing="1.5" fill="#8a6a3a">OUTPUTS</text>
+  <rect x="464" y="50" width="72" height="258" fill="none" stroke="#d9d0bf" stroke-width="1.2" stroke-dasharray="4 3"/>
+  <text x="500" y="325" text-anchor="middle" font-size="11" fill="#5d574d">fixed</text>
+  <line x1="522.9" y1="81.9" x2="656.1" y2="93.0" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="519.1" y1="92.8" x2="660.0" y2="186.7" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="516.3" y1="96.3" x2="663.0" y2="243.0" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="521.2" y1="161.2" x2="657.8" y2="104.2" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="522.7" y1="173.8" x2="656.3" y2="196.1" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="520.6" y1="180.3" x2="658.5" y2="249.3" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="518.9" y1="206.9" x2="660.3" y2="108.7" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="522.9" y1="217.5" x2="656.1" y2="202.7" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="522.5" y1="225.0" x2="656.6" y2="254.8" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <line x1="516.0" y1="263.5" x2="663.3" y2="112.2" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="521.0" y1="270.7" x2="658.1" y2="209.7" stroke="#b9ad96" stroke-width="1.0" marker-end="url(#am)"/>
+  <line x1="522.9" y1="277.5" x2="656.1" y2="262.7" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#an)"/>
+  <circle cx="500" cy="80" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="496" y="85" text-anchor="middle" font-size="14" fill="#1e1c19" font-style="italic">φ<tspan font-size="9.5" dy="4">M−1</tspan></text>
+  <circle cx="500" cy="170" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="498" y="175" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">φ<tspan font-size="10.2" dy="4">2</tspan></text>
+  <circle cx="500" cy="220" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="498" y="225" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">φ<tspan font-size="10.2" dy="4">1</tspan></text>
+  <circle cx="500" cy="280" r="21" fill="#ece6da" stroke="#b9ad96" stroke-width="1.5"/>
+  <text x="498" y="285" text-anchor="middle" font-size="15" fill="#5d574d" font-style="italic">φ<tspan font-size="10.2" dy="4">0</tspan></text>
+  <circle cx="500" cy="116" r="1.8" fill="#5d574d"/>
+  <circle cx="500" cy="125" r="1.8" fill="#5d574d"/>
+  <circle cx="500" cy="134" r="1.8" fill="#5d574d"/>
+  <circle cx="680" cy="95" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="679" y="100" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">y<tspan font-size="10.2" dy="4">K</tspan></text>
+  <circle cx="680" cy="200" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="679" y="205" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">y<tspan font-size="10.2" dy="4">2</tspan></text>
+  <circle cx="680" cy="260" r="21" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.5"/>
+  <text x="679" y="265" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">y<tspan font-size="10.2" dy="4">1</tspan></text>
+  <circle cx="680" cy="139" r="1.8" fill="#5d574d"/>
+  <circle cx="680" cy="148" r="1.8" fill="#5d574d"/>
+  <circle cx="680" cy="157" r="1.8" fill="#5d574d"/>
+  <text x="598" y="62" text-anchor="middle" font-size="15" fill="#1f2e4a">W<tspan font-size="12" fill="#5d574d" font-style="normal"> (M × K)</tspan></text>
+</svg>

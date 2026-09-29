@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">
+  <defs>
+    <marker id="an" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#1f2e4a"/></marker>
+    <marker id="ab" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#8a6a3a"/></marker>
+    <marker id="am" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#b9ad96"/></marker>
+    <marker id="as" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#5b7055"/></marker>
+    <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,1 L9,5 L0,9 z" fill="#9a4b3c"/></marker>
+  </defs>
+  <text x="62" y="58" text-anchor="middle" font-size="13" fill="#5d574d">latent space</text>
+  <circle cx="62" cy="150" r="46" fill="none" stroke="#d9d0bf" stroke-width="1.2"/>
+  <circle cx="74.1" cy="153.7" r="3.0" fill="#5d574d"/>
+  <circle cx="56.1" cy="136.1" r="3.0" fill="#5d574d"/>
+  <circle cx="41.2" cy="150.2" r="3.0" fill="#5d574d"/>
+  <circle cx="53.1" cy="140.4" r="3.0" fill="#5d574d"/>
+  <circle cx="59.6" cy="149.4" r="3.0" fill="#5d574d"/>
+  <circle cx="37.0" cy="160.2" r="3.0" fill="#5d574d"/>
+  <circle cx="39.7" cy="170.5" r="3.0" fill="#5d574d"/>
+  <circle cx="68.5" cy="144.8" r="3.0" fill="#5d574d"/>
+  <circle cx="76.8" cy="150.2" r="3.0" fill="#5d574d"/>
+  <circle cx="69.6" cy="151.2" r="3.0" fill="#5d574d"/>
+  <circle cx="74.1" cy="161.7" r="3.0" fill="#5d574d"/>
+  <circle cx="52.0" cy="143.3" r="3.0" fill="#5d574d"/>
+  <circle cx="65.8" cy="147.7" r="3.0" fill="#5d574d"/>
+  <circle cx="36.9" cy="172.3" r="3.0" fill="#5d574d"/>
+  <text x="62" y="222" text-anchor="middle" font-size="15" fill="#1e1c19">z ∼ N(0, I)</text>
+  <rect x="140" y="118" width="120" height="64" rx="6" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="200" y="145" text-anchor="middle" font-size="15" fill="#1f2e4a" font-weight="600">generator</text>
+  <text x="200" y="166" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">g(z, w)</text>
+  <path d="M112.0,150.0 L137.0,150.0" fill="none" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <text x="345" y="196" text-anchor="middle" font-size="13" fill="#5d574d">synthetic</text>
+  <circle cx="316.5" cy="242.0" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="334.1" cy="231.1" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="325.1" cy="245.4" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="330.8" cy="243.7" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="326.9" cy="236.6" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="353.6" cy="244.3" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="352.1" cy="244.8" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="350.5" cy="258.2" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="347.1" cy="247.8" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="353.8" cy="234.1" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="368.5" cy="261.8" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="386.8" cy="267.8" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="358.4" cy="272.2" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="374.7" cy="257.8" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <circle cx="373.3" cy="267.6" r="3.2" fill="none" stroke="#8a6a3a" stroke-width="1.2"/>
+  <path d="M262.0,160.0 L300.0,220.0" fill="none" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <text x="345" y="36" text-anchor="middle" font-size="13" fill="#5d574d">training data</text>
+  <circle cx="312.1" cy="64.6" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="316.6" cy="77.8" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="332.0" cy="73.8" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="321.0" cy="75.9" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="321.2" cy="75.4" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="349.3" cy="69.2" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="357.0" cy="54.8" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="354.4" cy="67.8" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="357.8" cy="62.9" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="348.4" cy="62.2" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="365.7" cy="94.7" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="359.2" cy="104.7" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="359.1" cy="94.5" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="362.5" cy="100.0" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <circle cx="368.2" cy="94.6" r="3.2" fill="none" stroke="#1f2e4a" stroke-width="1.2"/>
+  <rect x="450" y="128" width="140" height="64" rx="6" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="520" y="155" text-anchor="middle" font-size="15" fill="#1f2e4a" font-weight="600">discriminator</text>
+  <text x="520" y="176" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">d(x, φ)</text>
+  <path d="M385.0,90.0 L430.0,90.0 L470.0,125.0" fill="none" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#am)"/>
+  <path d="M385.0,245.0 L430.0,245.0 L470.0,195.0" fill="none" stroke="#b9ad96" stroke-width="1.4" marker-end="url(#am)"/>
+  <text x="418" y="80" text-anchor="middle" font-size="13" fill="#5d574d" font-style="italic">t = 1</text>
+  <text x="418" y="266" text-anchor="middle" font-size="13" fill="#5d574d" font-style="italic">t = 0</text>
+  <path d="M592.0,160.0 L628.0,160.0" fill="none" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#an)"/>
+  <text x="690" y="150" text-anchor="middle" font-size="15" fill="#1e1c19" font-style="italic">P(t = 1 ∣ x)</text>
+  <text x="690" y="172" text-anchor="middle" font-size="13" fill="#5d574d">“real?”</text>
+  <path d="M690.0,186.0 L690.0,222.0 L560.0,222.0 L560.0,196.0" fill="none" stroke="#5b7055" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#as)"/>
+  <text x="625" y="240" text-anchor="middle" font-size="13" fill="#5b7055">∇φ E: descend</text>
+  <path d="M705.0,186.0 L705.0,300.0 L200.0,300.0 L200.0,186.0" fill="none" stroke="#9a4b3c" stroke-width="1.3" stroke-dasharray="5 4" marker-end="url(#ar)"/>
+  <text x="470" y="318" text-anchor="middle" font-size="13" fill="#9a4b3c">∇w E through d and the synthetic x: ascend</text>
+</svg>
