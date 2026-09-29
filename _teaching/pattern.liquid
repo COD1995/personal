@@ -5,115 +5,118 @@ code: CSE 455/555
 level: Undergraduate and graduate
 taught: Summers, 2023–2026
 prereq: A programming or data-structures course (CSE 115 or 250, EAS 230 or 240) and probability or statistics (EAS 305, STA 301, or MTH 411)
-text: Landmark research papers
+text: Duda, Hart &amp; Stork, <em>Pattern Classification</em>, 2nd ed. (Wiley, 2001), with course notes (below) for every chapter
 grading: Absolute scale, no curve
-description: CSE 455/555 Introduction to Pattern Recognition at the University at Buffalo — taught through the papers that shaped the field.
+description: CSE 455/555 Introduction to Pattern Recognition at the University at Buffalo — statistical pattern classification from Bayes decision theory to clustering, with full lecture notes and NumPy code for every chapter of Duda, Hart & Stork.
 lede: >-
-  Pattern recognition taught through the research papers that shaped it — from the first deep vision networks to the
-  Transformer and today's large language models.
+  Statistical pattern classification from first principles — Bayes decision theory, density estimation, nearest
+  neighbors, linear machines, neural networks, trees, and clustering — built up carefully and implemented in Python.
 about: >-
-  <p>Rather than learning only from lectures and problem sets, students go straight to the original papers. Each session
-  pairs a landmark paper with a short framing lecture and discussion, and students turn the key ideas into working code
-  in Python. By the end of the term, you know the central techniques of the field and, just as importantly, how to read a
-  research paper critically.</p>
+  <p>The course follows Duda, Hart &amp; Stork's <em>Pattern Classification</em>, one chapter per session. It asks the
+  questions every working classifier has to answer: what the best possible decision is and how close we can get to
+  it, how to learn densities and boundaries from a finite sample, how to measure and compare error rates honestly, and
+  what can be learned when there are no labels at all. Students implement each method with NumPy and test it
+  against theory, brute force, or simulation.</p>
+  <p>Every module has a full set of notes below, one per chapter of the book: the ideas and derivations in plain
+  language, NumPy code written from scratch with its real output, figures, and exercises.</p>
 semesters:
   - value: summer-2026
     label: Summer 2026
     selected: true
     intro: >-
-      A paper-reading seminar: twelve sessions over six weeks, each opening with a short quiz on that day's paper. No exams;
-      the rest of the term goes into the final project.
+      Twelve sessions over six weeks. Each of the first ten covers one module and opens with a short quiz on it; the
+      last two go to the final projects. No exams.
     assessment:
       - [In-class quizzes, 50%]
       - [Participation, 15%]
       - [Final project, 35%]
     outline:
-      - group: Vision foundations
+      - group: Decision theory and estimation
       - when: Session 1
         topic: >-
-          How to read a paper — <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf" rel="noopener">Keshav, 2007</a>
-        guide: The three-pass reading method used all term.
+          <a href="/teaching/pattern/01-introduction/">Introduction: machine perception and the design cycle</a>
+        guide: The stages of a recognition system, features and costs, and why training error is not the error that matters.
       - when: Session 2
         topic: >-
-          <a href="https://proceedings.neurips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf" rel="noopener">AlexNet</a> (Krizhevsky et al., 2012)
-        guide: The result that launched the deep-learning era, and which of its ingredients still matter.
+          <a href="/teaching/pattern/02-bayesian-decision-theory/">Bayesian decision theory</a>
+        guide: Risk and the Bayes rule, minimax and Neyman–Pearson, Gaussian discriminants, error bounds, and ROC curves.
       - when: Session 3
         topic: >-
-          <a href="https://arxiv.org/abs/1512.03385" rel="noopener">ResNet</a> (He et al., 2015)
-        guide: Why skip connections make networks hundreds of layers deep trainable.
-      - group: Sequences and the Transformer
+          <a href="/teaching/pattern/03-parameter-estimation/">Maximum-likelihood and Bayesian parameter estimation</a>
+        guide: ML and Bayesian learning, the curse of dimensionality, PCA and Fisher discriminants, EM, and hidden Markov models.
+      - group: Learning the classifier directly
       - when: Session 4
         topic: >-
-          <a href="https://arxiv.org/abs/1301.3781" rel="noopener">Word2Vec</a> (Mikolov et al., 2013)
-        guide: How words become vectors, learned without labels.
+          <a href="/teaching/pattern/04-nonparametric-techniques/">Nonparametric techniques</a>
+        guide: Parzen windows, k-nearest neighbors, the Cover–Hart error bounds, editing and condensing, and tangent distance.
       - when: Session 5
         topic: >-
-          <a href="https://arxiv.org/abs/1409.3215" rel="noopener">Sequence to sequence</a> (Sutskever et al., 2014) and
-          <a href="https://arxiv.org/abs/1409.0473" rel="noopener">attention</a> (Bahdanau et al., 2015)
-        guide: From a single fixed context vector to attention over every input.
+          <a href="/teaching/pattern/05-linear-discriminants/">Linear discriminant functions</a>
+        guide: Perceptron and relaxation rules with their convergence proofs, MSE and Ho–Kashyap, linear programming, and SVMs.
       - when: Session 6
         topic: >-
-          <a href="https://arxiv.org/abs/1706.03762" rel="noopener">Attention Is All You Need</a> (Vaswani et al., 2017)
-        guide: The Transformer, with recurrence removed entirely.
-      - group: The large-language-model era
+          <a href="/teaching/pattern/06-multilayer-networks/">Multilayer neural networks</a>
+        guide: Backpropagation from scratch, outputs as posterior probabilities, practical training, and second-order methods.
+      - group: Search, trees, and the theory of learning
       - when: Session 7
         topic: >-
-          <a href="https://arxiv.org/abs/1810.04805" rel="noopener">BERT</a> (Devlin et al., 2018)
-        guide: Pretraining and fine-tuning on the encoder side.
+          <a href="/teaching/pattern/07-stochastic-methods/">Stochastic methods</a>
+        guide: Simulated annealing, Boltzmann learning, genetic algorithms, and genetic programming.
       - when: Session 8
         topic: >-
-          <a href="https://arxiv.org/abs/2005.14165" rel="noopener">GPT-3</a> (Brown et al., 2020)
-        guide: Scale and in-context learning on the decoder side.
+          <a href="/teaching/pattern/08-nonmetric-methods/">Nonmetric methods: trees, strings, and grammars</a>
+        guide: CART, ID3, and C4.5; edit distance and string matching; grammars and parsing.
       - when: Session 9
         topic: >-
-          <a href="https://arxiv.org/abs/2001.08361" rel="noopener">Scaling laws</a> (Kaplan et al., 2020) and
-          <a href="https://arxiv.org/abs/2203.15556" rel="noopener">Chinchilla</a> (Hoffmann et al., 2022)
-        guide: How to split a compute budget between model size and training data.
+          <a href="/teaching/pattern/09-algorithm-independent-learning/">Algorithm-independent machine learning</a>
+        guide: No free lunch, bias and variance, the bootstrap, bagging and boosting, cross-validation, and combining classifiers.
+      - group: Learning without labels
       - when: Session 10
         topic: >-
-          <a href="https://arxiv.org/abs/2203.02155" rel="noopener">InstructGPT and RLHF</a> (Ouyang et al., 2022)
-        guide: Turning a raw language model into one that follows instructions.
-      - when: Session 11
-        topic: >-
-          <a href="https://arxiv.org/abs/2201.11903" rel="noopener">Chain-of-thought prompting</a> and
-          <a href="https://arxiv.org/abs/2206.07682" rel="noopener">emergent abilities</a> (Wei et al., 2022)
-        guide: Reasoning through prompting, and abilities that appear with scale.
-      - when: Session 12
-        topic: >-
-          Reasoning models — <a href="https://openai.com/index/learning-to-reason-with-llms/" rel="noopener">OpenAI o1</a> (2024) and
-          <a href="https://arxiv.org/abs/2501.12948" rel="noopener">DeepSeek-R1</a> (2025); final-project talks
-        guide: Test-time compute and reasoning trained with reinforcement learning.
-  - value: summer-2025
-    label: Summer 2025
-    intro: >-
-      Two papers per session, from neural-network foundations through vision and language to graphs and robustness.
-    assessment:
-      - [Attendance, 15%]
-      - [Exam 1, 35%]
-      - [Exam 2, 25%]
-      - [Project, 25%]
-    outline:
-      - when: Week 1
-        topic: Back-propagation, dropout, ReLU, and Adam
-      - when: Week 2
-        topic: Batch normalization, the RNN encoder–decoder, AlexNet, and VGG
-      - when: Week 3
-        topic: ResNet, Inception, U-Net, and Faster R-CNN
-      - when: Week 4
-        topic: YOLO, Mask R-CNN, EfficientNet, and the Transformer
-      - when: Week 5
-        topic: BERT, GPT-2, RoBERTa, and T5
+          <a href="/teaching/pattern/10-unsupervised-learning-clustering/">Unsupervised learning and clustering</a>
+        guide: Mixtures and EM, k-means, clustering criteria, hierarchical clustering, ICA, MDS, and self-organizing maps.
       - when: Week 6
-        topic: Graph attention networks, Deep Graph Infomax, and adversarial robustness
-      - when: Week 7
-        topic: Course wrap-up and future directions
+        topic: Final-project talks
+        guide: Each team presents its question, its evidence, and what it would try next.
 ---
-<div data-semester-year="summer-2026">
-  <h2>Final project</h2>
-  <p>
-    One capstone for everyone: <strong>build a small language model from scratch, post-train it to follow instructions,
-    and investigate a sharp question about reasoning and scale</strong>, drawing on the whole second half of the course.
-    It is graded as a short research paper across six milestones, from proposal to final talk, with required baselines,
-    ablations, and reproducible code.
-  </p>
-</div>
+<h2>Course notes</h2>
+<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Duda, Hart &amp;
+  Stork's <em>Pattern Classification</em>, the course text, and explains the same ideas in its own words: the method
+  and its assumptions, the derivations that matter, NumPy code written from scratch with its real output, checks of
+  that code against theory, brute force, or simulation, figures, and exercises. Where a topic is developed further in
+  the <a href="{{ '/teaching/introml/' | relative_url }}">Introduction to Machine Learning</a> notes, the module links
+  there. The book remains the reference, with the full derivations, worked examples, and many more problems.</p>
+<ol class="notes-list">
+{% for m in site.data.pattern.modules %}  <li><a href="{{ m.slug | prepend: site.data.pattern.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
+{% endfor %}</ol>
+<p><a class="link-quiet" href="{{ '/teaching/pattern/01-introduction/' | relative_url }}">Start with module 01, the introduction →</a></p>
+
+<h2>How the course runs</h2>
+<p>Each session covers one module. Read the module's notes, and ideally the matching chapter, before class: the session
+  opens with a short quiz on it, then works through the key derivations and code together. The exercises at the end of
+  each module are the best preparation for the quizzes: try each derivation yourself before checking it against the
+  notes, and change the code to see what breaks.</p>
+<ul>
+  <li><strong>In-class quizzes (50%)</strong> — one short quiz at the start of each of the ten module sessions.</li>
+  <li><strong>Participation (15%)</strong> — working through derivations and code in class, and questions and
+    discussion.</li>
+  <li><strong>Final project (35%)</strong> — described below; the last two sessions are the project talks.</li>
+</ul>
+
+<h2>Final project</h2>
+<p>
+  One project for everyone: <strong>take a real classification problem, build several classifiers for it from
+  scratch, and answer a sharp question about why they perform as they do</strong>, using the tools of the whole course.
+  Implement at least three classifiers from different modules in NumPy — for example a Gaussian Bayes classifier, a
+  nearest-neighbor rule, and a linear machine, network, or tree — estimate each one's error with cross-validation and
+  a confidence interval, and compare them with a paired test. Then pick one question and investigate it carefully:
+  does performance peak as features are added, does editing the training set help nearest neighbors, when does
+  boosting beat bagging, how far is each classifier from an estimate of the Bayes error? The project is written up as
+  a short research paper with reproducible code, and presented in the final two sessions.
+</p>
+
+<h2>Getting set up</h2>
+<p>The code in the notes needs Python 3 with NumPy and SciPy; nothing else. Any recent Python installation, or a free
+  <a href="https://colab.research.google.com/" rel="noopener">Google Colab</a> notebook in the browser, runs every
+  example. Paste the cells of a module into a notebook in order and run them: every random number comes from a seeded
+  generator, so your output should match the notes.</p>

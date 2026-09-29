@@ -1,0 +1,87 @@
+# CSE 455/555 Introduction to Pattern Recognition — lecture modules, in teaching order.
+# Each module is a page at /teaching/pattern/<slug>/ (source: _teaching/pattern/<slug>.md, layout: lecture, notes: pattern).
+# The lecture layout uses this list for the eyebrow, the companion-reading line, and the previous/next links,
+# and the course page (_teaching/pattern.liquid) links each module from its outline.
+# chapter: the matching chapter of R. O. Duda, P. E. Hart, and D. G. Stork, Pattern Classification, 2nd ed. (Wiley, 2001).
+# Module numbers equal chapter numbers (01–10). weeks: the session it is taught in (Summer, twelve sessions over six weeks).
+course:
+  code: CSE 455/555
+  title: Introduction to Pattern Recognition
+  short: Pattern Recognition
+  url: /teaching/pattern/
+  book: Duda, Hart &amp; Stork, <em>Pattern Classification</em>
+  credit: >-
+    These notes follow the chapters of R. O. Duda, P. E. Hart, and D. G. Stork, <em>Pattern Classification</em>,
+    2nd edition (Wiley, 2001), the course text. The explanations, code, figures, and exercises here are written
+    for this course; the book remains the reference, with the full derivations, worked examples, and many more problems.
+modules:
+  - num: "01"
+    slug: 01-introduction
+    title: "Introduction: Machine Perception and the Design Cycle"
+    weeks: Session 1
+    chapter: 1
+    chapter_title: Introduction
+    summary: What a pattern recognition system is made of — sensing, segmentation, features, classification, postprocessing — and the design cycle from data collection to evaluation.
+  - num: "02"
+    slug: 02-bayesian-decision-theory
+    title: Bayesian Decision Theory
+    weeks: Session 2
+    chapter: 2
+    chapter_title: Bayesian Decision Theory
+    summary: Risk and the Bayes decision rule, minimax and Neyman–Pearson, discriminant functions for Gaussian classes, error bounds and ROC curves, discrete and missing features, belief networks, and context.
+  - num: "03"
+    slug: 03-parameter-estimation
+    title: Maximum-Likelihood and Bayesian Parameter Estimation
+    weeks: Session 3
+    chapter: 3
+    chapter_title: Maximum-Likelihood and Bayesian Parameter Estimation
+    summary: Maximum likelihood and bias, Bayesian learning of Gaussian parameters, sufficient statistics, the curse of dimensionality, PCA and Fisher discriminants, EM, and hidden Markov models.
+  - num: "04"
+    slug: 04-nonparametric-techniques
+    title: Nonparametric Techniques
+    weeks: Session 4
+    chapter: 4
+    chapter_title: Nonparametric Techniques
+    summary: Parzen windows and probabilistic neural networks, k-nearest-neighbor estimation, the nearest-neighbor rule and its error bounds, metrics and tangent distance, fuzzy classification, and RCE networks.
+  - num: "05"
+    slug: 05-linear-discriminants
+    title: Linear Discriminant Functions
+    weeks: Session 5
+    chapter: 5
+    chapter_title: Linear Discriminant Functions
+    summary: Linear and generalized discriminants, perceptron and relaxation rules with convergence proofs, minimum squared error and LMS, Ho–Kashyap, linear programming, support vector machines, and Kesler's construction.
+  - num: "06"
+    slug: 06-multilayer-networks
+    title: Multilayer Neural Networks
+    weeks: Session 6
+    chapter: 6
+    chapter_title: Multilayer Neural Networks
+    summary: Feedforward networks and their expressive power, backpropagation built from scratch, error surfaces, outputs as posterior probabilities, practical training techniques, second-order methods, and pruning.
+  - num: "07"
+    slug: 07-stochastic-methods
+    title: Stochastic Methods
+    weeks: Session 7
+    chapter: 7
+    chapter_title: Stochastic Methods
+    summary: Simulated annealing and its deterministic variant, Boltzmann machines and Boltzmann learning, genetic algorithms, and genetic programming.
+  - num: "08"
+    slug: 08-nonmetric-methods
+    title: "Nonmetric Methods: Trees, Strings, and Grammars"
+    weeks: Session 8
+    chapter: 8
+    chapter_title: Nonmetric Methods
+    summary: Decision trees with CART, ID3, and C4.5 — impurity, stopping, pruning, missing attributes — then string matching and edit distance, grammars and parsing, grammatical inference, and rule learning.
+  - num: "09"
+    slug: 09-algorithm-independent-learning
+    title: Algorithm-Independent Machine Learning
+    weeks: Session 9
+    chapter: 9
+    chapter_title: Algorithm-Independent Machine Learning
+    summary: No free lunch and the ugly duckling, MDL and Occam's razor, bias and variance, jackknife and bootstrap, bagging and boosting, cross-validation and model comparison, and combining classifiers.
+  - num: "10"
+    slug: 10-unsupervised-learning-clustering
+    title: Unsupervised Learning and Clustering
+    weeks: Session 10
+    chapter: 10
+    chapter_title: Unsupervised Learning and Clustering
+    summary: Mixture densities and EM, k-means and fuzzy k-means, clustering criteria, hierarchical and graph-theoretic clustering, cluster validity, online clustering, component analysis, and multidimensional scaling.

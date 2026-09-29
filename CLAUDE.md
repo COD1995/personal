@@ -19,8 +19,8 @@ _layouts/
   about.liquid           home page — hero, stats, about, teaching, office hours, programs, books (contact lives in the footer)
   page.liquid            everything else (teaching index, CV)
   course.liquid          course pages (catalog-entry style, see "Course pages" below)
-  lecture.liquid         lecture notes for a course module (EAS 510 Basics of AI, CSE 431/531 Algorithms, CSE 474/574 Intro ML) — header, objectives, body, prev/next;
-                         front matter `notes: algo` / `notes: introml` picks _data/<key>.yml (default aibasic)
+  lecture.liquid         lecture notes for a course module (EAS 510 Basics of AI, CSE 431/531 Algorithms, CSE 474/574 Intro ML, CSE 455/555 Pattern Recognition) — header, objectives, body, prev/next;
+                         front matter `notes: algo` / `notes: introml` / `notes: pattern` picks _data/<key>.yml (default aibasic)
 
 _includes/
   head.liquid            <head> contents — meta, canonical, CSS, Google Fonts
@@ -47,7 +47,8 @@ _teaching/               Jekyll collection (output: true, /teaching/:path/)
   introml.liquid         CSE 474/574 — outline and "Course notes" list link the module notes
   introml/NN-<slug>.md   CSE 474/574 lecture notes, modules 01–14 = Bishop ch. 1–14 (layout: lecture, notes: introml) → /teaching/introml/<slug>/
   deeplearning.liquid    CSE 676
-  pattern.liquid         Intro to Pattern Recognition
+  pattern.liquid         CSE 455/555 Intro to Pattern Recognition — outline and "Course notes" list link the module notes
+  pattern/NN-<slug>.md   CSE 455/555 lecture notes, modules 01–10 = Duda, Hart & Stork ch. 1–10 (layout: lecture, notes: pattern) → /teaching/pattern/<slug>/
 
 assets/
   css/main.scss          THE stylesheet — has front matter so Jekyll compiles to main.css
@@ -56,6 +57,7 @@ assets/
   img/courses/aibasic/   SVG figures for the EAS 510 lecture notes (NN-*.svg, editable)
   img/courses/algo/      SVG figures for the CSE 431/531 lecture notes (NN-*.svg, editable)
   img/courses/introml/   SVG figures for the CSE 474/574 lecture notes (NN-*.svg, editable; 84 files)
+  img/courses/pattern/   SVG figures for the CSE 455/555 lecture notes (NN-*.svg, editable)
 ```
 
 ## Build / run
@@ -98,6 +100,7 @@ Home page and /teaching/ are data-driven — edit YAML, not HTML:
 - `resources.yml` — recommended books (covers in `assets/img/books/`)
 - `algo.yml` — CSE 431/531 module list (num, slug, title, weeks, DPV chapter + chapter_title, summary) plus `course.book` and `course.credit` (the credit line under every note). Module numbers run 00–08; from 07 on they differ from the DPV chapter numbers (07 = ch. 8, 08 = ch. 9; ch. 7 and 10 are not covered). Keep in sync with `_teaching/algo/` and the outline in `_teaching/algo.liquid`.
 - `introml.yml` — CSE 474/574 module list (num, slug, title, weeks, Bishop chapter + chapter_title, summary) plus `course.book` and `course.credit` (credit line links Microsoft's free PRML PDF page). Module numbers equal chapter numbers (01–14); weeks follow Spring 2024 (week 8 = midterm). Keep in sync with `_teaching/introml/` and the outline in `_teaching/introml.liquid`.
+- `pattern.yml` — CSE 455/555 module list (num, slug, title, weeks = session, DHS chapter + chapter_title, summary) plus `course.book` and `course.credit`. Module numbers equal chapter numbers (01–10). Keep in sync with `_teaching/pattern/` and the outline in `_teaching/pattern.liquid`.
 - `aibasic.yml` — EAS 510 module list (num, slug, title, weeks, summary, learnpytorch.io reading link). Drives the lecture layout's eyebrow, companion-reading link, and previous/next links. Keep it in sync with `_teaching/aibasic/` and the outline in `_teaching/aibasic.liquid`.
 
 Hero copy (eyebrow, headline, lede, interests, portrait) lives in `_pages/about.md` front matter; the bio is its markdown body.
@@ -116,7 +119,7 @@ Redone Sep 28 2026 in a "catalog entry" style: `_layouts/course.liquid` (layout:
 **EAS 510 Basics of AI has full, published lecture notes** (Sep 28 2026): `_teaching/aibasic/00-…09-*.md`, one per learnpytorch.io chapter, rewritten in Jue's teaching voice for engineering students with no CS background (own prose; code path follows Daniel Bourke's MIT-licensed *Learn PyTorch for Deep Learning*, credited on every page). See "Lecture notes (EAS 510)" below.
 **CSE 431/531 Algorithm Analysis and Design has full, published lecture notes** (Sep 28 2026): `_teaching/algo/00-…08-*.md`, one per chapter of Dasgupta, Papadimitriou & Vazirani, *Algorithms* (ch. 0–6, 8, 9 — the Summer 2025 syllabus), in Jue's teaching voice (own prose, own examples and exercises; the book is cited on every page, not copied). See "Lecture notes (CSE 431/531)" below.
 **CSE 474/574 Introduction to Machine Learning has full, published lecture notes** (Sep 28 2026): `_teaching/introml/01-…14-*.md`, one per chapter of Bishop, *Pattern Recognition and Machine Learning* (all 14 chapters), in Jue's teaching voice (own prose, NumPy code from scratch, own figures and exercises; the book is cited on every page, not copied). See "Lecture notes (CSE 474/574)" below.
-For the other courses (Pattern Recognition, Deep Learning), lecture notes, slides, reading notes, and project briefs are **not published** — they were half-finished. They live in `_private-course-notes/` (git-ignored and excluded from the build). To publish one again, move it back to its original path and link it from the course page. The old per-semester includes are in `_private-course-notes/_old-course-includes/`.
+For Deep Learning, the old lecture notes, slides, reading notes, and project briefs are **not published** — they were half-finished. They live in `_private-course-notes/` (git-ignored and excluded from the build). To publish one again, move it back to its original path and link it from the course page. The old per-semester includes are in `_private-course-notes/_old-course-includes/`.
 
 ## Lecture notes (EAS 510)
 
@@ -147,6 +150,15 @@ For the other courses (Pattern Recognition, Deep Learning), lecture notes, slide
 - Data are synthetic (generated in the notes); no downloads.
 - Build kit (not in git): `Claude outputs/introml-notes-build/` — runner `tools/runmd_ml.py`, preview + page checker, style guide `tools/STYLE_ML.md`, figure scripts `figure-scripts/ml*.py` (+ `plotstyle_ml.py`), and a copy of the notes. Paths inside point at the build sandbox (`/home/claude/...`).
 - Phone layout: long inline formulas scroll sideways inside themselves (CSS rule under "Math (MathJax)" in main.scss, added Sep 28 2026; applies to all notes).
+
+## Lecture notes (CSE 455/555)
+
+- Same layout, markup, callouts, and heading tracker as the other notes; front matter adds `notes: pattern`. Companion-reading line and credit come from `_data/pattern.yml` (module NN = Duda, Hart & Stork, *Pattern Classification*, 2nd ed., chapter NN; `weeks` holds the session).
+- DHS is a commercial textbook (no free PDF): the notes use their own prose, examples, data, figures, and exercises, and cite the book by section. 8-word overlap with the whole book is ≤0.05% per module (only titles and stock phrases).
+- Notation follows DHS (`\omega_j` categories, `P(\omega_j)`, `\lambda_{ij}`, `g_i(\mathbf{x})`, `^{t}` transpose, augmented `\mathbf{y}`/`\mathbf{a}`, margin `\mathbf{b}`, n samples, d features, c classes). The notes cross-link the CSE 474/574 notes where a derivation is developed further there.
+- Code is NumPy from scratch (SciPy only for helpers/cross-checks, plus `scipy.optimize.linprog` in module 05's LP section and `scipy.spatial.Delaunay` once in module 04); every output block comes from running the note top to bottom; all randomness is seeded.
+- Figures: `assets/img/courses/pattern/NN-*.svg`, each made by a script that recomputes it with the note's code and seeds.
+- Build kit (not in git): `Claude outputs/pattern-notes-build/` — runner `tools/runmd_pr.py`, kramdown-based preview `tools/preview_pr.py` (real kramdown via Ruby, cloned from GitHub), page checker `tools/checkpage_pr.py`, book-overlap check `tools/overlap.py`, style guide `tools/STYLE_PR.md`, figure scripts `figure-scripts/pr*.py` (+ `plotstyle_pr.py`), and a copy of the notes.
 
 ## Conventions / gotchas
 

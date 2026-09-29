@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 238" width="760" height="238" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif">
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2e4a"/></marker><marker id="ahm" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#5d574d"/></marker></defs>
+<line x1="4" y1="125" x2="38" y2="125" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="4" y="117" font-size="12" fill="#5d574d">input</text>
+<line x1="716" y1="125" x2="756" y2="125" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#ah)"/>
+<text x="756" y="117" font-size="12" fill="#5d574d" text-anchor="end">action</text>
+<rect x="40" y="96" width="108" height="58" rx="3" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="94" y="130" font-size="15" fill="#1e1c19" text-anchor="middle">Sensing</text>
+<text x="94" y="174" font-size="11.5" fill="#5d574d" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace">camera image</text>
+<line x1="148" y1="125" x2="180" y2="125" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="182" y="96" width="108" height="58" rx="3" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="236" y="122" font-size="15" fill="#1e1c19" text-anchor="middle">Segmentation</text>
+<text x="236" y="138" font-size="15" fill="#1e1c19" text-anchor="middle">and grouping</text>
+<text x="236" y="174" font-size="11.5" fill="#5d574d" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace">one region per fruit</text>
+<line x1="290" y1="125" x2="322" y2="125" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="324" y="96" width="108" height="58" rx="3" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="378" y="122" font-size="15" fill="#1e1c19" text-anchor="middle">Feature</text>
+<text x="378" y="138" font-size="15" fill="#1e1c19" text-anchor="middle">extraction</text>
+<text x="378" y="174" font-size="11.5" fill="#5d574d" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace">(length, hue)</text>
+<line x1="432" y1="125" x2="464" y2="125" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="466" y="96" width="108" height="58" rx="3" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="520" y="130" font-size="15" fill="#1e1c19" text-anchor="middle">Classification</text>
+<text x="520" y="174" font-size="11.5" fill="#5d574d" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace">lemon or lime</text>
+<line x1="574" y1="125" x2="606" y2="125" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#ah)"/>
+<rect x="608" y="96" width="108" height="58" rx="3" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="662" y="122" font-size="15" fill="#1e1c19" text-anchor="middle">Post-</text>
+<text x="662" y="138" font-size="15" fill="#1e1c19" text-anchor="middle">processing</text>
+<text x="662" y="174" font-size="11.5" fill="#5d574d" text-anchor="middle" font-family="'JetBrains Mono',Menlo,monospace">which bag</text>
+<text x="520" y="22" font-size="12.5" fill="#8a6a3a" text-anchor="middle">adjustments for</text>
+<text x="520" y="36" font-size="12.5" fill="#8a6a3a" text-anchor="middle">missing features</text>
+<line x1="520" y1="44" x2="520" y2="94" stroke="#5d574d" stroke-width="1.2" marker-end="url(#ahm)"/>
+<text x="662" y="22" font-size="12.5" fill="#8a6a3a" text-anchor="middle">costs, context,</text>
+<text x="662" y="36" font-size="12.5" fill="#8a6a3a" text-anchor="middle">other classifiers</text>
+<line x1="662" y1="44" x2="662" y2="94" stroke="#5d574d" stroke-width="1.2" marker-end="url(#ahm)"/>
+<path d="M506,182 L506,200 L250,200 L250,184" fill="none" stroke="#5d574d" stroke-width="1.2" stroke-dasharray="5 4" marker-end="url(#ahm)"/>
+<text x="378" y="216" font-size="12" fill="#5d574d" text-anchor="middle">feedback to earlier stages</text>
+</svg>

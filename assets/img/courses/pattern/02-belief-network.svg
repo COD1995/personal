@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="760" height="330">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#1f2e4a"/></marker></defs>
+<line x1="261.4" y1="82.0" x2="346.9" y2="141.9" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="498.6" y1="82.0" x2="413.1" y2="141.9" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="530.0" y1="82.0" x2="530.0" y2="246.0" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="411.4" y1="187.0" x2="496.9" y2="246.9" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#arr)"/>
+<line x1="348.6" y1="187.0" x2="263.1" y2="246.9" stroke="#1f2e4a" stroke-width="1.5" marker-end="url(#arr)"/>
+<rect x="155.0" y="38.0" width="150" height="44" rx="6" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="230" y="65" text-anchor="middle" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">Supplier  S</text>
+<text x="143.0" y="65" text-anchor="end" font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#5d574d">P(s)</text>
+<rect x="455.0" y="38.0" width="150" height="44" rx="6" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="530" y="65" text-anchor="middle" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">Humidity  H</text>
+<text x="617.0" y="65" text-anchor="start" font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#5d574d">P(h)</text>
+<rect x="305.0" y="143.0" width="150" height="44" rx="6" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="380" y="170" text-anchor="middle" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">Defect  D</text>
+<text x="293.0" y="170" text-anchor="end" font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#5d574d">P(d | s, h)</text>
+<rect x="155.0" y="248.0" width="150" height="44" rx="6" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="230" y="275" text-anchor="middle" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">Visual check  C</text>
+<text x="143.0" y="275" text-anchor="end" font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#5d574d">P(c | d)</text>
+<rect x="455.0" y="248.0" width="150" height="44" rx="6" fill="#fbf8f2" stroke="#b9ad96" stroke-width="1.2"/>
+<text x="530" y="275" text-anchor="middle" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="15" fill="#1e1c19">Vibration  V</text>
+<text x="617.0" y="275" text-anchor="start" font-family="'JetBrains Mono',Menlo,monospace" font-size="13" fill="#5d574d">P(v | d, h)</text>
+</svg>
