@@ -1340,6 +1340,14 @@ table ul li, .styled-table ul li, .evaluation-table ul li { margin: 0.1em 0; }
 /* ---------- Math (MathJax) ---------- */
 mjx-container { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
 mjx-container[jax="SVG"][display="true"] { margin: 1em 0; }
+/* Inline math is display:inline, so max-width/overflow above don't apply to it and a long inline
+   formula widened the whole page on phones. On narrow screens make it an inline block that scrolls
+   sideways on its own (vertical-align keeps it on the text line). */
+@media (max-width: 700px) {
+  .page-body mjx-container[jax="SVG"]:not([display="true"]) {
+    display: inline-block; max-width: 100%; overflow-x: auto; overflow-y: hidden; vertical-align: middle;
+  }
+}
 /* Display math is already centered by MathJax. The previous auto-promote
    rule used :only-child, which ignores surrounding text nodes and ended up
    centering ordinary paragraphs that happened to contain inline math. */

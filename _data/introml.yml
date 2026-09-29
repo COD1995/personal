@@ -1,0 +1,117 @@
+# CSE 474/574 Introduction to Machine Learning — lecture modules, in teaching order.
+# Each module is a page at /teaching/introml/<slug>/ (source: _teaching/introml/<slug>.md, layout: lecture, notes: introml).
+# The lecture layout uses this list for the eyebrow, the companion-reading line, and the previous/next links,
+# and the course page (_teaching/introml.liquid) links each module from its outline.
+# chapter: the matching chapter of C. M. Bishop, Pattern Recognition and Machine Learning (Springer, 2006).
+# Module numbers equal chapter numbers (01–14). Weeks follow the Spring 2024 schedule (week 8 = midterm).
+course:
+  code: CSE 474/574
+  title: Introduction to Machine Learning
+  short: Intro to Machine Learning
+  url: /teaching/introml/
+  book: Bishop, <em>Pattern Recognition and Machine Learning</em>
+  credit: >-
+    These notes follow the chapters of C. M. Bishop, <em>Pattern Recognition and Machine Learning</em>
+    (Springer, 2006), the course text, which Microsoft Research makes
+    <a href="https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/" rel="noopener">freely available as a PDF</a>.
+    The explanations, code, figures, and exercises here are written for this course; the book remains the reference,
+    with the full derivations and many more exercises.
+modules:
+  - num: "01"
+    slug: 01-introduction
+    title: "Introduction: Curve Fitting, Probability, and Decisions"
+    weeks: Week 1
+    chapter: 1
+    chapter_title: Introduction
+    summary: Polynomial curve fitting and overfitting, probability and Bayes' theorem, model selection, the curse of dimensionality, decision theory, and information theory.
+  - num: "02"
+    slug: 02-probability-distributions
+    title: Probability Distributions
+    weeks: Week 2
+    chapter: 2
+    chapter_title: Probability Distributions
+    summary: Bernoulli, beta, multinomial, and Dirichlet; the Gaussian in depth; the exponential family and conjugate priors; kernel density and nearest-neighbor estimators.
+  - num: "03"
+    slug: 03-linear-regression
+    title: Linear Models for Regression
+    weeks: Week 3
+    chapter: 3
+    chapter_title: Linear Models for Regression
+    summary: Basis functions and least squares, regularization, the bias–variance decomposition, Bayesian linear regression, and the evidence approximation.
+  - num: "04"
+    slug: 04-linear-classification
+    title: Linear Models for Classification
+    weeks: Week 4
+    chapter: 4
+    chapter_title: Linear Models for Classification
+    summary: Discriminant functions, Fisher's discriminant, the perceptron, generative classifiers, logistic regression with IRLS, and the Laplace approximation.
+  - num: "05"
+    slug: 05-neural-networks
+    title: Neural Networks
+    weeks: Week 5
+    chapter: 5
+    chapter_title: Neural Networks
+    summary: Feed-forward networks, error backpropagation built from scratch, the Hessian, regularization, mixture density networks, and Bayesian neural networks.
+  - num: "06"
+    slug: 06-kernel-methods
+    title: Kernel Methods and Gaussian Processes
+    weeks: Week 6
+    chapter: 6
+    chapter_title: Kernel Methods
+    summary: Dual representations, constructing valid kernels, radial basis functions and Nadaraya–Watson, and Gaussian processes for regression and classification.
+  - num: "07"
+    slug: 07-sparse-kernel-machines
+    title: "Sparse Kernel Machines: SVMs and RVMs"
+    weeks: Week 7
+    chapter: 7
+    chapter_title: Sparse Kernel Machines
+    summary: Maximum-margin classifiers, soft margins and the hinge loss, support vector regression, and the relevance vector machine.
+  - num: "08"
+    slug: 08-graphical-models
+    title: Graphical Models
+    weeks: Week 9
+    chapter: 8
+    chapter_title: Graphical Models
+    summary: Bayesian networks, conditional independence and d-separation, Markov random fields, factor graphs, and the sum-product and max-sum algorithms.
+  - num: "09"
+    slug: 09-mixture-models-em
+    title: Mixture Models and EM
+    weeks: Week 10
+    chapter: 9
+    chapter_title: Mixture Models and EM
+    summary: K-means, Gaussian mixtures, the EM algorithm and why it works, Bernoulli mixtures, and EM as coordinate ascent on a lower bound.
+  - num: "10"
+    slug: 10-approximate-inference
+    title: Approximate Inference
+    weeks: Week 11
+    chapter: 10
+    chapter_title: Approximate Inference
+    summary: Variational inference with factorized distributions, the variational Gaussian mixture, variational regression and logistic regression, and expectation propagation.
+  - num: "11"
+    slug: 11-sampling-methods
+    title: Sampling Methods
+    weeks: Week 12
+    chapter: 11
+    chapter_title: Sampling Methods
+    summary: Transformation, rejection, and importance sampling; Markov chains, Metropolis–Hastings, Gibbs and slice sampling; Hamiltonian Monte Carlo.
+  - num: "12"
+    slug: 12-continuous-latent-variables
+    title: Continuous Latent Variables
+    weeks: Week 13
+    chapter: 12
+    chapter_title: Continuous Latent Variables
+    summary: Principal component analysis two ways, probabilistic PCA and EM, factor analysis, kernel PCA, ICA, and autoencoders.
+  - num: "13"
+    slug: 13-sequential-data
+    title: Sequential Data
+    weeks: Week 14
+    chapter: 13
+    chapter_title: Sequential Data
+    summary: Markov models, hidden Markov models with forward–backward, Baum–Welch, and Viterbi, and linear dynamical systems with the Kalman filter.
+  - num: "14"
+    slug: 14-combining-models
+    title: Combining Models
+    weeks: Week 15
+    chapter: 14
+    chapter_title: Combining Models
+    summary: Model averaging versus combination, committees and bagging, AdaBoost as exponential-loss minimization, decision trees, and mixtures of experts.

@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 410" font-family="'Source Sans 3','Source Sans Pro','Helvetica Neue',Arial,sans-serif" font-size="16" fill="#1e1c19">
+  <defs><marker id="arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#1f2e4a"/></marker></defs>
+  <text x="16" y="24" fill="#5d574d" font-size="13">(a) first-order Markov chain</text>
+  <circle cx="50" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="48" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">1</tspan></text>
+  <circle cx="130" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="128" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">2</tspan></text>
+  <circle cx="210" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="208" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">3</tspan></text>
+  <circle cx="290" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="288" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">4</tspan></text>
+  <line x1="74.0" y1="95.0" x2="105.0" y2="95.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="154.0" y1="95.0" x2="185.0" y2="95.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="234.0" y1="95.0" x2="265.0" y2="95.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <text x="400" y="24" fill="#5d574d" font-size="13">(b) second-order Markov chain</text>
+  <circle cx="440" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="438" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">1</tspan></text>
+  <circle cx="520" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="518" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">2</tspan></text>
+  <circle cx="600" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="598" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">3</tspan></text>
+  <circle cx="680" cy="95" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="678" y="98" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">4</tspan></text>
+  <line x1="464.0" y1="95.0" x2="495.0" y2="95.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="544.0" y1="95.0" x2="575.0" y2="95.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="624.0" y1="95.0" x2="655.0" y2="95.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <path d="M 454 76 Q 520.0 33 586 75" fill="none" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <path d="M 534 114 Q 600.0 157 666 115" fill="none" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="16" y1="170" x2="744" y2="170" stroke="#d9d0bf"/>
+  <text x="16" y="198" fill="#5d574d" font-size="13">(c) state-space model</text>
+  <circle cx="80" cy="250" r="24" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="78" y="253" text-anchor="middle" font-style="italic">z<tspan dy="5" font-size="11" font-style="normal">1</tspan></text>
+  <circle cx="80" cy="350" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="78" y="353" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">1</tspan></text>
+  <line x1="80.0" y1="274.0" x2="80.0" y2="325.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <circle cx="190" cy="250" r="24" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="188" y="253" text-anchor="middle" font-style="italic">z<tspan dy="5" font-size="11" font-style="normal">2</tspan></text>
+  <circle cx="190" cy="350" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="188" y="353" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">2</tspan></text>
+  <line x1="190.0" y1="274.0" x2="190.0" y2="325.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <circle cx="370" cy="250" r="24" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="368" y="253" text-anchor="middle" font-style="italic">z<tspan dy="5" font-size="11" font-style="normal">n−1</tspan></text>
+  <circle cx="370" cy="350" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="368" y="353" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">n−1</tspan></text>
+  <line x1="370.0" y1="274.0" x2="370.0" y2="325.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <circle cx="490" cy="250" r="24" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="488" y="253" text-anchor="middle" font-style="italic">z<tspan dy="5" font-size="11" font-style="normal">n</tspan></text>
+  <circle cx="490" cy="350" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="488" y="353" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">n</tspan></text>
+  <line x1="490.0" y1="274.0" x2="490.0" y2="325.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <circle cx="610" cy="250" r="24" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="608" y="253" text-anchor="middle" font-style="italic">z<tspan dy="5" font-size="11" font-style="normal">n+1</tspan></text>
+  <circle cx="610" cy="350" r="24" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="608" y="353" text-anchor="middle" font-style="italic">x<tspan dy="5" font-size="11" font-style="normal">n+1</tspan></text>
+  <line x1="610.0" y1="274.0" x2="610.0" y2="325.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="104.0" y1="250.0" x2="165.0" y2="250.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="394.0" y1="250.0" x2="465.0" y2="250.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="514.0" y1="250.0" x2="585.0" y2="250.0" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="214" y1="250" x2="252" y2="250" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="280" y="255" text-anchor="middle" fill="#5d574d" font-size="18">⋯</text>
+  <line x1="306" y1="250" x2="345" y2="250" stroke="#1f2e4a" stroke-width="1.4" marker-end="url(#arr)"/>
+  <line x1="634" y1="250" x2="672" y2="250" stroke="#1f2e4a" stroke-width="1.4"/>
+  <text x="700" y="255" text-anchor="middle" fill="#5d574d" font-size="18">⋯</text>
+  <text x="280" y="355" text-anchor="middle" fill="#5d574d" font-size="18">⋯</text>
+  <text x="700" y="355" text-anchor="middle" fill="#5d574d" font-size="18">⋯</text>
+  <circle cx="30" cy="396" r="7" fill="#fbf8f2" stroke="#1f2e4a" stroke-width="1.2"/><text x="44" y="401" fill="#5d574d" font-size="13">latent</text>
+  <circle cx="110" cy="396" r="7" fill="#d5d9e0" stroke="#1f2e4a" stroke-width="1.2"/><text x="124" y="401" fill="#5d574d" font-size="13">observed</text>
+</svg>

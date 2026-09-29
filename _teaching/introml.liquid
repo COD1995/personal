@@ -5,9 +5,9 @@ code: CSE 474/574
 level: Undergraduate and graduate
 taught: Spring 2024 · 221 students
 prereq: CSE 250 or equivalent; linear algebra, basic probability, and multivariable calculus
-text: Bishop, <em>Pattern Recognition and Machine Learning</em>
+text: Bishop, <em>Pattern Recognition and Machine Learning</em> (<a href="https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/" rel="noopener">free PDF</a>), with course notes (below) for every chapter
 grading: Based on overall performance
-description: CSE 474/574 Introduction to Machine Learning at the University at Buffalo.
+description: CSE 474/574 Introduction to Machine Learning at the University at Buffalo — the probabilistic foundations of machine learning, with full lecture notes and NumPy code for every chapter of Bishop.
 lede: >-
   A first course in machine learning for upper-level undergraduates and graduate students, developed carefully from the
   mathematics up and implemented in Python.
@@ -16,6 +16,8 @@ about: >-
   neural networks), unsupervised learning (clustering and dimensionality reduction), model evaluation, regularization,
   and the bias–variance trade-off. Students implement the core algorithms with NumPy, scikit-learn, and PyTorch, and
   learn to read and reproduce results from the machine-learning literature.</p>
+  <p>Every module has a full set of notes below, one per chapter of Bishop: the models and derivations in plain
+  language, NumPy code written from scratch with its real output, figures, and exercises.</p>
 semesters:
   - value: spring-2024
     label: Spring 2024
@@ -26,35 +28,103 @@ semesters:
       - [Final exam, 20%]
       - [Final project, 25%]
     outline:
+      - group: Foundations
       - when: Week 1
-        topic: Introduction — curve fitting, probability, decision theory, and information theory
+        topic: >-
+          <a href="/teaching/introml/01-introduction/">Introduction: curve fitting, probability, and decisions</a>
+        guide: Overfitting and regularization, Bayes' theorem, cross-validation, the curse of dimensionality, decision theory, and information theory.
       - when: Week 2
-        topic: Probability distributions and the exponential family
+        topic: >-
+          <a href="/teaching/introml/02-probability-distributions/">Probability distributions</a>
+        guide: Beta, Dirichlet, and conjugate priors; the Gaussian in depth; the exponential family; kernel density and nearest neighbors.
+      - group: Linear models, neural networks, and kernels
       - when: Week 3
-        topic: Linear models for regression — ridge regression, bias and variance, Bayesian linear regression
+        topic: >-
+          <a href="/teaching/introml/03-linear-regression/">Linear models for regression</a>
+        guide: Least squares and ridge regression, the bias–variance trade-off, Bayesian linear regression, and the evidence approximation.
       - when: Week 4
-        topic: Linear models for classification — logistic regression, discriminant analysis, naive Bayes
+        topic: >-
+          <a href="/teaching/introml/04-linear-classification/">Linear models for classification</a>
+        guide: Fisher's discriminant, the perceptron, generative classifiers and naive Bayes, logistic regression with IRLS, and the Laplace approximation.
       - when: Week 5
-        topic: Neural networks — backpropagation and regularization
-      - when: Weeks 6–7
-        topic: Kernel methods, Gaussian processes, and support vector machines
+        topic: >-
+          <a href="/teaching/introml/05-neural-networks/">Neural networks</a>
+        guide: Backpropagation built from scratch, the Hessian, regularization and early stopping, and mixture density networks.
+      - when: Week 6
+        topic: >-
+          <a href="/teaching/introml/06-kernel-methods/">Kernel methods and Gaussian processes</a>
+        guide: Dual representations, valid kernels, Nadaraya–Watson, and Gaussian processes for regression and classification.
+      - when: Week 7
+        topic: >-
+          <a href="/teaching/introml/07-sparse-kernel-machines/">Sparse kernel machines: SVMs and RVMs</a>
+        guide: Maximum margins, soft margins and the hinge loss, support vector regression, and the relevance vector machine.
       - when: Week 8
         topic: Midterm exam
+        guide: Covers modules 01–07.
+      - group: Graphical models and approximate inference
       - when: Week 9
-        topic: Graphical models and message passing
+        topic: >-
+          <a href="/teaching/introml/08-graphical-models/">Graphical models</a>
+        guide: Bayesian networks, d-separation, Markov random fields, and the sum-product and max-sum algorithms.
       - when: Week 10
-        topic: Mixture models — k-means, Gaussian mixtures, and EM
-      - when: Weeks 11–12
-        topic: Approximate inference and sampling methods
+        topic: >-
+          <a href="/teaching/introml/09-mixture-models-em/">Mixture models and EM</a>
+        guide: K-means, Gaussian mixtures, and the EM algorithm as coordinate ascent on a lower bound.
+      - when: Week 11
+        topic: >-
+          <a href="/teaching/introml/10-approximate-inference/">Approximate inference</a>
+        guide: Mean-field variational inference, the variational Gaussian mixture, local variational bounds, and expectation propagation.
+      - when: Week 12
+        topic: >-
+          <a href="/teaching/introml/11-sampling-methods/">Sampling methods</a>
+        guide: Rejection and importance sampling, Metropolis–Hastings, Gibbs and slice sampling, and Hamiltonian Monte Carlo.
+      - group: Latent structure, sequences, and ensembles
       - when: Week 13
-        topic: Continuous latent variables — PCA and autoencoders
+        topic: >-
+          <a href="/teaching/introml/12-continuous-latent-variables/">Continuous latent variables</a>
+        guide: PCA, probabilistic PCA and factor analysis, kernel PCA, ICA, and autoencoders.
       - when: Week 14
-        topic: Sequential data — hidden Markov models and the Kalman filter
+        topic: >-
+          <a href="/teaching/introml/13-sequential-data/">Sequential data</a>
+        guide: Hidden Markov models with forward–backward, Baum–Welch, and Viterbi; the Kalman filter and particle filters.
       - when: Week 15
-        topic: Combining models — boosting, trees, and mixtures of experts; project presentations
+        topic: >-
+          <a href="/teaching/introml/14-combining-models/">Combining models</a>; project presentations
+        guide: Bagging, AdaBoost, decision trees, and mixtures of experts.
       - when: Finals
         topic: Cumulative final exam and final project report
+        guide: The final exam emphasizes modules 08–14.
 ---
+<h2>Course notes</h2>
+<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Bishop's
+  <em>Pattern Recognition and Machine Learning</em>, the course text, and explains the same ideas in its own words: the
+  model and its assumptions, the derivations that matter, NumPy code written from scratch with its real output, checks
+  of that code against closed forms or brute force, figures, and exercises. The notes and the chapter support each
+  other; the book has the complete derivations and many more exercises.</p>
+<ol class="notes-list">
+{% for m in site.data.introml.modules %}  <li><a href="{{ m.slug | prepend: site.data.introml.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
+{% endfor %}</ol>
+<p><a class="link-quiet" href="{{ '/teaching/introml/01-introduction/' | relative_url }}">Start with module 01, the introduction →</a></p>
+
+<h2>How the course runs</h2>
+<p>Each week works through one chapter. The exercises at the end of each module are the best practice for the problem
+  sets and the exams: try each derivation yourself before checking it against the notes, and change the code to see
+  what breaks.</p>
+<ul>
+  <li><strong>Problem sets (40%)</strong> — five sets, 8% each, mixing derivations with implementation. A short math
+    diagnostic (HW0) in week 1 helps you find gaps in the prerequisites early.</li>
+  <li><strong>Midterm exam (15%)</strong> — in week 8, covering modules 01–07.</li>
+  <li><strong>Final exam (20%)</strong> — cumulative, with emphasis on modules 08–14.</li>
+  <li><strong>Final project (25%)</strong> — research-style: a proposal (week 5), a milestone (week 10), a draft
+    (week 14), a presentation (week 15), and a final report.</li>
+</ul>
+
+<h2>Getting set up</h2>
+<p>The code in the notes needs Python 3 with NumPy and SciPy; nothing else. Any recent Python installation, or a free
+  <a href="https://colab.research.google.com/" rel="noopener">Google Colab</a> notebook in the browser, runs every
+  example. Paste the cells of a module into a notebook in order and run them: every random number comes from a seeded
+  generator, so your output should match the notes.</p>
+
 <h2>Course policies</h2>
 
 <h3>Late work</h3>
