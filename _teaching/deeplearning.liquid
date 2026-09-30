@@ -5,7 +5,7 @@ code: CSE 676
 level: Graduate
 taught: Fall 2023, Fall 2024
 prereq: Introduction to Machine Learning or equivalent; linear algebra, probability, multivariable calculus, and Python
-text: 'Bishop &amp; Bishop, <em>Deep Learning: Foundations and Concepts</em> (<a href="https://www.bishopbook.com/" rel="noopener">free to read online</a>), with course notes (below) for every chapter'
+text: 'Bishop &amp; Bishop, <em>Deep Learning: Foundations and Concepts</em> (<a href="https://www.bishopbook.com/" rel="noopener">free to read online</a>), with course notes (linked in the outline) for every chapter'
 grading: Absolute scale, no curve
 description: 'CSE 676 Deep Learning at the University at Buffalo — neural networks from the ground up, with full lecture notes and code for every chapter of Bishop &amp; Bishop.'
 lede: >-
@@ -18,7 +18,7 @@ about: >-
   backpropagation, and regularization — then study convolutional networks, transformers and language models, and
   graph neural networks, and finish with sampling, latent-variable models, and the four families of deep generative
   models: GANs, normalizing flows, variational autoencoders, and diffusion models.</p>
-  <p>Every module has a full set of notes below: the ideas and derivations in plain language, code with its real
+  <p>Every module has a full set of notes, linked from the outline below: the ideas and derivations in plain language, code with its real
   output, figures, and exercises. The early modules build layers, optimizers, and backpropagation from scratch in
   NumPy and check them against PyTorch; from there on we work in PyTorch, writing the key pieces ourselves.</p>
 semesters:
@@ -101,18 +101,6 @@ semesters:
         topic: Review and final exam
         guide: The final exam is cumulative, with emphasis on modules 11–20.
 ---
-<h2>Course notes</h2>
-<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Bishop &amp; Bishop's
-  <em>Deep Learning: Foundations and Concepts</em>, the course text, and explains the same ideas in its own words: the
-  model and why it works, the derivations that matter, code with its real output, checks of that code against
-  closed forms, finite differences, or PyTorch's own layers, figures, and exercises. Where a chapter revisits material
-  developed at length in the <a href="{{ '/teaching/introml/' | relative_url }}">Introduction to Machine Learning</a>
-  notes, the module is shorter and links there. The book remains the reference, with the full derivations and many
-  more exercises.</p>
-<ol class="notes-list">
-{% for m in site.data.deeplearning.modules %}  <li><a href="{{ m.slug | prepend: site.data.deeplearning.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
-{% endfor %}</ol>
-<p><a class="link-quiet" href="{{ '/teaching/deeplearning/01-deep-learning-revolution/' | relative_url }}">Start with module 01, the deep learning revolution →</a></p>
 
 <h2>How the course runs</h2>
 <p>Each week works through one or two chapters. Read the module's notes, and ideally the matching chapter, before

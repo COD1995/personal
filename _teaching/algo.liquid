@@ -5,7 +5,7 @@ code: CSE 431/531
 level: Undergraduate and graduate
 taught: Summer 2025
 prereq: CSE 250 (data structures) or similar; basic calculus and linear algebra; comfort reading and writing proofs; some programming experience
-text: Dasgupta, Papadimitriou &amp; Vazirani, <em>Algorithms</em>, with course notes (below) for every chapter we cover
+text: Dasgupta, Papadimitriou &amp; Vazirani, <em>Algorithms</em>, with course notes (linked in the outline) for every chapter we cover
 grading: Absolute scale, no curve
 description: CSE 431/531 Algorithm Analysis and Design at the University at Buffalo — design and analysis of algorithms, with full lecture notes for every module.
 lede: >-
@@ -15,7 +15,7 @@ about: >-
   <p>Each topic is covered in depth and anchored in one or more representative problems and their algorithms. Beyond
   designing and analyzing algorithms, students build the discrete-mathematics problem-solving skills that every computer
   scientist and engineer relies on.</p>
-  <p>Every module has a full set of notes below: the ideas and proofs in plain language, working Python for each
+  <p>Every module has a full set of notes, linked from the outline below: the ideas and proofs in plain language, working Python for each
   algorithm with its real output, figures, and exercises.</p>
 semesters:
   - value: summer-2025
@@ -58,17 +58,6 @@ semesters:
         topic: Review and final exam
         guide: Course review, including selected topics from chapters 7 and 10.
 ---
-
-<h2>Course notes</h2>
-<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Dasgupta,
-  Papadimitriou &amp; Vazirani's <em>Algorithms</em>, the course text, and explains the same ideas in its own words:
-  the problem, the idea behind the algorithm, working Python code with its real output, a proof of correctness, the
-  running-time analysis, and exercises. The notes and the chapter support each other, and the book has the
-  full exercise sets.</p>
-<ol class="notes-list" start="0">
-{% for m in site.data.algo.modules %}  <li><a href="{{ m.slug | prepend: site.data.algo.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
-{% endfor %}</ol>
-<p><a class="link-quiet" href="{{ '/teaching/algo/00-prologue/' | relative_url }}">Start with module 00, the prologue →</a></p>
 
 <h2>How the course runs</h2>
 <p>Each class works through one or two chapters. The exercises at the end of each module are the best practice for

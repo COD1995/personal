@@ -190,3 +190,4 @@ al-folio's bibliography flow, blog/posts, projects, repositories, profiles, CV-f
 - Contact form: in `_includes/footer.liquid`, posts to Web3Forms (`web3forms_key` in `_config.yml`; free tier 250 messages/month, delivered to guoj1995@gmail.com). Inline JS shows the sent/error message; `botcheck` is the spam honeypot. Remove the key to fall back to a plain email link.
 - Contact form anti-spam (client side, in the footer script): blocks sends under 3 s after page load, messages under 20 characters, and link-heavy messages (3+ links, or links with under 20 characters of other text). Each shows a polite prompt. Thresholds are the `MIN_SECONDS` / `MIN_CHARS` constants.
 - Contact form has a "Regarding" dropdown (topics listed in `_includes/footer.liquid`); the chosen topic is added to the email subject ("Website message — <topic>") so messages are easy to sort in Gmail.
+

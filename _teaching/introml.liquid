@@ -5,7 +5,7 @@ code: CSE 474/574
 level: Undergraduate and graduate
 taught: Spring 2024 · 221 students
 prereq: CSE 250 or equivalent; linear algebra, basic probability, and multivariable calculus
-text: Bishop, <em>Pattern Recognition and Machine Learning</em> (<a href="https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/" rel="noopener">free PDF</a>), with course notes (below) for every chapter
+text: Bishop, <em>Pattern Recognition and Machine Learning</em> (<a href="https://www.microsoft.com/en-us/research/people/cmbishop/prml-book/" rel="noopener">free PDF</a>), with course notes (linked in the outline) for every chapter
 grading: Based on overall performance
 description: CSE 474/574 Introduction to Machine Learning at the University at Buffalo — the probabilistic foundations of machine learning, with full lecture notes and NumPy code for every chapter of Bishop.
 lede: >-
@@ -16,7 +16,7 @@ about: >-
   neural networks), unsupervised learning (clustering and dimensionality reduction), model evaluation, regularization,
   and the bias–variance trade-off. Students implement the core algorithms with NumPy, scikit-learn, and PyTorch, and
   learn to read and reproduce results from the machine-learning literature.</p>
-  <p>Every module has a full set of notes below, one per chapter of Bishop: the models and derivations in plain
+  <p>Every module has a full set of notes, linked from the outline below, one per chapter of Bishop: the models and derivations in plain
   language, NumPy code written from scratch with its real output, figures, and exercises.</p>
 semesters:
   - value: spring-2024
@@ -95,16 +95,6 @@ semesters:
         topic: Cumulative final exam and final project report
         guide: The final exam emphasizes modules 08–14.
 ---
-<h2>Course notes</h2>
-<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Bishop's
-  <em>Pattern Recognition and Machine Learning</em>, the course text, and explains the same ideas in its own words: the
-  model and its assumptions, the derivations that matter, NumPy code written from scratch with its real output, checks
-  of that code against closed forms or brute force, figures, and exercises. The notes and the chapter support each
-  other; the book has the complete derivations and many more exercises.</p>
-<ol class="notes-list">
-{% for m in site.data.introml.modules %}  <li><a href="{{ m.slug | prepend: site.data.introml.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
-{% endfor %}</ol>
-<p><a class="link-quiet" href="{{ '/teaching/introml/01-introduction/' | relative_url }}">Start with module 01, the introduction →</a></p>
 
 <h2>How the course runs</h2>
 <p>Each week works through one chapter. The exercises at the end of each module are the best practice for the problem

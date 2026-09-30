@@ -5,7 +5,7 @@ code: CSE 455/555
 level: Undergraduate and graduate
 taught: Summers, 2023–2026
 prereq: A programming or data-structures course (CSE 115 or 250, EAS 230 or 240) and probability or statistics (EAS 305, STA 301, or MTH 411)
-text: Duda, Hart &amp; Stork, <em>Pattern Classification</em>, 2nd ed. (Wiley, 2001), with course notes (below) for every chapter
+text: Duda, Hart &amp; Stork, <em>Pattern Classification</em>, 2nd ed. (Wiley, 2001), with course notes (linked in the outline) for every chapter
 grading: Absolute scale, no curve
 description: CSE 455/555 Introduction to Pattern Recognition at the University at Buffalo — statistical pattern classification from Bayes decision theory to clustering, with full lecture notes and NumPy code for every chapter of Duda, Hart & Stork.
 lede: >-
@@ -17,7 +17,7 @@ about: >-
   it, how to learn densities and boundaries from a finite sample, how to measure and compare error rates honestly, and
   what can be learned when there are no labels at all. Students implement each method with NumPy and test it
   against theory, brute force, or simulation.</p>
-  <p>Every module has a full set of notes below, one per chapter of the book: the ideas and derivations in plain
+  <p>Every module has a full set of notes, linked from the outline below, one per chapter of the book: the ideas and derivations in plain
   language, NumPy code written from scratch with its real output, figures, and exercises.</p>
 semesters:
   - value: summer-2026
@@ -79,17 +79,6 @@ semesters:
         topic: Final-project talks
         guide: Each team presents its question, its evidence, and what it would try next.
 ---
-<h2>Course notes</h2>
-<p>Every module in the outline above links to its full lecture notes. Each follows one chapter of Duda, Hart &amp;
-  Stork's <em>Pattern Classification</em>, the course text, and explains the same ideas in its own words: the method
-  and its assumptions, the derivations that matter, NumPy code written from scratch with its real output, checks of
-  that code against theory, brute force, or simulation, figures, and exercises. Where a topic is developed further in
-  the <a href="{{ '/teaching/introml/' | relative_url }}">Introduction to Machine Learning</a> notes, the module links
-  there. The book remains the reference, with the full derivations, worked examples, and many more problems.</p>
-<ol class="notes-list">
-{% for m in site.data.pattern.modules %}  <li><a href="{{ m.slug | prepend: site.data.pattern.course.url | append: '/' | relative_url }}">{{ m.title }}</a> <span class="notes-meta">— chapter {{ m.chapter }}</span></li>
-{% endfor %}</ol>
-<p><a class="link-quiet" href="{{ '/teaching/pattern/01-introduction/' | relative_url }}">Start with module 01, the introduction →</a></p>
 
 <h2>How the course runs</h2>
 <p>Each session covers one module. Read the module's notes, and ideally the matching chapter, before class: the session
